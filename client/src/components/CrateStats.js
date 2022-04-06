@@ -43,7 +43,7 @@ const CrateStats = () => {
         <p>Loading...</p>
       ) : (
         <Fragment>
-          <div>{songData.setLength}</div>
+          <div>Your Report:</div>
         </Fragment>
                  
       )}
