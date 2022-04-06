@@ -1,12 +1,15 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import CrateStats from './components/CrateStats'
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Crate Stats</p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<CrateStats />} />
+      </Routes>
+    </Router>
   );
 }
 

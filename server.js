@@ -11,7 +11,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/', async (req, res) => {
+app.get('/createReport', async (req, res) => {
   res.send(await createReport())
 })
 
