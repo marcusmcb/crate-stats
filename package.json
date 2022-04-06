@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm start\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,15 @@
   },
   "homepage": "https://github.com/marcusmcb/crate-stats#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.10",
+    "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
