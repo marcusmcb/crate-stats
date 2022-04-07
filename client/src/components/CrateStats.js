@@ -8,6 +8,10 @@ import './cratestats.css'
 const CrateStats = () => {
   let url
 
+  useEffect(() => {
+
+  }, [])
+
   const getReport = async (e) => {
     e.preventDefault()
     await axios
@@ -25,15 +29,14 @@ const CrateStats = () => {
     <div>
       <Titlebar />
       <Fragment>
-        <Form onSubmit={getReport}>
+        <Form className='url-form' onSubmit={getReport}>
           <FormGroup>
-            <Input
+            <Input 
               type='text'
-              name='url'
+              name='url'              
               value={url}
               onChange={handleChange}
-              placeholder='your Serato playlist URL'
-              bsSize='sm'
+              placeholder='your Serato playlist URL'                          
             />
           </FormGroup>
           <button type='submit'>Submit</button>

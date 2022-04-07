@@ -56,15 +56,14 @@ const CrateStats = () => {
         <p>Loading...</p>
       ) : (
         <Fragment>
-          <Form onSubmit={getReport}>
+          <Form className='url-form' onSubmit={getReport}>
             <FormGroup>
-              <Input
+              <Input                
                 type='text'
                 name='url'
                 value={url}
                 onChange={handleChange}
-                placeholder='your Serato playlist URL'
-                bsSize='sm'
+                placeholder='your Serato playlist URL'                
               />
             </FormGroup>
             <button type='submit'>Submit</button>
