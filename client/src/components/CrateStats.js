@@ -1,83 +1,46 @@
-import { useState, useEffect, Fragment } from "react";
-import { Form, FormGroup, Input } from "reactstrap";
-import axios from "axios";
+import { useState, useEffect, Fragment } from 'react'
+import { Form, FormGroup, Input } from 'reactstrap'
+import axios from 'axios'
 
-import Titlebar from "./Titlebar";
-import "./cratestats.css";
+import Titlebar from './Titlebar'
+import './cratestats.css'
 
 const CrateStats = () => {
-  const [songData, setSongData] = useState({});
-  const [isBusy, setIsBusy] = useState(true);
-  const [tracks, setTracks] = useState([]);
-  const [playlistLink, setPlaylistLink] = useState({
-    url: "",
-  });
+  let url
 
-  const getReport = () => {
-    console.log("HERE")
+  const getReport = async (e) => {
+    e.preventDefault()
+    await axios
+      .post('http://localhost:5000/createReport', { url: url })
+      .then((response) => {
+        console.log(response.data)
+      })
   }
 
   const handleChange = (e) => {
-    console.log(e.target.value)
-    setPlaylistLink({
-      ...playlistLink,
-      [e.target.name]: e.target.value,
-    })
+    url = e.target.value
   }
-
-  let trackList = [];
-
-  useEffect(() => {
-    const getStats = async () => {
-      let reportData;
-      await axios
-        .get("http://localhost:5000/createReport")
-        .then((response) => {
-          reportData = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      return reportData;
-    };
-    getStats().then((data) => {
-      for (let i = 0; i < data.trackLog.length; i++) {
-        trackList.push(data.trackLog[i].trackId);
-      }
-      console.log(data);
-      setTracks(trackList);
-      setSongData(data);
-      setIsBusy(false);
-    });
-  }, []);
 
   return (
     <div>
       <Titlebar />
-      {isBusy ? (
-        <p>Loading...</p>
-      ) : (
-        <Fragment>
-          <Form>
-            <FormGroup onSubmit={getReport}>
-              {/* <Label for='examplePassword'>Password</Label> */}
-              <Input
-                type="text"
-                name="url"
-                value={playlistLink.url}
-                onChange={handleChange}
-                placeholder="your Serato playlist URL"
-                bsSize="sm"
-              />
-            </FormGroup>
-          </Form>
-          <button type="submit">Submit</button>
-          <hr />
-          <div>Your Report:</div>
-        </Fragment>
-      )}
+      <Fragment>
+        <Form onSubmit={getReport}>
+          <FormGroup>
+            <Input
+              type='text'
+              name='url'
+              value={url}
+              onChange={handleChange}
+              placeholder='your Serato playlist URL'
+              bsSize='sm'
+            />
+          </FormGroup>
+          <button type='submit'>Submit</button>
+        </Form>
+      </Fragment>
     </div>
-  );
-};
+  )
+}
 
-export default CrateStats;
+export default CrateStats
