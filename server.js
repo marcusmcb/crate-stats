@@ -11,8 +11,10 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/createReport', async (req, res) => {
-  res.send(await createReport())
+app.post('/createReport', async (req, res) => {
+  console.log("******************", req.body.url)
+  const url = req.body.url
+  res.send(await createReport(url))
 })
 
 app.listen(PORT, () => {

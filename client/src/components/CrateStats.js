@@ -12,13 +12,21 @@ const CrateStats = () => {
 
   }, [])
 
+  const [isData, setIsData] = useState(false)
+  const [dummyData, setDummyData] = useState({})
+
   const getReport = async (e) => {
     e.preventDefault()
     await axios
       .post('http://localhost:5000/createReport', { url: url })
       .then((response) => {
         console.log(response.data)
+        setDummyData(response.data)
+        setIsData(true)
       })
+      .catch((error) => {
+        console.log(error)
+      })      
   }
 
   const handleChange = (e) => {
@@ -41,6 +49,14 @@ const CrateStats = () => {
           </FormGroup>
           <button type='submit'>Submit</button>
         </Form>
+        {isData ? (
+          <div>
+            <h2>Here's Your Data</h2>
+            <p>...dummy data...</p>
+          </div>
+        ) : (
+          <p>Waiting...</p>
+        )}
       </Fragment>
     </div>
   )

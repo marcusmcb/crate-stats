@@ -1,11 +1,8 @@
 const scrapeData = require('./scrapeData')
 const convertTimestamp = require('./convertTimestamp')
 
-const createReport = async () => {
+const createReport = async (url) => {
 
-  // url for testing
-  const url = `https://serato.com/playlists/DJ_Marcus_McBride/4-3-2022`
-  
   try {
     // function to scrape data for report
     let response = await scrapeData(url)
