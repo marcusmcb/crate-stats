@@ -1,12 +1,70 @@
-.title-text {
-  color: darkslategray;
+.title-text {  
   text-align: center;
 }
 
-.url-form {
-  background-color: red;
+.url-form {  
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 15px;
+}
+
+.cratestats {
+  background-color: rgb(71, 62, 62);
+  height: 100vh;
+  color: white;
+}
+
+.data-ui-maintitle {
+  font-size: 30px;
+  padding: 5px;
+  font-family: 'Exo 2', sans-serif;
+  text-align: center; 
+}
+
+.data-ui-main-panel {
+  background-color: rgb(116, 109, 109);
+  /* height: 100vh; */
+}
+
+.data-ui-column-left,
+.data-ui-column-right {
+  background-color: rgb(167, 163, 163);  
+  margin: 20px;  
+}
+
+.data-ui-column-left {
+  /* height: 50vh; */
+  height: auto;
+}
+
+.stats-row-right {
+  background-color: rgb(70, 134, 173);
+  margin: 10px; 
+  padding: 5px; 
+}
+
+.data-ui-playlist-title {
+  font-family: 'Exo 2', sans-serif;
+  background-color:rgb(71, 62, 62);
+}
+
+.data-ui-playlist-date {
+  background-color: rgb(71, 62, 62);
+}
+
+.data-ui-playlist-title,
+.data-ui-playlist-date,
+.doubles-data {
+  text-align: center;    
+  margin: 2%;
+  padding: 10px;
+}
+
+.data-ui-playlist-stats {
+  margin-left: 10px;
+}
+
+.doubles-data {  
+  background-color: darkslategray;  
 }

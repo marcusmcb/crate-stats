@@ -1,8 +1,11 @@
 import './titlebar.css'
 
 const Titlebar = () => {
+
+  let title = 'crate<>stats'
+
   return (
-    <h4 className='title-text'>Crate Stats, yo</h4>
+    <div className='titlebar'>{title}</div>
   )
 }
 
