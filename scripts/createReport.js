@@ -9,6 +9,7 @@ const createReport = async (url) => {
     let results = response[0]
     let timestamps = response[1]
     let starttime = response[2]
+    let playlistdate = response[3]
 
     let tracksPlayed = []
     let trackTimestamps = []
@@ -115,6 +116,7 @@ const createReport = async (url) => {
       },
       trackLog: trackLog,
       doublesPlayed: doublesPlayed,
+      playlistDate: playlistdate
     }
     // console.log(seratoReport)
     return seratoReport

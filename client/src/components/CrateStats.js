@@ -1,8 +1,7 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 import { Row, Col, Form, Input } from 'reactstrap'
 import axios from 'axios'
 
-import parseDisplayDate from '../scripts/parseDisplayDate'
 import Titlebar from './Titlebar'
 import './cratestats.css'
 
@@ -23,9 +22,19 @@ const CrateStats = () => {
         let parts = url.split('/')
         let userString = parts[4]
         let userName = userString.replaceAll('_', ' ')
-        let dateString = parts[5]
-        let dateValue = parseDisplayDate(dateString)
-        setPlaylistDate(dateValue)
+        let dateValue = response.data.playlistDate
+        let xyz = new Date(dateValue)        
+        let daysOfTheWeek = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+        ]
+        let displayDay = daysOfTheWeek[xyz.getDay()]
+        setPlaylistDate([dateValue, displayDay])
         setDisplayName(userName)
         setIsData(true)
       })
@@ -65,11 +74,9 @@ const CrateStats = () => {
                     <div className='stats-label-djname'>{displayName}</div>
                   </Col>
                   <Col className='set-time-values'>
-                    <div className='stats-value'>
-                      {playlistDate[1]}, {playlistDate[0]}
-                    </div>
+                    <div className='stats-value'>{playlistDate[1]}, {playlistDate[0]}</div>
                     <div className='stats-label'>
-                      Set start time:{' '}
+                      Start Time:{' '}
                       <span className='stats-value-time'>
                         {playlistData.setStartTime}
                       </span>
