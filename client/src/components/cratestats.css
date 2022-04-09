@@ -1,8 +1,8 @@
-.title-text {  
+.title-text {
   text-align: center;
 }
 
-.url-form {  
+.url-form {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -19,32 +19,48 @@
   font-size: 30px;
   padding: 5px;
   font-family: 'Exo 2', sans-serif;
-  text-align: center; 
+  text-align: center;
 }
 
 .data-ui-main-panel {
-  background-color: rgb(116, 109, 109);  
+  background-color: rgb(116, 109, 109);
 }
 
 .data-ui-column-left,
 .data-ui-column-right {
   background-color: rgb(71, 62, 62);
-  margin: 20px;  
+  margin: 20px;
 }
 
-.data-ui-column-left {  
+.data-ui-column-left {
   height: auto;
 }
 
-.stats-row-right {
-  
-  margin: 10px; 
-  padding: 5px; 
+.stats-row-right,
+.stats-row-left {
+  margin: 10px;
+  padding: 5px;
+}
+
+.stats-row-left {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stats-row-left-divider {
+  border-top: 1px solid lightcoral;
+  padding-top: 10px;
+  margin-left: 20;
+}
+
+.stats-row-left-text {
+  font-size: 18px;
+  font-weight: 300;
 }
 
 .data-ui-playlist-title {
   font-family: 'Exo 2', sans-serif;
-  background-color:rgb(71, 62, 62);
+  background-color: rgb(71, 62, 62);
   font-size: 30px;
 }
 
@@ -55,7 +71,7 @@
 .data-ui-playlist-title,
 .data-ui-playlist-date,
 .doubles-data {
-  text-align: center;    
+  text-align: center;
   margin: 2%;
   padding: 10px;
 }
@@ -64,31 +80,58 @@
   margin-left: 10px;
 }
 
-.doubles-data-title {  
+.doubles-data-title {
   border-top: 1px solid lightcoral;
   color: orange;
   font-weight: 500;
 }
 
 .doubles-data-values {
-  color: rgb(242, 220, 220);
+  color: rgb(241, 229, 229);
   font-weight: 300;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .playlist-stats-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);  
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stats-label,
+.stats-label-djname {
+  font-weight: 600;
 }
 
 .stats-label {
+  font-size: 16px;
   color: orange;
-  font-weight: 600;
-  font-size: 12px;
+}
+
+.stats-label-djname {
+  font-size: 25px;
+  color: orange;
+  text-align: center;
+}
+
+.stats-value,
+.stats-value-time {
+  color: rgb(241, 229, 229);
+  font-weight: 300;
 }
 
 .stats-value {
-  color: rgb(242, 220, 220);
-  font-weight: 300;
   font-size: 16px;
+}
+
+.stats-value-time {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.set-time-values {
+  margin-top: 15px;
+}
+
+.no-doubles {
+  color: rgb(240, 202, 131);
 }

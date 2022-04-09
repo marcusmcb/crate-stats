@@ -40,10 +40,10 @@ const createReport = async (url) => {
     for (let n = 0; n < tracksPlayed.length; n++) {
       if (tracksPlayed[n] === tracksPlayed[n + 1]) {
         doublesPlayed.push({
-          name: tracksPlayed[n]
+          name: tracksPlayed[n],
         })
       }
-    }   
+    }
 
     let trackLog = tracksPlayed.map((result, index) => {
       return {
@@ -62,7 +62,7 @@ const createReport = async (url) => {
     )
     let longestMinutes = Math.floor(longestTrack / 60) % 60
     let longestSeconds = longestTrack % 60
-    
+
     // shortest track played
     let min = Math.min(...timeDiffs)
     let minIndex = timeDiffs.indexOf(min)
@@ -70,7 +70,7 @@ const createReport = async (url) => {
       (trackTimestamps[minIndex] - trackTimestamps[minIndex + 1]) / 1000
     )
     let shortestMinutes = Math.floor(shortestTrack / 60) % 60
-    let shortestSeconds = shortestTrack % 60    
+    let shortestSeconds = shortestTrack % 60
 
     // average track length played
     let sumDiff = 0
@@ -80,11 +80,11 @@ const createReport = async (url) => {
     let avg = sumDiff / timeDiffs.length
     let w = (avg / 1000).toFixed()
     let minutes = Math.floor(w / 60) % 60
-    let seconds = w % 60           
+    let seconds = w % 60
 
     // playlist length & parse hours/minutes/seconds
     let playlistLength = timestamps.last().text().trim()
-    let playlistLengthValues = parseTimeValues(playlistLength)     
+    let playlistLengthValues = parseTimeValues(playlistLength)
 
     let seratoReport = {
       trackLengthArray: timeDiffs,
@@ -98,15 +98,15 @@ const createReport = async (url) => {
       totalTracksPlayed: trackLog.length,
       longestTrack: {
         name: trackLog[maxIndex].trackId,
-        lengthValue: longestMinutes + ':' + longestSeconds,
+        lengthValue: longestMinutes + ':' + 04,
         minutes: longestMinutes,
-        seconds: longestSeconds
+        seconds: 04,
       },
       shortestTrack: {
         name: trackLog[minIndex].trackId,
         lengthValue: shortestMinutes + ':' + shortestSeconds,
         minutes: shortestMinutes,
-        seconds: shortestSeconds
+        seconds: shortestSeconds,
       },
       avgTrackLength: {
         lengthValue: minutes + ':' + seconds,
@@ -114,7 +114,7 @@ const createReport = async (url) => {
         seconds: seconds,
       },
       trackLog: trackLog,
-      doublesPlayed: doublesPlayed
+      doublesPlayed: doublesPlayed,
     }
     // console.log(seratoReport)
     return seratoReport
