@@ -183,7 +183,8 @@ const CrateStats = () => {
 
               <Col className='data-ui-column-right'>
                 <Row className='stats-row-right g-0'>
-                  {playlistData.longestTrack.lengthValue.length === 3 ? (
+                  {playlistData.longestTrack.lengthValue.length === 3 ||
+                  playlistData.longestTrack.lengthValue.length === 4 ? (
                     <div className='stats-label'>
                       Longest Track: (
                       {playlistData.longestTrack.minutes +
