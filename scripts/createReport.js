@@ -1,16 +1,18 @@
 const scrapeData = require('./scrapeData')
 const convertTimestamp = require('./convertTimestamp')
+const parseTimeValues = require('./parseTimeValues')
 
 const createReport = async (url) => {
-
   try {
     // function to scrape data for report
     let response = await scrapeData(url)
     let results = response[0]
     let timestamps = response[1]
+    let starttime = response[2]
 
     let tracksPlayed = []
     let trackTimestamps = []
+    let doublesPlayed = []
 
     // loop through tracks played and clean data from scrape
     for (let i = 0; i < results.length; i++) {
@@ -34,27 +36,23 @@ const createReport = async (url) => {
       }
     }
 
-    // DATA PREP NOTE
-    //
-    // account for "doubles" (user playing same track on both decks) in data prep
-    // create method to check for consecutive duplicate entries in tracksPlayed
-    // if so, combine track lengths and consolidate as one entry, reinsert into array
-
-    // combine cleaned data into array of objects 
-    // convert length value to timestamp and as length_time property
-    // use in front end for easier data viz   
-
-
-    // add doubles played/scratched to data report
+    // check for doubles and add those tracks to array
+    for (let n = 0; n < tracksPlayed.length; n++) {
+      if (tracksPlayed[n] === tracksPlayed[n + 1]) {
+        doublesPlayed.push({
+          name: tracksPlayed[n]
+        })
+      }
+    }   
 
     let trackLog = tracksPlayed.map((result, index) => {
       return {
         trackId: result,
         timestamp: trackTimestamps[index],
         timePlayed: timestamps[index].children[0].data.trim(),
-        length: timeDiffs[index]
+        length: timeDiffs[index],
       }
-    })           
+    })
 
     // longest track played
     let max = Math.max(...timeDiffs)
@@ -64,9 +62,9 @@ const createReport = async (url) => {
     )
     let longestMinutes = Math.floor(longestTrack / 60) % 60
     let longestSeconds = longestTrack % 60
-    if (longestSeconds < 10) {
-      longestSeconds = '0' + longestSeconds
-    }
+    // if (longestSeconds < 10) {
+    //   longestSeconds = '0' + longestSeconds
+    // }
 
     // shortest track played
     let min = Math.min(...timeDiffs)
@@ -76,9 +74,9 @@ const createReport = async (url) => {
     )
     let shortestMinutes = Math.floor(shortestTrack / 60) % 60
     let shortestSeconds = shortestTrack % 60
-    if (shortestSeconds < 10) {
-      shortestSeconds = '0' + shortestSeconds
-    }
+    // if (shortestSeconds < 10) {
+    //   shortestSeconds = '0' + shortestSeconds
+    // }
 
     // average track length played
     let sumDiff = 0
@@ -89,27 +87,46 @@ const createReport = async (url) => {
     let w = (avg / 1000).toFixed()
     let minutes = Math.floor(w / 60) % 60
     let seconds = w % 60
-    if (seconds < 10) {
-      seconds = '0' + seconds
-    }
-    
+    // if (seconds < 10) {
+    //   seconds = '0' + seconds
+    // }        
+
+    // playlist length & parse hours/minutes/seconds
+    let playlistLength = timestamps.last().text().trim()
+    let playlistLengthValues = parseTimeValues(playlistLength)     
+
     let seratoReport = {
       trackLengthArray: timeDiffs,
-      setLength: timestamps.last().text().trim(),
+      setLength: {
+        length: playlistLength,
+        setlengthhours: playlistLengthValues[0],
+        setlengthminutes: playlistLengthValues[1],
+        setlengthseconds: playlistLengthValues[2],
+      },
+      setStartTime: starttime,
       totalTracksPlayed: trackLog.length,
       longestTrack: {
         name: trackLog[maxIndex].trackId,
         length: longestMinutes + ':' + longestSeconds,
+        minutes: longestMinutes,
+        seconds: longestSeconds
       },
       shortestTrack: {
         name: trackLog[minIndex].trackId,
         length: shortestMinutes + ':' + shortestSeconds,
+        minutes: shortestMinutes,
+        seconds: shortestSeconds
       },
-      avgTrackLength: minutes + ':' + seconds,
+      avgTrackLength: {
+        length: minutes + ':' + seconds,
+        minutes: minutes,
+        seconds: seconds,
+      },
       trackLog: trackLog,
+      doublesPlayed: doublesPlayed
     }
     // console.log(seratoReport)
-    return seratoReport    
+    return seratoReport
   } catch (err) {
     console.log(err)
   }
@@ -122,5 +139,20 @@ const createReport = async (url) => {
 //
 // User option to download summary
 // User option to aggregate summary (requires data storage $$)
+//
+// CLOUD AVERAGE
+//
+// add option for user to anonymously submit stats to the site
+// as part of aggregrate data to compare user results against
+//
+// add option for user to publicly submit stats and display thier
+// screen name & total number of hours contributed in ui
+//
+// set configs for mongo cluster
+// plan for ui to show aggregate data on site load once user base is contributing
+//
+// PRIVATE REPORTS
+//
+// is there a way to gen data for private playlists? (probably not...)
 
 module.exports = createReport
