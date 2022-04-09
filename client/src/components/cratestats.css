@@ -23,8 +23,7 @@
 }
 
 .data-ui-main-panel {
-  background-color: rgb(116, 109, 109);
-  /* height: 100vh; */
+  background-color: rgb(116, 109, 109);  
 }
 
 .data-ui-column-left,
@@ -33,8 +32,7 @@
   margin: 20px;  
 }
 
-.data-ui-column-left {
-  /* height: 50vh; */
+.data-ui-column-left {  
   height: auto;
 }
 
@@ -47,6 +45,7 @@
 .data-ui-playlist-title {
   font-family: 'Exo 2', sans-serif;
   background-color:rgb(71, 62, 62);
+  font-size: 30px;
 }
 
 .data-ui-playlist-date {
@@ -67,4 +66,10 @@
 
 .doubles-data {  
   background-color: darkslategray;  
+}
+
+.playlist-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  
 }

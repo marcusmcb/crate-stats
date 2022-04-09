@@ -2,29 +2,16 @@ import { useState, useEffect, Fragment } from 'react'
 import { Row, Col, Form, Input } from 'reactstrap'
 import axios from 'axios'
 
+import parseDisplayDate from '../scripts/parseDisplayDate'
 import Titlebar from './Titlebar'
 import './cratestats.css'
 
 const CrateStats = () => {
-  let url
-
-  useEffect(() => {}, [])
-
   const [isData, setIsData] = useState(false)
+  const [url, setUrl] = useState('')
   const [displayName, setDisplayName] = useState('')
-  const [playlistDate, setPlaylistDate] = useState('')
+  const [playlistDate, setPlaylistDate] = useState([])
   const [playlistData, setPlaylistData] = useState({})
-
-  const parseDisplayDate = (dateString) => {
-    let x = new Date(dateString)
-    var normalizedDate = new Date(x.getTime() - x.getTimezoneOffset() * -60000)
-    var formattedDate = normalizedDate.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    })
-    return formattedDate
-  }
 
   const getReport = async (e) => {
     e.preventDefault()
@@ -45,10 +32,11 @@ const CrateStats = () => {
       .catch((error) => {
         console.log(error)
       })
+    setUrl('')
   }
 
   const handleChange = (e) => {
-    url = e.target.value
+    setUrl(e.target.value)
   }
 
   return (
@@ -63,7 +51,6 @@ const CrateStats = () => {
             name='url'
             value={url}
             onChange={handleChange}
-            placeholder='your Serato playlist URL'
           />
           <button type='submit'>Get Stats</button>
         </Form>
@@ -75,109 +62,173 @@ const CrateStats = () => {
               <Col className='data-ui-column-left'>
                 <Row className='data-ui-playlist-panel g-0'>
                   <Col className='data-ui-playlist-title'>
-                    <p>CrateStats for</p>
+                    {/* <p>CrateStats for</p> */}
                     <p>{displayName}</p>
                   </Col>
                   <Col className='data-ui-playlist-date'>
-                    <p>{playlistDate}</p>
-                    <p>Start Time: {playlistData.setStartTime}</p>
+                    <p>
+                      {playlistDate[1]}, {playlistDate[0]}
+                    </p>
+                    <p>Set began @ {playlistData.setStartTime}</p>
                   </Col>
                 </Row>
-                <Row className='data-ui-playlist-stats'>                  
+                <Row className='data-ui-playlist-stats g-0'>
                   {playlistData.setLength.setlengthhours === '0' ? (
-                    <p>
-                      Set Length: {playlistData.setLength.setlengthminutes}{' '}
-                      Minutes, {playlistData.setLength.setlengthseconds} Seconds
-                    </p>
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Set Length:</div>
+                        <div>
+                          {playlistData.setLength.setlengthminutes} Minutes,{' '}
+                          {playlistData.setLength.setlengthseconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
                   ) : playlistData.setLength.setlengthhours === '1' ? (
-                    <p>
-                      Set Length: {playlistData.setLength.setlengthhours} Hour,{' '}
-                      {playlistData.setLength.setlengthminutes} Minutes
-                    </p>
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Set Length:</div>
+                        <div>
+                          {playlistData.setLength.setlengthhours} Hour,{' '}
+                          {playlistData.setLength.setlengthminutes} Minutes
+                        </div>
+                      </div>
+                    </Fragment>
                   ) : (
-                    <p>
-                      Set Length: {playlistData.setLength.setlengthhours} Hours,{' '}
-                      {playlistData.setLength.setlengthminutes} Minutes
-                    </p>
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Set Length:</div>
+                        <div>
+                          {playlistData.setLength.setlengthhours} Hours,{' '}
+                          {playlistData.setLength.setlengthminutes} Minutes
+                        </div>
+                      </div>
+                    </Fragment>
                   )}
                 </Row>
-                <Row className='data-ui-playlist-stats'>
-                  <p>Total Tracks Played: {playlistData.totalTracksPlayed}</p>
+                <Row className='data-ui-playlist-stats g-0'>
+                  <div className='playlist-stats-row'>
+                    <div>Total Tracks Played:</div>
+                    <div>{playlistData.totalTracksPlayed}</div>
+                  </div>
                 </Row>
-                <Row className='data-ui-playlist-stats'>
-                  {playlistData.avgTrackLength.seconds === '00' ? (
-                    <p>
-                      Average Track Length:{' '}
-                      {playlistData.avgTrackLength.minutes} Minutes
-                    </p>
+                <Row className='data-ui-playlist-stats g-0'>
+                  {playlistData.avgTrackLength.seconds == '0' ? (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Average Track Length:</div>
+                        <div>{playlistData.avgTrackLength.minutes} Minutes</div>
+                      </div>
+                    </Fragment>
                   ) : (
-                    <p>
-                      Average Track Length:{' '}
-                      {playlistData.avgTrackLength.minutes} Minutes,{' '}
-                      {playlistData.avgTrackLength.seconds} Seconds
-                    </p>
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Average Track Length:</div>
+                        <div>
+                          {playlistData.avgTrackLength.minutes} Minutes,{' '}
+                          {playlistData.avgTrackLength.seconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
                   )}
                 </Row>
-                <Row className='data-ui-playlist-stats'>
-                  
-                  {/* <p>
-                    Shortest Track Played:{' '}
-                    {playlistData.shortestTrack.length
-                      .split(':')[1]
-                      .substring(1)}{' '}
-                    Seconds
-                  </p> */}
-                  {
-                    // console.log("HERE", playlistData.shortestTrack.length.split(':')[1].charAt(0))                    
-                    // console.log("HERE", playlistData.shortestTrack.length.split(':')[1])                    
-                    playlistData.shortestTrack.length.split(':')[0] === '0' && playlistData.shortestTrack.length.split(':')[1].charAt(0) === '0'
-                    ?
-                    <p>
-                      Shortest Track Played: {playlistData.shortestTrack.length.split(':')[1].charAt(1)} Seconds
-                    </p>
-                    :
-                    playlistData.shortestTrack.length.split(':')[0] === '0'
-                    ?
-                    <p>
-                      Shortest Track Played: {playlistData.shortestTrack.length.split(':')[1]} Seconds
-                    </p>
-                    :
-                    <p></p>
-                  }
+                <Row className='data-ui-playlist-stats g-0'>
+                  {playlistData.shortestTrack.minutes == '0' ? (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Shortest Track Played:</div>
+                        <div>{playlistData.shortestTrack.seconds} Seconds</div>
+                      </div>
+                    </Fragment>
+                  ) : playlistData.shortestTrack.minutes == '1' ? (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Shortest Track Played:</div>
+                        <div>
+                          {playlistData.shortestTrack.minutes} Minute,{' '}
+                          {playlistData.shortestTrack.seconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Shortest Track Played:</div>
+                        <div>
+                          {playlistData.shortestTrack.minutes} Minutes,{' '}
+                          {playlistData.shortestTrack.seconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
+                  )}
                 </Row>
-                <Row className='data-ui-playlist-stats'>
-                  {}
-                  <p>
-                    Longest Track Played: {playlistData.longestTrack.length}
-                  </p>
+                <Row className='data-ui-playlist-stats g-0'>
+                  {playlistData.longestTrack.minutes == '0' ? (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                      <div>Longest Track Played:</div>
+                      <div>{playlistData.longestTrack.seconds} Seconds</div>
+                      </div>
+                    </Fragment>
+                  ) : playlistData.longestTrack.minutes == '1' ? (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Longest Track Played:</div>
+                        <div>
+                          {playlistData.longestTrack.minutes} Minute,{' '}
+                          {playlistData.longestTrack.seconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <div className='playlist-stats-row'>
+                        <div>Longest Track Played:</div>
+                        <div>
+                          {playlistData.longestTrack.minutes} Minutes,{' '}
+                          {playlistData.longestTrack.seconds} Seconds
+                        </div>
+                      </div>
+                    </Fragment>
+                  )}
                 </Row>
               </Col>
 
               <Col className='data-ui-column-right'>
                 <Row className='stats-row-right g-0'>
-                  <p>Longest Track:</p>
-                  <p>{playlistData.longestTrack.name}</p>
+                  <div>Longest Track:</div>
+                  <div>{playlistData.longestTrack.name}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <p>Shortest Track:</p>
-                  <p>{playlistData.shortestTrack.name}</p>
+                  <div>Shortest Track:</div>
+                  <div>{playlistData.shortestTrack.name}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <p>First Track:</p>
-                  <p>{playlistData.trackLog[0].trackId}</p>
+                  <div>First Track:</div>
+                  <div>{playlistData.trackLog[0].trackId}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <p>Final Track:</p>
-                  <p>
+                  <div>Final Track:</div>
+                  <div>
                     {
                       playlistData.trackLog[playlistData.trackLog.length - 1]
                         .trackId
                     }
-                  </p>
+                  </div>
                 </Row>
-                <Col className='doubles-data'>
-                  {playlistData.doublesPlayed ? <p>Yep</p> : <p>Nope</p>}
-                </Col>
+                {playlistData.doublesPlayed.length != 0 ? (
+                  <Col className='doubles-data'>
+                    <div>
+                      Doubles Played: {playlistData.doublesPlayed.length}
+                    </div>
+                    {playlistData.doublesPlayed.map((item, i) => (
+                      <div key={i}>{item.name}</div>
+                    ))}
+                  </Col>
+                ) : (
+                  <Col className='doubles-data'>
+                    <div>No doubles detected in this set.</div>
+                  </Col>
+                )}
               </Col>
             </Row>
           </div>

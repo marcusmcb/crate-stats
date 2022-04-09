@@ -11,8 +11,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.post('/createReport', async (req, res) => {
-  console.log("******************", req.body.url)
+app.post('/createReport', async (req, res) => {  
   const url = req.body.url
   res.send(await createReport(url))
 })
