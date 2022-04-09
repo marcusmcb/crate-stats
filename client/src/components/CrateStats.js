@@ -13,6 +13,7 @@ const CrateStats = () => {
   const [displayName, setDisplayName] = useState('')
   const [playlistDate, setPlaylistDate] = useState([])
   const [playlistData, setPlaylistData] = useState({})
+  const [playlistName, setPlaylistName] = useState('')
 
   const getReport = async (e) => {
     e.preventDefault()
@@ -24,6 +25,17 @@ const CrateStats = () => {
         let userName = parseDisplayName(url)
         let dateValue = response.data.playlistDate
         let displayDay = parseDay(response.data.playlistDate)
+
+        if (
+          response.data.playlistTitle.charAt(
+            response.data.playlistTitle.length - 5
+          ) === '/'
+        ) {
+          setPlaylistName('')
+        } else {
+          setPlaylistName(response.data.playlistTitle)
+        }
+
         setPlaylistDate([dateValue, displayDay])
         setDisplayName(userName)
         setIsData(true)
@@ -62,9 +74,13 @@ const CrateStats = () => {
                 <Row className='stats-row-left g-0'>
                   <Col>
                     <div className='stats-label-djname'>{displayName}</div>
-                    <div className='stats-label-playlist-title'>
-                      {playlistData.playlistTitle}
-                    </div>
+                    {playlistName === '' ? (
+                      <span></span>
+                    ) : (
+                      <div className='stats-label-playlist-title'>
+                        {playlistName}
+                      </div>
+                    )}
                   </Col>
                   <Col className='set-time-values'>
                     <div className='stats-value'>
