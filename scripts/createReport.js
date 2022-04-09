@@ -10,6 +10,7 @@ const createReport = async (url) => {
     let timestamps = response[1]
     let starttime = response[2]
     let playlistdate = response[3]
+    let playlisttitle = response[4]
 
     let tracksPlayed = []
     let trackTimestamps = []
@@ -116,7 +117,8 @@ const createReport = async (url) => {
       },
       trackLog: trackLog,
       doublesPlayed: doublesPlayed,
-      playlistDate: playlistdate
+      playlistDate: playlistdate,
+      playlistTitle: playlisttitle,
     }
     // console.log(seratoReport)
     return seratoReport
@@ -126,12 +128,10 @@ const createReport = async (url) => {
 }
 // FUTURE DEV NOTES
 //
-// Rewrite this whole script as a standalone webpage
-// All the user has to do is copy/paste the link to
-// their Serato playlist page and hit analayze
-//
 // User option to download summary
 // User option to aggregate summary (requires data storage $$)
+//
+// AVERAGE TRACKS PER HOUR
 //
 // CLOUD AVERAGE
 //

@@ -2,6 +2,8 @@ import { useState, Fragment } from 'react'
 import { Row, Col, Form, Input } from 'reactstrap'
 import axios from 'axios'
 
+import parseDay from '../scripts/parseDay'
+import parseDisplayName from '../scripts/parseDisplayName'
 import Titlebar from './Titlebar'
 import './cratestats.css'
 
@@ -19,21 +21,9 @@ const CrateStats = () => {
       .then((response) => {
         console.log(response.data)
         setPlaylistData(response.data)
-        let parts = url.split('/')
-        let userString = parts[4]
-        let userName = userString.replaceAll('_', ' ')
+        let userName = parseDisplayName(url)
         let dateValue = response.data.playlistDate
-        let xyz = new Date(dateValue)        
-        let daysOfTheWeek = [
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-        ]
-        let displayDay = daysOfTheWeek[xyz.getDay()]
+        let displayDay = parseDay(response.data.playlistDate)
         setPlaylistDate([dateValue, displayDay])
         setDisplayName(userName)
         setIsData(true)
@@ -72,9 +62,14 @@ const CrateStats = () => {
                 <Row className='stats-row-left g-0'>
                   <Col>
                     <div className='stats-label-djname'>{displayName}</div>
+                    <div className='stats-label-playlist-title'>
+                      {playlistData.playlistTitle}
+                    </div>
                   </Col>
                   <Col className='set-time-values'>
-                    <div className='stats-value'>{playlistDate[1]}, {playlistDate[0]}</div>
+                    <div className='stats-value'>
+                      {playlistDate[1]}, {playlistDate[0]}
+                    </div>
                     <div className='stats-label'>
                       Start Time:{' '}
                       <span className='stats-value-time'>
