@@ -28,7 +28,7 @@
 
 .data-ui-column-left,
 .data-ui-column-right {
-  background-color: rgb(167, 163, 163);  
+  background-color: rgb(71, 62, 62);
   margin: 20px;  
 }
 
@@ -37,7 +37,7 @@
 }
 
 .stats-row-right {
-  background-color: rgb(70, 134, 173);
+  
   margin: 10px; 
   padding: 5px; 
 }
@@ -64,12 +64,31 @@
   margin-left: 10px;
 }
 
-.doubles-data {  
-  background-color: darkslategray;  
+.doubles-data-title {  
+  border-top: 1px solid lightcoral;
+  color: orange;
+  font-weight: 500;
+}
+
+.doubles-data-values {
+  color: rgb(242, 220, 220);
+  font-weight: 300;
+  font-size: 12px;
 }
 
 .playlist-stats-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  
+  grid-template-columns: repeat(2, 1fr);  
+}
+
+.stats-label {
+  color: orange;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.stats-value {
+  color: rgb(242, 220, 220);
+  font-weight: 300;
+  font-size: 16px;
 }

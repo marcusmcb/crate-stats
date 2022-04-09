@@ -62,10 +62,7 @@ const createReport = async (url) => {
     )
     let longestMinutes = Math.floor(longestTrack / 60) % 60
     let longestSeconds = longestTrack % 60
-    // if (longestSeconds < 10) {
-    //   longestSeconds = '0' + longestSeconds
-    // }
-
+    
     // shortest track played
     let min = Math.min(...timeDiffs)
     let minIndex = timeDiffs.indexOf(min)
@@ -73,10 +70,7 @@ const createReport = async (url) => {
       (trackTimestamps[minIndex] - trackTimestamps[minIndex + 1]) / 1000
     )
     let shortestMinutes = Math.floor(shortestTrack / 60) % 60
-    let shortestSeconds = shortestTrack % 60
-    // if (shortestSeconds < 10) {
-    //   shortestSeconds = '0' + shortestSeconds
-    // }
+    let shortestSeconds = shortestTrack % 60    
 
     // average track length played
     let sumDiff = 0
@@ -86,10 +80,7 @@ const createReport = async (url) => {
     let avg = sumDiff / timeDiffs.length
     let w = (avg / 1000).toFixed()
     let minutes = Math.floor(w / 60) % 60
-    let seconds = w % 60
-    // if (seconds < 10) {
-    //   seconds = '0' + seconds
-    // }        
+    let seconds = w % 60           
 
     // playlist length & parse hours/minutes/seconds
     let playlistLength = timestamps.last().text().trim()
@@ -98,7 +89,7 @@ const createReport = async (url) => {
     let seratoReport = {
       trackLengthArray: timeDiffs,
       setLength: {
-        length: playlistLength,
+        lengthValue: playlistLength,
         setlengthhours: playlistLengthValues[0],
         setlengthminutes: playlistLengthValues[1],
         setlengthseconds: playlistLengthValues[2],
@@ -107,18 +98,18 @@ const createReport = async (url) => {
       totalTracksPlayed: trackLog.length,
       longestTrack: {
         name: trackLog[maxIndex].trackId,
-        length: longestMinutes + ':' + longestSeconds,
+        lengthValue: longestMinutes + ':' + longestSeconds,
         minutes: longestMinutes,
         seconds: longestSeconds
       },
       shortestTrack: {
         name: trackLog[minIndex].trackId,
-        length: shortestMinutes + ':' + shortestSeconds,
+        lengthValue: shortestMinutes + ':' + shortestSeconds,
         minutes: shortestMinutes,
         seconds: shortestSeconds
       },
       avgTrackLength: {
-        length: minutes + ':' + seconds,
+        lengthValue: minutes + ':' + seconds,
         minutes: minutes,
         seconds: seconds,
       },

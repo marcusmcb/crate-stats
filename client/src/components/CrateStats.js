@@ -195,20 +195,20 @@ const CrateStats = () => {
 
               <Col className='data-ui-column-right'>
                 <Row className='stats-row-right g-0'>
-                  <div>Longest Track:</div>
-                  <div>{playlistData.longestTrack.name}</div>
+                  <div className='stats-label'>Longest Track ({playlistData.longestTrack.lengthValue})</div>
+                  <div className='stats-value'>{playlistData.longestTrack.name}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <div>Shortest Track:</div>
-                  <div>{playlistData.shortestTrack.name}</div>
+                  <div className='stats-label'>Shortest Track ({playlistData.shortestTrack.lengthValue})</div>
+                  <div className='stats-value'>{playlistData.shortestTrack.name}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <div>First Track:</div>
-                  <div>{playlistData.trackLog[0].trackId}</div>
+                  <div className='stats-label'>First Track:</div>
+                  <div className='stats-value'>{playlistData.trackLog[0].trackId}</div>
                 </Row>
                 <Row className='stats-row-right g-0'>
-                  <div>Final Track:</div>
-                  <div>
+                  <div className='stats-label'>Final Track:</div>
+                  <div className='stats-value'>
                     {
                       playlistData.trackLog[playlistData.trackLog.length - 1]
                         .trackId
@@ -216,16 +216,16 @@ const CrateStats = () => {
                   </div>
                 </Row>
                 {playlistData.doublesPlayed.length != 0 ? (
-                  <Col className='doubles-data'>
+                  <Col className='doubles-data-title doubles-data'>
                     <div>
                       Doubles Played: {playlistData.doublesPlayed.length}
                     </div>
                     {playlistData.doublesPlayed.map((item, i) => (
-                      <div key={i}>{item.name}</div>
+                      <div className='doubles-data-values' key={i}>{item.name}</div>
                     ))}
                   </Col>
                 ) : (
-                  <Col className='doubles-data'>
+                  <Col className='doubles-data double-data-values'>
                     <div>No doubles detected in this set.</div>
                   </Col>
                 )}
