@@ -1,4 +1,5 @@
-import { useState, Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
+import BarChart from './BarChart'
 import { Row, Col, Form, Input } from 'reactstrap'
 import axios from 'axios'
 
@@ -7,7 +8,9 @@ import parseDisplayName from '../scripts/parseDisplayName'
 import Titlebar from './Titlebar'
 import './cratestats.css'
 
-const CrateStats = () => {
+const CrateStats = () => {   
+
+  const [d3Data, setD3Data] = useState([]);
   const [isData, setIsData] = useState(false)
   const [url, setUrl] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -22,6 +25,7 @@ const CrateStats = () => {
       .then((response) => {
         console.log(response.data)
         setPlaylistData(response.data)
+        setD3Data(response.data.trackLengthArray)
         let userName = parseDisplayName(url)
         let dateValue = response.data.playlistDate
         let displayDay = parseDay(response.data.playlistDate)
@@ -249,12 +253,14 @@ const CrateStats = () => {
                   </Col>
                 )}
               </Col>
-            </Row>
+              
+            </Row>            
           </div>
         ) : (
           <p></p>
-        )}
+        )}      
       </Fragment>
+      <BarChart width={600} height={200} data={d3Data} />
     </div>
   )
 }
