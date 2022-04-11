@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 const createReport = require('./scripts/createReport')
 const readUserFile = require('./scripts/readUserFile')
+const createUserReport = require('./scripts/createUserReport')
 
 const PORT = 5000 || process.env.PORT
 const app = express()
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/createReport', async (req, res) => { 
   let userData = await readUserFile()
-  console.log(userData[0])
+  let userReport = await createUserReport(userData)  
   const url = req.body.url
   res.send(await createReport(url))
 })
