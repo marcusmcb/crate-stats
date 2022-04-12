@@ -13,22 +13,14 @@ const createUserReport = (data) => {
   // playlist meta info in data[0]
   // -----------------------------
 
-  // playlist title
   // check if title is just date or has an actual title
   const playlistTitle = data[0].name
-
-  // serato display name
   // check if display name is ''
   const playlistArtist = data[0].artist
-
-  // playlist start time
   const playlistStartTime = data[0]['start time']
-
-  // playlist end time
   const playlistEndTime = data[0]['end time']
-
-  // playlist length
   const playlistLength = data[0].playtime
+  const playlistLengthParsed = new Date('01/01/2020 ' + data[0].playtime)
 
   // -------------------------
   // data parsing for analysis
@@ -49,7 +41,8 @@ const createUserReport = (data) => {
   // array of track lengths
   const trackLengths = []
   masterTrackLog.forEach((track) => {
-    trackLengths.push(new Date('01/01/2020 ' + track.playtime))
+    // console.log(new Date('01/01/2020 ' + track.playtime))
+    trackLengths.push(track.playtime)
   })
 
   // array of keys
@@ -57,6 +50,7 @@ const createUserReport = (data) => {
   let nullKeyCount = 0
   masterTrackLog.forEach((track) => {
     if (track.key != '') {
+      // add validation to check which key format the data is in
       trackKeys.push(track.key)
     } else {
       nullKeyCount++
@@ -94,11 +88,41 @@ const createUserReport = (data) => {
   })
   let uniqueGenres = new Set(trackGenres)
 
+  // identify top three genres played
+  let topThreeGenres = []
+  let otherGenreCount
+  let topGenresPlayed = Object.keys(genreCount)
+  topGenresPlayed.sort((a, b) => {
+    return genreCount[b] - genreCount[a]
+  })
+  if (
+    topGenresPlayed[0] === 'Other' ||
+    topGenresPlayed[1] === 'Other' ||
+    topGenresPlayed[2] === 'Other'
+  ) {
+    topGenresPlayed = topGenresPlayed.filter((item) => {
+      return item !== 'Other'
+    })
+    topThreeGenres.push(
+      topGenresPlayed[0],
+      topGenresPlayed[1],
+      topGenresPlayed[2]
+    )
+    otherGenreCount = Math.max(...Object.values(genreCount))
+  } else {
+    topThreeGenres.push(
+      topGenresPlayed[0],
+      topGenresPlayed[1],
+      topGenresPlayed[2]
+    )
+    otherGenreCount = Math.max(...Object.values(genreCount))
+  }
+
   // identify oldest track
   let oldestTracks = []
   let newestTracks = []
-  const oldestTrack = Math.min(...trackYears)
-  const newestTrack = Math.max(...trackYears)
+  const oldestTrack = Math.min(...trackYears)  
+  const newestTrack = Math.max(...trackYears)  
   let oldestTrackCount = 0
   trackYears.forEach((item) => {
     // check to see if there's more than 1 track from that oldest track year
@@ -115,6 +139,7 @@ const createUserReport = (data) => {
       newestTracks.push(item)
     }
   })
+  console.log(oldestTracks)
 
   // identify average year
   let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
@@ -150,10 +175,10 @@ const createUserReport = (data) => {
     rootKeyCount[a] > rootKeyCount[b] ? a : b
   )
   let mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
+  let mostCommonKeyPlaytime = ''
 
   // identify most common key major/minor
   let majorMinor = []
-  console.log(trackKeys)
   for (let i = 0; i < trackKeys.length; i++) {
     majorMinor.push(trackKeys[i].substring(1))
   }
@@ -164,19 +189,26 @@ const createUserReport = (data) => {
     rootKeyCount[a] < rootKeyCount[b] ? a : b
   )
   let leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
+  let leastCommonKeyPlaytime = ''
 
   // identify average BPM
   let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
+  let averageBPMPlaytime = ''
+
+  // identify average track length
+  let averageTrackLength = calculateAverageTime(trackLengths)
 
   // longest track
   let longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
   const longestTrackIndex = trackLengths.indexOf(longestTrack)
   longestTrack = masterTrackLog[longestTrackIndex]
-
+  let longestTrackStartTime = longestTrack['start time']
+  
   // shortest track
   let shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
   const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
   shortestTrack = masterTrackLog[shortestTrackIndex]
+  let shortestTrackStartTime = shortestTrack['start time']
 
   // check for doubles and parse titles
   const doublesPlayed = []
@@ -209,11 +241,11 @@ const createUserReport = (data) => {
     } else {
       console.log('No data.')
     }
-  })  
-  
+  })
+
   const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
   const deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
-  
+
   // console.log('CSV HEADER: ', data[0])
   // console.log('----------------------------------')
   console.log(chalk.magenta('TRACK DATA SAMPLE:'))
@@ -223,25 +255,44 @@ const createUserReport = (data) => {
   // console.log('Playlist Artist: ', playlistArtist)
   console.log('Playlist Title: ', playlistTitle)
   console.log('Playlist Length: ', playlistLength)
+  console.log(
+    playlistLengthParsed.getHours(),
+    'Hours',
+    playlistLengthParsed.getMinutes(),
+    'Minutes',
+    playlistLengthParsed.getSeconds(),
+    'Seconds'
+  )
   console.log('Start Time: ', playlistStartTime)
   console.log('End Time: ', playlistEndTime)
   console.log('----------------------------------')
 
   console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
-  console.log('Longest Track: ', longestTrack.playtime.substring(3))
-  console.log('Shortest Track: ', shortestTrack.playtime.substring(3))
+  console.log('Average Track Length: ', averageTrackLength.substring(3))
+  console.log('Longest Track: ', longestTrack.playtime.substring(3), "--- Played at: ", longestTrackStartTime)  
+  console.log('Shortest Track: ', shortestTrack.playtime.substring(3), "--- Played at: ", shortestTrackStartTime)
   console.log('Deck 1 Average Playtime: ', deckOneAveragePlaytime.substring(3))
   console.log('Deck 2 Average Playtime: ', deckTwoAveragePlaytime.substring(3))
   console.log('----------------------------------')
 
   console.log(chalk.magenta('GENRE DATA: '))
   console.log('Number of unique genres played: ', uniqueGenres.size)
+  console.log('Top Three Genres: ')
+  console.log('1: ', topThreeGenres[0])
+  console.log('2: ', topThreeGenres[1])
+  console.log('3: ', topThreeGenres[2])
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
-    calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1)
+    calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1),
+    '% have genre tags'
   )
-  console.log('Number of tracks with null genre values: ', nullGenreCount)
+  console.log(
+    calculateTagHealth(otherGenreCount, trackGenres.length).toFixed(1),
+    "% have 'Other' as their tag"
+  )
+  console.log('Number of tracks with empty genre values: ', nullGenreCount)
+  console.log('Number of tracks with "Other" as the genre: ', otherGenreCount)
   console.log('----------------------------------')
 
   console.log(chalk.magenta('BPM DATA: '))
@@ -256,9 +307,10 @@ const createUserReport = (data) => {
   console.log('x Played: ', leastCommonKeyCount)
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
-    calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1)
+    calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
+    '% have key tags'
   )
-  console.log('Number of tracks with null key values: ', nullKeyCount)
+  console.log('Number of tracks with empty key values: ', nullKeyCount)
   console.log('Number of tracks with proper tags: ', trackKeys.length)
   console.log('----------------------------------')
 
@@ -270,9 +322,10 @@ const createUserReport = (data) => {
   console.log('Average Year: ', averageYear.toFixed())
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
-    calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1)
+    calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
+    '% have year tags'
   )
-  console.log('Number of tracks with null year values: ', nullYearCount)
+  console.log('Number of tracks with empty year values: ', nullYearCount)
   console.log('Number of tracks with proper tags: ', trackYears.length)
   console.log('----------------------------------')
 
