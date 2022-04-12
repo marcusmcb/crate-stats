@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const calculateAverageTime = require('./calculateAverageTime')
 
 const createUserReport = (data) => {
   // fields exported by user are set in the history panel
@@ -67,6 +68,8 @@ const createUserReport = (data) => {
   let nullYearCount = 0
   masterTrackLog.forEach((track) => {
     if (track.year != '') {
+      // add validation to check year is in YYYY format
+      // count rejected year tags
       trackYears.push(new Number(track.year))
     } else {
       nullYearCount++
@@ -88,10 +91,12 @@ const createUserReport = (data) => {
   let genreCount = {}
   trackGenres.forEach((item) => {
     genreCount[item] = (genreCount[item] || 0) + 1
-  })  
+  })
   let uniqueGenres = new Set(trackGenres)
 
   // identify oldest track
+  let oldestTracks = []
+  let newestTracks = []
   const oldestTrack = Math.min(...trackYears)
   const newestTrack = Math.max(...trackYears)
   let oldestTrackCount = 0
@@ -99,6 +104,7 @@ const createUserReport = (data) => {
     // check to see if there's more than 1 track from that oldest track year
     if (item == oldestTrack) {
       oldestTrackCount++
+      oldestTracks.push(item)
     }
   })
   let newestTrackCount = 0
@@ -106,6 +112,7 @@ const createUserReport = (data) => {
     // check to see if there's more than 1 track from that oldest track year
     if (item == newestTrack) {
       newestTrackCount++
+      newestTracks.push(item)
     }
   })
 
@@ -118,15 +125,15 @@ const createUserReport = (data) => {
 
   // number of tracks played
   const totalTracksPlayed = masterTrackLog.length
+  const calculateTagHealth = (val1, val2) => {
+    return (val1 / val2) * 100
+  }
 
   // identify bpm range
   let bpmRange = {
     minBPM: Math.min(...bpmArray),
     maxBPM: Math.max(...bpmArray),
   }
-
-  // identify key range
-  let keyRange = {}
 
   // create array of root keys for analysis
   let rootKeys = []
@@ -136,13 +143,21 @@ const createUserReport = (data) => {
   let rootKeyCount = [...rootKeys].reduce((a, e) => {
     a[e] = a[e] ? a[e] + 1 : 1
     return a
-  }, {})  
+  }, {})
 
   // identify most common key played & x times
   let mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
     rootKeyCount[a] > rootKeyCount[b] ? a : b
   )
   let mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
+
+  // identify most common key major/minor
+  let majorMinor = []
+  console.log(trackKeys)
+  for (let i = 0; i < trackKeys.length; i++) {
+    majorMinor.push(trackKeys[i].substring(1))
+  }
+  console.log(majorMinor)
 
   // identify least common key played & x times
   let leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
@@ -175,7 +190,7 @@ const createUserReport = (data) => {
       })
     }
   }
-  const doublesCount = doublesPlayed.length / 2  
+  const doublesCount = doublesPlayed.length / 2
 
   // duplicates array
   // add logic to determine non-conseuctive duplicates
@@ -184,7 +199,21 @@ const createUserReport = (data) => {
   // "favored deck"
   // determine which deck got more play time during set
   const favoredDeckStats = []
-
+  let deckOnePlaytimes = []
+  let deckTwoPlaytimes = []
+  masterTrackLog.forEach((track) => {
+    if (track.deck === '1') {
+      deckOnePlaytimes.push(track.playtime)
+    } else if (track.deck === '2') {
+      deckTwoPlaytimes.push(track.playtime)
+    } else {
+      console.log('No data.')
+    }
+  })  
+  
+  const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
+  const deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
+  
   // console.log('CSV HEADER: ', data[0])
   // console.log('----------------------------------')
   console.log(chalk.magenta('TRACK DATA SAMPLE:'))
@@ -197,32 +226,56 @@ const createUserReport = (data) => {
   console.log('Start Time: ', playlistStartTime)
   console.log('End Time: ', playlistEndTime)
   console.log('----------------------------------')
+
   console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
-  console.log('Longest Track: ', longestTrack.playtime)
-  console.log('Shortest Track: ', shortestTrack.playtime)
-  console.log('Number of tracks with null genre values: ', nullGenreCount)
-  console.log('Number of unique genres played: ', uniqueGenres.size)
+  console.log('Longest Track: ', longestTrack.playtime.substring(3))
+  console.log('Shortest Track: ', shortestTrack.playtime.substring(3))
+  console.log('Deck 1 Average Playtime: ', deckOneAveragePlaytime.substring(3))
+  console.log('Deck 2 Average Playtime: ', deckTwoAveragePlaytime.substring(3))
   console.log('----------------------------------')
+
+  console.log(chalk.magenta('GENRE DATA: '))
+  console.log('Number of unique genres played: ', uniqueGenres.size)
+  console.log(chalk.greenBright('*** Tag Health ***'))
+  console.log(
+    calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1)
+  )
+  console.log('Number of tracks with null genre values: ', nullGenreCount)
+  console.log('----------------------------------')
+
   console.log(chalk.magenta('BPM DATA: '))
-  console.log('Average BPM: ', averageBPM.toFixed(2))
+  console.log('Average BPM: ', averageBPM.toFixed(1))
   console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
   console.log('----------------------------------')
+
   console.log(chalk.magenta('KEY DATA: '))
   console.log('Most Common Key: ', mostCommonKey)
   console.log('x Played: ', mostCommonKeyCount)
   console.log('Least Common Key: ', leastCommonKey)
   console.log('x Played: ', leastCommonKeyCount)
+  console.log(chalk.greenBright('*** Tag Health ***'))
+  console.log(
+    calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1)
+  )
   console.log('Number of tracks with null key values: ', nullKeyCount)
   console.log('Number of tracks with proper tags: ', trackKeys.length)
   console.log('----------------------------------')
+
   console.log(chalk.magenta('YEAR DATA: '))
   console.log('Oldest Track Year: ', oldestTrack)
   console.log('Count: ', oldestTrackCount)
   console.log('Newest Track Year: ', newestTrack)
   console.log('Count: ', newestTrackCount)
   console.log('Average Year: ', averageYear.toFixed())
+  console.log(chalk.greenBright('*** Tag Health ***'))
+  console.log(
+    calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1)
+  )
+  console.log('Number of tracks with null year values: ', nullYearCount)
+  console.log('Number of tracks with proper tags: ', trackYears.length)
   console.log('----------------------------------')
+
   console.log(chalk.magenta('DOUBLES DATA: '))
   console.log('Doubles Played: ', doublesCount)
   console.log('Doubles Titles: ', doublesTitles)
