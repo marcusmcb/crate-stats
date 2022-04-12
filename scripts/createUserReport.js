@@ -23,7 +23,7 @@ const createUserReport = (data) => {
   const playlistLengthParsed = new Date('01/01/2020 ' + data[0].playtime)
 
   // -------------------------
-  // data parsing for analysis
+  // data arrays for parsing
   // -------------------------
 
   // array of artists
@@ -81,6 +81,84 @@ const createUserReport = (data) => {
     }
   })
 
+  // -------------------------------------
+  //      track / year stats
+  // -------------------------------------
+
+  // number of tracks played
+  const totalTracksPlayed = masterTrackLog.length
+  const calculateTagHealth = (val1, val2) => {
+    return (val1 / val2) * 100
+  }
+
+  // identify average track length
+  let averageTrackLength = calculateAverageTime(trackLengths)
+
+  // identify average year
+  let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
+
+  // longest track
+  let longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
+  const longestTrackIndex = trackLengths.indexOf(longestTrack)
+  longestTrack = masterTrackLog[longestTrackIndex]
+  let longestTrackStartTime = longestTrack['start time']
+
+  // shortest track
+  let shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
+  const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
+  shortestTrack = masterTrackLog[shortestTrackIndex]
+  let shortestTrackStartTime = shortestTrack['start time']
+
+  // identify oldest and newest tracks
+  let oldestTracks = []
+  let newestTracks = []
+  const oldestTrack = Math.min(...trackYears)
+  const newestTrack = Math.max(...trackYears)
+  let oldestTrackCount = 0
+  masterTrackLog.forEach((track) => {
+    // check to see if there's more than 1 track from that oldest track year
+    if (track.year == oldestTrack) {
+      oldestTrackCount++
+      oldestTracks.push(track)
+    }
+  })
+  let newestTrackCount = 0
+  masterTrackLog.forEach((track) => {
+    // check to see if there's more than 1 track from that oldest track year
+    if (track.year == newestTrack) {
+      newestTrackCount++
+      newestTracks.push(track)
+    }
+  })
+
+  // -------------------------------------
+  //      bpm analysis
+  // -------------------------------------
+
+  // identify bpm range
+  let bpmRange = {
+    minBPM: Math.min(...bpmArray),
+    maxBPM: Math.max(...bpmArray),
+  }
+
+  // identify average BPM
+  let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
+
+  // identify biggest bpm change
+  let bpmChangeIndex = ''
+  const calculateBPMChanges = (array) => {
+    var newArray = []
+    for (var i = 1; i < array.length; i++)
+      newArray.push(array[i] - array[i - 1])
+    bpmChangeIndex = newArray.indexOf(Math.max(...newArray))
+    return newArray
+  }  
+  const largestBPMDifference = Math.max(...calculateBPMChanges(bpmArray))  
+
+  // -------------------------------------
+  //      genre data / analysis
+  // -------------------------------------
+
   // identify number of unique genres played
   let genreCount = {}
   trackGenres.forEach((item) => {
@@ -88,7 +166,7 @@ const createUserReport = (data) => {
   })
   let uniqueGenres = new Set(trackGenres)
 
-  // identify top three genres played
+  // identify top three genres played (discounting "Other" if it's the top genre)
   let topThreeGenres = []
   let otherGenreCount
   let topGenresPlayed = Object.keys(genreCount)
@@ -118,47 +196,9 @@ const createUserReport = (data) => {
     otherGenreCount = Math.max(...Object.values(genreCount))
   }
 
-  // identify oldest track
-  let oldestTracks = []
-  let newestTracks = []
-  const oldestTrack = Math.min(...trackYears)  
-  const newestTrack = Math.max(...trackYears)  
-  let oldestTrackCount = 0
-  trackYears.forEach((item) => {
-    // check to see if there's more than 1 track from that oldest track year
-    if (item == oldestTrack) {
-      oldestTrackCount++
-      oldestTracks.push(item)
-    }
-  })
-  let newestTrackCount = 0
-  trackYears.forEach((item) => {
-    // check to see if there's more than 1 track from that oldest track year
-    if (item == newestTrack) {
-      newestTrackCount++
-      newestTracks.push(item)
-    }
-  })
-  console.log(oldestTracks)
-
-  // identify average year
-  let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
-
-  // ---------------------------------------------------
-  // data analysis and calculations, helper methods, etc
-  // ---------------------------------------------------
-
-  // number of tracks played
-  const totalTracksPlayed = masterTrackLog.length
-  const calculateTagHealth = (val1, val2) => {
-    return (val1 / val2) * 100
-  }
-
-  // identify bpm range
-  let bpmRange = {
-    minBPM: Math.min(...bpmArray),
-    maxBPM: Math.max(...bpmArray),
-  }
+  // -------------------------------------
+  //      key analysis & stats
+  // -------------------------------------
 
   // create array of root keys for analysis
   let rootKeys = []
@@ -177,13 +217,6 @@ const createUserReport = (data) => {
   let mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
   let mostCommonKeyPlaytime = ''
 
-  // identify most common key major/minor
-  let majorMinor = []
-  for (let i = 0; i < trackKeys.length; i++) {
-    majorMinor.push(trackKeys[i].substring(1))
-  }
-  console.log(majorMinor)
-
   // identify least common key played & x times
   let leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
     rootKeyCount[a] < rootKeyCount[b] ? a : b
@@ -191,24 +224,15 @@ const createUserReport = (data) => {
   let leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
   let leastCommonKeyPlaytime = ''
 
-  // identify average BPM
-  let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
-  let averageBPMPlaytime = ''
+  // identify most common key major/minor
+  let majorMinor = []
+  for (let i = 0; i < trackKeys.length; i++) {
+    majorMinor.push(trackKeys[i].substring(1))
+  }  
 
-  // identify average track length
-  let averageTrackLength = calculateAverageTime(trackLengths)
-
-  // longest track
-  let longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
-  const longestTrackIndex = trackLengths.indexOf(longestTrack)
-  longestTrack = masterTrackLog[longestTrackIndex]
-  let longestTrackStartTime = longestTrack['start time']
-  
-  // shortest track
-  let shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
-  const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
-  shortestTrack = masterTrackLog[shortestTrackIndex]
-  let shortestTrackStartTime = shortestTrack['start time']
+  // -------------------------------------
+  //      doubles analysis & stats
+  // -------------------------------------
 
   // check for doubles and parse titles
   const doublesPlayed = []
@@ -228,9 +252,10 @@ const createUserReport = (data) => {
   // add logic to determine non-conseuctive duplicates
   const duplicatesPlayed = []
 
-  // "favored deck"
-  // determine which deck got more play time during set
-  const favoredDeckStats = []
+  // -------------------------------------
+  //      deck analysis & stats
+  // -------------------------------------
+
   let deckOnePlaytimes = []
   let deckTwoPlaytimes = []
   masterTrackLog.forEach((track) => {
@@ -242,7 +267,6 @@ const createUserReport = (data) => {
       console.log('No data.')
     }
   })
-
   const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
   const deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
 
@@ -270,8 +294,18 @@ const createUserReport = (data) => {
   console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
   console.log('Average Track Length: ', averageTrackLength.substring(3))
-  console.log('Longest Track: ', longestTrack.playtime.substring(3), "--- Played at: ", longestTrackStartTime)  
-  console.log('Shortest Track: ', shortestTrack.playtime.substring(3), "--- Played at: ", shortestTrackStartTime)
+  console.log(
+    'Longest Track: ',
+    longestTrack.playtime.substring(3),
+    '--- Played at: ',
+    longestTrackStartTime
+  )
+  console.log(
+    'Shortest Track: ',
+    shortestTrack.playtime.substring(3),
+    '--- Played at: ',
+    shortestTrackStartTime
+  )
   console.log('Deck 1 Average Playtime: ', deckOneAveragePlaytime.substring(3))
   console.log('Deck 2 Average Playtime: ', deckTwoAveragePlaytime.substring(3))
   console.log('----------------------------------')
@@ -298,6 +332,13 @@ const createUserReport = (data) => {
   console.log(chalk.magenta('BPM DATA: '))
   console.log('Average BPM: ', averageBPM.toFixed(1))
   console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
+  console.log(
+    'Largest BPM Change Between Two Tracks: ',
+    masterTrackLog[bpmChangeIndex].bpm,
+    "BPM -",
+    masterTrackLog[bpmChangeIndex + 1].bpm,
+    "BPM"
+  )
   console.log('----------------------------------')
 
   console.log(chalk.magenta('KEY DATA: '))
@@ -316,6 +357,7 @@ const createUserReport = (data) => {
 
   console.log(chalk.magenta('YEAR DATA: '))
   console.log('Oldest Track Year: ', oldestTrack)
+  console.log('Oldest Track Name: ', oldestTracks[0].name)
   console.log('Count: ', oldestTrackCount)
   console.log('Newest Track Year: ', newestTrack)
   console.log('Count: ', newestTrackCount)
