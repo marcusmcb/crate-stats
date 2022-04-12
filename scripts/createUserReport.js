@@ -59,7 +59,7 @@ const createUserReport = (data) => {
       trackKeys.push(track.key)
     } else {
       nullKeyCount++
-    }    
+    }
   })
 
   // array of track year values
@@ -71,8 +71,8 @@ const createUserReport = (data) => {
     } else {
       nullYearCount++
     }
-  }) 
-  
+  })
+
   // array of genre tags
   let trackGenres = []
   let nullGenreCount = 0
@@ -82,33 +82,35 @@ const createUserReport = (data) => {
     } else {
       nullGenreCount++
     }
-  })  
+  })
 
   // identify number of unique genres played
   let genreCount = {}
-  trackGenres.forEach((item) => { genreCount[item] = (genreCount[item] || 0) + 1 })
-  console.log(genreCount)
-  let uniqueGenres = new Set(trackGenres)  
+  trackGenres.forEach((item) => {
+    genreCount[item] = (genreCount[item] || 0) + 1
+  })  
+  let uniqueGenres = new Set(trackGenres)
 
   // identify oldest track
-  const oldestTrack = Math.min(...trackYears)  
+  const oldestTrack = Math.min(...trackYears)
   const newestTrack = Math.max(...trackYears)
   let oldestTrackCount = 0
   trackYears.forEach((item) => {
     // check to see if there's more than 1 track from that oldest track year
-    if (item == oldestTrack) {      
+    if (item == oldestTrack) {
       oldestTrackCount++
     }
   })
   let newestTrackCount = 0
   trackYears.forEach((item) => {
     // check to see if there's more than 1 track from that oldest track year
-    if (item == newestTrack) {      
+    if (item == newestTrack) {
       newestTrackCount++
     }
   })
 
-  let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length  
+  // identify average year
+  let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
 
   // ---------------------------------------------------
   // data analysis and calculations, helper methods, etc
@@ -124,12 +126,9 @@ const createUserReport = (data) => {
   }
 
   // identify key range
-  let keyRange = {
-    // minKey: ,
-    // maxKey:
-  }
+  let keyRange = {}
 
-  // identify most/least common keys played
+  // create array of root keys for analysis
   let rootKeys = []
   for (let i = 0; i < trackKeys.length; i++) {
     rootKeys.push(trackKeys[i].charAt(0))
@@ -137,15 +136,19 @@ const createUserReport = (data) => {
   let rootKeyCount = [...rootKeys].reduce((a, e) => {
     a[e] = a[e] ? a[e] + 1 : 1
     return a
-  }, {})
-  console.log('ROOT KEY COUNT: ')
-  console.log(rootKeyCount)
+  }, {})  
+
+  // identify most common key played & x times
   let mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
     rootKeyCount[a] > rootKeyCount[b] ? a : b
   )
+  let mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
+
+  // identify least common key played & x times
   let leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
     rootKeyCount[a] < rootKeyCount[b] ? a : b
   )
+  let leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
 
   // identify average BPM
   let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
@@ -160,9 +163,19 @@ const createUserReport = (data) => {
   const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
   shortestTrack = masterTrackLog[shortestTrackIndex]
 
-  // doubles array
-  // add logic to determine consecutive doubles
+  // check for doubles and parse titles
   const doublesPlayed = []
+  const doublesTitles = []
+  for (let i = 0; i < masterTrackLog.length - 1; i++) {
+    if (masterTrackLog[i].name === masterTrackLog[i + 1].name) {
+      doublesPlayed.push(masterTrackLog[i], masterTrackLog[i + 1])
+      doublesTitles.push({
+        artist: masterTrackLog[i].artist,
+        name: masterTrackLog[i].name,
+      })
+    }
+  }
+  const doublesCount = doublesPlayed.length / 2  
 
   // duplicates array
   // add logic to determine non-conseuctive duplicates
@@ -177,7 +190,7 @@ const createUserReport = (data) => {
   console.log(chalk.magenta('TRACK DATA SAMPLE:'))
   console.log(data[5])
   console.log('----------------------------------')
-  console.log(chalk.cyan("PLAYLIST QUICK STATS: "))
+  console.log(chalk.cyan('PLAYLIST QUICK STATS: '))
   // console.log('Playlist Artist: ', playlistArtist)
   console.log('Playlist Title: ', playlistTitle)
   console.log('Playlist Length: ', playlistLength)
@@ -187,30 +200,32 @@ const createUserReport = (data) => {
   console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
   console.log('Longest Track: ', longestTrack.playtime)
-  console.log('Shortest Track: ', shortestTrack.playtime)  
+  console.log('Shortest Track: ', shortestTrack.playtime)
   console.log('Number of tracks with null genre values: ', nullGenreCount)
   console.log('Number of unique genres played: ', uniqueGenres.size)
   console.log('----------------------------------')
   console.log(chalk.magenta('BPM DATA: '))
   console.log('Average BPM: ', averageBPM.toFixed(2))
+  console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
   console.log('----------------------------------')
   console.log(chalk.magenta('KEY DATA: '))
   console.log('Most Common Key: ', mostCommonKey)
+  console.log('x Played: ', mostCommonKeyCount)
   console.log('Least Common Key: ', leastCommonKey)
-  console.log("Number of tracks with null key values: ", nullKeyCount)
-  console.log("Number of tracks with proper tags: ", trackKeys.length)
-  console.log('----------------------------------')  
-  console.log(chalk.magenta("YEAR DATA: "))
-  // console.log(trackYears)
-  console.log("Oldest Track Year: ", oldestTrack)
-  console.log("Count: ", oldestTrackCount)
-  console.log("Newest Track Year: ", newestTrack)
-  console.log("Count: ", newestTrackCount)
-  console.log("Average Year: ", averageYear.toFixed())
-
-  // year tag analysis from the set
-  console.log("Number of tracks with null year values: ", nullYearCount)
-  console.log("Number of tracks with proper tags: ", trackYears.length)
+  console.log('x Played: ', leastCommonKeyCount)
+  console.log('Number of tracks with null key values: ', nullKeyCount)
+  console.log('Number of tracks with proper tags: ', trackKeys.length)
+  console.log('----------------------------------')
+  console.log(chalk.magenta('YEAR DATA: '))
+  console.log('Oldest Track Year: ', oldestTrack)
+  console.log('Count: ', oldestTrackCount)
+  console.log('Newest Track Year: ', newestTrack)
+  console.log('Count: ', newestTrackCount)
+  console.log('Average Year: ', averageYear.toFixed())
+  console.log('----------------------------------')
+  console.log(chalk.magenta('DOUBLES DATA: '))
+  console.log('Doubles Played: ', doublesCount)
+  console.log('Doubles Titles: ', doublesTitles)
 }
 
 module.exports = createUserReport
