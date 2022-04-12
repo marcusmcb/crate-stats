@@ -1,3 +1,5 @@
+const chalk = require('chalk')
+
 const createUserReport = (data) => {
   // fields exported by user are set in the history panel
   // any fields displayed in that panel will be exported with .csv
@@ -51,8 +53,13 @@ const createUserReport = (data) => {
 
   // array of keys
   const trackKeys = []
+  let nullKeyCount = 0
   masterTrackLog.forEach((track) => {
-    trackKeys.push(track.key)
+    if (track.key != '') {
+      trackKeys.push(track.key)
+    } else {
+      nullKeyCount++
+    }    
   })
 
   // array of track year values
@@ -64,7 +71,24 @@ const createUserReport = (data) => {
     } else {
       nullYearCount++
     }
+  }) 
+  
+  // array of genre tags
+  let trackGenres = []
+  let nullGenreCount = 0
+  masterTrackLog.forEach((track) => {
+    if (track.genre != '') {
+      trackGenres.push(track.genre)
+    } else {
+      nullGenreCount++
+    }
   })  
+
+  // identify number of unique genres played
+  let genreCount = {}
+  trackGenres.forEach((item) => { genreCount[item] = (genreCount[item] || 0) + 1 })
+  console.log(genreCount)
+  let uniqueGenres = new Set(trackGenres)  
 
   // identify oldest track
   const oldestTrack = Math.min(...trackYears)  
@@ -150,28 +174,33 @@ const createUserReport = (data) => {
 
   // console.log('CSV HEADER: ', data[0])
   // console.log('----------------------------------')
-  console.log('TRACK DATA SAMPLE:')
+  console.log(chalk.magenta('TRACK DATA SAMPLE:'))
   console.log(data[5])
   console.log('----------------------------------')
+  console.log(chalk.cyan("PLAYLIST QUICK STATS: "))
   // console.log('Playlist Artist: ', playlistArtist)
   console.log('Playlist Title: ', playlistTitle)
   console.log('Playlist Length: ', playlistLength)
   console.log('Start Time: ', playlistStartTime)
   console.log('End Time: ', playlistEndTime)
   console.log('----------------------------------')
-  console.log('TRACK DATA: ')
+  console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
   console.log('Longest Track: ', longestTrack.playtime)
-  console.log('Shortest Track: ', shortestTrack.playtime)
+  console.log('Shortest Track: ', shortestTrack.playtime)  
+  console.log('Number of tracks with null genre values: ', nullGenreCount)
+  console.log('Number of unique genres played: ', uniqueGenres.size)
   console.log('----------------------------------')
-  console.log('BPM DATA: ')
+  console.log(chalk.magenta('BPM DATA: '))
   console.log('Average BPM: ', averageBPM.toFixed(2))
   console.log('----------------------------------')
-  console.log('KEY DATA: ')
+  console.log(chalk.magenta('KEY DATA: '))
   console.log('Most Common Key: ', mostCommonKey)
   console.log('Least Common Key: ', leastCommonKey)
+  console.log("Number of tracks with null key values: ", nullKeyCount)
+  console.log("Number of tracks with proper tags: ", trackKeys.length)
   console.log('----------------------------------')  
-  console.log("YEAR DATA: ")
+  console.log(chalk.magenta("YEAR DATA: "))
   // console.log(trackYears)
   console.log("Oldest Track Year: ", oldestTrack)
   console.log("Count: ", oldestTrackCount)
