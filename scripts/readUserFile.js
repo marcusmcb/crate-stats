@@ -1,4 +1,4 @@
-const csvFilePath = './data/test.csv'
+const csvFilePath = './data/normal_dj_set.csv'
 const csv = require('csvtojson')
 
 const readUserFile = async () => {
