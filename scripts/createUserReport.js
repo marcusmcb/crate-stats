@@ -47,15 +47,21 @@ const createUserReport = (data) => {
 
   // array of keys
   const trackKeys = []
+  let tempKeys = []
   let nullKeyCount = 0
   masterTrackLog.forEach((track) => {
     if (track.key != '') {
       // add validation to check which key format the data is in
       trackKeys.push(track.key)
+      tempKeys.push({
+        rootKey: track.key.charAt(0),
+        keyTone: track.key.substring(1),
+        playtime: track.playtime
+      })
     } else {
       nullKeyCount++
     }
-  })
+  })  
 
   // array of track year values
   const trackYears = []
@@ -71,7 +77,7 @@ const createUserReport = (data) => {
   })
 
   // array of genre tags
-  let trackGenres = []
+  let trackGenres = []  
   let nullGenreCount = 0
   masterTrackLog.forEach((track) => {
     if (track.genre != '') {
@@ -79,7 +85,27 @@ const createUserReport = (data) => {
     } else {
       nullGenreCount++
     }
+  })  
+
+  let tempTrackGenres = []
+  let tempNullGenreCount = 0
+  masterTrackLog.forEach((track) => {
+    if (track.genre != '') {
+      let found = tempTrackGenres.some(item => item.genre === track.genre)
+      if (!found) {
+        tempTrackGenres.push({
+          genre: track.genre,
+          count: 1
+        })
+      } else {
+        tempTrackGenres[track.genre].count = tempTrackGenres[track.genre].count + 1
+      }
+    } else {  
+      tempNullGenreCount++
+    }
   })
+
+  console.log(tempTrackGenres)
 
   // -------------------------------------
   //      track / year stats
@@ -152,8 +178,8 @@ const createUserReport = (data) => {
       newArray.push(array[i] - array[i - 1])
     bpmChangeIndex = newArray.indexOf(Math.max(...newArray))
     return newArray
-  }  
-  const largestBPMDifference = Math.max(...calculateBPMChanges(bpmArray))  
+  }
+  const largestBPMDifference = Math.max(...calculateBPMChanges(bpmArray))
 
   // -------------------------------------
   //      genre data / analysis
@@ -228,7 +254,7 @@ const createUserReport = (data) => {
   let majorMinor = []
   for (let i = 0; i < trackKeys.length; i++) {
     majorMinor.push(trackKeys[i].substring(1))
-  }  
+  }
 
   // -------------------------------------
   //      doubles analysis & stats
@@ -335,9 +361,9 @@ const createUserReport = (data) => {
   console.log(
     'Largest BPM Change Between Two Tracks: ',
     masterTrackLog[bpmChangeIndex].bpm,
-    "BPM -",
+    'BPM -',
     masterTrackLog[bpmChangeIndex + 1].bpm,
-    "BPM"
+    'BPM'
   )
   console.log('----------------------------------')
 
