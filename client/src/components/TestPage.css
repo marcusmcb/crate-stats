@@ -1,0 +1,44 @@
+.testpage-body {  
+  margin-left: 5vw;
+  margin-right: 5vw;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px dotted black;
+  border-bottom: 1px dotted black;
+}
+
+.testpage-block,
+.testpage-headerblock,
+.testpage-trackblock,
+.testpage-dataviz {
+  margin: 10px;
+  background-color: lightgrey;  
+  padding: 10px;
+}
+
+.testpage-headerblock,
+.testpage-trackblock,
+.testpage-dataviz {
+  display: flex;  
+  flex-direction: row;
+  text-align: center;  
+}
+
+.trackblock-dataviz {
+  background-color: red;
+  
+}
+
+.headerblock-text,
+.trackblock-text {
+ background-color: grey;
+ color: white; 
+ width: 100%;
+}
+
+@media (max-width: 800px) {
+  .testpage-headerblock {
+    flex-direction: column;
+  }
+}
+
