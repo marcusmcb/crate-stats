@@ -8,10 +8,10 @@ const TestReport = () => {
     <Fragment>
       <Titlebar />
       <div className='testpage-body'>
-        <div className='testpage-headerblock'>
+        <div className='headerblock'>
           <div className='headerblock-text'>
             <p>Playlist Stats For:</p>
-            <p>Playlist Stats For DJ Marcus McBride</p>
+            <p>DJ Marcus McBride</p>
           </div>
           <div className='headerblock-text'>
             <p>Playlist Title</p>

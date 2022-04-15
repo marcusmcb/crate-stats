@@ -8,7 +8,7 @@
 }
 
 .testpage-block,
-.testpage-headerblock,
+.headerblock,
 .testpage-trackblock,
 .testpage-dataviz {
   margin: 10px;
@@ -16,7 +16,7 @@
   padding: 10px;
 }
 
-.testpage-headerblock,
+.headerblock,
 .trackblock {
   display: flex;  
   flex-direction: row;
@@ -38,9 +38,9 @@
 }
 
 @media (max-width: 800px) {
-  .testpage-headerblock,
+  .headerblock,
   .trackblock {
     flex-direction: column;
-  }
+  };  
 }
 
