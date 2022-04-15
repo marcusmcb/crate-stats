@@ -20,38 +20,42 @@ const TestReport = () => {
         </div>
 
         <div className='testpage-trackblock'>
-          <div className='trackblock-text'>
-            <p>Track Stats:</p>
-            <div>
-              <p>(data viz goes here)</p>
+          <div className='trackblock'>
+            <div className='trackblock-text'>
+              <p>Track Stats:</p>              
+            </div>
+            <div className='trackblock-text'>
+              <p>Total Tracks Played:</p>
+              <p>Average Track Length:</p>
+              <p>Longest Track:</p>
+              <p>Shortest Track:</p>
             </div>
           </div>
-          <div className='trackblock-text'>
-            <p>Total Tracks Played:</p>
-            <p>Average Track Length:</p>
-            <p>Longest Track:</p>
-            <p>Shortest Track:</p>
+          <div>
+            <div className='trackblock-dataviz'>(data viz goes here)</div>
           </div>
         </div>
-        <div>
-          <div className='trackblock-dataviz'>HERE</div>
-        </div>
-        
+
         <div className='testpage-block'>
           <p>Deck Stats:</p>
         </div>
+
         <div className='testpage-block'>
           <p>BPM Data:</p>
         </div>
+
         <div className='testpage-block'>
           <p>Genre Data:</p>
         </div>
+
         <div className='testpage-block'>
           <p>Key Data:</p>
         </div>
+
         <div className='testpage-block'>
           <p>Year Data:</p>
         </div>
+        
         <div className='testpage-block'>
           <p>Doubles Data:</p>
         </div>

@@ -17,16 +17,17 @@
 }
 
 .testpage-headerblock,
-.testpage-trackblock,
-.testpage-dataviz {
+.trackblock {
   display: flex;  
   flex-direction: row;
   text-align: center;  
 }
 
 .trackblock-dataviz {
-  background-color: red;
-  
+  background-color: lightslategrey;
+  color:white;
+  text-align: center;
+  height: 15vh;
 }
 
 .headerblock-text,
@@ -37,7 +38,8 @@
 }
 
 @media (max-width: 800px) {
-  .testpage-headerblock {
+  .testpage-headerblock,
+  .trackblock {
     flex-direction: column;
   }
 }
