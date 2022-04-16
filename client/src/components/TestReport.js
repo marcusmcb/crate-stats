@@ -8,56 +8,26 @@ const TestReport = () => {
     <Fragment>
       <Titlebar />
       <div className='testpage-body'>
-        <div className='headerblock'>
-          <div className='headerblock-text'>
-            <p>Playlist Stats For:</p>
-            <p>DJ Marcus McBride</p>
-          </div>
-          <div className='headerblock-text'>
-            <p>Playlist Title</p>
-            <p>March 29th, 2022</p>
-          </div>
-        </div>
-
-        <div className='testpage-trackblock'>
-          <div className='trackblock'>
-            <div className='trackblock-text'>
-              <p>Track Stats:</p>              
+        <div className='data-block'>
+          <div className='data-block-toprow'>
+            <div className='data-block-primary'>
+              <div className='data-block-primary-header'>
+                Total Tracks Played
+              </div>
+              <div className='data-block-primary-value'>64</div>
             </div>
-            <div className='trackblock-text'>
-              <p>Total Tracks Played:</p>
-              <p>Average Track Length:</p>
-              <p>Longest Track:</p>
-              <p>Shortest Track:</p>
+            <div className='data-block-secondary'>
+              <div className='data-block-secondary-column-left'>
+                <div className='data-block-secondary-header'>Longest Track:</div>               
+                <div className='data-block-secondary-value'>Your Mom Is A Cab Driver (4:35)</div> 
+                <div className='data-block-secondary-header'>Shortest Track:</div>               
+                <div className='data-block-secondary-value'>Your Dad Ate My Candy Bar (0:19)</div> 
+              </div>
+              <div className='data-block-secondary-column-right'>
+                <div>Hello World2</div>                
+              </div>
             </div>
           </div>
-          <div>
-            <div className='trackblock-dataviz'>(data viz goes here)</div>
-          </div>
-        </div>
-
-        <div className='testpage-block'>
-          <p>Deck Stats:</p>
-        </div>
-
-        <div className='testpage-block'>
-          <p>BPM Data:</p>
-        </div>
-
-        <div className='testpage-block'>
-          <p>Genre Data:</p>
-        </div>
-
-        <div className='testpage-block'>
-          <p>Key Data:</p>
-        </div>
-
-        <div className='testpage-block'>
-          <p>Year Data:</p>
-        </div>
-        
-        <div className='testpage-block'>
-          <p>Doubles Data:</p>
         </div>
       </div>
     </Fragment>

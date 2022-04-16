@@ -1,4 +1,4 @@
-.testpage-body {  
+.testpage-body {
   margin-left: 5vw;
   margin-right: 5vw;
   border-left: 1px solid black;
@@ -7,40 +7,83 @@
   border-bottom: 1px dotted black;
 }
 
-.testpage-block,
-.headerblock,
-.testpage-trackblock,
-.testpage-dataviz {
+.data-block {
   margin: 10px;
-  background-color: lightgrey;  
+  background-color: rgba(54, 72, 69, 255);
   padding: 10px;
+  height: 100vh;
 }
 
-.headerblock,
-.trackblock {
-  display: flex;  
+.data-block-toprow {
+  height: 125px;
+  display: flex;
   flex-direction: row;
-  text-align: center;  
 }
 
-.trackblock-dataviz {
-  background-color: lightslategrey;
-  color:white;
+.data-block-primary,
+.data-block-secondary {
+  color: white;
+  background-color: rgba(76, 94, 91, 255);
+  margin: 5px;
+}
+
+.data-block-secondary {
+  flex-grow: 1;
+}
+
+.data-block-secondary {
+  display: flex;
+  flex-direction: row;
+}
+
+.data-block-secondary-column-left,
+.data-block-secondary-column-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-block-primary-header,
+.data-block-secondary-header {
+  color: rgba(145, 206, 201, 255);
+  padding: 10px 15px 0px;
+}
+
+.data-block-primary-header {
+  font-weight: 600;
+  font-size: 0.9em;
   text-align: center;
-  height: 15vh;
 }
 
-.headerblock-text,
-.trackblock-text {
- background-color: grey;
- color: white; 
- width: 100%;
+.data-block-secondary-header {
+  font-size: 0.8em;
+}
+
+.data-block-primary-value,
+.data-block-secondary-value {
+  color: white;  
+}
+
+.data-block-primary-value {
+  font-size: 50px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.data-block-secondary-value {
+  margin-left: 15px;
+
 }
 
 @media (max-width: 800px) {
-  .headerblock,
-  .trackblock {
+  .data-block,
+  .data-block-toprow,
+  .data-block-secondary {
     flex-direction: column;
-  };  
+  }
 }
 
+@media (max-width: 520px) {
+  .data-block-primary-value {
+    font-size: 35px;
+  }
+}
