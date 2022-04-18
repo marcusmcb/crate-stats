@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react'
 import Titlebar from './Titlebar'
+import MinuteText from './spantext/minuteText'
+import MinutesText from './spantext/minutesText'
 
 import './TestPage.css'
 
 const TestReport = () => {
+  let dummyValue = 4
+
   return (
     <Fragment>
       <Titlebar />
@@ -22,20 +26,20 @@ const TestReport = () => {
                   Longest Track:
                 </div>
                 <div className='data-block-secondary-value'>
-                  Your Mom Is A Cab Driver (4:35)
+                  Your Mom Is A Cab Driver (4:43)
                 </div>
                 <div className='data-block-secondary-caption'>
                   (played at <span className='secondary-caption'>8:32 PM</span>)
-                </div>                
+                </div>
                 <div className='data-block-secondary-header'>
-                  Longest Track:
+                  Shortest Track:
                 </div>
                 <div className='data-block-secondary-value'>
-                  Your Mom Is A Cab Driver (4:35)
+                  Your Dad Eats Cashews (2:21)
                 </div>
                 <div className='data-block-secondary-caption'>
-                  (played at <span className='secondary-caption'>8:32 PM</span>)
-                </div>                
+                  (played at <span className='secondary-caption'>10:14 PM</span>)
+                </div>
               </div>
               <div className='data-block-secondary-column-right'>
                 <div className='data-block-tertiary-header'>

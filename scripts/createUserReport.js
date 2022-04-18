@@ -320,8 +320,6 @@ const createUserReport = (data) => {
   console.log('Playlist Title: ', playlistTitle)
   console.log('Playlist Length: ', playlistLength)
   
-  // PUT HOURLY TRACK AVERAGES HERE
-
   console.log(
     playlistLengthParsed.getHours(),
     'Hours',
