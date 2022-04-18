@@ -102,6 +102,23 @@ const createUserReport = (data) => {
     return (val1 / val2) * 100
   }
 
+  // number of tracks played per hour for each hour
+  let trackStartTimes = []  
+  masterTrackLog.forEach((track) => {    
+    trackStartTimes.push(new Date('01/01/2020 ' + track['start time']).getTime())
+  })
+  let MS_PER_HOURS = 3600 * 1000
+  let tempStartTime = trackStartTimes[0]
+  let tracksPerHour = []
+  trackStartTimes.forEach((input) => {
+    let hour = Math.floor((input - tempStartTime) / MS_PER_HOURS)
+    if (!tracksPerHour[hour]) tracksPerHour[hour] = []
+    tracksPerHour[hour].push(input)
+  })      
+  
+  // identify average tracks played per hour
+  let averageTracksPerHour = totalTracksPlayed / tracksPerHour.length
+  
   // identify average track length
   let averageTrackLength = calculateAverageTime(trackLengths)
 
@@ -302,6 +319,9 @@ const createUserReport = (data) => {
   // console.log('Playlist Artist: ', playlistArtist)
   console.log('Playlist Title: ', playlistTitle)
   console.log('Playlist Length: ', playlistLength)
+  
+  // PUT HOURLY TRACK AVERAGES HERE
+
   console.log(
     playlistLengthParsed.getHours(),
     'Hours',
@@ -317,6 +337,11 @@ const createUserReport = (data) => {
   console.log(chalk.magenta('TRACK DATA: '))
   console.log('Total Tracks Played: ', totalTracksPlayed)
   console.log('Average Track Length: ', averageTrackLength.substring(3))
+  console.log('Average Tracks Played Per Hour: ', averageTracksPerHour.toFixed())
+  console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
+  for (let i = 0; i < tracksPerHour.length; i++) {
+    console.log("Hour " + (i + 1) + ": " + tracksPerHour[i].length + " tracks.")    
+  }
   console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
   console.log(
     'Longest Track: ',
