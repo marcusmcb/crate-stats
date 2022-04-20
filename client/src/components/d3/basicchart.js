@@ -7,9 +7,7 @@ function BarChart({ width, height, data }) {
   useEffect(() => {
     const svg = d3
       .select(ref.current)
-      .attr('width', width)
-      .attr('height', height)
-      // .style('border', '1px solid black')
+      .attr("viewBox", `0 0 auto 600`)      
   }, [])
 
   useEffect(() => {
@@ -22,7 +20,7 @@ function BarChart({ width, height, data }) {
     var yScale = d3
       .scaleLinear()
       .domain([0, d3.max(data)])
-      .range([0, height - 100])
+      .range([0, height - 10])
 
     selection
       .transition()
@@ -33,9 +31,9 @@ function BarChart({ width, height, data }) {
     selection
       .enter()
       .append('rect')
-      .attr('x', (d, i) => i * 45)
+      .attr('x', (d, i) => i * 35)
       .attr('y', (d) => height)
-      .attr('width', 40)
+      .attr('width', 30)
       .attr('height', 0)
       .attr('fill', 'rgba(145, 206, 201, 255)')
       .transition()
