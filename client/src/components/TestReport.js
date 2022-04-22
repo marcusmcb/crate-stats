@@ -34,7 +34,7 @@ const TestReport = () => {
       <div className="testpage-body">
         <div className="data-block">
           <div className="data-block-toprow">
-            <div className="foo">
+            <div className="toprow-container">
               <div className="data-block-primary">
                 <div className="data-block-primary-header">
                   Total Tracks Played
@@ -43,23 +43,23 @@ const TestReport = () => {
               </div>
 
               <div className="data-block-secondary">
-                <div className="column-row">
-                  <div className="data-block-tertiary-header">
+                <div className="secondary-container">
+                  <div className="secondary-container-header">
                     Average Track Length
                   </div>
-                  <div className="data-block-tertiary-value">2:33</div>
-                  <div className="data-block-tertiary-header">
+                  <div className="secondary-container-value">2:33</div>
+                  <div className="secondary-container-header">
                     Average Tracks Per Hour
                   </div>
-                  <div className="data-block-tertiary-value">21</div>
+                  <div className="secondary-container-value">21</div>
                 </div>
               </div>
             </div>
 
             <div className="data-block-third">
-              <div className="data-block-secondary-column-left">
-                <div className="column-item">
-                  <div className="data-block-secondary-header">
+              <div className="tertiary-container">
+                <div className="tertiary-item">
+                  <div className="tertiary-item-header">
                     Longest Track:
                   </div>
                   <div className="timer-line">
@@ -72,16 +72,16 @@ const TestReport = () => {
                       <SecondsText />
                     </span>
                   </div>
-                  <div className="data-block-secondary-value">
+                  <div className="tertiary-item-value">
                     Your Mom Is A Cab Driver (4:43)
                   </div>
-                  <div className="data-block-secondary-caption">
+                  <div className="tertiary-item-caption">
                     (played at{" "}
-                    <span className="secondary-caption">8:32 PM</span>)
+                    <span className="tertiary-item-timestamp">8:32 PM</span>)
                   </div>
                 </div>
-                <div className="column-item">
-                  <div className="data-block-secondary-header">
+                <div className="tertiary-item">
+                  <div className="tertiary-item-header">
                     Shortest Track:
                   </div>
                   <div className="timer-line">
@@ -94,12 +94,12 @@ const TestReport = () => {
                       <SecondsText />
                     </span>
                   </div>
-                  <div className="data-block-secondary-value">
+                  <div className="tertiary-item-value">
                     Your Dad Eats Cashews (2:21)
                   </div>
-                  <div className="data-block-secondary-caption">
+                  <div className="tertiary-item-caption">
                     (played at{" "}
-                    <span className="secondary-caption">10:14 PM</span>)
+                    <span className="tertiary-item-timestamp">10:14 PM</span>)
                   </div>
                 </div>
               </div>
