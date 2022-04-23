@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Titlebar from "./Titlebar";
+import DragAndDrop from "./DragAndDrop";
 import MinuteText from "./spantext/minuteText";
 import MinutesText from "./spantext/minutesText";
 import SecondText from "./spantext/secondText";
@@ -31,6 +32,7 @@ const TestReport = () => {
   return (
     <Fragment>
       <Titlebar />
+      <DragAndDrop />
       <div className="testpage-body">
         <div className="data-block">
           <div className="data-block-toprow">

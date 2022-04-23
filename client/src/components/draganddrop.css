@@ -1,0 +1,13 @@
+.foo {
+  font-family: 'Exo 2', sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+}
+label {
+  width: 350px;
+  box-sizing: border-box;
+}
