@@ -1,7 +1,7 @@
 const csvFilePath = './data/normal_dj_set.csv'
 const csv = require('csvtojson')
 
-const readUserFile = async () => {
+const readUserFile = async () => {    
   let userData
   try {
     await csv()
@@ -9,9 +9,10 @@ const readUserFile = async () => {
       .then((response) => {
         userData = response
       })
-  } catch (error) {
+  } catch(error) {
     console.log(error)
   }
+  console.log("USER DATA: ", userData[1])
   return userData
 }
 

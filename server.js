@@ -2,6 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
+const csv = require('csvtojson')
+
 const createReport = require('./scripts/createReport')
 const readUserFile = require('./scripts/readUserFile')
 const createUserReport = require('./scripts/createUserReport')
@@ -18,6 +20,13 @@ app.post('/createReport', async (req, res) => {
   let userReport = await createUserReport(userData)  
   const url = req.body.url
   res.send(await createReport(url))
+})
+
+app.post('/sendFile', async (req, res) => {  
+  // console.log("REQ.BODY **************************** ", req.body)   
+  let userReport = await createUserReport(req.body)
+  // console.log("USER REPORT? ", userReport)
+  res.send("YUP")
 })
 
 app.listen(PORT, () => {

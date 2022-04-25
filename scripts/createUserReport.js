@@ -8,6 +8,7 @@ const createUserReport = (data) => {
 
   // master array of tracks played
   const masterTrackLog = data.slice(1)
+  masterTrackLog.pop()
 
   // -----------------------------
   // playlist meta info in data[0]
