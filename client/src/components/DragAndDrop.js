@@ -17,8 +17,9 @@ const DragAndDrop = () => {
       header: true,
       complete: results => {
         setParsedCsvData(results.data)
+        event.reset()
       }
-    })    
+    })        
     console.log(parsedCsvData)
     axios.post('http://localhost:5000/sendFile', parsedCsvData).then((response) => {
       console.log('* * * * * * * * * RESPONSE FROM EXPRESS: ', response)

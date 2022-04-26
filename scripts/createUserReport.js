@@ -2,6 +2,7 @@ const chalk = require('chalk')
 const calculateAverageTime = require('./calculateAverageTime')
 
 const createUserReport = (data) => {
+  console.log(data)
   // fields exported by user are set in the history panel
   // any fields displayed in that panel will be exported with .csv
   // extended values are NOT available in Serato live plalyist scrape (tested & verified)
