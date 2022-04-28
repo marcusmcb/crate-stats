@@ -11,3 +11,11 @@ label {
   width: 350px;
   box-sizing: border-box;
 }
+
+.drop-green {
+  color: green;
+}
+
+.drop-grey {
+  color: grey;
+}
