@@ -61,8 +61,6 @@ const createUserReport = (data) => {
     }
   })
 
-  console.log(trackLengths)
-
   // array of keys
   const trackKeys = []
   let tempKeys = []
@@ -89,12 +87,12 @@ const createUserReport = (data) => {
   const trackYears = []
   let nullYearCount = 0
   masterTrackLog.forEach((track) => {
-    if (track.year != '') {
+    if (!track.year || track.year != '') {
+      nullYearCount++
+    } else {
       // add validation to check year is in YYYY format
       // count rejected year tags
       trackYears.push(new Number(track.year))
-    } else {
-      nullYearCount++
     }
   })
 
@@ -102,10 +100,10 @@ const createUserReport = (data) => {
   let trackGenres = []
   let nullGenreCount = 0
   masterTrackLog.forEach((track) => {
-    if (track.genre != '') {
-      trackGenres.push(track.genre)
-    } else {
+    if (!track.genre || track.genre != '') {
       nullGenreCount++
+    } else {
+      trackGenres.push(track.genre)
     }
   })
 
@@ -142,7 +140,12 @@ const createUserReport = (data) => {
   let averageTrackLength = calculateAverageTime(trackLengths)
 
   // identify average year
-  let averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
+  let averageYear
+  if (trackYears.length === 0) {
+    averageYear = 'No Data Available'
+  } else {
+    averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
+  }
 
   // longest track
   let longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
@@ -164,7 +167,9 @@ const createUserReport = (data) => {
   let oldestTrackCount = 0
   masterTrackLog.forEach((track) => {
     // check to see if there's more than 1 track from that oldest track year
-    if (track.year == oldestTrack) {
+    if (!track.year || track.year === '') {
+      oldestTracks = 'No Data Available'
+    } else if (track.year == oldestTrack) {
       oldestTrackCount++
       oldestTracks.push(track)
     }
@@ -213,7 +218,7 @@ const createUserReport = (data) => {
   })
   let uniqueGenres = new Set(trackGenres)
 
-  // identify top three genres played (discounting "Other" if it's the top genre)
+  // identify top three genres played (discounting "Other" or 'undefined' if it's the top genre)
   let topThreeGenres = []
   let otherGenreCount
   let topGenresPlayed = Object.keys(genreCount)
@@ -247,6 +252,13 @@ const createUserReport = (data) => {
   //      key analysis & stats
   // -------------------------------------
 
+  let mostCommonKey,
+    mostCommonKeyCount,
+    mostCommonKeyPlaytime,
+    leastCommonKey,
+    leastCommonKeyCount,
+    leastCommonKeyPlaytime
+
   if (trackKeys.length !== 0) {
     // create array of root keys for analysis
     let rootKeys = []
@@ -259,18 +271,18 @@ const createUserReport = (data) => {
     }, {})
 
     // identify most common key played & x times
-    let mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
+    mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] > rootKeyCount[b] ? a : b
     )
-    let mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
-    let mostCommonKeyPlaytime = ''
+    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
+    mostCommonKeyPlaytime = ''
 
     // identify least common key played & x times
-    let leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
+    leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] < rootKeyCount[b] ? a : b
     )
-    let leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
-    let leastCommonKeyPlaytime = ''
+    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
+    leastCommonKeyPlaytime = ''
 
     // identify most common key major/minor
     let majorMinor = []
@@ -320,12 +332,18 @@ const createUserReport = (data) => {
   let deckOnePlaytimes = []
   let deckTwoPlaytimes = []
   masterTrackLog.forEach((track) => {
-    if (track.deck === '1') {
-      deckOnePlaytimes.push(track.playtime)
-    } else if (track.deck === '2') {
-      deckTwoPlaytimes.push(track.playtime)
+    if (track.playtime === '') {
+      let d = new Date()
+      let timetext = d.toTimeString().split(' ')[0]
+      trackLengths.push(timetext)
     } else {
-      console.log('No data.')
+      if (track.deck === '1') {
+        deckOnePlaytimes.push(track.playtime)
+      } else if (track.deck === '2') {
+        deckTwoPlaytimes.push(track.playtime)
+      } else {
+        console.log('No data.')
+      }
     }
   })
   const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
@@ -454,7 +472,12 @@ const createUserReport = (data) => {
   console.log('Count: ', oldestTrackCount)
   console.log('Newest Track Year: ', newestTrack)
   console.log('Count: ', newestTrackCount)
-  console.log('Average Year: ', averageYear.toFixed())
+  if (typeof averageYear === 'string') {
+    console.log('YUP')
+    console.log('Average Year: ', averageYear)
+  } else {
+    console.log('Average Year: ', averageYear.toFixed())
+  }
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
     calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
