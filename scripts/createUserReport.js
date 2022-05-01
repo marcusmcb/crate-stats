@@ -87,7 +87,7 @@ const createUserReport = (data) => {
   const trackYears = []
   let nullYearCount = 0
   masterTrackLog.forEach((track) => {
-    if (!track.year || track.year != '') {
+    if (!track.year || track.year === '') {
       nullYearCount++
     } else {
       // add validation to check year is in YYYY format
@@ -100,7 +100,7 @@ const createUserReport = (data) => {
   let trackGenres = []
   let nullGenreCount = 0
   masterTrackLog.forEach((track) => {
-    if (!track.genre || track.genre != '') {
+    if (!track.genre || track.genre === '') {
       nullGenreCount++
     } else {
       trackGenres.push(track.genre)
@@ -108,7 +108,7 @@ const createUserReport = (data) => {
   })
 
   // -------------------------------------
-  //      track / year stats
+  //      track stats
   // -------------------------------------
 
   // number of tracks played
@@ -167,9 +167,7 @@ const createUserReport = (data) => {
   let oldestTrackCount = 0
   masterTrackLog.forEach((track) => {
     // check to see if there's more than 1 track from that oldest track year
-    if (!track.year || track.year === '') {
-      oldestTracks = 'No Data Available'
-    } else if (track.year == oldestTrack) {
+    if (track.year == oldestTrack) {
       oldestTrackCount++
       oldestTracks.push(track)
     }
@@ -472,12 +470,10 @@ const createUserReport = (data) => {
   console.log('Count: ', oldestTrackCount)
   console.log('Newest Track Year: ', newestTrack)
   console.log('Count: ', newestTrackCount)
-  if (typeof averageYear === 'string') {
-    console.log('YUP')
-    console.log('Average Year: ', averageYear)
-  } else {
-    console.log('Average Year: ', averageYear.toFixed())
-  }
+  console.log('Average Year', (averageYear) => {
+    console.log(averageYear)
+  })
+
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
     calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
