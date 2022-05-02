@@ -316,8 +316,9 @@ const createUserReport = (data) => {
       deck2Doubles.push(track.playtime)
     }
   })
-  const deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
-  const deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
+  
+  // const deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
+  // const deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
 
   // duplicates array
   // add logic to determine non-conseuctive duplicates
@@ -376,11 +377,11 @@ const createUserReport = (data) => {
     'Average Tracks Played Per Hour: ',
     averageTracksPerHour.toFixed()
   )
-  console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
-  for (let i = 0; i < tracksPerHour.length; i++) {
-    console.log('Hour ' + (i + 1) + ': ' + tracksPerHour[i].length + ' tracks.')
-  }
-  console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
+  // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
+  // for (let i = 0; i < tracksPerHour.length; i++) {
+  //   console.log('Hour ' + (i + 1) + ': ' + tracksPerHour[i].length + ' tracks.')
+  // }
+  // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
   console.log(
     'Longest Track: ',
     longestTrack.playtime.substring(3),
@@ -484,8 +485,8 @@ const createUserReport = (data) => {
   console.log('----------------------------------')
   console.log(chalk.magenta('DOUBLES DATA: '))
   console.log('Doubles Played: ', doublesCount)
-  console.log('Average Deck 1 Time: ', deckOneDoublesPlaytime)
-  console.log('Average Deck 2 Time: ', deckTwoDoublesPlaytime)
+  // console.log('Average Deck 1 Time: ', deckOneDoublesPlaytime)
+  // console.log('Average Deck 2 Time: ', deckTwoDoublesPlaytime)
   console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
   console.log(
     doublesTitles.forEach((item) => console.log(item.artist, '-', item.name))

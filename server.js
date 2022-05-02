@@ -7,6 +7,7 @@ const csv = require('csvtojson')
 const createReport = require('./scripts/createReport')
 const readUserFile = require('./scripts/readUserFile')
 const createUserReport = require('./scripts/createUserReport')
+const createSeratoReport = require('./scripts/createSeratoReport')
 
 const PORT = 5000 || process.env.PORT
 const app = express()
@@ -24,7 +25,8 @@ app.post('/createReport', async (req, res) => {
 
 app.post('/sendFile', async (req, res) => {  
   // console.log("REQ.BODY **************************** ", req.body)    
-  let userReport = await createUserReport(req.body)
+  // let userReport = await createUserReport(req.body)
+  let userReport = await createSeratoReport(req.body)
   // console.log("USER REPORT? ", userReport)
   res.send("YUP")
 })
