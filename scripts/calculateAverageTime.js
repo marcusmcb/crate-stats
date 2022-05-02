@@ -1,9 +1,12 @@
-const calculateAverageTime = (arr) => {
-  console.log("ARR: ", arr)
-  var sum = arr.reduce(function (a, b) {
-    return a + +new Date('1970T' + b + 'Z')
-  }, 0)
-  return new Date(sum / arr.length + 500).toJSON().slice(11, 19)
+const calculateAverageTime = (array) => {
+  var times = [3600, 60, 1],
+        parts = array.map(s => s.split(':').reduce((s, v, i) => s + times[i] * v, 0)),
+        avg = Math.round(parts.reduce((a, b) => a + b, 0) / parts.length);
+
+    return times
+        .map(t => [Math.floor(avg / t), avg %= t][0])
+        .map(v => v.toString().padStart(2, 0))
+        .join(':');
 }
 
 module.exports = calculateAverageTime

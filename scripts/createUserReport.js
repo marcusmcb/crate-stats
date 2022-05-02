@@ -152,34 +152,34 @@ const createUserReport = (data) => {
   // let shortestTrackStartTime = shortestTrack['start time']
 
   // identify average year
-  let averageYear
-  if (trackYears.length === 0) {
-    averageYear = 'No Data Available'
-  } else {
-    averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
-  }
+  // let averageYear
+  // if (trackYears.length === 0) {
+  //   averageYear = 'No Data Available'
+  // } else {
+  //   averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
+  // }
 
   // identify oldest and newest tracks
-  let oldestTracks = []
-  let newestTracks = []
-  const oldestTrack = Math.min(...trackYears)
-  const newestTrack = Math.max(...trackYears)
-  let oldestTrackCount = 0
-  masterTrackLog.forEach((track) => {
-    // check to see if there's more than 1 track from that oldest track year
-    if (track.year == oldestTrack) {
-      oldestTrackCount++
-      oldestTracks.push(track)
-    }
-  })
-  let newestTrackCount = 0
-  masterTrackLog.forEach((track) => {
-    // check to see if there's more than 1 track from that oldest track year
-    if (track.year == newestTrack) {
-      newestTrackCount++
-      newestTracks.push(track)
-    }
-  })
+  // let oldestTracks = []
+  // let newestTracks = []
+  // const oldestTrack = Math.min(...trackYears)
+  // const newestTrack = Math.max(...trackYears)
+  // let oldestTrackCount = 0
+  // masterTrackLog.forEach((track) => {
+  //   // check to see if there's more than 1 track from that oldest track year
+  //   if (track.year == oldestTrack) {
+  //     oldestTrackCount++
+  //     oldestTracks.push(track)
+  //   }
+  // })
+  // let newestTrackCount = 0
+  // masterTrackLog.forEach((track) => {
+  //   // check to see if there's more than 1 track from that oldest track year
+  //   if (track.year == newestTrack) {
+  //     newestTrackCount++
+  //     newestTracks.push(track)
+  //   }
+  // })
 
   // -------------------------------------
   //      bpm analysis
@@ -328,47 +328,47 @@ const createUserReport = (data) => {
   //      deck analysis & stats
   // -------------------------------------
 
-  let deckOnePlaytimes = []
-  let deckTwoPlaytimes = []
-  masterTrackLog.forEach((track) => {
-    if (track.playtime === '') {
-      let d = new Date()
-      let timetext = d.toTimeString().split(' ')[0]
-      trackLengths.push(timetext)
-    } else {
-      if (track.deck === '1') {
-        deckOnePlaytimes.push(track.playtime)
-      } else if (track.deck === '2') {
-        deckTwoPlaytimes.push(track.playtime)
-      } else {
-        console.log('No data.')
-      }
-    }
-  })
-  const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
-  const deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
+  // let deckOnePlaytimes = []
+  // let deckTwoPlaytimes = []
+  // masterTrackLog.forEach((track) => {
+  //   if (track.playtime === '') {
+  //     let d = new Date()
+  //     let timetext = d.toTimeString().split(' ')[0]
+  //     trackLengths.push(timetext)
+  //   } else {
+  //     if (track.deck === '1') {
+  //       deckOnePlaytimes.push(track.playtime)
+  //     } else if (track.deck === '2') {
+  //       deckTwoPlaytimes.push(track.playtime)
+  //     } else {
+  //       console.log('No data.')
+  //     }
+  //   }
+  // })
+  // const deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
+  // const deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
 
   // console.log('CSV HEADER: ', data[0])
   // console.log('----------------------------------')
   // console.log(chalk.magenta('TRACK DATA SAMPLE:'))
   // console.log(data[5])
-  console.log('----------------------------------')
-  console.log(chalk.cyan('PLAYLIST QUICK STATS: '))
-  // console.log('Playlist Artist: ', playlistArtist)
-  console.log('Playlist Title: ', playlistTitle)
-  console.log('Playlist Length: ', playlistLength)
+  // console.log('----------------------------------')
+  // console.log(chalk.cyan('PLAYLIST QUICK STATS: '))
+  // // console.log('Playlist Artist: ', playlistArtist)
+  // console.log('Playlist Title: ', playlistTitle)
+  // console.log('Playlist Length: ', playlistLength)
 
-  console.log(
-    playlistLengthParsed.getHours(),
-    'Hours',
-    playlistLengthParsed.getMinutes(),
-    'Minutes',
-    playlistLengthParsed.getSeconds(),
-    'Seconds'
-  )
-  console.log('Start Time: ', playlistStartTime)
-  console.log('End Time: ', playlistEndTime)
-  console.log('----------------------------------')
+  // console.log(
+  //   playlistLengthParsed.getHours(),
+  //   'Hours',
+  //   playlistLengthParsed.getMinutes(),
+  //   'Minutes',
+  //   playlistLengthParsed.getSeconds(),
+  //   'Seconds'
+  // )
+  // console.log('Start Time: ', playlistStartTime)
+  // console.log('End Time: ', playlistEndTime)
+  // console.log('----------------------------------')
 
   console.log(chalk.magenta('TRACK DATA: '))
   // console.log('Total Tracks Played: ', totalTracksPlayed)
@@ -460,20 +460,20 @@ const createUserReport = (data) => {
   console.log('Number of tracks with proper tags: ', trackKeys.length)
   console.log('----------------------------------')
 
-  console.log(chalk.magenta('YEAR DATA: '))
-  console.log('Oldest Track Year: ', oldestTrack)
-  console.log(
-    'Oldest Track: ',
-    oldestTracks[0].artist,
-    '-',
-    oldestTracks[0].name
-  )
-  console.log('Count: ', oldestTrackCount)
-  console.log('Newest Track Year: ', newestTrack)
-  console.log('Count: ', newestTrackCount)
-  console.log('Average Year', (averageYear) => {
-    console.log(averageYear)
-  })
+  // console.log(chalk.magenta('YEAR DATA: '))
+  // console.log('Oldest Track Year: ', oldestTrack)
+  // console.log(
+  //   'Oldest Track: ',
+  //   oldestTracks[0].artist,
+  //   '-',
+  //   oldestTracks[0].name
+  // )
+  // console.log('Count: ', oldestTrackCount)
+  // console.log('Newest Track Year: ', newestTrack)
+  // console.log('Count: ', newestTrackCount)
+  // console.log('Average Year', (averageYear) => {
+  //   console.log(averageYear)
+  // })
 
   console.log(chalk.greenBright('*** Tag Health ***'))
   console.log(
