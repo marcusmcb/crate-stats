@@ -558,7 +558,7 @@ const createSeratoReport = (data) => {
   }
 
   // check if deck data is present or not for doubles detected
-  if (!masterTrackLog.some((item) => Object.keys(item).includes('deck'))) {
+  if (!masterTrackLog.some((item) => Object.keys(item).includes('deck')) || !masterTrackLog.some((item) => Object.keys(item).includes('playtime'))) {
     console.log('No playtime data available.')
   } else {
     let deck1Doubles = []
@@ -569,7 +569,7 @@ const createSeratoReport = (data) => {
       } else if (track.deck === '2') {
         deck2Doubles.push(track.playtime)
       } 
-    })
+    })    
     deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
     deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
     console.log("Deck 1 doubles play time: ", deckOneDoublesPlaytime)
