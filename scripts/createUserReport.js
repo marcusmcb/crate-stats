@@ -250,37 +250,37 @@ const createUserReport = (data) => {
   //      key analysis & stats
   // -------------------------------------
 
-  let mostCommonKey,
-    mostCommonKeyCount,
-    mostCommonKeyPlaytime,
-    leastCommonKey,
-    leastCommonKeyCount,
-    leastCommonKeyPlaytime
+  // let mostCommonKey,
+  //   mostCommonKeyCount,
+  //   mostCommonKeyPlaytime,
+  //   leastCommonKey,
+  //   leastCommonKeyCount,
+  //   leastCommonKeyPlaytime
 
   if (trackKeys.length !== 0) {
-    // create array of root keys for analysis
-    let rootKeys = []
-    for (let i = 0; i < trackKeys.length; i++) {
-      rootKeys.push(trackKeys[i].charAt(0))
-    }
-    let rootKeyCount = [...rootKeys].reduce((a, e) => {
-      a[e] = a[e] ? a[e] + 1 : 1
-      return a
-    }, {})
+    // // create array of root keys for analysis
+    // let rootKeys = []
+    // for (let i = 0; i < trackKeys.length; i++) {
+    //   rootKeys.push(trackKeys[i].charAt(0))
+    // }
+    // let rootKeyCount = [...rootKeys].reduce((a, e) => {
+    //   a[e] = a[e] ? a[e] + 1 : 1
+    //   return a
+    // }, {})
 
-    // identify most common key played & x times
-    mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
-      rootKeyCount[a] > rootKeyCount[b] ? a : b
-    )
-    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
-    mostCommonKeyPlaytime = ''
+    // // identify most common key played & x times
+    // mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
+    //   rootKeyCount[a] > rootKeyCount[b] ? a : b
+    // )
+    // mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
+    // mostCommonKeyPlaytime = ''
 
-    // identify least common key played & x times
-    leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
-      rootKeyCount[a] < rootKeyCount[b] ? a : b
-    )
-    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
-    leastCommonKeyPlaytime = ''
+    // // identify least common key played & x times
+    // leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
+    //   rootKeyCount[a] < rootKeyCount[b] ? a : b
+    // )
+    // leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
+    // leastCommonKeyPlaytime = ''
 
     // identify most common key major/minor
     let majorMinor = []
@@ -294,28 +294,28 @@ const createUserReport = (data) => {
   // -------------------------------------
 
   // check for doubles and parse titles
-  const doublesPlayed = []
-  const doublesTitles = []
-  for (let i = 0; i < masterTrackLog.length - 1; i++) {
-    if (masterTrackLog[i].name === masterTrackLog[i + 1].name) {
-      doublesPlayed.push(masterTrackLog[i], masterTrackLog[i + 1])
-      doublesTitles.push({
-        artist: masterTrackLog[i].artist,
-        name: masterTrackLog[i].name,
-      })
-    }
-  }
-  const doublesCount = doublesPlayed.length / 2
+  // const doublesPlayed = []
+  // const doublesTitles = []
+  // for (let i = 0; i < masterTrackLog.length - 1; i++) {
+  //   if (masterTrackLog[i].name === masterTrackLog[i + 1].name) {
+  //     doublesPlayed.push(masterTrackLog[i], masterTrackLog[i + 1])
+  //     doublesTitles.push({
+  //       artist: masterTrackLog[i].artist,
+  //       name: masterTrackLog[i].name,
+  //     })
+  //   }
+  // }
+  // const doublesCount = doublesPlayed.length / 2
 
-  let deck1Doubles = []
-  let deck2Doubles = []
-  doublesPlayed.forEach((track) => {
-    if (track.deck === '1') {
-      deck1Doubles.push(track.playtime)
-    } else {
-      deck2Doubles.push(track.playtime)
-    }
-  })
+  // let deck1Doubles = []
+  // let deck2Doubles = []
+  // doublesPlayed.forEach((track) => {
+  //   if (track.deck === '1') {
+  //     deck1Doubles.push(track.playtime)
+  //   } else {
+  //     deck2Doubles.push(track.playtime)
+  //   }
+  // })
   
   // const deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
   // const deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
@@ -370,13 +370,13 @@ const createUserReport = (data) => {
   // console.log('End Time: ', playlistEndTime)
   // console.log('----------------------------------')
 
-  console.log(chalk.magenta('TRACK DATA: '))
-  // console.log('Total Tracks Played: ', totalTracksPlayed)
-  // console.log('Average Track Length: ', averageTrackLength.substring(3))
-  console.log(
-    'Average Tracks Played Per Hour: ',
-    averageTracksPerHour.toFixed()
-  )
+  // console.log(chalk.magenta('TRACK DATA: '))
+  // // console.log('Total Tracks Played: ', totalTracksPlayed)
+  // // console.log('Average Track Length: ', averageTrackLength.substring(3))
+  // console.log(
+  //   'Average Tracks Played Per Hour: ',
+  //   averageTracksPerHour.toFixed()
+  // )
   // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - -'))
   // for (let i = 0; i < tracksPerHour.length; i++) {
   //   console.log('Hour ' + (i + 1) + ': ' + tracksPerHour[i].length + ' tracks.')
@@ -397,11 +397,11 @@ const createUserReport = (data) => {
   //   shortestTrackStartTime
   // )
   // console.log(shortestTrack.artist, '-', shortestTrack.name)
-  console.log(chalk.cyan('- - - - - - - - - - - - - - - - - -'))
-  console.log(chalk.cyan('DECK DATA: '))
-  console.log('Deck 1 Average Playtime: ', deckOneAveragePlaytime.substring(3))
-  console.log('Deck 2 Average Playtime: ', deckTwoAveragePlaytime.substring(3))
-  console.log('----------------------------------')
+  // console.log(chalk.cyan('- - - - - - - - - - - - - - - - - -'))
+  // console.log(chalk.cyan('DECK DATA: '))
+  // console.log('Deck 1 Average Playtime: ', deckOneAveragePlaytime.substring(3))
+  // console.log('Deck 2 Average Playtime: ', deckTwoAveragePlaytime.substring(3))
+  // console.log('----------------------------------')
   // console.log(chalk.magenta('GENRE DATA: '))
   // console.log('Number of unique genres played: ', uniqueGenres.size)
   // console.log('Top Three Genres: ')
