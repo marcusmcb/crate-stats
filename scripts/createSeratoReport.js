@@ -59,7 +59,8 @@ const createSeratoReport = (data) => {
     hasGenreData,
     hasBitrateData,
     hasAlbumData,
-    hasArtistData
+    hasArtistData,
+    hasDoublesData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set arrays by data value
@@ -98,7 +99,7 @@ const createSeratoReport = (data) => {
       topArtistsPlayed[1],
       topArtistsPlayed[2]
     )
-  }  
+  }
 
   if (!hasArtistData) {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
@@ -572,7 +573,10 @@ const createSeratoReport = (data) => {
   const doublesPlayed = []
   const doublesTitles = []
   for (let i = 0; i < masterTrackLog.length - 1; i++) {
-    if (masterTrackLog[i].name === masterTrackLog[i + 1].name) {
+    if (
+      masterTrackLog[i].name === masterTrackLog[i + 1].name &&
+      masterTrackLog[i].deck !== masterTrackLog[i + 1].deck
+    ) {
       doublesPlayed.push(masterTrackLog[i], masterTrackLog[i + 1])
       doublesTitles.push({
         artist: masterTrackLog[i].artist,
@@ -582,11 +586,13 @@ const createSeratoReport = (data) => {
   }
 
   if (doublesPlayed.length === 0) {
+    hasDoublesData = false
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
     console.log('No doubles detected in this set.')
     console.log(chalk.yellow(' * * * * * * * * * * * * * * * * * * * * * '))
   } else {
+    hasDoublesData = true
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
     console.log('Doubles detected: ', doublesPlayed.length / 2)
@@ -594,29 +600,29 @@ const createSeratoReport = (data) => {
       console.log(track.artist, '-', track.name)
     })
     console.log(chalk.yellow(' - - - - - - - - - - - - - - - - - - - - - '))
+    // check if deck data is present or not for doubles detected
+    if (!hasPlayTimeData && !hasDeckData) {
+      console.log('No playtime data available.')
+    } else {
+      let deck1Doubles = []
+      let deck2Doubles = []
+      doublesPlayed.forEach((track) => {
+        if (track.deck === '1') {
+          deck1Doubles.push(track.playtime)
+        } else if (track.deck === '2') {
+          deck2Doubles.push(track.playtime)
+        }
+      })
+      deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
+      deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
+      console.log('Deck 1 doubles play time: ', deckOneDoublesPlaytime)
+      console.log('Deck 2 doubles play time: ', deckTwoDoublesPlaytime)
+    }
   }
-
-  // check if deck data is present or not for doubles detected
-  if (
-    !masterTrackLog.some((item) => Object.keys(item).includes('deck')) ||
-    !masterTrackLog.some((item) => Object.keys(item).includes('playtime'))
-  ) {
-    console.log('No playtime data available.')
-  } else {
-    let deck1Doubles = []
-    let deck2Doubles = []
-    doublesPlayed.forEach((track) => {
-      if (track.deck === '1') {
-        deck1Doubles.push(track.playtime)
-      } else if (track.deck === '2') {
-        deck2Doubles.push(track.playtime)
-      }
-    })
-    deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
-    deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
-    console.log('Deck 1 doubles play time: ', deckOneDoublesPlaytime)
-    console.log('Deck 2 doubles play time: ', deckTwoDoublesPlaytime)
-  }
+  
+  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))    
+  
+  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))  
 }
 
 module.exports = createSeratoReport
