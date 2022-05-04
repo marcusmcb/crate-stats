@@ -263,6 +263,14 @@ const createSeratoReport = (data) => {
       '-->',
       masterTrackLog[bpmChangeIndex + 1].name
     )
+    console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
+    console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log(
+      calculateTagHealth(bpmArray.length, masterTrackLog.length).toFixed(1),
+      '% have BPM tags'
+    )
+    console.log('Number of tracks with empty BPM values: ', nullBPMCount)
+    console.log('Number of tracks with proper tags: ', bpmArray.length)
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -324,6 +332,18 @@ const createSeratoReport = (data) => {
     console.log('1: ', topThreeGenres[0])
     console.log('2: ', topThreeGenres[1])
     console.log('3: ', topThreeGenres[2])
+    console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
+    console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log(
+      calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1),
+      '% have genre tags'
+    )
+    console.log(
+      calculateTagHealth(otherGenreCount, trackGenres.length).toFixed(1),
+      "% have 'Other' as their tag"
+    )
+    console.log('Number of tracks with empty genre values: ', nullGenreCount)
+    console.log('Number of tracks with "Other" as the genre: ', otherGenreCount)
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -440,7 +460,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.green('YEAR DATA: '))
     console.log('No year data given.')
   } else {
-    console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
+    console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.red('YEAR DATA: '))
     console.log('Average Year: ', averageYear.toFixed())
     console.log('Oldest Track Year: ', oldestTrack)
@@ -453,6 +473,14 @@ const createSeratoReport = (data) => {
     console.log('Count: ', oldestTrackCount)
     console.log('Newest Track Year: ', newestTrack)
     console.log('Count: ', newestTrackCount)
+    console.log(chalk.red('- - - - - - - - - - - - - - - - - - - - - - - '))
+    console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log(
+      calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
+      '% have year tags'
+    )
+    console.log('Number of tracks with empty year values: ', nullYearCount)
+    console.log('Number of tracks with proper tags: ', trackYears.length)
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -517,6 +545,13 @@ const createSeratoReport = (data) => {
     console.log('x Played: ', mostCommonKeyCount)
     console.log('Least Common Key: ', leastCommonKey)
     console.log('x Played: ', leastCommonKeyCount)
+    console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
+    console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log(
+      calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
+      '% have key tags'
+    )
+    console.log('Number of tracks with empty key values: ', nullKeyCount)
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -619,10 +654,18 @@ const createSeratoReport = (data) => {
       console.log('Deck 2 doubles play time: ', deckTwoDoublesPlaytime)
     }
   }
-  
-  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))    
-  
-  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))  
+
+  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
+  // console.log(data[0])
+  // let [hours, minutes, seconds] = playlistLength.split(':')
+  // hours = hours / 2
+  // minutes = minutes / 2
+  // seconds = seconds / 2
+  // const [stHours, stMinutes, stSeconds] = playlistStartTime
+  // console.log(playlistStartTime)
+  // console.log(stHours, stMinutes, stSeconds)
+
+  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
 }
 
 module.exports = createSeratoReport
