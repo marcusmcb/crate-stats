@@ -19,19 +19,28 @@ const createSeratoReport = (data) => {
   // check if display name is ''
   const playlistArtist = data[0].artist
   const playlistStartTime = data[0]['start time']
+  const [var1, var2] = playlistStartTime.split(' ')  
+  const playlistStartTimeParsed = new Date(var1 + '  ' + var2)
+  console.log(playlistStartTimeParsed)
   const playlistEndTime = data[0]['end time']
   const playlistLength = data[0].playtime
   const playlistLengthParsed = new Date('01/01/2020 ' + data[0].playtime)
 
-  console.log(chalk.inverse('* * * * * * * * * * * * * * * * * * * * * '))
-  console.log(chalk.yellow('SERATO SET LIST DATA: '))
-  console.log('')
+  console.log(chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * ')))
+  console.log(chalk.yellow('SERATO SET LIST DATA '))
+  if (playlistArtist != '') {
+    console.log(chalk.yellow("for", playlistArtist))
+    console.log('')
+  } else {
+    console.log('')
+  } 
+  
   console.log('Set Title: ', playlistTitle)
-  console.log('Start Time: ', playlistStartTime)
+  console.log('Start Time: ', playlistStartTime)  
   console.log(
-    'Playlist Length: ',
+    'Set Length: ',
     playlistLengthParsed.getHours(),
-    'Hours',
+    'Hour',
     playlistLengthParsed.getMinutes(),
     'Minutes',
     playlistLengthParsed.getSeconds(),
@@ -120,11 +129,14 @@ const createSeratoReport = (data) => {
   let nullBitrateCount = 0
   masterTrackLog.forEach((track) => {
     if (!track.bitrate || track.bitrate === '') {
-      nullBitrateCount++
+      nullBitrateCount++      
     } else {
       trackBitrates.push(track.bitrate)
     }
   })
+  // console.log(chalk.bgMagenta('^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^'))
+  // console.log(trackBitrates)
+  // console.log(chalk.bgMagenta('^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^'))
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              track data & analysis
@@ -499,11 +511,9 @@ const createSeratoReport = (data) => {
   })
 
   let mostCommonKey,
-    mostCommonKeyCount,
-    mostCommonKeyPlaytime,
+    mostCommonKeyCount,    
     leastCommonKey,
-    leastCommonKeyCount,
-    leastCommonKeyPlaytime
+    leastCommonKeyCount    
 
   if (trackKeys.length === 0) {
     hasKeyData = false
@@ -523,15 +533,13 @@ const createSeratoReport = (data) => {
     mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] > rootKeyCount[b] ? a : b
     )
-    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
-    mostCommonKeyPlaytime = ''
+    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))    
 
     // identify least common key played & x times
     leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] < rootKeyCount[b] ? a : b
     )
-    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
-    leastCommonKeyPlaytime = ''
+    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))    
   }
 
   if (!hasKeyData) {
@@ -604,6 +612,8 @@ const createSeratoReport = (data) => {
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              doubles data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
+
+  // test and account for sets played with a single working deck (will doubles appear twice? 4x?)
 
   const doublesPlayed = []
   const doublesTitles = []
