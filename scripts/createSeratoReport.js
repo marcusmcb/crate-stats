@@ -23,11 +23,25 @@ const createSeratoReport = (data) => {
   const playlistStartTimeParsed = new Date(var1 + '  ' + var2)
   console.log(playlistStartTimeParsed)
   const playlistEndTime = data[0]['end time']
-  const playlistLength = data[0].playtime
-  const playlistLengthParsed = new Date('01/01/2020 ' + data[0].playtime)
 
+  // check for null value
+  const playlistLength = data[0].playtime
+
+  const playlistDate = playlistStartTime.split(' ')[0]  
+  const playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
+  let dateStringOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }  
+  console.log("YEH? ", data[0].playtime)
+  let playlistDateString = playlistLengthParsed.toLocaleDateString("en-us", dateStringOptions)  
+  console.log(playlistDateString)
   console.log(chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * ')))
   console.log(chalk.yellow('SERATO SET LIST DATA '))
+  
+  // check if artist value is set in user csv
   if (playlistArtist != '') {
     console.log(chalk.yellow("for", playlistArtist))
     console.log('')
@@ -37,6 +51,7 @@ const createSeratoReport = (data) => {
   
   console.log('Set Title: ', playlistTitle)
   console.log('Start Time: ', playlistStartTime)  
+  // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
     playlistLengthParsed.getHours(),
@@ -72,7 +87,7 @@ const createSeratoReport = (data) => {
     hasDoublesData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
-  //              set arrays by data value
+  //              artist data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // array of artists
