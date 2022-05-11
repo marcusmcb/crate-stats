@@ -194,6 +194,9 @@ const createSeratoReport = (data) => {
     longestTrackStartTime = longestTrack['start time']
 
     // shortest track
+
+    // check if shortest track is part of a doubles pair
+    // if so, note as such and query track log for shortest track not in a doubles pair
     shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
     const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
     shortestTrack = masterTrackLog[shortestTrackIndex]
