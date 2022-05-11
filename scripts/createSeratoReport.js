@@ -101,6 +101,16 @@ const createSeratoReport = (data) => {
     }
   })
 
+  let titleArray = []
+  let nullTitleCount = 0
+  masterTrackLog.forEach((track) => {
+    if (!track.name || track.name === '') {
+      nullTitleCount++
+    } else {
+      titleArray.push(track.name)
+    }
+  })
+
   let artistCount = {}
   let topThreeArtists = []
   let uniqueArtists, topArtistsPlayed
@@ -128,15 +138,31 @@ const createSeratoReport = (data) => {
   if (!hasArtistData) {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('ARTIST DATA: '))
+    console.log('')
     console.log('No artist data given.')
   } else {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('ARTIST DATA: '))
+    console.log('')
     console.log('Total unique artists played: ', uniqueArtists.size)
     console.log('Top Three Artists: ')
     console.log('1: ', topThreeArtists[0])
     console.log('2: ', topThreeArtists[1])
     console.log('3: ', topThreeArtists[2])
+
+    console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
+    console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log('')
+    console.log(
+      calculateTagHealth(artistArray.length, masterTrackLog.length).toFixed(1),
+      '% have artist tags'
+    )
+    console.log('Number of tracks with empty artist values: ', nullArtistCount)    
+    console.log(
+      calculateTagHealth(titleArray.length, masterTrackLog.length).toFixed(1),
+      '% have title tags'
+    )
+    console.log('Number of tracks with empty title values: ', nullTitleCount)    
   }
 
   // array of bitrates
@@ -207,10 +233,12 @@ const createSeratoReport = (data) => {
   if (!hasPlayTimeData) {
     console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.cyan('TRACK DATA: '))
+    console.log('')
     console.log('No track data given.')
   } else {
     console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.cyan('TRACK DATA: '))
+    console.log('')
     console.log('Total Tracks Played: ', totalTracksPlayed)
     console.log('Average Track Length: ', averageTrackLength.substring(3))
     console.log(
@@ -261,6 +289,7 @@ const createSeratoReport = (data) => {
     averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
 
     // identify biggest bpm change
+    // check for data outliers (bpms that aren't consistent with the rest of the set)
     // add logic to identify biggest change per hour
     const calculateBPMChanges = (array) => {
       var newArray = []
@@ -275,10 +304,12 @@ const createSeratoReport = (data) => {
   if (!hasBPMData) {
     console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.magenta('BPM DATA: '))
+    console.log('')
     console.log('No BPM data given.')
   } else {
     console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.magenta('BPM DATA: '))
+    console.log('')
     console.log('Average BPM: ', averageBPM.toFixed(1))
     console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
     console.log(
@@ -295,6 +326,7 @@ const createSeratoReport = (data) => {
     )
     console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log('')
     console.log(
       calculateTagHealth(bpmArray.length, masterTrackLog.length).toFixed(1),
       '% have BPM tags'
@@ -352,10 +384,12 @@ const createSeratoReport = (data) => {
   if (!hasGenreData) {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('GENRE DATA: '))
+    console.log('')
     console.log('No genre data given.')
   } else {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('GENRE DATA: '))
+    console.log('')
     console.log('Number of unique genres played: ', uniqueGenres.size)
     // console.log('Genres: ', uniqueGenres)
     console.log('Top Three Genres: ')
@@ -364,6 +398,7 @@ const createSeratoReport = (data) => {
     console.log('3: ', topThreeGenres[2])
     console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log('')
     console.log(
       calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1),
       '% have genre tags'
@@ -420,10 +455,12 @@ const createSeratoReport = (data) => {
   if (!hasAlbumData) {
     console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.green('ALBUM DATA: '))
+    console.log('')
     console.log('No album/collection data given.')
   } else {
     console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.green('ALBUM DATA: '))
+    console.log('')
     console.log('Total unique albums/collections played: ', uniqueAlbums.size)
     console.log('Top Three Albums: ')
     console.log('1: ', topThreeAlbums[0])
@@ -488,10 +525,12 @@ const createSeratoReport = (data) => {
   if (!hasYearData) {
     console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.green('YEAR DATA: '))
+    console.log('')
     console.log('No year data given.')
   } else {
     console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.red('YEAR DATA: '))
+    console.log('')
     console.log('Average Year: ', averageYear.toFixed())
     console.log('Oldest Track Year: ', oldestTrack)
     console.log(
@@ -505,6 +544,7 @@ const createSeratoReport = (data) => {
     console.log('Count: ', newestTrackCount)
     console.log(chalk.red('- - - - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log('')
     console.log(
       calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
       '% have year tags'
@@ -563,16 +603,19 @@ const createSeratoReport = (data) => {
   if (!hasKeyData) {
     console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.magenta('KEY DATA: '))
+    console.log('')
     console.log('No key data given.')
   } else {
     console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.magenta('KEY DATA: '))
+    console.log('')
     console.log('Most Common Key: ', mostCommonKey)
     console.log('x Played: ', mostCommonKeyCount)
     console.log('Least Common Key: ', leastCommonKey)
     console.log('x Played: ', leastCommonKeyCount)
     console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
+    console.log('')
     console.log(
       calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
       '% have key tags'
@@ -589,14 +632,11 @@ const createSeratoReport = (data) => {
   let deckOneAveragePlaytime, deckTwoAveragePlaytime
   let nullDeckCount = 0
 
-  let checkMTLForKey = (key) =>
-    masterTrackLog.some((item) => Object.keys(item).includes(key))
-  let isKeyPresent = checkMTLForKey('deck')
-
   // check if user export contains playtime data - w/o it, the deck analysis is useless
   if (!hasPlayTimeData) {
     console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.blue('DECK DATA: '))
+    console.log('')
     console.log('No deck data given.')
     // check if user export does NOT contain deck data
   } else if (
@@ -605,6 +645,7 @@ const createSeratoReport = (data) => {
     hasDeckData = false
     console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.blue('DECK DATA: '))
+    console.log('')
     console.log('No deck data given.')
   } else {
     hasDeckData = true
@@ -623,6 +664,7 @@ const createSeratoReport = (data) => {
 
     console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.blue('DECK DATA: '))
+    console.log('')
     console.log('Deck 1 Average Play Time: ', deckOneAveragePlaytime)
     console.log('Deck 2 Average Play Time: ', deckTwoAveragePlaytime)
   }
@@ -632,6 +674,8 @@ const createSeratoReport = (data) => {
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // test and account for sets played with a single working deck (will doubles appear twice? 4x?)
+  // check to see if shortest track is in doublesPlayed array
+  // if so, reduce track array again to shortest track not from a doubles pair
 
   const doublesPlayed = []
   const doublesTitles = []
@@ -652,12 +696,14 @@ const createSeratoReport = (data) => {
     hasDoublesData = false
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
+    console.log('')
     console.log('No doubles detected in this set.')
     console.log(chalk.yellow(' * * * * * * * * * * * * * * * * * * * * * '))
   } else {
     hasDoublesData = true
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
+    console.log('')
     console.log('Doubles detected: ', doublesPlayed.length / 2)
     doublesTitles.forEach((track) => {
       console.log(track.artist, '-', track.name)
