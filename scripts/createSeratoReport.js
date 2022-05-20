@@ -48,7 +48,7 @@ const createSeratoReport = (data) => {
     playlistStartTimeParsed,
     playlistEndTime,
     playlistEndTimeParsed
-    
+
   if (data[0]['start time'] && data[0]['end time']) {
     hasStartTimeData = true
     hasEndTimeData = true
@@ -58,6 +58,18 @@ const createSeratoReport = (data) => {
     playlistEndTime = data[0]['end time']
     const [var3, var4] = playlistEndTime.split(' ')
     playlistEndTimeParsed = new Date(var3 + '  ' + var4)
+    const weekday = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ]
+    const playlistDay = weekday[playlistStartTimeParsed.getDay()]
+    console.log('playlistDay: ', playlistDay)
+    console.log(playlistStartTimeParsed.toDateString())
   } else {
     hasStartTimeData = false
     hasEndTimeData = false
@@ -66,12 +78,15 @@ const createSeratoReport = (data) => {
   // set playlist length
   let playlistLength
   let playlistLengthParsed
+  let playlistDate
+
   // check if playtime value is present in csv header
   if (data[0].playtime) {
     hasPlaylistLength = true
     playlistLength = data[0].playtime
     playlistDate = playlistStartTime.split(' ')[0]
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
+
     // if playtime value not present, calculate it using start & end times
   } else if (hasStartTimeData === true && hasEndTimeData === true) {
     hasPlaylistLength = true
@@ -83,7 +98,6 @@ const createSeratoReport = (data) => {
   } else {
     hasPlaylistLength = false
   }
-  console.log('START TIME: ', playlistStartTimeParsed.getDay())
 
   console.log(
     chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
@@ -99,7 +113,8 @@ const createSeratoReport = (data) => {
   }
 
   console.log('Set Title: ', playlistTitle)
-  console.log('Start Time: ', playlistStartTime)
+  console.log(playlistStartTime)
+  console.log('Start Time: ', playlistStartTimeParsed.toDateString(), playlistStartTime.split(' ')[1], playlistStartTime.split(' ')[2])
   // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
