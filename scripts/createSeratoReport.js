@@ -7,9 +7,7 @@ const calculateTagHealth = (val1, val2) => {
 
 const createSeratoReport = (data) => {
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
-  console.log(data[5])
-
-  const noDataGiven = 'No Data Given'
+  console.log(data[0])
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set playlist metadata
@@ -23,21 +21,27 @@ const createSeratoReport = (data) => {
   const playlistStartTimeParsed = new Date(var1 + '  ' + var2)
   console.log(playlistStartTimeParsed)
   const playlistEndTime = data[0]['end time']
+  const [var3, var4] = playlistEndTime.split(' ')
+  const playlistEndTimeParsed = new Date(var3 + '  ' + var4)
 
-  // check for null value
-  const playlistLength = data[0].playtime
-
-  const playlistDate = playlistStartTime.split(' ')[0]  
-  const playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
-  let dateStringOptions = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
+  // check if playtime value is present in csv header
+  let playlistLength  
+  let playlistLengthParsed
+  if (data[0].playtime) {
+    playlistLength = data[0].playtime
+    playlistDate = playlistStartTime.split(' ')[0]  
+    playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
+  } else if (data[0]['start time'] && data[0]['end time']) {
+    playlistLength = playlistEndTimeParsed - playlistStartTimeParsed    
+    playlistDate = playlistStartTime.split(' ')[0]      
+    // limits playlist length to a max of 24 hours
+    let tempDate = new Date(playlistLength).toISOString().slice(11, 19)
+    playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)    
   }  
-  console.log("YEH? ", data[0].playtime)
-  let playlistDateString = playlistLengthParsed.toLocaleDateString("en-us", dateStringOptions)  
-  console.log(playlistDateString)
+  
+  console.log("PLAYLIST LENGTH: ", playlistLength)
+  console.log('LENGTH PARSED: ', playlistLengthParsed)
+  
   console.log(chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * ')))
   console.log(chalk.yellow('SERATO SET LIST DATA '))
   
@@ -52,7 +56,7 @@ const createSeratoReport = (data) => {
   console.log('Set Title: ', playlistTitle)
   console.log('Start Time: ', playlistStartTime)  
   // check for NaN values, empty strings, etc
-  console.log(
+  console.log(    
     'Set Length: ',
     playlistLengthParsed.getHours(),
     'Hour',
