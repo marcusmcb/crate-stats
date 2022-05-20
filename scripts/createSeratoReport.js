@@ -6,6 +6,25 @@ const calculateTagHealth = (val1, val2) => {
 }
 
 const createSeratoReport = (data) => {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  //      set conditional checks for each data property
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  let hasStartTimeData,
+    hasEndTimeData,
+    hasPlaylistLength,
+    hasPlaylistArtist,
+    hasPlayTimeData,
+    hasDeckData,
+    hasBPMData,
+    hasKeyData,
+    hasYearData,
+    hasGenreData,
+    hasBitrateData,
+    hasAlbumData,
+    hasArtistData,
+    hasDoublesData
+
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
   console.log(data[0])
 
@@ -14,49 +33,75 @@ const createSeratoReport = (data) => {
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   const playlistTitle = data[0].name
-  // check if display name is ''
-  const playlistArtist = data[0].artist
-  const playlistStartTime = data[0]['start time']
-  const [var1, var2] = playlistStartTime.split(' ')  
-  const playlistStartTimeParsed = new Date(var1 + '  ' + var2)
-  console.log(playlistStartTimeParsed)
-  const playlistEndTime = data[0]['end time']
-  const [var3, var4] = playlistEndTime.split(' ')
-  const playlistEndTimeParsed = new Date(var3 + '  ' + var4)
 
-  // check if playtime value is present in csv header
-  let playlistLength  
+  // check if display name is ''
+  let playlistArtist
+  if (data[0].artist) {
+    hasPlaylistArtist = true
+    playlistArtist = data[0].artist
+  } else {
+    hasPlaylistArtist = false
+  }
+
+  // run check for start, end and play time values in csv
+  let playlistStartTime,
+    playlistStartTimeParsed,
+    playlistEndTime,
+    playlistEndTimeParsed
+    
+  if (data[0]['start time'] && data[0]['end time']) {
+    hasStartTimeData = true
+    hasEndTimeData = true
+    playlistStartTime = data[0]['start time']
+    const [var1, var2] = playlistStartTime.split(' ')
+    playlistStartTimeParsed = new Date(var1 + '  ' + var2)
+    playlistEndTime = data[0]['end time']
+    const [var3, var4] = playlistEndTime.split(' ')
+    playlistEndTimeParsed = new Date(var3 + '  ' + var4)
+  } else {
+    hasStartTimeData = false
+    hasEndTimeData = false
+  }
+
+  // set playlist length
+  let playlistLength
   let playlistLengthParsed
+  // check if playtime value is present in csv header
   if (data[0].playtime) {
+    hasPlaylistLength = true
     playlistLength = data[0].playtime
-    playlistDate = playlistStartTime.split(' ')[0]  
+    playlistDate = playlistStartTime.split(' ')[0]
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
-  } else if (data[0]['start time'] && data[0]['end time']) {
-    playlistLength = playlistEndTimeParsed - playlistStartTimeParsed    
-    playlistDate = playlistStartTime.split(' ')[0]      
+    // if playtime value not present, calculate it using start & end times
+  } else if (hasStartTimeData === true && hasEndTimeData === true) {
+    hasPlaylistLength = true
+    playlistLength = playlistEndTimeParsed - playlistStartTimeParsed
+    playlistDate = playlistStartTime.split(' ')[0]
     // limits playlist length to a max of 24 hours
     let tempDate = new Date(playlistLength).toISOString().slice(11, 19)
-    playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)    
-  }  
-  
-  console.log("PLAYLIST LENGTH: ", playlistLength)
-  console.log('LENGTH PARSED: ', playlistLengthParsed)
-  
-  console.log(chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * ')))
+    playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)
+  } else {
+    hasPlaylistLength = false
+  }
+  console.log('START TIME: ', playlistStartTimeParsed.getDay())
+
+  console.log(
+    chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
+  )
   console.log(chalk.yellow('SERATO SET LIST DATA '))
-  
+
   // check if artist value is set in user csv
-  if (playlistArtist != '') {
-    console.log(chalk.yellow("for", playlistArtist))
+  if (hasPlaylistArtist != false) {
+    console.log(chalk.yellow('for', playlistArtist))
     console.log('')
   } else {
     console.log('')
-  } 
-  
+  }
+
   console.log('Set Title: ', playlistTitle)
-  console.log('Start Time: ', playlistStartTime)  
+  console.log('Start Time: ', playlistStartTime)
   // check for NaN values, empty strings, etc
-  console.log(    
+  console.log(
     'Set Length: ',
     playlistLengthParsed.getHours(),
     'Hour',
@@ -72,23 +117,6 @@ const createSeratoReport = (data) => {
 
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
-
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  //      set conditional checks for each data property
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  let hasStartTimeData,
-    hasEndTimeData,
-    hasPlayTimeData,
-    hasDeckData,
-    hasBPMData,
-    hasKeyData,
-    hasYearData,
-    hasGenreData,
-    hasBitrateData,
-    hasAlbumData,
-    hasArtistData,
-    hasDoublesData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
@@ -161,12 +189,12 @@ const createSeratoReport = (data) => {
       calculateTagHealth(artistArray.length, masterTrackLog.length).toFixed(1),
       '% have artist tags'
     )
-    console.log('Number of tracks with empty artist values: ', nullArtistCount)    
+    console.log('Number of tracks with empty artist values: ', nullArtistCount)
     console.log(
       calculateTagHealth(titleArray.length, masterTrackLog.length).toFixed(1),
       '% have title tags'
     )
-    console.log('Number of tracks with empty title values: ', nullTitleCount)    
+    console.log('Number of tracks with empty title values: ', nullTitleCount)
   }
 
   // array of bitrates
@@ -174,7 +202,7 @@ const createSeratoReport = (data) => {
   let nullBitrateCount = 0
   masterTrackLog.forEach((track) => {
     if (!track.bitrate || track.bitrate === '') {
-      nullBitrateCount++      
+      nullBitrateCount++
     } else {
       trackBitrates.push(track.bitrate)
     }
@@ -572,10 +600,7 @@ const createSeratoReport = (data) => {
     }
   })
 
-  let mostCommonKey,
-    mostCommonKeyCount,    
-    leastCommonKey,
-    leastCommonKeyCount    
+  let mostCommonKey, mostCommonKeyCount, leastCommonKey, leastCommonKeyCount
 
   if (trackKeys.length === 0) {
     hasKeyData = false
@@ -595,13 +620,13 @@ const createSeratoReport = (data) => {
     mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] > rootKeyCount[b] ? a : b
     )
-    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))    
+    mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
 
     // identify least common key played & x times
     leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] < rootKeyCount[b] ? a : b
     )
-    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))    
+    leastCommonKeyCount = Math.min(...Object.values(rootKeyCount))
   }
 
   if (!hasKeyData) {
