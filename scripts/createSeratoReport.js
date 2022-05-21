@@ -15,7 +15,7 @@ const createSeratoReport = (data) => {
     hasPlaylistLength,
     hasPlaylistArtist,
     hasPlaylistTitle,
-    hasPlayTimeData,    
+    hasPlayTimeData,
     hasDeckData,
     hasBPMData,
     hasKeyData,
@@ -42,7 +42,7 @@ const createSeratoReport = (data) => {
     seratoPlaylistAnalysis.playlist_title = data[0].name
   } else {
     seratoPlaylistAnalysis.hasPlaylistTitle = false
-  }  
+  }
 
   // check if display name is ''
   let playlistArtist
@@ -72,15 +72,15 @@ const createSeratoReport = (data) => {
     hasEndTimeData = true
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
-    
+
     // check to see if start time is given in AM/PM or 24-hour format
     let var5 = var2.split(':')[0]
     if (var5 > 12) {
       has24HourFormat = true
       startTimeFormatDisplay = 'local time'
     } else {
-      has12HourFormat = true 
-      startTimeFormatDisplay = playlistStartTime.split(' ')[2]     
+      has12HourFormat = true
+      startTimeFormatDisplay = playlistStartTime.split(' ')[2]
     }
 
     playlistStartTimeParsed = new Date(var1 + '  ' + var2)
@@ -108,11 +108,11 @@ const createSeratoReport = (data) => {
       'September',
       'October',
       'November',
-      'December'
+      'December',
     ]
     playlistDay = weekday[playlistStartTimeParsed.getDay()]
     playlistMonth = month[playlistStartTimeParsed.getMonth()]
-    playlistDateDay = playlistStartTimeParsed.getDate() 
+    playlistDateDay = playlistStartTimeParsed.getDate()
     console.log('playlistDay: ', playlistDay)
     console.log('playlistMonth: ', playlistMonth)
 
@@ -165,16 +165,29 @@ const createSeratoReport = (data) => {
     month: playlistMonth,
     dateday: playlistDateDay,
     start_time: playlistStartTime.split(' ')[1],
-    time_format: startTimeFormatDisplay
+    time_format: startTimeFormatDisplay,
   }
   seratoPlaylistAnalysis.playlist_length = playlistLength
   seratoPlaylistAnalysis.playlist_length_formatted = {
     hours: playlistLengthParsed.getHours(),
     minutes: playlistLengthParsed.getMinutes(),
-    seconds: playlistLengthParsed.getSeconds()
+    seconds: playlistLengthParsed.getSeconds(),
   }
-  console.log('Set Title: ', playlistTitle)  
-  console.log('Start Time: ', playlistDay + ' ' + playlistMonth + ' ' + playlistDateDay + ' ' + 'at' + ' ' + playlistStartTime.split(' ')[1] + ' ' +  startTimeFormatDisplay)
+  console.log('Set Title: ', playlistTitle)
+  console.log(
+    'Start Time: ',
+    playlistDay +
+      ' ' +
+      playlistMonth +
+      ' ' +
+      playlistDateDay +
+      ' ' +
+      'at' +
+      ' ' +
+      playlistStartTime.split(' ')[1] +
+      ' ' +
+      startTimeFormatDisplay
+  )
   // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
@@ -210,9 +223,9 @@ const createSeratoReport = (data) => {
 
   // add logic check for unique plays of the same artist that appear more than once
   // exclude back-to-back doubles from results
-  // algorithm to look for word patterns 
+  // algorithm to look for word patterns
 
-  // test code for character removal from artist string 
+  // test code for character removal from artist string
   //
   // console.log(masterTrackLog[08])
   // let x = masterTrackLog[08].artist.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
@@ -244,7 +257,7 @@ const createSeratoReport = (data) => {
     topArtistsPlayed = Object.keys(artistCount)
     topArtistsPlayed.sort((a, b) => {
       return artistCount[b] - artistCount[a]
-    })    
+    })
     topThreeArtists.push(
       topArtistsPlayed[0],
       topArtistsPlayed[1],
@@ -269,7 +282,11 @@ const createSeratoReport = (data) => {
     console.log('3: ', topThreeArtists[2])
 
     seratoPlaylistAnalysis.unique_artists_played = uniqueArtists.size
-    seratoPlaylistAnalysis.top_three_artists = [topThreeArtists[0], topThreeArtists[1], topThreeArtists[2]]
+    seratoPlaylistAnalysis.top_three_artists = [
+      topThreeArtists[0],
+      topThreeArtists[1],
+      topThreeArtists[2],
+    ]
 
     console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
@@ -284,6 +301,19 @@ const createSeratoReport = (data) => {
       '% have title tags'
     )
     console.log('Number of tracks with empty title values: ', nullTitleCount)
+
+    seratoPlaylistAnalysis.artist_tag_health = {
+      percentage_with_artist_tags: calculateTagHealth(
+        artistArray.length,
+        masterTrackLog.length
+      ).toFixed(1),
+      empty_artist_tags: nullArtistCount,
+      percentage_with_title_tags: calculateTagHealth(
+        titleArray.length,
+        masterTrackLog.length
+      ).toFixed(1),
+      empty_title_tags: nullTitleCount,
+    }
   }
 
   // array of bitrates
@@ -306,6 +336,8 @@ const createSeratoReport = (data) => {
 
   // number of tracks played
   const totalTracksPlayed = masterTrackLog.length
+
+  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length
 
   // array of track lengths
   let trackLengths = []
@@ -356,6 +388,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.cyan('TRACK DATA: '))
     console.log('')
     console.log('No track data given.')
+    seratoPlaylistAnalysis.has_track_data = false
   } else {
     console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.cyan('TRACK DATA: '))
@@ -376,6 +409,19 @@ const createSeratoReport = (data) => {
       shortestTrack.playtime.substring(3)
     )
     console.log('Played at: ', shortestTrackStartTime)
+
+    seratoPlaylistAnalysis.average_track_length =
+      averageTrackLength.substring(3)
+    seratoPlaylistAnalysis.longest_track = {
+      name: longestTrack.name,
+      play_time: longestTrack.playtime.substring(3),
+      played_at: longestTrackStartTime,
+    }
+    seratoPlaylistAnalysis.shortest_track = {
+      name: shortestTrack.name,
+      play_time: shortestTrack.playtime.substring(3),
+      played_at: shortestTrackStartTime,
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -427,6 +473,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.magenta('BPM DATA: '))
     console.log('')
     console.log('No BPM data given.')
+    seratoPlaylistAnalysis.has_bpm_data = false
   } else {
     console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.magenta('BPM DATA: '))
@@ -454,6 +501,29 @@ const createSeratoReport = (data) => {
     )
     console.log('Number of tracks with empty BPM values: ', nullBPMCount)
     console.log('Number of tracks with proper tags: ', bpmArray.length)
+
+    seratoPlaylistAnalysis.average_bpm = averageBPM.toFixed(1)
+    seratoPlaylistAnalysis.bpm_range = {
+      minimum: bpmRange.minBPM,
+      maximum: bpmRange.maxBPM,
+    }
+    seratoPlaylistAnalysis.biggest_bpm_change = {
+      track_one: {
+        bpm: masterTrackLog[bpmChangeIndex].bpm,
+        name: masterTrackLog[bpmChangeIndex].name,
+      },
+      track_two: {
+        bpm: masterTrackLog[bpmChangeIndex + 1].bpm,
+        name: masterTrackLog[bpmChangeIndex + 1].name,
+      },
+    }
+    seratoPlaylistAnalysis.bpm_tag_health = {
+      percentage_with_bpm_tags: calculateTagHealth(
+        bpmArray.length,
+        masterTrackLog.length
+      ).toFixed(1),
+      empty_bpm_tags: nullBPMCount,
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -464,17 +534,21 @@ const createSeratoReport = (data) => {
   let trackGenres = []
   let nullGenreCount = 0
   let otherGenreCount = 0
+  let genreTagsWithValues = 0
   masterTrackLog.forEach((track) => {
     if (!track.genre || track.genre === '') {
       nullGenreCount++
     } else if (track.genre === 'Other') {
       otherGenreCount++
+      genreTagsWithValues++
     } else {
       if (track.genre.includes('-')) {
         trackGenres.push(track.genre.replace('-', ' '))
+        genreTagsWithValues++
       } else {
         trackGenres.push(track.genre)
-      }      
+        genreTagsWithValues++
+      }
     }
   })
 
@@ -492,13 +566,13 @@ const createSeratoReport = (data) => {
     trackGenres.forEach((item) => {
       genreCount[item] = (genreCount[item] || 0) + 1
     })
-    uniqueGenres = new Set(trackGenres)        
+    uniqueGenres = new Set(trackGenres)
 
     // identify top three genres played
     topGenresPlayed = Object.keys(genreCount)
     topGenresPlayed.sort((a, b) => {
       return genreCount[b] - genreCount[a]
-    })    
+    })
     topThreeGenres.push(
       topGenresPlayed[0],
       topGenresPlayed[1],
@@ -511,6 +585,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.yellow('GENRE DATA: '))
     console.log('')
     console.log('No genre data given.')
+    seratoPlaylistAnalysis.has_genre_data = false
   } else {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('GENRE DATA: '))
@@ -525,7 +600,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.greenBright('*** Tag Health ***'))
     console.log('')
     console.log(
-      calculateTagHealth(trackGenres.length, masterTrackLog.length).toFixed(1),
+      calculateTagHealth(genreTagsWithValues, masterTrackLog.length).toFixed(1),
       '% have genre tags'
     )
     console.log(
@@ -534,6 +609,24 @@ const createSeratoReport = (data) => {
     )
     console.log('Number of tracks with empty genre values: ', nullGenreCount)
     console.log('Number of tracks with "Other" as the genre: ', otherGenreCount)
+    seratoPlaylistAnalysis.unique_genres = uniqueGenres.size
+    seratoPlaylistAnalysis.top_three_genres = [
+      topThreeGenres[0],
+      topThreeGenres[1],
+      topThreeGenres[2],
+    ]
+    seratoPlaylistAnalysis.genre_tag_health = {
+      percentage_with_genre_tags: calculateTagHealth(
+        genreTagsWithValues,
+        masterTrackLog.length
+      ).toFixed(1),
+      percentage_with_other: calculateTagHealth(
+        otherGenreCount,
+        trackGenres.length
+      ).toFixed(1),
+      empty_genre_tags: nullGenreCount,
+      other_genre_tags: otherGenreCount,
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -582,6 +675,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.green('ALBUM DATA: '))
     console.log('')
     console.log('No album/collection data given.')
+    seratoPlaylistAnalysis.has_album_data = false
   } else {
     console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.green('ALBUM DATA: '))
@@ -591,6 +685,12 @@ const createSeratoReport = (data) => {
     console.log('1: ', topThreeAlbums[0])
     console.log('2: ', topThreeAlbums[1])
     console.log('3: ', topThreeAlbums[2])
+    seratoPlaylistAnalysis.unique_albums_played = uniqueAlbums.size
+    seratoPlaylistAnalysis.top_three_albums = [
+      topThreeAlbums[0],
+      topThreeAlbums[1],
+      topThreeAlbums[2],
+    ]
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -850,19 +950,7 @@ const createSeratoReport = (data) => {
       console.log('Deck 2 doubles play time: ', deckTwoDoublesPlaytime)
     }
   }
-
   console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
-  // console.log(data[0])
-  // let [hours, minutes, seconds] = playlistLength.split(':')
-  // hours = hours / 2
-  // minutes = minutes / 2
-  // seconds = seconds / 2
-  // const [stHours, stMinutes, stSeconds] = playlistStartTime
-  // console.log(playlistStartTime)
-  // console.log(stHours, stMinutes, stSeconds)
-
-  console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
-  
   return seratoPlaylistAnalysis
 }
 

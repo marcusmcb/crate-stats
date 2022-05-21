@@ -10,11 +10,14 @@ const fileTypes = ['CSV']
 const DragAndDrop = () => {
   const [parsedCsvData, setParsedCsvData] = useState([]) 
   const [file, setFile] = useState(null) 
+
+  const getCrateStatsReport = () => {
+    
+  }
   
   const handleChange = (event) => {
     console.log(event.name)
-    setFile(event.name)
-    console.log(event)
+    setFile(event.name)    
     Papa.parse(event, {
       header: true,
       download: false,
