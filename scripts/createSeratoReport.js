@@ -14,7 +14,8 @@ const createSeratoReport = (data) => {
     hasEndTimeData,
     hasPlaylistLength,
     hasPlaylistArtist,
-    hasPlayTimeData,
+    hasPlaylistTitle,
+    hasPlayTimeData,    
     hasDeckData,
     hasBPMData,
     hasKeyData,
@@ -25,6 +26,8 @@ const createSeratoReport = (data) => {
     hasArtistData,
     hasDoublesData
 
+  let seratoPlaylistAnalysis = {}
+
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
   console.log(data[0])
 
@@ -32,15 +35,24 @@ const createSeratoReport = (data) => {
   //              set playlist metadata
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const playlistTitle = data[0].name
+  let playlistTitle
+  if (data[0].name) {
+    hasPlaylistTitle = true
+    playlistTitle = data[0].name
+    seratoPlaylistAnalysis.playlist_title = data[0].name
+  } else {
+    seratoPlaylistAnalysis.hasPlaylistTitle = false
+  }  
 
   // check if display name is ''
   let playlistArtist
   if (data[0].artist) {
     hasPlaylistArtist = true
     playlistArtist = data[0].artist
+    seratoPlaylistAnalysis.playlist_artist = playlistArtist
   } else {
     hasPlaylistArtist = false
+    seratoPlaylistAnalysis.has_playlist_artist = false
   }
 
   // run check for start, end and play time values in csv
@@ -147,8 +159,22 @@ const createSeratoReport = (data) => {
     console.log('')
   }
 
+  seratoPlaylistAnalysis.start_time = playlistStartTime
+  seratoPlaylistAnalysis.start_time_formatted = {
+    day: playlistDay,
+    month: playlistMonth,
+    dateday: playlistDateDay,
+    start_time: playlistStartTime.split(' ')[1],
+    time_format: startTimeFormatDisplay
+  }
+  seratoPlaylistAnalysis.playlist_length = playlistLength
+  seratoPlaylistAnalysis.playlist_length_formatted = {
+    hours: playlistLengthParsed.getHours(),
+    minutes: playlistLengthParsed.getMinutes(),
+    seconds: playlistLengthParsed.getSeconds()
+  }
   console.log('Set Title: ', playlistTitle)  
-  console.log('Start Time: ', playlistDay, playlistMonth, playlistDateDay, 'at', playlistStartTime.split(' ')[1], startTimeFormatDisplay)
+  console.log('Start Time: ', playlistDay + ' ' + playlistMonth + ' ' + playlistDateDay + ' ' + 'at' + ' ' + playlistStartTime.split(' ')[1] + ' ' +  startTimeFormatDisplay)
   // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
@@ -166,7 +192,7 @@ const createSeratoReport = (data) => {
 
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
-
+  seratoPlaylistAnalysis.master_track_log = masterTrackLog
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -218,7 +244,7 @@ const createSeratoReport = (data) => {
     topArtistsPlayed = Object.keys(artistCount)
     topArtistsPlayed.sort((a, b) => {
       return artistCount[b] - artistCount[a]
-    })
+    })    
     topThreeArtists.push(
       topArtistsPlayed[0],
       topArtistsPlayed[1],
@@ -231,6 +257,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.yellow('ARTIST DATA: '))
     console.log('')
     console.log('No artist data given.')
+    seratoPlaylistAnalysis.has_artist_data = false
   } else {
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('ARTIST DATA: '))
@@ -240,6 +267,9 @@ const createSeratoReport = (data) => {
     console.log('1: ', topThreeArtists[0])
     console.log('2: ', topThreeArtists[1])
     console.log('3: ', topThreeArtists[2])
+
+    seratoPlaylistAnalysis.unique_artists_played = uniqueArtists.size
+    seratoPlaylistAnalysis.top_three_artists = [topThreeArtists[0], topThreeArtists[1], topThreeArtists[2]]
 
     console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
     console.log(chalk.greenBright('*** Tag Health ***'))
@@ -468,8 +498,7 @@ const createSeratoReport = (data) => {
     topGenresPlayed = Object.keys(genreCount)
     topGenresPlayed.sort((a, b) => {
       return genreCount[b] - genreCount[a]
-    })
-    console.log(topGenresPlayed)
+    })    
     topThreeGenres.push(
       topGenresPlayed[0],
       topGenresPlayed[1],
@@ -833,6 +862,8 @@ const createSeratoReport = (data) => {
   // console.log(stHours, stMinutes, stSeconds)
 
   console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
+  
+  return seratoPlaylistAnalysis
 }
 
 module.exports = createSeratoReport

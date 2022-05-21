@@ -28,11 +28,13 @@ const DragAndDrop = () => {
     if (parsedCsvData.length === 0) {
       console.log('NOTHING')
     } else {
-      console.log(parsedCsvData)
+      // console.log(parsedCsvData)
       axios
         .post('http://localhost:5000/sendFile', parsedCsvData)
         .then((response) => {
-          console.log('* * * * * * * * * RESPONSE FROM EXPRESS: ', response)
+          console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
+          console.log(response.data)
+          // useEffect not clearing previous csv from console when loading a new one
         })
     }
   }) 

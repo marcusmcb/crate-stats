@@ -28,7 +28,7 @@ app.post('/sendFile', async (req, res) => {
   // let userReport = await createUserReport(req.body)
   let userReport = await createSeratoReport(req.body)
   // console.log("USER REPORT? ", userReport)
-  res.send("YUP")
+  res.send(userReport)
 })
 
 app.listen(PORT, () => {
