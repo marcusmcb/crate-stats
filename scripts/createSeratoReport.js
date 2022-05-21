@@ -47,7 +47,10 @@ const createSeratoReport = (data) => {
   let playlistStartTime,
     playlistStartTimeParsed,
     playlistEndTime,
-    playlistEndTimeParsed
+    playlistEndTimeParsed,
+    playlistDay,
+    playlistMonth,
+    playlistDateDay
 
   if (data[0]['start time'] && data[0]['end time']) {
     hasStartTimeData = true
@@ -67,8 +70,26 @@ const createSeratoReport = (data) => {
       'Friday',
       'Saturday',
     ]
-    const playlistDay = weekday[playlistStartTimeParsed.getDay()]
+    const month = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+    playlistDay = weekday[playlistStartTimeParsed.getDay()]
+    playlistMonth = month[playlistStartTimeParsed.getMonth()]
+    playlistDateDay = playlistStartTimeParsed.getDate() 
     console.log('playlistDay: ', playlistDay)
+    console.log('playlistMonth: ', playlistMonth)
+
     console.log(playlistStartTimeParsed.toDateString())
   } else {
     hasStartTimeData = false
@@ -112,9 +133,8 @@ const createSeratoReport = (data) => {
     console.log('')
   }
 
-  console.log('Set Title: ', playlistTitle)
-  console.log(playlistStartTime)
-  console.log('Start Time: ', playlistStartTimeParsed.toDateString(), playlistStartTime.split(' ')[1], playlistStartTime.split(' ')[2])
+  console.log('Set Title: ', playlistTitle)  
+  console.log('Start Time: ', playlistDay, playlistMonth, playlistDateDay, 'at', playlistStartTime.split(' ')[1], playlistStartTime.split(' ')[2])
   // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
