@@ -182,6 +182,16 @@ const createSeratoReport = (data) => {
     }
   })
 
+  // add logic check for unique plays of the same artist that appear more than once
+  // exclude back-to-back doubles from results
+  // algorithm to look for word patterns 
+
+  // test code for character removal from artist string 
+  //
+  // console.log(masterTrackLog[08])
+  // let x = masterTrackLog[08].artist.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+  // console.log(x)
+
   let titleArray = []
   let nullTitleCount = 0
   masterTrackLog.forEach((track) => {
@@ -430,7 +440,11 @@ const createSeratoReport = (data) => {
     } else if (track.genre === 'Other') {
       otherGenreCount++
     } else {
-      trackGenres.push(track.genre)
+      if (track.genre.includes('-')) {
+        trackGenres.push(track.genre.replace('-', ' '))
+      } else {
+        trackGenres.push(track.genre)
+      }      
     }
   })
 
@@ -448,13 +462,14 @@ const createSeratoReport = (data) => {
     trackGenres.forEach((item) => {
       genreCount[item] = (genreCount[item] || 0) + 1
     })
-    uniqueGenres = new Set(trackGenres)
+    uniqueGenres = new Set(trackGenres)        
 
     // identify top three genres played
     topGenresPlayed = Object.keys(genreCount)
     topGenresPlayed.sort((a, b) => {
       return genreCount[b] - genreCount[a]
     })
+    console.log(topGenresPlayed)
     topThreeGenres.push(
       topGenresPlayed[0],
       topGenresPlayed[1],
