@@ -50,13 +50,27 @@ const createSeratoReport = (data) => {
     playlistEndTimeParsed,
     playlistDay,
     playlistMonth,
-    playlistDateDay
+    playlistDateDay,
+    has12HourFormat,
+    has24HourFormat,
+    startTimeFormatDisplay
 
   if (data[0]['start time'] && data[0]['end time']) {
     hasStartTimeData = true
     hasEndTimeData = true
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
+    
+    // check to see if start time is given in AM/PM or 24-hour format
+    let var5 = var2.split(':')[0]
+    if (var5 > 12) {
+      has24HourFormat = true
+      startTimeFormatDisplay = 'local time'
+    } else {
+      has12HourFormat = true 
+      startTimeFormatDisplay = playlistStartTime.split(' ')[2]     
+    }
+
     playlistStartTimeParsed = new Date(var1 + '  ' + var2)
     playlistEndTime = data[0]['end time']
     const [var3, var4] = playlistEndTime.split(' ')
@@ -134,7 +148,7 @@ const createSeratoReport = (data) => {
   }
 
   console.log('Set Title: ', playlistTitle)  
-  console.log('Start Time: ', playlistDay, playlistMonth, playlistDateDay, 'at', playlistStartTime.split(' ')[1], playlistStartTime.split(' ')[2])
+  console.log('Start Time: ', playlistDay, playlistMonth, playlistDateDay, 'at', playlistStartTime.split(' ')[1], startTimeFormatDisplay)
   // check for NaN values, empty strings, etc
   console.log(
     'Set Length: ',
