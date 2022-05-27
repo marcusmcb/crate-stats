@@ -29,7 +29,7 @@ const createSeratoReport = (data) => {
   let seratoPlaylistAnalysis = {}
 
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
-  console.log(data[0])
+  console.log(data)
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set playlist metadata
@@ -112,11 +112,7 @@ const createSeratoReport = (data) => {
     ]
     playlistDay = weekday[playlistStartTimeParsed.getDay()]
     playlistMonth = month[playlistStartTimeParsed.getMonth()]
-    playlistDateDay = playlistStartTimeParsed.getDate()
-    console.log('playlistDay: ', playlistDay)
-    console.log('playlistMonth: ', playlistMonth)
-
-    console.log(playlistStartTimeParsed.toDateString())
+    playlistDateDay = playlistStartTimeParsed.getDate()    
   } else {
     hasStartTimeData = false
     hasEndTimeData = false
@@ -144,20 +140,15 @@ const createSeratoReport = (data) => {
     playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)
   } else {
     hasPlaylistLength = false
-  }
-
-  console.log(
-    chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
-  )
-  console.log(chalk.yellow('SERATO SET LIST DATA '))
+  } 
 
   // check if artist value is set in user csv
-  if (hasPlaylistArtist != false) {
-    console.log(chalk.yellow('for', playlistArtist))
-    console.log('')
-  } else {
-    console.log('')
-  }
+  // if (hasPlaylistArtist != false) {
+  //   console.log(chalk.yellow('for', playlistArtist))
+  //   console.log('')
+  // } else {
+  //   console.log('')
+  // }
 
   seratoPlaylistAnalysis.start_time = playlistStartTime
   seratoPlaylistAnalysis.start_time_formatted = {
@@ -168,36 +159,42 @@ const createSeratoReport = (data) => {
     time_format: startTimeFormatDisplay,
   }
   seratoPlaylistAnalysis.playlist_length = playlistLength
+  // check for NaN values
   seratoPlaylistAnalysis.playlist_length_formatted = {
     hours: playlistLengthParsed.getHours(),
     minutes: playlistLengthParsed.getMinutes(),
     seconds: playlistLengthParsed.getSeconds(),
   }
-  console.log('Set Title: ', playlistTitle)
-  console.log(
-    'Start Time: ',
-    playlistDay +
-      ' ' +
-      playlistMonth +
-      ' ' +
-      playlistDateDay +
-      ' ' +
-      'at' +
-      ' ' +
-      playlistStartTime.split(' ')[1] +
-      ' ' +
-      startTimeFormatDisplay
-  )
-  // check for NaN values, empty strings, etc
-  console.log(
-    'Set Length: ',
-    playlistLengthParsed.getHours(),
-    'Hour',
-    playlistLengthParsed.getMinutes(),
-    'Minutes',
-    playlistLengthParsed.getSeconds(),
-    'Seconds'
-  )
+
+  // console.log(
+  //   chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
+  // )
+  // console.log(chalk.yellow('SERATO SET LIST DATA '))
+  // console.log('Set Title: ', playlistTitle)
+  // console.log(
+  //   'Start Time: ',
+  //   playlistDay +
+  //     ' ' +
+  //     playlistMonth +
+  //     ' ' +
+  //     playlistDateDay +
+  //     ' ' +
+  //     'at' +
+  //     ' ' +
+  //     playlistStartTime.split(' ')[1] +
+  //     ' ' +
+  //     startTimeFormatDisplay
+  // )
+  // // check for NaN values, empty strings, etc
+  // console.log(
+  //   'Set Length: ',
+  //   playlistLengthParsed.getHours(),
+  //   'Hour',
+  //   playlistLengthParsed.getMinutes(),
+  //   'Minutes',
+  //   playlistLengthParsed.getSeconds(),
+  //   'Seconds'
+  // )
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set master track list
@@ -206,6 +203,7 @@ const createSeratoReport = (data) => {
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
   seratoPlaylistAnalysis.master_track_log = masterTrackLog
+
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -266,20 +264,20 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasArtistData) {
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('ARTIST DATA: '))
-    console.log('')
-    console.log('No artist data given.')
+    // console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.yellow('ARTIST DATA: '))
+    // console.log('')
+    // console.log('No artist data given.')
     seratoPlaylistAnalysis.has_artist_data = false
   } else {
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('ARTIST DATA: '))
-    console.log('')
-    console.log('Total unique artists played: ', uniqueArtists.size)
-    console.log('Top Three Artists: ')
-    console.log('1: ', topThreeArtists[0])
-    console.log('2: ', topThreeArtists[1])
-    console.log('3: ', topThreeArtists[2])
+    // console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.yellow('ARTIST DATA: '))
+    // console.log('')
+    // console.log('Total unique artists played: ', uniqueArtists.size)
+    // console.log('Top Three Artists: ')
+    // console.log('1: ', topThreeArtists[0])
+    // console.log('2: ', topThreeArtists[1])
+    // console.log('3: ', topThreeArtists[2])
 
     seratoPlaylistAnalysis.unique_artists_played = uniqueArtists.size
     seratoPlaylistAnalysis.top_three_artists = [
@@ -288,19 +286,19 @@ const createSeratoReport = (data) => {
       topThreeArtists[2],
     ]
 
-    console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
-    console.log(chalk.greenBright('*** Tag Health ***'))
-    console.log('')
-    console.log(
-      calculateTagHealth(artistArray.length, masterTrackLog.length).toFixed(1),
-      '% have artist tags'
-    )
-    console.log('Number of tracks with empty artist values: ', nullArtistCount)
-    console.log(
-      calculateTagHealth(titleArray.length, masterTrackLog.length).toFixed(1),
-      '% have title tags'
-    )
-    console.log('Number of tracks with empty title values: ', nullTitleCount)
+    // console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
+    // console.log(chalk.greenBright('*** Tag Health ***'))
+    // console.log('')
+    // console.log(
+    //   calculateTagHealth(artistArray.length, masterTrackLog.length).toFixed(1),
+    //   '% have artist tags'
+    // )
+    // console.log('Number of tracks with empty artist values: ', nullArtistCount)
+    // console.log(
+    //   calculateTagHealth(titleArray.length, masterTrackLog.length).toFixed(1),
+    //   '% have title tags'
+    // )
+    // console.log('Number of tracks with empty title values: ', nullTitleCount)
 
     seratoPlaylistAnalysis.artist_tag_health = {
       percentage_with_artist_tags: calculateTagHealth(
@@ -336,7 +334,6 @@ const createSeratoReport = (data) => {
 
   // number of tracks played
   const totalTracksPlayed = masterTrackLog.length
-
   seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length
 
   // array of track lengths
@@ -384,31 +381,31 @@ const createSeratoReport = (data) => {
 
   // check hasPlayTimeData to set track data response
   if (!hasPlayTimeData) {
-    console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.cyan('TRACK DATA: '))
-    console.log('')
-    console.log('No track data given.')
+    // console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.cyan('TRACK DATA: '))
+    // console.log('')
+    // console.log('No track data given.')
     seratoPlaylistAnalysis.has_track_data = false
   } else {
-    console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.cyan('TRACK DATA: '))
-    console.log('')
-    console.log('Total Tracks Played: ', totalTracksPlayed)
-    console.log('Average Track Length: ', averageTrackLength.substring(3))
-    console.log(
-      'Longest Track: ',
-      longestTrack.name,
-      '-',
-      longestTrack.playtime.substring(3)
-    )
-    console.log('Played at: ', longestTrackStartTime)
-    console.log(
-      'Shortest Track: ',
-      shortestTrack.name,
-      '-',
-      shortestTrack.playtime.substring(3)
-    )
-    console.log('Played at: ', shortestTrackStartTime)
+    // console.log(chalk.cyan('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.cyan('TRACK DATA: '))
+    // console.log('')
+    // console.log('Total Tracks Played: ', totalTracksPlayed)
+    // console.log('Average Track Length: ', averageTrackLength.substring(3))
+    // console.log(
+    //   'Longest Track: ',
+    //   longestTrack.name,
+    //   '-',
+    //   longestTrack.playtime.substring(3)
+    // )
+    // console.log('Played at: ', longestTrackStartTime)
+    // console.log(
+    //   'Shortest Track: ',
+    //   shortestTrack.name,
+    //   '-',
+    //   shortestTrack.playtime.substring(3)
+    // )
+    // console.log('Played at: ', shortestTrackStartTime)
 
     seratoPlaylistAnalysis.average_track_length =
       averageTrackLength.substring(3)
@@ -469,38 +466,38 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasBPMData) {
-    console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.magenta('BPM DATA: '))
-    console.log('')
-    console.log('No BPM data given.')
+    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.magenta('BPM DATA: '))
+    // console.log('')
+    // console.log('No BPM data given.')
     seratoPlaylistAnalysis.has_bpm_data = false
   } else {
-    console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.magenta('BPM DATA: '))
-    console.log('')
-    console.log('Average BPM: ', averageBPM.toFixed(1))
-    console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
-    console.log(
-      'Largest BPM Change Between Two Tracks: ',
-      masterTrackLog[bpmChangeIndex].bpm,
-      'BPM -',
-      masterTrackLog[bpmChangeIndex + 1].bpm,
-      'BPM'
-    )
-    console.log(
-      masterTrackLog[bpmChangeIndex].name,
-      '-->',
-      masterTrackLog[bpmChangeIndex + 1].name
-    )
-    console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
-    console.log(chalk.greenBright('*** Tag Health ***'))
-    console.log('')
-    console.log(
-      calculateTagHealth(bpmArray.length, masterTrackLog.length).toFixed(1),
-      '% have BPM tags'
-    )
-    console.log('Number of tracks with empty BPM values: ', nullBPMCount)
-    console.log('Number of tracks with proper tags: ', bpmArray.length)
+    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.magenta('BPM DATA: '))
+    // console.log('')
+    // console.log('Average BPM: ', averageBPM.toFixed(1))
+    // console.log(`BPM Range: ${bpmRange.minBPM} - ${bpmRange.maxBPM}`)
+    // console.log(
+    //   'Largest BPM Change Between Two Tracks: ',
+    //   masterTrackLog[bpmChangeIndex].bpm,
+    //   'BPM -',
+    //   masterTrackLog[bpmChangeIndex + 1].bpm,
+    //   'BPM'
+    // )
+    // console.log(
+    //   masterTrackLog[bpmChangeIndex].name,
+    //   '-->',
+    //   masterTrackLog[bpmChangeIndex + 1].name
+    // )
+    // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
+    // console.log(chalk.greenBright('*** Tag Health ***'))
+    // console.log('')
+    // console.log(
+    //   calculateTagHealth(bpmArray.length, masterTrackLog.length).toFixed(1),
+    //   '% have BPM tags'
+    // )
+    // console.log('Number of tracks with empty BPM values: ', nullBPMCount)
+    // console.log('Number of tracks with proper tags: ', bpmArray.length)
 
     seratoPlaylistAnalysis.average_bpm = averageBPM.toFixed(1)
     seratoPlaylistAnalysis.bpm_range = {
@@ -581,34 +578,35 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasGenreData) {
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('GENRE DATA: '))
-    console.log('')
-    console.log('No genre data given.')
+    // console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.yellow('GENRE DATA: '))
+    // console.log('')
+    // console.log('No genre data given.')
     seratoPlaylistAnalysis.has_genre_data = false
   } else {
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('GENRE DATA: '))
-    console.log('')
-    console.log('Number of unique genres played: ', uniqueGenres.size)
-    // console.log('Genres: ', uniqueGenres)
-    console.log('Top Three Genres: ')
-    console.log('1: ', topThreeGenres[0])
-    console.log('2: ', topThreeGenres[1])
-    console.log('3: ', topThreeGenres[2])
-    console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
-    console.log(chalk.greenBright('*** Tag Health ***'))
-    console.log('')
-    console.log(
-      calculateTagHealth(genreTagsWithValues, masterTrackLog.length).toFixed(1),
-      '% have genre tags'
-    )
-    console.log(
-      calculateTagHealth(otherGenreCount, trackGenres.length).toFixed(1),
-      "% have 'Other' as their tag"
-    )
-    console.log('Number of tracks with empty genre values: ', nullGenreCount)
-    console.log('Number of tracks with "Other" as the genre: ', otherGenreCount)
+    // console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.yellow('GENRE DATA: '))
+    // console.log('')
+    // console.log('Number of unique genres played: ', uniqueGenres.size)
+    // // console.log('Genres: ', uniqueGenres)
+    // console.log('Top Three Genres: ')
+    // console.log('1: ', topThreeGenres[0])
+    // console.log('2: ', topThreeGenres[1])
+    // console.log('3: ', topThreeGenres[2])
+    // console.log(chalk.yellow('- - - - - - - - - - - - - - - - - - - - - '))
+    // console.log(chalk.greenBright('*** Tag Health ***'))
+    // console.log('')
+    // console.log(
+    //   calculateTagHealth(genreTagsWithValues, masterTrackLog.length).toFixed(1),
+    //   '% have genre tags'
+    // )
+    // console.log(
+    //   calculateTagHealth(otherGenreCount, trackGenres.length).toFixed(1),
+    //   "% have 'Other' as their tag"
+    // )
+    // console.log('Number of tracks with empty genre values: ', nullGenreCount)
+    // console.log('Number of tracks with "Other" as the genre: ', otherGenreCount)
+
     seratoPlaylistAnalysis.unique_genres = uniqueGenres.size
     seratoPlaylistAnalysis.top_three_genres = [
       topThreeGenres[0],
@@ -671,20 +669,21 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasAlbumData) {
-    console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.green('ALBUM DATA: '))
-    console.log('')
-    console.log('No album/collection data given.')
+    // console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.green('ALBUM DATA: '))
+    // console.log('')
+    // console.log('No album/collection data given.')
     seratoPlaylistAnalysis.has_album_data = false
   } else {
-    console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.green('ALBUM DATA: '))
-    console.log('')
-    console.log('Total unique albums/collections played: ', uniqueAlbums.size)
-    console.log('Top Three Albums: ')
-    console.log('1: ', topThreeAlbums[0])
-    console.log('2: ', topThreeAlbums[1])
-    console.log('3: ', topThreeAlbums[2])
+    // console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.green('ALBUM DATA: '))
+    // console.log('')
+    // console.log('Total unique albums/collections played: ', uniqueAlbums.size)
+    // console.log('Top Three Albums: ')
+    // console.log('1: ', topThreeAlbums[0])
+    // console.log('2: ', topThreeAlbums[1])
+    // console.log('3: ', topThreeAlbums[2])
+
     seratoPlaylistAnalysis.unique_albums_played = uniqueAlbums.size
     seratoPlaylistAnalysis.top_three_albums = [
       topThreeAlbums[0],
@@ -701,13 +700,16 @@ const createSeratoReport = (data) => {
   let trackYears = []
   let nullYearCount = 0
   let malformedYearCount = 0
+  let yearTagsWithValues = 0
   masterTrackLog.forEach((track) => {
     if (!track.year || track.year === '') {
       nullYearCount++
     } else if (track.year.length !== 4) {
       malformedYearCount++
+      yearTagsWithValues++
     } else {
       trackYears.push(new Number(track.year))
+      yearTagsWithValues++
     }
   })
 
@@ -748,34 +750,58 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasYearData) {
-    console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.green('YEAR DATA: '))
-    console.log('')
-    console.log('No year data given.')
+    // console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.green('YEAR DATA: '))
+    // console.log('')
+    // console.log('No year data given.')
+    seratoPlaylistAnalysis.has_year_data = false
   } else {
-    console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.red('YEAR DATA: '))
-    console.log('')
-    console.log('Average Year: ', averageYear.toFixed())
-    console.log('Oldest Track Year: ', oldestTrack)
-    console.log(
-      'Oldest Track: ',
-      oldestTracks[0].artist,
-      '-',
-      oldestTracks[0].name
-    )
-    console.log('Count: ', oldestTrackCount)
-    console.log('Newest Track Year: ', newestTrack)
-    console.log('Count: ', newestTrackCount)
-    console.log(chalk.red('- - - - - - - - - - - - - - - - - - - - - - - '))
-    console.log(chalk.greenBright('*** Tag Health ***'))
-    console.log('')
-    console.log(
-      calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
-      '% have year tags'
-    )
-    console.log('Number of tracks with empty year values: ', nullYearCount)
-    console.log('Number of tracks with proper tags: ', trackYears.length)
+    // console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.red('YEAR DATA: '))
+    // console.log('')
+    // console.log('Average Year: ', averageYear.toFixed())
+    // console.log('Oldest Track Year: ', oldestTrack)
+    // console.log(
+    //   'Oldest Track: ',
+    //   oldestTracks[0].artist,
+    //   '-',
+    //   oldestTracks[0].name
+    // )
+    // console.log('Count: ', oldestTrackCount)
+    // console.log('Newest Track Year: ', newestTrack)
+    // console.log('Count: ', newestTrackCount)
+    // console.log(chalk.red('- - - - - - - - - - - - - - - - - - - - - - - '))
+    // console.log(chalk.greenBright('*** Tag Health ***'))
+    // console.log('')
+    // console.log(
+    //   calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
+    //   '% have year tags'
+    // )
+    // console.log('Number of tracks with empty year values: ', nullYearCount)
+    // console.log('Number of tracks with proper tags: ', trackYears.length)
+
+    seratoPlaylistAnalysis.average_year = averageYear.toFixed()
+    // return oldest tracks array as set of unique objects
+    // determine play time of oldest track
+    seratoPlaylistAnalysis.oldest_track = {
+      year: oldestTrack,
+      artist: oldestTracks[0].artist,
+      name: oldestTracks[0].name,
+      count: oldestTrackCount,
+      tracks: oldestTracks
+    }
+    // return newest tracks array as set of unique objects
+    seratoPlaylistAnalysis.newest_track = {
+      year: newestTrack,
+      count: newestTrackCount,
+      tracks: newestTracks
+    }
+
+    seratoPlaylistAnalysis.year_tag_health = {
+      percentage_with_year_tags: calculateTagHealth(yearTagsWithValues, masterTrackLog.length).toFixed(1),
+      empty_year_tags: nullYearCount,
+      malformed_year_tags: malformedYearCount
+    }       
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -823,26 +849,40 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasKeyData) {
-    console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.magenta('KEY DATA: '))
-    console.log('')
-    console.log('No key data given.')
+    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.magenta('KEY DATA: '))
+    // console.log('')
+    // console.log('No key data given.')
+    seratoPlaylistAnalysis.has_key_data = false
   } else {
-    console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.magenta('KEY DATA: '))
-    console.log('')
-    console.log('Most Common Key: ', mostCommonKey)
-    console.log('x Played: ', mostCommonKeyCount)
-    console.log('Least Common Key: ', leastCommonKey)
-    console.log('x Played: ', leastCommonKeyCount)
-    console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
-    console.log(chalk.greenBright('*** Tag Health ***'))
-    console.log('')
-    console.log(
-      calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
-      '% have key tags'
-    )
-    console.log('Number of tracks with empty key values: ', nullKeyCount)
+    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.magenta('KEY DATA: '))
+    // console.log('')
+    // console.log('Most Common Key: ', mostCommonKey)
+    // console.log('x Played: ', mostCommonKeyCount)
+    // console.log('Least Common Key: ', leastCommonKey)
+    // console.log('x Played: ', leastCommonKeyCount)
+    // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
+    // console.log(chalk.greenBright('*** Tag Health ***'))
+    // console.log('')
+    // console.log(
+    //   calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
+    //   '% have key tags'
+    // )
+    // console.log('Number of tracks with empty key values: ', nullKeyCount)
+
+    seratoPlaylistAnalysis.most_common_key = {
+      key: mostCommonKey,
+      times_played: mostCommonKeyCount
+    }
+    seratoPlaylistAnalysis.least_common_key = {
+      key: leastCommonKey,
+      times_played: leastCommonKeyCount
+    }
+    seratoPlaylistAnalysis.key_tag_health = {
+      percentage_with_key_tags: calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
+      empty_key_tags: nullKeyCount      
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -856,10 +896,11 @@ const createSeratoReport = (data) => {
 
   // check if user export contains playtime data - w/o it, the deck analysis is useless
   if (!hasPlayTimeData) {
-    console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.blue('DECK DATA: '))
-    console.log('')
-    console.log('No deck data given.')
+    // console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.blue('DECK DATA: '))
+    // console.log('')
+    // console.log('No deck data given.')
+    seratoPlaylistAnalysis.has_deck_data = false
     // check if user export does NOT contain deck data
   } else if (
     !masterTrackLog.some((item) => Object.keys(item).includes('deck'))
@@ -869,6 +910,7 @@ const createSeratoReport = (data) => {
     console.log(chalk.blue('DECK DATA: '))
     console.log('')
     console.log('No deck data given.')
+    seratoPlaylistAnalysis.has_deck_data = false
   } else {
     hasDeckData = true
     masterTrackLog.forEach((track) => {
@@ -881,14 +923,20 @@ const createSeratoReport = (data) => {
       }
     })
 
-    deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes)
-    deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes)
+    deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes).slice(3)
+    deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes).slice(3)
 
-    console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.blue('DECK DATA: '))
-    console.log('')
-    console.log('Deck 1 Average Play Time: ', deckOneAveragePlaytime)
-    console.log('Deck 2 Average Play Time: ', deckTwoAveragePlaytime)
+    // console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
+    // console.log(chalk.blue('DECK DATA: '))
+    // console.log('')
+    // console.log('Deck 1 Average Play Time: ', deckOneAveragePlaytime)
+    // console.log('Deck 2 Average Play Time: ', deckTwoAveragePlaytime)
+
+    seratoPlaylistAnalysis.average_playtime_per_deck = {
+      deck_1_average: deckOneAveragePlaytime,
+      deck_2_average: deckTwoAveragePlaytime
+    }
+    seratoPlaylistAnalysis.missing_deck_values = nullDeckCount
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
