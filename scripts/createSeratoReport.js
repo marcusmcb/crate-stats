@@ -121,7 +121,7 @@ const createSeratoReport = (data) => {
     }
   } else {
     hasStartTimeData = false
-    hasEndTimeData = false 
+    hasEndTimeData = false
   }
 
   // set playlist length
@@ -213,6 +213,19 @@ const createSeratoReport = (data) => {
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
   seratoPlaylistAnalysis.master_track_log = masterTrackLog
+  let uniqueTracks = []
+  for (let i = 0; i < masterTrackLog.length - 1; i++) {
+    if (
+      masterTrackLog[i].name === masterTrackLog[i + 1].name &&
+      masterTrackLog[i].artist === masterTrackLog[i + 1].artist &&
+      masterTrackLog[i].deck !== masterTrackLog[i + 1].deck
+    ) {
+      uniqueTracks.push(masterTrackLog[i].name)
+    }
+  }
+
+  let uniqueTracksPlayed = new Set(uniqueTracks)
+  console.log(uniqueTracksPlayed)
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
@@ -344,7 +357,7 @@ const createSeratoReport = (data) => {
 
   // number of tracks played
   const totalTracksPlayed = masterTrackLog.length
-  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length  
+  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length
 
   // array of track lengths
   let trackLengths = []
@@ -988,7 +1001,6 @@ const createSeratoReport = (data) => {
   } else {
     hasDoublesData = true
     console.log(totalTracksPlayed, doublesPlayed.length)
-
 
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
