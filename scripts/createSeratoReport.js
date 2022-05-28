@@ -29,7 +29,7 @@ const createSeratoReport = (data) => {
   let seratoPlaylistAnalysis = {}
 
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
-  console.log(data)
+  console.log(data[0])
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set playlist metadata
@@ -67,9 +67,9 @@ const createSeratoReport = (data) => {
     has24HourFormat,
     startTimeFormatDisplay
 
-  if (data[0]['start time'] && data[0]['end time']) {
+  // check if start time data is present and defined in header
+  if (data[0]['start time'] && data[0]['start time'] != '') {
     hasStartTimeData = true
-    hasEndTimeData = true
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
 
@@ -82,40 +82,46 @@ const createSeratoReport = (data) => {
       has12HourFormat = true
       startTimeFormatDisplay = playlistStartTime.split(' ')[2]
     }
-
     playlistStartTimeParsed = new Date(var1 + '  ' + var2)
-    playlistEndTime = data[0]['end time']
-    const [var3, var4] = playlistEndTime.split(' ')
-    playlistEndTimeParsed = new Date(var3 + '  ' + var4)
-    const weekday = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ]
-    const month = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ]
-    playlistDay = weekday[playlistStartTimeParsed.getDay()]
-    playlistMonth = month[playlistStartTimeParsed.getMonth()]
-    playlistDateDay = playlistStartTimeParsed.getDate()    
+
+    // check if end time data is present and defined in header
+    if (data[0]['end time'] && data[0]['end time'] != '') {
+      hasEndTimeData = true
+      playlistEndTime = data[0]['end time']
+      const [var3, var4] = playlistEndTime.split(' ')
+      playlistEndTimeParsed = new Date(var3 + '  ' + var4)
+      const weekday = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ]
+      const month = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ]
+      playlistDay = weekday[playlistStartTimeParsed.getDay()]
+      playlistMonth = month[playlistStartTimeParsed.getMonth()]
+      playlistDateDay = playlistStartTimeParsed.getDate()
+    } else {
+      hasEndTimeData = false
+    }
   } else {
     hasStartTimeData = false
-    hasEndTimeData = false
+    hasEndTimeData = false 
   }
 
   // set playlist length
@@ -140,7 +146,27 @@ const createSeratoReport = (data) => {
     playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)
   } else {
     hasPlaylistLength = false
-  } 
+  }
+
+  if (!hasPlaylistLength) {
+    seratoPlaylistAnalysis.has_playlist_length = false
+  } else {
+    seratoPlaylistAnalysis.start_time = playlistStartTime
+    seratoPlaylistAnalysis.start_time_formatted = {
+      day: playlistDay,
+      month: playlistMonth,
+      dateday: playlistDateDay,
+      start_time: playlistStartTime.split(' ')[1],
+      time_format: startTimeFormatDisplay,
+    }
+    seratoPlaylistAnalysis.playlist_length = playlistLength
+    // check for NaN values
+    seratoPlaylistAnalysis.playlist_length_formatted = {
+      hours: playlistLengthParsed.getHours(),
+      minutes: playlistLengthParsed.getMinutes(),
+      seconds: playlistLengthParsed.getSeconds(),
+    }
+  }
 
   // check if artist value is set in user csv
   // if (hasPlaylistArtist != false) {
@@ -149,22 +175,6 @@ const createSeratoReport = (data) => {
   // } else {
   //   console.log('')
   // }
-
-  seratoPlaylistAnalysis.start_time = playlistStartTime
-  seratoPlaylistAnalysis.start_time_formatted = {
-    day: playlistDay,
-    month: playlistMonth,
-    dateday: playlistDateDay,
-    start_time: playlistStartTime.split(' ')[1],
-    time_format: startTimeFormatDisplay,
-  }
-  seratoPlaylistAnalysis.playlist_length = playlistLength
-  // check for NaN values
-  seratoPlaylistAnalysis.playlist_length_formatted = {
-    hours: playlistLengthParsed.getHours(),
-    minutes: playlistLengthParsed.getMinutes(),
-    seconds: playlistLengthParsed.getSeconds(),
-  }
 
   // console.log(
   //   chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
@@ -334,7 +344,7 @@ const createSeratoReport = (data) => {
 
   // number of tracks played
   const totalTracksPlayed = masterTrackLog.length
-  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length
+  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length  
 
   // array of track lengths
   let trackLengths = []
@@ -788,20 +798,23 @@ const createSeratoReport = (data) => {
       artist: oldestTracks[0].artist,
       name: oldestTracks[0].name,
       count: oldestTrackCount,
-      tracks: oldestTracks
+      tracks: oldestTracks,
     }
     // return newest tracks array as set of unique objects
     seratoPlaylistAnalysis.newest_track = {
       year: newestTrack,
       count: newestTrackCount,
-      tracks: newestTracks
+      tracks: newestTracks,
     }
 
     seratoPlaylistAnalysis.year_tag_health = {
-      percentage_with_year_tags: calculateTagHealth(yearTagsWithValues, masterTrackLog.length).toFixed(1),
+      percentage_with_year_tags: calculateTagHealth(
+        yearTagsWithValues,
+        masterTrackLog.length
+      ).toFixed(1),
       empty_year_tags: nullYearCount,
-      malformed_year_tags: malformedYearCount
-    }       
+      malformed_year_tags: malformedYearCount,
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -873,15 +886,18 @@ const createSeratoReport = (data) => {
 
     seratoPlaylistAnalysis.most_common_key = {
       key: mostCommonKey,
-      times_played: mostCommonKeyCount
+      times_played: mostCommonKeyCount,
     }
     seratoPlaylistAnalysis.least_common_key = {
       key: leastCommonKey,
-      times_played: leastCommonKeyCount
+      times_played: leastCommonKeyCount,
     }
     seratoPlaylistAnalysis.key_tag_health = {
-      percentage_with_key_tags: calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
-      empty_key_tags: nullKeyCount      
+      percentage_with_key_tags: calculateTagHealth(
+        trackKeys.length,
+        masterTrackLog.length
+      ).toFixed(1),
+      empty_key_tags: nullKeyCount,
     }
   }
 
@@ -934,7 +950,7 @@ const createSeratoReport = (data) => {
 
     seratoPlaylistAnalysis.average_playtime_per_deck = {
       deck_1_average: deckOneAveragePlaytime,
-      deck_2_average: deckTwoAveragePlaytime
+      deck_2_average: deckTwoAveragePlaytime,
     }
     seratoPlaylistAnalysis.missing_deck_values = nullDeckCount
   }
@@ -971,6 +987,9 @@ const createSeratoReport = (data) => {
     console.log(chalk.yellow(' * * * * * * * * * * * * * * * * * * * * * '))
   } else {
     hasDoublesData = true
+    console.log(totalTracksPlayed, doublesPlayed.length)
+
+
     console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
     console.log(chalk.yellow('DOUBLES DATA: '))
     console.log('')
