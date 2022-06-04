@@ -773,61 +773,33 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasYearData) {
-    // console.log(chalk.green('* * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.green('YEAR DATA: '))
-    // console.log('')
-    // console.log('No year data given.')
-    seratoPlaylistAnalysis.has_year_data = false
+    seratoPlaylistAnalysis.year_data = {
+      has_year_data: false,
+    }
   } else {
-    // console.log(chalk.red('* * * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.red('YEAR DATA: '))
-    // console.log('')
-    // console.log('Average Year: ', averageYear.toFixed())
-    // console.log('Oldest Track Year: ', oldestTrack)
-    // console.log(
-    //   'Oldest Track: ',
-    //   oldestTracks[0].artist,
-    //   '-',
-    //   oldestTracks[0].name
-    // )
-    // console.log('Count: ', oldestTrackCount)
-    // console.log('Newest Track Year: ', newestTrack)
-    // console.log('Count: ', newestTrackCount)
-    // console.log(chalk.red('- - - - - - - - - - - - - - - - - - - - - - - '))
-    // console.log(chalk.greenBright('*** Tag Health ***'))
-    // console.log('')
-    // console.log(
-    //   calculateTagHealth(trackYears.length, masterTrackLog.length).toFixed(1),
-    //   '% have year tags'
-    // )
-    // console.log('Number of tracks with empty year values: ', nullYearCount)
-    // console.log('Number of tracks with proper tags: ', trackYears.length)
-
-    seratoPlaylistAnalysis.average_year = averageYear.toFixed()
-    // return oldest tracks array as set of unique objects
-    // determine play time of oldest track
-    seratoPlaylistAnalysis.oldest_track = {
-      year: oldestTrack,
-      artist: oldestTracks[0].artist,
-      name: oldestTracks[0].name,
-      count: oldestTrackCount,
-      tracks: oldestTracks,
-    }
-    // return newest tracks array as set of unique objects
-    seratoPlaylistAnalysis.newest_track = {
-      year: newestTrack,
-      count: newestTrackCount,
-      tracks: newestTracks,
-    }
-
-    seratoPlaylistAnalysis.year_tag_health = {
-      percentage_with_year_tags: calculateTagHealth(
-        yearTagsWithValues,
-        masterTrackLog.length
-      ).toFixed(1),
-      empty_year_tags: nullYearCount,
-      malformed_year_tags: malformedYearCount,
-    }
+    seratoPlaylistAnalysis.year_data = {
+      average_year: averageYear.toFixed(),
+      oldest_track: {
+        year: oldestTrack,
+        artist: oldestTracks[0].artist,
+        name: oldestTracks[0].name,
+        count: oldestTrackCount,
+        tracks: oldestTracks,
+      },
+      newest_track: {
+        year: newestTrack,
+        count: newestTrackCount,
+        tracks: newestTracks,
+      },
+      tag_health: {
+        percentage_with_year_tags: calculateTagHealth(
+          yearTagsWithValues,
+          masterTrackLog.length
+        ).toFixed(1),
+        empty_year_tags: nullYearCount,
+        malformed_year_tags: malformedYearCount,
+      },
+    }   
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -896,7 +868,7 @@ const createSeratoReport = (data) => {
         ).toFixed(1),
         empty_key_tags: nullKeyCount,
       },
-    }    
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
