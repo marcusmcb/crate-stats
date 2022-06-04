@@ -875,43 +875,28 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasKeyData) {
-    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.magenta('KEY DATA: '))
-    // console.log('')
-    // console.log('No key data given.')
     seratoPlaylistAnalysis.has_key_data = false
+    seratoPlaylistAnalysis.key_data = {
+      has_key_data: false,
+    }
   } else {
-    // console.log(chalk.magenta('* * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.magenta('KEY DATA: '))
-    // console.log('')
-    // console.log('Most Common Key: ', mostCommonKey)
-    // console.log('x Played: ', mostCommonKeyCount)
-    // console.log('Least Common Key: ', leastCommonKey)
-    // console.log('x Played: ', leastCommonKeyCount)
-    // console.log(chalk.magenta('- - - - - - - - - - - - - - - - - - - - - '))
-    // console.log(chalk.greenBright('*** Tag Health ***'))
-    // console.log('')
-    // console.log(
-    //   calculateTagHealth(trackKeys.length, masterTrackLog.length).toFixed(1),
-    //   '% have key tags'
-    // )
-    // console.log('Number of tracks with empty key values: ', nullKeyCount)
-
-    seratoPlaylistAnalysis.most_common_key = {
-      key: mostCommonKey,
-      times_played: mostCommonKeyCount,
-    }
-    seratoPlaylistAnalysis.least_common_key = {
-      key: leastCommonKey,
-      times_played: leastCommonKeyCount,
-    }
-    seratoPlaylistAnalysis.key_tag_health = {
-      percentage_with_key_tags: calculateTagHealth(
-        trackKeys.length,
-        masterTrackLog.length
-      ).toFixed(1),
-      empty_key_tags: nullKeyCount,
-    }
+    seratoPlaylistAnalysis.key_data = {
+      most_common_key: {
+        key: mostCommonKey,
+        times_played: mostCommonKeyCount,
+      },
+      least_common_key: {
+        key: leastCommonKey,
+        times_played: leastCommonKeyCount,
+      },
+      tag_health: {
+        percentage_with_key_tags: calculateTagHealth(
+          trackKeys.length,
+          masterTrackLog.length
+        ).toFixed(1),
+        empty_key_tags: nullKeyCount,
+      },
+    }    
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -925,21 +910,17 @@ const createSeratoReport = (data) => {
 
   // check if user export contains playtime data - w/o it, the deck analysis is useless
   if (!hasPlayTimeData) {
-    // console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.blue('DECK DATA: '))
-    // console.log('')
-    // console.log('No deck data given.')
-    seratoPlaylistAnalysis.has_deck_data = false
+    seratoPlaylistAnalysis.deck_data = {
+      has_deck_data: false,
+    }
     // check if user export does NOT contain deck data
   } else if (
     !masterTrackLog.some((item) => Object.keys(item).includes('deck'))
   ) {
     hasDeckData = false
-    console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.blue('DECK DATA: '))
-    console.log('')
-    console.log('No deck data given.')
-    seratoPlaylistAnalysis.has_deck_data = false
+    seratoPlaylistAnalysis.deck_data = {
+      has_deck_data: false,
+    }
   } else {
     hasDeckData = true
     masterTrackLog.forEach((track) => {
@@ -955,17 +936,11 @@ const createSeratoReport = (data) => {
     deckOneAveragePlaytime = calculateAverageTime(deckOnePlaytimes).slice(3)
     deckTwoAveragePlaytime = calculateAverageTime(deckTwoPlaytimes).slice(3)
 
-    // console.log(chalk.blue('* * * * * * * * * * * * * * * * * * * * * '))
-    // console.log(chalk.blue('DECK DATA: '))
-    // console.log('')
-    // console.log('Deck 1 Average Play Time: ', deckOneAveragePlaytime)
-    // console.log('Deck 2 Average Play Time: ', deckTwoAveragePlaytime)
-
-    seratoPlaylistAnalysis.average_playtime_per_deck = {
+    seratoPlaylistAnalysis.deck_data = {
       deck_1_average: deckOneAveragePlaytime,
       deck_2_average: deckTwoAveragePlaytime,
+      missing_deck_values: nullDeckCount,
     }
-    seratoPlaylistAnalysis.missing_deck_values = nullDeckCount
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -993,30 +968,15 @@ const createSeratoReport = (data) => {
 
   if (doublesPlayed.length === 0) {
     hasDoublesData = false
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('DOUBLES DATA: '))
-    console.log('')
-    console.log('No doubles detected in this set.')
-    console.log(chalk.yellow(' * * * * * * * * * * * * * * * * * * * * * '))
-    seratoPlaylistAnalysis.has_no_doubles_data = true
+    seratoPlaylistAnalysis.doubles_data = {
+      has_doubles_data: false,
+    }
   } else {
     hasDoublesData = true
-    console.log(totalTracksPlayed, doublesPlayed.length)
-
-    console.log(chalk.yellow('* * * * * * * * * * * * * * * * * * * * * '))
-    console.log(chalk.yellow('DOUBLES DATA: '))
-    console.log('')
-    console.log('Doubles detected: ', doublesPlayed.length / 2)    
-    doublesTitles.forEach((track) => {
-      console.log(track.artist, '-', track.name)
-    })
-    console.log(chalk.yellow(' - - - - - - - - - - - - - - - - - - - - - '))
-    // check if deck data is present or not for doubles detected
     if (!hasPlayTimeData && !hasDeckData) {
-      console.log('No playtime data available.')
       seratoPlaylistAnalysis.doubles_data = {
         doubles_detected: doublesPlayed.length / 2,
-        has_playtime_data: false
+        has_playtime_data: false,
       }
     } else {
       let deck1Doubles = []
@@ -1030,13 +990,11 @@ const createSeratoReport = (data) => {
       })
       deckOneDoublesPlaytime = calculateAverageTime(deck1Doubles)
       deckTwoDoublesPlaytime = calculateAverageTime(deck2Doubles)
-      console.log('Deck 1 doubles play time: ', deckOneDoublesPlaytime)
-      console.log('Deck 2 doubles play time: ', deckTwoDoublesPlaytime)
       seratoPlaylistAnalysis.doubles_data = {
         doubles_detected: doublesPlayed.length / 2,
         deck_1_doubles_playtime: deckOneDoublesPlaytime,
         deck_2_doubles_playtime: deckTwoDoublesPlaytime,
-        doubles_played: doublesTitles
+        doubles_played: doublesTitles,
       }
     }
   }
