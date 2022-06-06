@@ -6,6 +6,7 @@ const calculateTagHealth = (val1, val2) => {
 }
 
 const createSeratoReport = (data) => {
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   //      set conditional checks for each data property
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -39,9 +40,13 @@ const createSeratoReport = (data) => {
   if (data[0].name) {
     hasPlaylistTitle = true
     playlistTitle = data[0].name
-    seratoPlaylistAnalysis.playlist_title = data[0].name
+    seratoPlaylistAnalysis.playlist_data = {
+      title: playlistTitle,
+    }
   } else {
-    seratoPlaylistAnalysis.hasPlaylistTitle = false
+    seratoPlaylistAnalysis.playlist_data = {
+      has_title: false,
+    }
   }
 
   // check if display name is ''
@@ -49,10 +54,10 @@ const createSeratoReport = (data) => {
   if (data[0].artist) {
     hasPlaylistArtist = true
     playlistArtist = data[0].artist
-    seratoPlaylistAnalysis.playlist_artist = playlistArtist
+    seratoPlaylistAnalysis.playlist_data.artist = playlistArtist
   } else {
     hasPlaylistArtist = false
-    seratoPlaylistAnalysis.has_playlist_artist = false
+    seratoPlaylistAnalysis.playlist_data.has_artist = false
   }
 
   // run check for start, end and play time values in csv
@@ -149,62 +154,24 @@ const createSeratoReport = (data) => {
   }
 
   if (!hasPlaylistLength) {
-    seratoPlaylistAnalysis.has_playlist_length = false
+    seratoPlaylistAnalysis.playlist_data.has_playlist_length = false
   } else {
-    seratoPlaylistAnalysis.start_time = playlistStartTime
-    seratoPlaylistAnalysis.start_time_formatted = {
+    seratoPlaylistAnalysis.playlist_data.start_time = playlistStartTime
+    seratoPlaylistAnalysis.playlist_data.start_time_formatted = {
       day: playlistDay,
       month: playlistMonth,
       dateday: playlistDateDay,
       start_time: playlistStartTime.split(' ')[1],
       time_format: startTimeFormatDisplay,
     }
-    seratoPlaylistAnalysis.playlist_length = playlistLength
+    seratoPlaylistAnalysis.playlist_data.playlist_length = playlistLength
     // check for NaN values
-    seratoPlaylistAnalysis.playlist_length_formatted = {
+    seratoPlaylistAnalysis.playlist_data.playlist_length_formatted = {
       hours: playlistLengthParsed.getHours(),
       minutes: playlistLengthParsed.getMinutes(),
       seconds: playlistLengthParsed.getSeconds(),
     }
   }
-
-  // check if artist value is set in user csv
-  // if (hasPlaylistArtist != false) {
-  //   console.log(chalk.yellow('for', playlistArtist))
-  //   console.log('')
-  // } else {
-  //   console.log('')
-  // }
-
-  // console.log(
-  //   chalk.inverse(chalk.red('* * * * * * * * * * * * * * * * * * * * * '))
-  // )
-  // console.log(chalk.yellow('SERATO SET LIST DATA '))
-  // console.log('Set Title: ', playlistTitle)
-  // console.log(
-  //   'Start Time: ',
-  //   playlistDay +
-  //     ' ' +
-  //     playlistMonth +
-  //     ' ' +
-  //     playlistDateDay +
-  //     ' ' +
-  //     'at' +
-  //     ' ' +
-  //     playlistStartTime.split(' ')[1] +
-  //     ' ' +
-  //     startTimeFormatDisplay
-  // )
-  // // check for NaN values, empty strings, etc
-  // console.log(
-  //   'Set Length: ',
-  //   playlistLengthParsed.getHours(),
-  //   'Hour',
-  //   playlistLengthParsed.getMinutes(),
-  //   'Minutes',
-  //   playlistLengthParsed.getSeconds(),
-  //   'Seconds'
-  // )
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set master track list
@@ -333,8 +300,7 @@ const createSeratoReport = (data) => {
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // number of tracks played
-  const totalTracksPlayed = masterTrackLog.length
-  seratoPlaylistAnalysis.total_tracks_played = masterTrackLog.length
+  const totalTracksPlayed = masterTrackLog.length  
 
   // array of track lengths
   let trackLengths = []
@@ -386,6 +352,7 @@ const createSeratoReport = (data) => {
     }
   } else {
     seratoPlaylistAnalysis.track_data = {
+      total_tracks_played: totalTracksPlayed,
       average_track_length: averageTrackLength.substring(3),
       longest_track: {
         name: longestTrack.name,
