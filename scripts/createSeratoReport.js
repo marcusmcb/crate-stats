@@ -211,13 +211,7 @@ const createSeratoReport = (data) => {
 
   // add logic check for unique plays of the same artist that appear more than once
   // exclude back-to-back doubles from results
-  // algorithm to look for word patterns
-
-  // test code for character removal from artist string
-  //
-  // console.log(masterTrackLog[08])
-  // let x = masterTrackLog[08].artist.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-  // console.log(x)
+  // algorithm to look for word patterns 
 
   let titleArray = []
   let nullTitleCount = 0

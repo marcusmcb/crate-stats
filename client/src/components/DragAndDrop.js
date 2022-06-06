@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const fileTypes = ['CSV']
 
-const DragAndDrop = ({childToParent}) => {
+const DragAndDrop = ({ childToParent }) => {
   const [parsedCsvData, setParsedCsvData] = useState([])
   const [file, setFile] = useState(null)
 
