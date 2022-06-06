@@ -7,25 +7,23 @@ import axios from 'axios'
 
 const fileTypes = ['CSV']
 
-const DragAndDrop = () => {
-  const [parsedCsvData, setParsedCsvData] = useState([]) 
-  const [file, setFile] = useState(null) 
+const DragAndDrop = ({childToParent}) => {
+  const [parsedCsvData, setParsedCsvData] = useState([])
+  const [file, setFile] = useState(null)
 
-  const getCrateStatsReport = () => {
-    
-  }
-  
+  const getCrateStatsReport = () => {}
+
   const handleChange = (event) => {
     console.log(event.name)
-    setFile(event.name)    
+    setFile(event.name)
     Papa.parse(event, {
       header: true,
       download: false,
-      complete: (results) => {        
+      complete: (results) => {
         setParsedCsvData(results.data)
-      }
-    })    
-  }  
+      },
+    })
+  }
 
   useEffect(() => {
     if (parsedCsvData.length === 0) {
@@ -36,11 +34,12 @@ const DragAndDrop = () => {
         .post('http://localhost:5000/sendFile', parsedCsvData)
         .then((response) => {
           console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
-          console.log(response.data)
+          // console.log(response.data)
+          childToParent(response.data)
           // useEffect not clearing previous csv from console when loading a new one
         })
     }
-  }) 
+  })
 
   return (
     <div className='foo'>
@@ -52,7 +51,7 @@ const DragAndDrop = () => {
         name='file'
         fileOrFiles={null}
       />
-      <p>{file ? `File name: ${file}` : "no files uploaded yet"}</p>      
+      <p>{file ? `File name: ${file}` : 'no files uploaded yet'}</p>
     </div>
   )
 }
