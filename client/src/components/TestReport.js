@@ -20,8 +20,8 @@ import "./TestPage.css";
 const TestReport = () => {
 
   const [data, setData] = useState({})
-  const childToParent = (csvData) => {
-    console.log(csvData)
+  const childToParent = (userData) => {
+    console.log(userData)
   }
   // const [data, setData] = useState([]);
 

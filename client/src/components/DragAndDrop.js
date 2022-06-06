@@ -25,6 +25,8 @@ const DragAndDrop = ({childToParent}) => {
     })
   }
 
+  // update to properly listen to csv event
+  // currently triggers infinite loop when setting data in parent component
   useEffect(() => {
     if (parsedCsvData.length === 0) {
       console.log('NOTHING')
