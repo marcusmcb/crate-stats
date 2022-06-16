@@ -1,17 +1,16 @@
 import { useState, useEffect, useCallback } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 import Papa from 'papaparse'
+import axios from 'axios'
 
 import './draganddrop.css'
-import axios from 'axios'
 
 const fileTypes = ['CSV']
 
 const DragAndDrop = ({ childToParent }) => {
-  const [parsedCsvData, setParsedCsvData] = useState([])
-  const [file, setFile] = useState(null)
 
-  const getCrateStatsReport = () => {}
+  const [parsedCsvData, setParsedCsvData] = useState([])
+  const [file, setFile] = useState(null) 
 
   const handleChange = (event) => {
     console.log(event.name)
@@ -25,20 +24,16 @@ const DragAndDrop = ({ childToParent }) => {
     })
   }
 
-  // update to properly listen to csv event
-  // currently triggers infinite loop when setting data in parent component
   useEffect(() => {
     if (parsedCsvData.length === 0) {
-      console.log('NOTHING')
+      return
     } else {
-      // console.log(parsedCsvData)
       axios
         .post('http://localhost:5000/sendFile', parsedCsvData)
         .then((response) => {
           console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
-          // console.log(response.data)
           childToParent(response.data)
-          // useEffect not clearing previous csv from console when loading a new one
+          setParsedCsvData([])
         })
     }
   })
