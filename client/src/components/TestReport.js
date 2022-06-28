@@ -12,24 +12,19 @@ import './TestPage.css'
 
 const TestReport = () => {
 
-  const [data, setData] = useState({})
+  const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
 
   const childToParent = (userData) => {
-    if (userData.length === 0) {
-      console.log("EMPTY")
-    } else {
-      console.log("GOT DATA")
-      setData(userData)
-    }
+    setData(userData)
+    console.log(userData)
   }
 
   useEffect(() => {
-    if (data.length === 0) {
-      console.log("No Data")
+    if (!data) {
+      console.log("Empty")
     } else {
-      console.log("Yes Data")
-      console.log(data)
+      console.log("Not Empty")
       setIsBusy(false)
     }
   })
@@ -39,7 +34,7 @@ const TestReport = () => {
       <Titlebar />
       <DragAndDrop childToParent={childToParent} />
       {
-        isBusy === true ? (<p>Waiting</p>) : (<p>Done</p>)
+        isBusy === true ? (<p>Waiting</p>) : (<p>{data.playlist_data.title}</p>)
       }
       <div className='testpage-body'>
         <div className='data-block'>
@@ -49,7 +44,10 @@ const TestReport = () => {
                 <div className='data-block-primary-header'>
                   Total Tracks Played
                 </div>
-                <div className='data-block-primary-value-main'>37</div>
+                {
+                  isBusy === true ? (<div className='data-block-primary-value-main'>Not yet...</div>) : (<div className='data-block-primary-value-main'>{data.track_data.total_tracks_played}</div>)
+                }
+                
               </div>
               <div className='data-block-secondary'>
                 <div className='secondary-container'>

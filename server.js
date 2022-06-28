@@ -23,11 +23,8 @@ app.post('/createReport', async (req, res) => {
   res.send(await createReport(url))
 })
 
-app.post('/sendFile', async (req, res) => {  
-  // console.log("REQ.BODY **************************** ", req.body)    
-  // let userReport = await createUserReport(req.body)
-  let userReport = await createSeratoReport(req.body)
-  // console.log("USER REPORT? ", userReport)
+app.post('/sendFile', async (req, res) => {    
+  let userReport = await createSeratoReport(req.body)  
   res.send(userReport)
 })
 
