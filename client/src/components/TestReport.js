@@ -11,14 +11,36 @@ import SecondsText from './spantext/secondsText'
 import './TestPage.css'
 
 const TestReport = () => {
+
+  const [data, setData] = useState({})
+  const [isBusy, setIsBusy] = useState(true)
+
   const childToParent = (userData) => {
-    console.log(userData)
+    if (userData.length === 0) {
+      console.log("EMPTY")
+    } else {
+      console.log("GOT DATA")
+      setData(userData)
+    }
   }
+
+  useEffect(() => {
+    if (data.length === 0) {
+      console.log("No Data")
+    } else {
+      console.log("Yes Data")
+      console.log(data)
+      setIsBusy(false)
+    }
+  })
 
   return (
     <Fragment>
       <Titlebar />
       <DragAndDrop childToParent={childToParent} />
+      {
+        isBusy === true ? (<p>Waiting</p>) : (<p>Done</p>)
+      }
       <div className='testpage-body'>
         <div className='data-block'>
           <div className='data-block-toprow'>
