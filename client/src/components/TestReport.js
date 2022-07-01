@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState, useRef } from 'react'
 import Titlebar from './Titlebar'
 import DragAndDrop from './DragAndDrop'
 import MinuteText from './spantext/minuteText'
@@ -14,6 +14,7 @@ const TestReport = () => {
 
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
+  const isInitialMount = useRef(true)
 
   const childToParent = (userData) => {
     setData(userData)
@@ -21,13 +22,21 @@ const TestReport = () => {
   }
 
   useEffect(() => {
-    if (!data) {
-      console.log("Empty")
+    if (isInitialMount.current) {
+      isInitialMount.current = false
     } else {
-      console.log("Not Empty")
       setIsBusy(false)
     }
   })
+
+  // useEffect(() => {
+  //   if (!data) {
+  //     console.log("Empty")
+  //   } else {
+  //     console.log("Not Empty")
+  //     setIsBusy(false)
+  //   }
+  // })
 
   return (
     <Fragment>
