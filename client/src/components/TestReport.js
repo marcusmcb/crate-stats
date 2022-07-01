@@ -1,24 +1,27 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
+import axios from 'axios'
 import Titlebar from './Titlebar'
-import DragAndDrop from './DragAndDrop'
-import MinuteText from './spantext/minuteText'
-import MinutesText from './spantext/minutesText'
-import SecondText from './spantext/secondText'
-import SecondsText from './spantext/secondsText'
 
+import DragAndDrop from './DragAndDrop'
+import MinutesText from './spantext/minutesText'
+import SecondsText from './spantext/secondsText'
+// import MinuteText from './spantext/minuteText'
+// import SecondText from './spantext/secondText'
 // import BarChart from "./d3/basicchart";
 
 import './TestPage.css'
 
 const TestReport = () => {
-
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
   const isInitialMount = useRef(true)
 
-  const childToParent = (userData) => {
-    setData(userData)
-    console.log(userData)
+  const getDataFromCSV = (userData) => {
+    axios.post('http://localhost:5000/sendFile', userData).then((response) => {
+      console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
+      console.log(response.data)
+      setData(response.data)
+    })
   }
 
   useEffect(() => {
@@ -29,22 +32,10 @@ const TestReport = () => {
     }
   })
 
-  // useEffect(() => {
-  //   if (!data) {
-  //     console.log("Empty")
-  //   } else {
-  //     console.log("Not Empty")
-  //     setIsBusy(false)
-  //   }
-  // })
-
   return (
     <Fragment>
       <Titlebar />
-      <DragAndDrop childToParent={childToParent} />
-      {
-        isBusy === true ? (<p>Waiting</p>) : (<p>{data.playlist_data.title}</p>)
-      }
+      <DragAndDrop getDataFromCSV={getDataFromCSV} />
       <div className='testpage-body'>
         <div className='data-block'>
           <div className='data-block-toprow'>
@@ -53,17 +44,29 @@ const TestReport = () => {
                 <div className='data-block-primary-header'>
                   Total Tracks Played
                 </div>
-                {
-                  isBusy === true ? (<div className='data-block-primary-value-main'>Not yet...</div>) : (<div className='data-block-primary-value-main'>{data.track_data.total_tracks_played}</div>)
-                }
-                
+                {isBusy === true ? (
+                  <div className='data-block-primary-value-main'>
+                    Not yet...
+                  </div>
+                ) : (
+                  <div className='data-block-primary-value-main'>
+                    {data.track_data.total_tracks_played}
+                  </div>
+                )}
               </div>
               <div className='data-block-secondary'>
                 <div className='secondary-container'>
                   <div className='secondary-container-header'>
                     Average Track Length
                   </div>
-                  <div className='secondary-container-value'>2:33</div>
+                  {isBusy === true ? (
+                    <div className='secondary-container-value'>Waiting</div>
+                  ) : (
+                    <div className='secondary-container-value'>
+                      {data.track_data.average_track_length}
+                    </div>
+                  )}
+
                   <div className='secondary-container-header'>
                     Average Tracks Per Hour
                   </div>

@@ -1,15 +1,13 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 import Papa from 'papaparse'
-import axios from 'axios'
 
 import './draganddrop.css'
 
 const fileTypes = ['CSV']
 
-const DragAndDrop = ({ childToParent }) => {
-
-  const [parsedCsvData, setParsedCsvData] = useState([])
+const DragAndDrop = ({ getDataFromCSV }) => {
+  
   const [file, setFile] = useState(null) 
 
   const handleChange = (event) => {
@@ -18,26 +16,12 @@ const DragAndDrop = ({ childToParent }) => {
     Papa.parse(event, {
       header: true,
       download: false,
-      complete: (results) => {
-        setParsedCsvData(results.data)
+      complete: (results) => {        
+        getDataFromCSV(results.data)
       },
     })
   }
-
-  useEffect(() => {
-    if (parsedCsvData.length === 0) {
-      return
-    } else {
-      axios
-        .post('http://localhost:5000/sendFile', parsedCsvData)
-        .then((response) => {
-          console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
-          childToParent(response.data)
-          setParsedCsvData([])
-        })
-    }
-  })
-
+  
   return (
     <div className='foo'>
       <FileUploader
