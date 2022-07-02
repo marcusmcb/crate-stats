@@ -30,7 +30,7 @@ const createSeratoReport = (data) => {
   let seratoPlaylistAnalysis = {}
 
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
-  console.log(data[0])
+  console.log(data[3])
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set playlist metadata
@@ -345,7 +345,7 @@ const createSeratoReport = (data) => {
       has_track_data: false,
     }
   } else {
-    console.log("HERE **********", shortestTrack.playtime.substring(4)[0])
+    console.log("HERE **********", longestTrack.playtime.substring(3)[0])
 
     seratoPlaylistAnalysis.track_data = {
       total_tracks_played: totalTracksPlayed,
@@ -427,6 +427,7 @@ const createSeratoReport = (data) => {
           bpm: masterTrackLog[bpmChangeIndex + 1].bpm,
           name: masterTrackLog[bpmChangeIndex + 1].name,
         },
+        occurred_at: masterTrackLog[bpmChangeIndex + 1]['start time']
       },
       tag_health: {
         percentage_with_bpm_tags: calculateTagHealth(
