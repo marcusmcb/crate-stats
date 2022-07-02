@@ -250,8 +250,14 @@ const TestReport = () => {
                 <h3 className='no-data'>No BPM Data</h3>
               ) : (
                 <div className='data-block-toprow'>
+                  {/* ****************************************** */}
+                  {/* ************* BPM DATA ******************* */}
+                  {/* ****************************************** */}
                   <div className='toprow-container'>
                     <div className='data-block-primary'>
+                      {/* ****************************************** */}
+                      {/* *********** AVERAGE BPM ****************** */}
+                      {/* ****************************************** */}
                       <div className='data-block-primary-header'>
                         Average BPM
                       </div>
@@ -261,6 +267,9 @@ const TestReport = () => {
                     </div>
                     <div className='data-block-secondary'>
                       <div className='secondary-container'>
+                        {/* ****************************************** */}
+                        {/* ************ BPM RANGE ******************* */}
+                        {/* ****************************************** */}
                         <div className='secondary-container-header'>
                           BPM Range
                         </div>
@@ -274,6 +283,9 @@ const TestReport = () => {
                   <div className='data-block-third'>
                     <div className='tertiary-container'>
                       <div className='tertiary-item'>
+                        {/* ****************************************** */}
+                        {/* *********** BIGGEST BPM CHANGE *********** */}
+                        {/* ****************************************** */}
                         <div className='tertiary-item-header'>
                           Biggest BPM Change:{' '}
                           {data.bpm_data.biggest_bpm_change.track_one.bpm} -{' '}
