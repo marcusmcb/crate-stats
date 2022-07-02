@@ -7,9 +7,17 @@
   border-bottom: 1px dotted black;
 }
 
+.text-white {
+  color: white;
+}
+
 .loading, .no-data {
   color: rgba(145, 206, 201, 255);
   text-align: center;
+}
+
+.data-block-title {
+  color: white;
 }
 
 .data-block {
