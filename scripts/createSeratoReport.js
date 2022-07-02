@@ -345,6 +345,8 @@ const createSeratoReport = (data) => {
       has_track_data: false,
     }
   } else {
+    console.log("HERE **********", shortestTrack.playtime.substring(4)[0])
+
     seratoPlaylistAnalysis.track_data = {
       total_tracks_played: totalTracksPlayed,
       average_track_length: averageTrackLength.substring(3),

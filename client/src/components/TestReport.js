@@ -5,8 +5,8 @@ import Titlebar from './Titlebar'
 import DragAndDrop from './DragAndDrop'
 import MinutesText from './spantext/minutesText'
 import SecondsText from './spantext/secondsText'
-// import MinuteText from './spantext/minuteText'
-// import SecondText from './spantext/secondText'
+import MinuteText from './spantext/minuteText'
+import SecondText from './spantext/secondText'
 // import BarChart from "./d3/basicchart";
 
 import './TestPage.css'
@@ -36,94 +36,206 @@ const TestReport = () => {
     <Fragment>
       <Titlebar />
       <DragAndDrop getDataFromCSV={getDataFromCSV} />
+
       <div className='testpage-body'>
-        <div className='data-block'>
-          <div className='data-block-toprow'>
-            <div className='toprow-container'>
-              <div className='data-block-primary'>
-                <div className='data-block-primary-header'>
-                  Total Tracks Played
-                </div>
-                {isBusy === true ? (
-                  <div className='data-block-primary-value-main'>
-                    Not yet...
-                  </div>
-                ) : (
-                  <div className='data-block-primary-value-main'>
-                    {data.track_data.total_tracks_played}
-                  </div>
-                )}
-              </div>
-              <div className='data-block-secondary'>
-                <div className='secondary-container'>
-                  <div className='secondary-container-header'>
-                    Average Track Length
-                  </div>
-                  {isBusy === true ? (
-                    <div className='secondary-container-value'>Waiting</div>
-                  ) : (
-                    <div className='secondary-container-value'>
-                      {data.track_data.average_track_length}
+        {isBusy === true ? (
+          <div className='data-block loading'>Awaiting data...</div>
+        ) : (
+          <div className='data-block'>
+            {data.track_data.has_track_data === false ? (
+              <h3 className='no-data'>No Track Data</h3>
+            ) : (
+              <div>
+                <div className='data-block-toprow'>
+                  <div className='toprow-container'>
+                    <div className='data-block-primary'>
+                      {/* ****************************************** */}
+                      {/* *********** TOTAL TRACKS PLAYED ********** */}
+                      {/* ****************************************** */}
+                      <div className='data-block-primary-header'>
+                        Total Tracks Played
+                      </div>                      
+                      <div className='data-block-primary-value-main'>
+                        {data.track_data.total_tracks_played}
+                      </div>
+                    </div>                    
+                    <div className='data-block-secondary'>
+                      <div className='secondary-container'>
+                        {/* ****************************************** */}
+                        {/* ************* AVERAGE TRACK LENGTH ******* */}
+                        {/* ****************************************** */}
+                        <div className='secondary-container-header'>
+                          Average Track Length
+                        </div>                        
+                        <div className='secondary-container-value'>
+                          {data.track_data.average_track_length}
+                        </div>
+                        {/* <div className='secondary-container-header'>
+                          Average Tracks Per Hour
+                        </div>
+                        <div className='secondary-container-value'>21</div> */}
+                      </div>
                     </div>
-                  )}
-
-                  <div className='secondary-container-header'>
-                    Average Tracks Per Hour
                   </div>
-                  <div className='secondary-container-value'>21</div>
+
+                  <div className='data-block-third'>
+                    <div className='tertiary-container'>
+                      <div className='tertiary-item'>
+                        {/* ****************************************** */}
+                        {/* *************** LONGEST TRACK DATA ******* */}
+                        {/* ****************************************** */}
+                        <div className='tertiary-item-header'>
+                          Longest Track:
+                        </div>                        
+                        <div className='timer-line'>
+                          {data.track_data.longest_track.play_time.split(
+                            ':'
+                          )[0] > 1 ? (
+                            <div>
+                              {
+                                data.track_data.longest_track.play_time.split(
+                                  ':'
+                                )[0]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <MinutesText />,
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              {
+                                data.track_data.longest_track.play_time.split(
+                                  ':'
+                                )[0]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <MinuteText />,
+                              </span>
+                            </div>
+                          )}
+                          {data.track_data.longest_track.play_time.split(
+                            ':'
+                          )[1] > 1 ? (
+                            <div>
+                              {
+                                data.track_data.longest_track.play_time.split(
+                                  ':'
+                                )[1]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <SecondsText />
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              {
+                                data.track_data.longest_track.play_time.split(
+                                  ':'
+                                )[1]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <SecondText />
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <div className='tertiary-item-value'>
+                          {data.track_data.longest_track.name} (
+                          {data.track_data.longest_track.play_time})
+                        </div>
+                        <div className='tertiary-item-caption'>
+                          (played at{' '}
+                          <span className='tertiary-item-timestamp'>
+                            {data.track_data.longest_track.played_at}
+                          </span>
+                          )
+                        </div>
+                      </div>
+                      <div className='tertiary-item'>
+                        {/* ****************************************** */}
+                        {/* ************** SHORTEST TRACK DATA ******* */}
+                        {/* ****************************************** */}
+                        <div className='tertiary-item-header'>
+                          Shortest Track:
+                        </div>
+                        <div className='timer-line'>
+                          {data.track_data.shortest_track.play_time.split(
+                            ':'
+                          )[0] > 1 ? (
+                            <div>
+                              {
+                                data.track_data.shortest_track.play_time.split(
+                                  ':'
+                                )[0]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <MinutesText />,
+                              </span>
+                            </div>
+                          ) : data.track_data.shortest_track.play_time.split(
+                              ':'
+                            )[0] === 1 ? (
+                            <div>
+                              {
+                                data.track_data.shortest_track.play_time.split(
+                                  ':'
+                                )[0]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <MinuteText />,
+                              </span>
+                            </div>
+                          ) : (
+                            <span />
+                          )}
+                          {data.track_data.shortest_track.play_time.split(
+                            ':'
+                          )[1] > 1 ? (
+                            <div>
+                              {
+                                data.track_data.shortest_track.play_time.split(
+                                  ':'
+                                )[1]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <SecondsText />
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              {
+                                data.track_data.shortest_track.play_time.split(
+                                  ':'
+                                )[1]
+                              }{' '}
+                              <span className='minutes-text'>
+                                <SecondText />
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <div className='tertiary-item-value'>
+                          {data.track_data.shortest_track.name} (
+                          {data.track_data.shortest_track.play_time})
+                        </div>
+                        <div className='tertiary-item-caption'>
+                          (played at{' '}
+                          <span className='tertiary-item-timestamp'>
+                            {data.track_data.shortest_track.played_at}
+                          </span>
+                          )
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='data-block-bottomrow'>
+                  {/* <BarChart width={600} height={250} data={data} /> */}
                 </div>
               </div>
-            </div>
-
-            <div className='data-block-third'>
-              <div className='tertiary-container'>
-                <div className='tertiary-item'>
-                  <div className='tertiary-item-header'>Longest Track:</div>
-                  <div className='timer-line'>
-                    4{' '}
-                    <span className='minutes-text'>
-                      <MinutesText />
-                    </span>
-                    , 43{' '}
-                    <span className='minutes-text'>
-                      <SecondsText />
-                    </span>
-                  </div>
-                  <div className='tertiary-item-value'>
-                    Your Mom Is A Cab Driver (4:43)
-                  </div>
-                  <div className='tertiary-item-caption'>
-                    (played at{' '}
-                    <span className='tertiary-item-timestamp'>8:32 PM</span>)
-                  </div>
-                </div>
-                <div className='tertiary-item'>
-                  <div className='tertiary-item-header'>Shortest Track:</div>
-                  <div className='timer-line'>
-                    4{' '}
-                    <span className='minutes-text'>
-                      <MinutesText />
-                    </span>
-                    , 43{' '}
-                    <span className='minutes-text'>
-                      <SecondsText />
-                    </span>
-                  </div>
-                  <div className='tertiary-item-value'>
-                    Your Dad Eats Cashews (2:21)
-                  </div>
-                  <div className='tertiary-item-caption'>
-                    (played at{' '}
-                    <span className='tertiary-item-timestamp'>10:14 PM</span>)
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
-          <div className='data-block-bottomrow'>
-            {/* <BarChart width={600} height={250} data={data} /> */}
-          </div>
-        </div>
+        )}
       </div>
     </Fragment>
   )

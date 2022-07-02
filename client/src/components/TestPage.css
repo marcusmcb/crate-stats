@@ -7,6 +7,11 @@
   border-bottom: 1px dotted black;
 }
 
+.loading, .no-data {
+  color: rgba(145, 206, 201, 255);
+  text-align: center;
+}
+
 .data-block {
   margin: 10px;
   background-color: rgba(54, 72, 69, 255);
@@ -100,6 +105,7 @@
   margin-left: 15px;
   font-weight: 400;
   font-size: 0.9em;
+  display: flex;
 }
 
 .minutes-text {
