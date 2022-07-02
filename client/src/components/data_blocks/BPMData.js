@@ -1,8 +1,6 @@
 import React from "react";
-import "./bpmdata.css";
 
-const BPMData = (data) => {
-  console.log(data);
+const BPMData = (bpmdata) => {  
   return (
     <div>
       {/* ****************************************** */}
@@ -17,7 +15,7 @@ const BPMData = (data) => {
             {/* ****************************************** */}
             <div className="data-block-primary-header">Average BPM</div>
             <div className="data-block-primary-value-main">
-              {data.data.average_bpm}
+              {bpmdata.data.average_bpm}
             </div>
           </div>
           <div className="data-block-secondary">
@@ -27,8 +25,8 @@ const BPMData = (data) => {
               {/* ****************************************** */}
               <div className="secondary-container-header">BPM Range</div>
               <div className="secondary-container-value">
-                {data.data.bpm_range.minimum} -{" "}
-                {data.data.bpm_range.maximum}
+                {bpmdata.data.bpm_range.minimum} -{" "}
+                {bpmdata.data.bpm_range.maximum}
               </div>
             </div>
           </div>
@@ -42,18 +40,18 @@ const BPMData = (data) => {
               <div className="tertiary-item-header">
                 Biggest BPM Change:{" "}
                 <span className="text-white">
-                  {data.data.biggest_bpm_change.track_one.bpm} -{" "}
-                  {data.data.biggest_bpm_change.track_two.bpm}
+                  {bpmdata.data.biggest_bpm_change.track_one.bpm} -{" "}
+                  {bpmdata.data.biggest_bpm_change.track_two.bpm}
                 </span>
               </div>
               <div className="timer-line">
-                "{data.data.biggest_bpm_change.track_one.name}" into "
-                {data.data.biggest_bpm_change.track_two.name}"
+                "{bpmdata.data.biggest_bpm_change.track_one.name}" into "
+                {bpmdata.data.biggest_bpm_change.track_two.name}"
               </div>
               <div className="tertiary-item-caption">
                 occurred at{" "}
                 <span className="tertiary-item-timestamp">
-                  {data.data.biggest_bpm_change.occurred_at}
+                  {bpmdata.data.biggest_bpm_change.occurred_at}
                 </span>
               </div>
             </div>

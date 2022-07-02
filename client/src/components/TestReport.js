@@ -3,6 +3,7 @@ import axios from "axios";
 import Titlebar from "./Titlebar";
 import TrackData from "./data_blocks/TrackData";
 import BPMData from "./data_blocks/BPMData";
+import PlaylistData from "./data_blocks/PlaylistData";
 
 import DragAndDrop from "./DragAndDrop";
 // import BarChart from "./d3/basicchart";
@@ -39,6 +40,13 @@ const TestReport = () => {
           <div className="data-block loading">Awaiting data...</div>
         ) : (
           <div>
+            <div className="data-block">
+              { data.playlist_data.has_playlist_data === false ? (
+                <h3 className="no-data">No Playlist Data</h3>
+              ) : (
+                <PlaylistData data={data.playlist_data} />
+              )}
+            </div>
             <div className="data-block">
               {data.track_data.has_track_data === false ? (
                 <h3 className="no-data">No Track Data</h3>
