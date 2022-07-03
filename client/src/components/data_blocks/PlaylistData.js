@@ -1,9 +1,11 @@
 import React from 'react'
 
-import MinutesText from '../spantext/minutesText'
-import SecondsText from '../spantext/secondsText'
-import MinuteText from '../spantext/minuteText'
-import SecondText from '../spantext/secondText'
+import MinutesText from '../text_spans/minutesText'
+import SecondsText from '../text_spans/secondsText'
+import MinuteText from '../text_spans/minuteText'
+import SecondText from '../text_spans/secondText'
+import HoursText from '../text_spans/hoursText'
+import HourText from '../text_spans/hourText'
 
 const PlaylistData = (playlistData) => {
   return (
@@ -19,12 +21,22 @@ const PlaylistData = (playlistData) => {
             {/* *********** TOTAL TRACKS PLAYED ********** */}
             {/* ****************************************** */}
             <div className='data-block-primary-header'>
-              {playlistData.data.title}
+              {playlistData.data.has_artist === false ? (
+                <h3>No Artist Data</h3>
+              ) : (
+                <h3>{playlistData.data.title}</h3>
+              )}
             </div>
             <div className='data-block-primary-value-main'>
-              {playlistData.data.start_time_formatted.day},{' '}
-              {playlistData.data.start_time_formatted.month}{' '}
-              {playlistData.data.start_time_formatted.dateday}
+              {playlistData.data.has_playlist_length === false ? (
+                <h3>No Playlist Data</h3>
+              ) : (
+                <h3>
+                  {playlistData.data.start_time_formatted.day},{' '}
+                  {playlistData.data.start_time_formatted.month}{' '}
+                  {playlistData.data.start_time_formatted.dateday}
+                </h3>
+              )}
             </div>
           </div>
           <div className='data-block-secondary'>
@@ -33,40 +45,25 @@ const PlaylistData = (playlistData) => {
               {/* ************* SET START TIME ************* */}
               {/* ****************************************** */}
               <div className='secondary-container-header'>Set Length:</div>
-
-              {() => {
-                if (playlistData.data.has_playlist_length === false) {
-                  return (
-                    <div className='secondary-container-value'>
-                      No Playlist Length
-                    </div>
-                  )
-                } else if (
-                  playlistData.data.playlist_length_formatted.hours > 1
-                ) {
-                  if (playlistData.data.playlist_length_formatted.minutes > 1) {
-                    return <div className='secondary-container-value'></div>
-                  } else {
-                    return <div className='secondary-container-value'></div>
-                  }
-                } else if (
-                  playlistData.data.playlist_length_formatted.hours === 1
-                ) {
-                  if (playlistData.data.playlist_length_formatted.minutes > 1) {
-                    return <div className='secondary-container-value'></div>
-                  } else {
-                    return <div className='secondary-container-value'></div>
-                  }
-                } else if (
-                  playlistData.data.playlist_length_formatted.hours === 0
-                ) {
-                  if (playlistData.data.playlist_length_formatted.minutes > 1) {
-                    return <div className='secondary-container-value'></div>
-                  } else {
-                    return <div className='secondary-container-value'></div>
-                  }
-                }
-              }}
+              {playlistData.data.has_playlist_length === false ? (
+                <h3>Has No Playlist Length</h3>
+              ) : playlistData.data.playlist_length_formatted.hours > 1 ? (
+                playlistData.data.playlist_length_formatted.minutes > 1 ? (
+                  <h3>Hours And Minutes</h3>
+                ) : (
+                  <h3>Hours And Minute</h3>
+                )
+              ) : playlistData.data.playlist_length_formatted.hours === 1 ? (
+                playlistData.data.playlist_length_formatted.minutes > 1 ? (
+                  <h3>Hour And Minutes</h3>
+                ) : (
+                  <h3>Hour And Minute</h3>
+                )
+              ) : playlistData.data.playlist_length_formatted.minutes > 1 ? (
+                <h3>Minutes</h3>
+              ) : (
+                <h3>Minute</h3>
+              )}
 
               {/* <div className='secondary-container-header'>
                           Average Tracks Per Hour
