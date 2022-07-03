@@ -18,31 +18,20 @@ const PlaylistData = (playlistData) => {
         <div className='toprow-container'>
           <div className='data-block-primary'>
             {/* ****************************************** */}
-            {/* *********** TOTAL TRACKS PLAYED ********** */}
+            {/* *********** PLAYLIST ARTIST / TITLE DATA * */}
             {/* ****************************************** */}
-            <div className='data-block-primary-header'>
-              {playlistData.data.has_artist === false ? (
-                <h3>No Artist Data</h3>
-              ) : (
-                <h3>{playlistData.data.title}</h3>
-              )}
-            </div>
+            {/* ********************** NOTE ************** */}
+            {/* session artist field in serato dj pro is locked and cannot be edited */}
+            {/* ****************************************** */}
+            <div className='data-block-primary-header'>Crate Stats:</div>
             <div className='data-block-primary-value-main'>
-              {playlistData.data.has_playlist_length === false ? (
-                <h3>No Playlist Data</h3>
-              ) : (
-                <h3>
-                  {playlistData.data.start_time_formatted.day},{' '}
-                  {playlistData.data.start_time_formatted.month}{' '}
-                  {playlistData.data.start_time_formatted.dateday}
-                </h3>
-              )}
+              {playlistData.data.title}
             </div>
           </div>
           <div className='data-block-secondary'>
             <div className='secondary-container'>
               {/* ****************************************** */}
-              {/* ************* SET START TIME ************* */}
+              {/* ************* SET LENGTH ***************** */}
               {/* ****************************************** */}
               <div className='secondary-container-header'>Set Length:</div>
               {playlistData.data.has_playlist_length === false ? (
@@ -64,147 +53,63 @@ const PlaylistData = (playlistData) => {
               ) : (
                 <h3>Minute</h3>
               )}
-
-              {/* <div className='secondary-container-header'>
-                          Average Tracks Per Hour
-                        </div>
-                        <div className='secondary-container-value'>21</div> */}
             </div>
           </div>
         </div>
-
         <div className='data-block-third'>
           <div className='tertiary-container'>
             <div className='tertiary-item'>
               {/* ****************************************** */}
-              {/* *************** LONGEST TRACK DATA ******* */}
-              {/* ****************************************** */}
-              <div className='tertiary-item-header'>Longest Track:</div>
-              <div className='timer-line'>
-                {/* {trackdata.data.longest_track.play_time.split(":")[0] > 1 ? (
-                  <div>
-                    {parseInt(
-                      trackdata.data.longest_track.play_time.split(":")[0],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <MinutesText />,
-                    </span>
-                  </div>
-                ) : (
-                  <div>
-                    {parseInt(
-                      trackdata.data.longest_track.play_time.split(":")[0],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <MinuteText />,
-                    </span>
-                  </div>
-                )}
-                {trackdata.data.longest_track.play_time.split(":")[1] > 1 ? (
-                  <div>
-                    {parseInt(
-                      trackdata.data.longest_track.play_time.split(":")[1],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <SecondsText />
-                    </span>
-                  </div>
-                ) : (
-                  <div>
-                    {parseInt(
-                      trackdata.data.longest_track.play_time.split(":")[1],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <SecondText />
-                    </span>
-                  </div>
-                )} */}
-              </div>
-              <div className='tertiary-item-value'>
-                {/* {trackdata.data.longest_track.name} (
-                {trackdata.data.longest_track.play_time}) */}
-              </div>
-              <div className='tertiary-item-caption'>
-                played at{' '}
-                <span className='tertiary-item-timestamp'>
-                  {/* {trackdata.data.longest_track.played_at} */}
-                </span>
-              </div>
-            </div>
-            <div className='tertiary-item'>
-              {/* ****************************************** */}
               {/* ************** SHORTEST TRACK DATA ******* */}
               {/* ****************************************** */}
-              <div className='tertiary-item-header'>Shortest Track:</div>
+              <div className='tertiary-item-header'>Set Date:</div>
               <div className='timer-line'>
-                {/* {trackdata.data.shortest_track.play_time.split(":")[0] > 1 ? (
-                  <div>
-                    {parseInt(
-                      trackdata.data.shortest_track.play_time.split(":")[0],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <MinutesText />,
-                    </span>
-                  </div>
-                ) : trackdata.data.shortest_track.play_time.split(":")[0] === 1 ? (
-                  <div>
-                    {parseInt(
-                      trackdata.data.shortest_track.play_time.split(":")[0],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <MinuteText />,
-                    </span>
-                  </div>
+                {playlistData.data.has_playlist_length === false ? (
+                  <h3>No Playlist Data</h3>
                 ) : (
-                  <span />
+                  <h3>
+                    {playlistData.data.start_time_formatted.day},{' '}
+                    {playlistData.data.start_time_formatted.month}{' '}
+                    {playlistData.data.start_time_formatted.dateday}
+                  </h3>
                 )}
-                {trackdata.data.shortest_track.play_time.split(":")[1] > 1 ? (
-                  <div>
-                    {parseInt(
-                      trackdata.data.shortest_track.play_time.split(":")[1],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <SecondsText />
-                    </span>
-                  </div>
-                ) : (
-                  <div>
-                    {parseInt(
-                      trackdata.data.shortest_track.play_time.split(":")[1],
-                      10
-                    )}{" "}
-                    <span className="minutes-text">
-                      <SecondText />
-                    </span>
-                  </div>
-                )} */}
               </div>
-              <div className='tertiary-item-value'>
-                {/* {trackdata.data.shortest_track.name} (
-                {trackdata.data.shortest_track.play_time}) */}
-              </div>
-              <div className='tertiary-item-caption'>
-                played at{' '}
-                <span className='tertiary-item-timestamp'>
-                  {/* {trackdata.data.shortest_track.played_at} */}
-                </span>
+              <div className='tertiary-item-header'>
+                Set Start Time:
+                <div className='tertiary-item-timestamp'>
+                  {playlistData.data.has_playlist_length === false ? (
+                    <h3>No Start Time Available</h3>
+                  ) : (
+                    <h3>
+                      {playlistData.data.start_time_formatted.start_time.slice(
+                        0,
+                        -3
+                      )}{' '}
+                      {playlistData.data.start_time_formatted.time_format}
+                    </h3>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className='data-block-bottomrow'>
-        {/* <BarChart width={600} height={250} data={data} /> */}
-      </div>
+      <div className='data-block-bottomrow'></div>
     </div>
   )
 }
 
 export default PlaylistData
+
+// DEV NOTES FOR PLAYLISTDATA.JS
+// -----------------------------
+//
+// check for 12/24 hour formatting in set_start_time (fix in createSeratoReport script)
+//
+// add helper method to convert 24 hour to 12 hour format (default view - add as user preference in UI?)
+//
+// break longer set title strings (underscores, etc) into text with whitespace (solves responsive UI issue)
+//
+// move component-specific css into its own corresponding file
+//
+// set text spans for hour/minute logic in set_length

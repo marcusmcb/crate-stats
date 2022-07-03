@@ -63,3 +63,9 @@ const BPMData = (bpmdata) => {
 }
 
 export default BPMData
+
+// DEV NOTES FOR BPMDATA.JS
+// ------------------------
+//
+// add D3 UI for BPM graph
+// add data export for BPM ranges by hour

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DoublesData = () => {
+const DoublesData = (doublesdata) => {
   return (
     <div>DoublesData</div>
   )

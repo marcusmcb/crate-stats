@@ -177,3 +177,8 @@ const TrackData = (trackdata) => {
 }
 
 export default TrackData
+
+// DEV NOTES FOR TRACKDATA.JS
+// -----------------------------
+//
+// add export for average tracks per hours for UI viz

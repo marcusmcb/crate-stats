@@ -1,6 +1,6 @@
 import React from 'react'
 
-const YearData = () => {
+const YearData = (yeardata) => {
   return (
     <div>YearData</div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DeckData = () => {
+const DeckData = (deckdata) => {
   return (
     <div>DeckData</div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const KeyData = () => {
+const KeyData = (keydata) => {
   return (
     <div>KeyData</div>
   )

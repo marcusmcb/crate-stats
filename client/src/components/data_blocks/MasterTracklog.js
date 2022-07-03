@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MasterTracklog = () => {
+const MasterTracklog = (mastertracklog) => {
   return (
     <div>MasterTracklog</div>
   )
