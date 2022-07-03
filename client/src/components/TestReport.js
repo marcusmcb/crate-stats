@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import axios from 'axios'
-import Titlebar from './Titlebar'
+import Titlebar from './shared/Titlebar'
 import TrackData from './data_blocks/TrackData'
 import BPMData from './data_blocks/BPMData'
 import PlaylistData from './data_blocks/PlaylistData'

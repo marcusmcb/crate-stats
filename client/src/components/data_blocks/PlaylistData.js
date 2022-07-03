@@ -19,10 +19,7 @@ const PlaylistData = (playlistData) => {
           <div className='data-block-primary'>
             {/* ****************************************** */}
             {/* *********** PLAYLIST ARTIST / TITLE DATA * */}
-            {/* ****************************************** */}
-            {/* ********************** NOTE ************** */}
-            {/* session artist field in serato dj pro is locked and cannot be edited */}
-            {/* ****************************************** */}
+            {/* ****************************************** */}            
             <div className='data-block-primary-header'>Crate Stats:</div>
             <div className='data-block-primary-value-main'>
               {playlistData.data.title}
@@ -38,20 +35,52 @@ const PlaylistData = (playlistData) => {
                 <h3>Has No Playlist Length</h3>
               ) : playlistData.data.playlist_length_formatted.hours > 1 ? (
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                  <h3>Hours And Minutes</h3>
+                  <div>
+                    {playlistData.data.playlist_length_formatted.hours}
+                    {' '}
+                    <HoursText />
+                    {', '}
+                    {playlistData.data.playlist_length_formatted.minutes}
+                    {' '}
+                    <MinutesText />
+                  </div>
                 ) : (
-                  <h3>Hours And Minute</h3>
+                  <div>
+                    {playlistData.data.playlist_length_formatted.hours}
+                    {' '}
+                    <HoursText />
+                    {', '}
+                    {playlistData.data.playlist_length_formatted.minutes}
+                    {' '}
+                    <MinuteText />
+                  </div>
                 )
               ) : playlistData.data.playlist_length_formatted.hours === 1 ? (
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                  <h3>Hour And Minutes</h3>
+                  <div>
+                    {playlistData.data.playlist_length_formatted.hours}
+                    {' '}
+                    <HourText />
+                    {', '}
+                    {playlistData.data.playlist_length_formatted.minutes}
+                    {' '}
+                    <MinutesText />
+                  </div>
                 ) : (
                   <h3>Hour And Minute</h3>
                 )
               ) : playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                <h3>Minutes</h3>
+                <div>
+                  {playlistData.data.playlist_length_formatted.minutes}
+                  {' '}
+                  <MinutesText />
+                </div>
               ) : (
-                <h3>Minute</h3>
+                <div>
+                  {playlistData.data.playlist_length_formatted.minutes}
+                  {' '}
+                  <MinuteText />
+                </div>
               )}
             </div>
           </div>
@@ -112,4 +141,6 @@ export default PlaylistData
 //
 // move component-specific css into its own corresponding file
 //
-// set text spans for hour/minute logic in set_length
+// check playlist_length_formatted for source of null values (seen in JTM data sample)
+//
+// remove playlist artist value from csv import as there's no way to set it in Serato DJ Pro

@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import parseDay from '../scripts/parseDay'
 import parseDisplayName from '../scripts/parseDisplayName'
-import Titlebar from './Titlebar'
+import Titlebar from './shared/Titlebar'
 import './cratestats.css'
 
 const CrateStats = () => {   
