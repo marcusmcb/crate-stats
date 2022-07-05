@@ -32,29 +32,24 @@ const YearData = (yeardata) => {
             </div>
           </div>
           <div className='data-block-third'>
-          <div className='tertiary-container'>
-            <div className='tertiary-item'>
-              {/* ****************************************** */}
-              {/* *********** BIGGEST BPM CHANGE *********** */}
-              {/* ****************************************** */}
-              <div className='tertiary-item-header'>
-                Biggest BPM Change:{' '}
-                <span className='text-white'>
-                  {}
-                </span>
-              </div>
-              <div className='timer-line'>
-                "{}"
-              </div>
-              <div className='tertiary-item-caption'>
-                occurred at{' '}
-                <span className='tertiary-item-timestamp'>
-                  {}
-                </span>
+            <div className='tertiary-container'>
+              <div className='tertiary-item'>
+                {/* ****************************************** */}
+                {/* *********** BIGGEST BPM CHANGE *********** */}
+                {/* ****************************************** */}
+                <div className='tertiary-item-header'>
+                  Oldest Track: <span className='text-white'></span>
+                </div>
+                <div className='timer-line'>
+                  {yeardata.data.oldest_track.artist} -{' '}
+                  {yeardata.data.oldest_track.name}
+                </div>
+                <div className='tertiary-item-caption'>                  
+                  <span className='tertiary-item-timestamp'>({yeardata.data.oldest_track.year})</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -62,3 +57,9 @@ const YearData = (yeardata) => {
 }
 
 export default YearData
+
+// DEV NOTES FOR YEARDATA.JS
+//
+// add top 5 "newest" tracks in return from serato report
+// horiztonal row for oldest track with row for top 5 beneath it
+// average track year to the left of both
