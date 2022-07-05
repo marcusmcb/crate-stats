@@ -66,19 +66,19 @@ const TestReport = () => {
               )}
             </div>
             <div className='data-block'>
-              {data.key_data.has_key_data === false ? (
-                <h3 className='no-data'>No Key Data</h3>
-              ) : (
-                <KeyData data={data.key_data} />
-              )}
-            </div>
-            <div className='data-block'>
               {data.year_data.has_year_data === false ? (
                 <h3 className='no-data'>No Year Data</h3>
               ) : (
                 <YearData data={data.year_data} />
               )}
             </div>
+            <div className='data-block'>
+              {data.key_data.has_key_data === false ? (
+                <h3 className='no-data'>No Key Data</h3>
+              ) : (
+                <KeyData data={data.key_data} />
+              )}
+            </div>            
             <div className='data-block'>
               {data.doubles_data.has_doubles_data === false ? (
                 <h3 className='no-data'>No Doubles Data</h3>

@@ -2,7 +2,62 @@ import React from 'react'
 
 const YearData = (yeardata) => {
   return (
-    <div>YearData</div>
+    <div>
+      {/* ****************************************** */}
+      {/* ************ YEAR DATA ******************* */}
+      {/* ****************************************** */}
+      <div className='data-block-title'>Year Data</div>
+      <div className='data-block-toprow'>
+        <div className='toprow-container'>
+          <div className='data-block-primary'>
+            {/* ****************************************** */}
+            {/* *********** AVERAGE YEAR DATA ************ */}
+            {/* ****************************************** */}
+            <div className='data-block-primary-header'>Average Year:</div>
+            <div className='data-block-primary-value-main'>
+              {yeardata.data.average_year}
+            </div>
+          </div>
+          <div className='data-block-secondary'>
+            <div className='secondary-container'>
+              {/* ****************************************** */}
+              {/* ************ BPM RANGE ******************* */}
+              {/* ****************************************** */}
+              <div className='secondary-container-header'>
+                Newest Track Year:
+              </div>
+              <div className='secondary-container-value'>
+                {yeardata.data.newest_track.year}
+              </div>
+            </div>
+          </div>
+          <div className='data-block-third'>
+          <div className='tertiary-container'>
+            <div className='tertiary-item'>
+              {/* ****************************************** */}
+              {/* *********** BIGGEST BPM CHANGE *********** */}
+              {/* ****************************************** */}
+              <div className='tertiary-item-header'>
+                Biggest BPM Change:{' '}
+                <span className='text-white'>
+                  {}
+                </span>
+              </div>
+              <div className='timer-line'>
+                "{}"
+              </div>
+              <div className='tertiary-item-caption'>
+                occurred at{' '}
+                <span className='tertiary-item-timestamp'>
+                  {}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
