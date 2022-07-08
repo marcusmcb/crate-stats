@@ -7,6 +7,8 @@ import SecondText from '../text_spans/secondText'
 import HoursText from '../text_spans/hoursText'
 import HourText from '../text_spans/hourText'
 
+import './playlistdata.css'
+
 const PlaylistData = (playlistData) => {
   return (
     <div>
@@ -19,9 +21,9 @@ const PlaylistData = (playlistData) => {
           <div className='data-block-primary'>
             {/* ****************************************** */}
             {/* *********** PLAYLIST ARTIST / TITLE DATA * */}
-            {/* ****************************************** */}            
-            <div className='data-block-primary-header'>Crate Stats:</div>
-            <div className='data-block-primary-value-main'>
+            {/* ****************************************** */}
+            <div className='playlist-block-primary-header'>Crate Stats:</div>
+            <div className='playlist-block-primary-value-main'>
               {playlistData.data.title}
             </div>
           </div>
@@ -30,55 +32,52 @@ const PlaylistData = (playlistData) => {
               {/* ****************************************** */}
               {/* ************* SET LENGTH ***************** */}
               {/* ****************************************** */}
-              <div className='secondary-container-header'>Set Length:</div>
+              <div className='playlist-secondary-header'>Set Length:</div>
               {playlistData.data.has_playlist_length === false ? (
-                <h3>Has No Playlist Length</h3>
+                <div className='playlist-secondary-value'>
+                  <h3>Has No Playlist Length</h3>
+                </div>
               ) : playlistData.data.playlist_length_formatted.hours > 1 ? (
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                  <div>
-                    {playlistData.data.playlist_length_formatted.hours}
-                    {' '}
+                  <div className='playlist-secondary-value'>
+                    {playlistData.data.playlist_length_formatted.hours}{' '}
                     <HoursText />
                     {', '}
-                    {playlistData.data.playlist_length_formatted.minutes}
-                    {' '}
+                    {playlistData.data.playlist_length_formatted.minutes}{' '}
                     <MinutesText />
                   </div>
                 ) : (
-                  <div>
-                    {playlistData.data.playlist_length_formatted.hours}
-                    {' '}
+                  <div className='playlist-secondary-value'>
+                    {playlistData.data.playlist_length_formatted.hours}{' '}
                     <HoursText />
                     {', '}
-                    {playlistData.data.playlist_length_formatted.minutes}
-                    {' '}
+                    {playlistData.data.playlist_length_formatted.minutes}{' '}
                     <MinuteText />
                   </div>
                 )
               ) : playlistData.data.playlist_length_formatted.hours === 1 ? (
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                  <div>
-                    {playlistData.data.playlist_length_formatted.hours}
-                    {' '}
+                  <div className='playlist-secondary-value'>
+                    {playlistData.data.playlist_length_formatted.hours}{' '}
                     <HourText />
                     {', '}
-                    {playlistData.data.playlist_length_formatted.minutes}
-                    {' '}
+                    {playlistData.data.playlist_length_formatted.minutes}{' '}
                     <MinutesText />
                   </div>
                 ) : (
                   <h3>Hour And Minute</h3>
                 )
               ) : playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                <div>
-                  {playlistData.data.playlist_length_formatted.minutes}
-                  {' '}
+                <div className='playlist-secondary-value'>
+                  {playlistData.data.playlist_length_formatted.minutes}{' '}
                   <MinutesText />
+                  {', '}
+                    {playlistData.data.playlist_length_formatted.seconds}{' '}
+                    <SecondsText />
                 </div>
               ) : (
-                <div>
-                  {playlistData.data.playlist_length_formatted.minutes}
-                  {' '}
+                <div className='playlist-secondary-value'>
+                  {playlistData.data.playlist_length_formatted.minutes}{' '}
                   <MinuteText />
                 </div>
               )}
@@ -89,10 +88,10 @@ const PlaylistData = (playlistData) => {
           <div className='tertiary-container'>
             <div className='tertiary-item'>
               {/* ****************************************** */}
-              {/* ************** SHORTEST TRACK DATA ******* */}
+              {/* ************** SET DATE & START TIME ***** */}
               {/* ****************************************** */}
-              <div className='tertiary-item-header'>Set Date:</div>
-              <div className='timer-line'>
+              <div className='playlist-tertiary-header'>Set Date:</div>
+              <div className='playlist-tertiary-value'>
                 {playlistData.data.has_playlist_length === false ? (
                   <h3>No Playlist Data</h3>
                 ) : (
@@ -103,21 +102,19 @@ const PlaylistData = (playlistData) => {
                   </h3>
                 )}
               </div>
-              <div className='tertiary-item-header'>
-                Set Start Time:
-                <div className='tertiary-item-timestamp'>
-                  {playlistData.data.has_playlist_length === false ? (
-                    <h3>No Start Time Available</h3>
-                  ) : (
-                    <h3>
-                      {playlistData.data.start_time_formatted.start_time.slice(
-                        0,
-                        -3
-                      )}{' '}
-                      {playlistData.data.start_time_formatted.time_format}
-                    </h3>
-                  )}
-                </div>
+              <div className='playlist-tertiary-header'>Set Start Time:</div>
+              <div className='playlist-tertiary-value'>
+                {playlistData.data.has_playlist_length === false ? (
+                  <h3>No Start Time Available</h3>
+                ) : (
+                  <h3>
+                    {playlistData.data.start_time_formatted.start_time.slice(
+                      0,
+                      -3
+                    )}{' '}
+                    {playlistData.data.start_time_formatted.time_format}
+                  </h3>
+                )}
               </div>
             </div>
           </div>

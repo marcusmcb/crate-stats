@@ -29,6 +29,9 @@ const createSeratoReport = (data) => {
 
   let seratoPlaylistAnalysis = {}
 
+  console.log(chalk.green(' * * * CSV HEADER * * * '))
+  console.log(data[0])
+
   console.log(chalk.green(' * * * DATA SAMPLE * * * '))
   console.log(data[3])
 
@@ -138,6 +141,7 @@ const createSeratoReport = (data) => {
   if (data[0].playtime) {
     hasPlaylistLength = true
     playlistLength = data[0].playtime
+    console.log(chalk.magenta("PLAYLIST LENGTH: ", playlistLength))
     playlistDate = playlistStartTime.split(' ')[0]
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
 
@@ -345,7 +349,7 @@ const createSeratoReport = (data) => {
       has_track_data: false,
     }
   } else {
-    console.log("HERE **********", longestTrack.playtime.substring(3)[0])
+    // console.log("HERE **********", longestTrack.playtime.substring(3)[0])
 
     seratoPlaylistAnalysis.track_data = {
       total_tracks_played: totalTracksPlayed,
@@ -832,6 +836,9 @@ const createSeratoReport = (data) => {
     }
   }
   console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
+  console.log(chalk.green('x'))
+  console.log(chalk.green('x'))
+  console.log(chalk.green('x'))
   return seratoPlaylistAnalysis
 }
 
