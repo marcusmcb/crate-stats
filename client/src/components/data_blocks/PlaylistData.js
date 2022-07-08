@@ -32,7 +32,14 @@ const PlaylistData = (playlistData) => {
               {/* ****************************************** */}
               {/* ************* SET LENGTH ***************** */}
               {/* ****************************************** */}
-              <div className='playlist-secondary-header'>Set Length:</div>
+              {
+                playlistData.data.playlist_length_formatted.hours === 0 ? (
+                  <div className='playlist-secondary-header'>Set Length <span className='flarby'>({playlistData.data.playlist_length.slice(3)})</span></div>    
+                ) : (
+                  <div className='playlist-secondary-header'>Set Length <span className='flarby'>({playlistData.data.playlist_length.slice(0, -3)})</span></div>
+                )
+              }
+              
               {playlistData.data.has_playlist_length === false ? (
                 <div className='playlist-secondary-value'>
                   <h3>Has No Playlist Length</h3>
@@ -41,15 +48,15 @@ const PlaylistData = (playlistData) => {
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
                   <div className='playlist-secondary-value'>
                     {playlistData.data.playlist_length_formatted.hours}{' '}
-                    <HoursText />
+                    <span className='minutes-text'><HoursText /></span>
                     {', '}
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
-                    <MinutesText />
+                    <span className='minutes-text'><MinutesText /></span>
                   </div>
                 ) : (
                   <div className='playlist-secondary-value'>
                     {playlistData.data.playlist_length_formatted.hours}{' '}
-                    <HoursText />
+                    <span className='minutes-text'><HoursText /></span>
                     {', '}
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
                     <MinuteText />
@@ -59,7 +66,7 @@ const PlaylistData = (playlistData) => {
                 playlistData.data.playlist_length_formatted.minutes > 1 ? (
                   <div className='playlist-secondary-value'>
                     {playlistData.data.playlist_length_formatted.hours}{' '}
-                    <HourText />
+                    <span className='minutes-text'><HourText /></span>
                     {', '}
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
                     <MinutesText />
@@ -71,27 +78,27 @@ const PlaylistData = (playlistData) => {
                 playlistData.data.playlist_length_formatted.seconds > 1 ? (
                   <div className='playlist-secondary-value'>
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
-                    <MinutesText />
+                    <span className='minutes-text'><MinutesText /></span>
                     {', '}
                     {playlistData.data.playlist_length_formatted.seconds}{' '}
-                    <SecondsText />
+                    <span className='minutes-text'><SecondsText /></span>
                   </div>
                 ) : (
                   <div className='playlist-secondary-value'>
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
-                    <MinutesText />
+                    <span className='minutes-text'><MinutesText /></span>
                     {', '}
                     {playlistData.data.playlist_length_formatted.seconds}{' '}
-                    <SecondText />
+                    <span className='minutes-text'><SecondText /></span>
                   </div>
                 )
               ) : (
                 <div className='playlist-secondary-value'>
                   {playlistData.data.playlist_length_formatted.minutes}{' '}
-                  <MinuteText />
+                  <span className='minutes-text'><MinuteText /></span>
                   {', '}
                   {playlistData.data.playlist_length_formatted.seconds}{' '}
-                  <SecondText />
+                  <span className='minutes-text'><SecondText /></span>
                 </div>
               )}
             </div>

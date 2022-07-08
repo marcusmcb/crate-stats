@@ -56,7 +56,7 @@ const TrackData = (trackdata) => {
                       10
                     )}{' '}
                     <span className='minutes-text'>
-                      <MinutesText />,
+                      <MinutesText />{', '}
                     </span>
                   </div>
                 ) : (
@@ -66,7 +66,7 @@ const TrackData = (trackdata) => {
                       10
                     )}{' '}
                     <span className='minutes-text'>
-                      <MinuteText />,
+                      <MinuteText />{', '}
                     </span>
                   </div>
                 )}
@@ -116,7 +116,7 @@ const TrackData = (trackdata) => {
                       10
                     )}{' '}
                     <span className='minutes-text'>
-                      <MinutesText />,
+                      <MinutesText />{', '}
                     </span>
                   </div>
                 ) : trackdata.data.shortest_track.play_time.split(':')[0] ===
@@ -127,7 +127,7 @@ const TrackData = (trackdata) => {
                       10
                     )}{' '}
                     <span className='minutes-text'>
-                      <MinuteText />,
+                      <MinuteText />{', '}
                     </span>
                   </div>
                 ) : (

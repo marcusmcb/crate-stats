@@ -80,10 +80,7 @@ const createSeratoReport = (data) => {
     hasStartTimeData = true
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
-    console.log(chalk.magenta("START TIME: ", playlistStartTime))
-    console.log("VAR 1: ", var1)
-    console.log("VAR 2: ", var2)
-
+    
     // check to see if start time is given in AM/PM or 24-hour format
     let var5 = var2.split(':')[0]
     if (var5 > 12) {

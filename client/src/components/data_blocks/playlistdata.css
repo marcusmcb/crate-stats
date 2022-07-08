@@ -38,3 +38,16 @@
   font-size: 0.9em;
   display: flex;
 }
+
+.flarby {
+  color: white;
+}
+
+@media (max-width: 760px) {
+  .playlist-tertiary-value {
+    display: block;
+  }
+  .playlist-secondary-value {
+    text-align: center;
+  }
+}
