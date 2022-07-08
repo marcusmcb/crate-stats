@@ -68,17 +68,30 @@ const PlaylistData = (playlistData) => {
                   <h3>Hour And Minute</h3>
                 )
               ) : playlistData.data.playlist_length_formatted.minutes > 1 ? (
-                <div className='playlist-secondary-value'>
-                  {playlistData.data.playlist_length_formatted.minutes}{' '}
-                  <MinutesText />
-                  {', '}
+                playlistData.data.playlist_length_formatted.seconds > 1 ? (
+                  <div className='playlist-secondary-value'>
+                    {playlistData.data.playlist_length_formatted.minutes}{' '}
+                    <MinutesText />
+                    {', '}
                     {playlistData.data.playlist_length_formatted.seconds}{' '}
                     <SecondsText />
-                </div>
+                  </div>
+                ) : (
+                  <div className='playlist-secondary-value'>
+                    {playlistData.data.playlist_length_formatted.minutes}{' '}
+                    <MinutesText />
+                    {', '}
+                    {playlistData.data.playlist_length_formatted.seconds}{' '}
+                    <SecondText />
+                  </div>
+                )
               ) : (
                 <div className='playlist-secondary-value'>
                   {playlistData.data.playlist_length_formatted.minutes}{' '}
                   <MinuteText />
+                  {', '}
+                  {playlistData.data.playlist_length_formatted.seconds}{' '}
+                  <SecondText />
                 </div>
               )}
             </div>
@@ -108,10 +121,7 @@ const PlaylistData = (playlistData) => {
                   <h3>No Start Time Available</h3>
                 ) : (
                   <h3>
-                    {playlistData.data.start_time_formatted.start_time.slice(
-                      0,
-                      -3
-                    )}{' '}
+                    {playlistData.data.start_time_formatted.start_time.slice(0, -3)}{' '}
                     {playlistData.data.start_time_formatted.time_format}
                   </h3>
                 )}

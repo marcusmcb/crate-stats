@@ -80,6 +80,9 @@ const createSeratoReport = (data) => {
     hasStartTimeData = true
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
+    console.log(chalk.magenta("START TIME: ", playlistStartTime))
+    console.log("VAR 1: ", var1)
+    console.log("VAR 2: ", var2)
 
     // check to see if start time is given in AM/PM or 24-hour format
     let var5 = var2.split(':')[0]
@@ -140,8 +143,7 @@ const createSeratoReport = (data) => {
   // check if playtime value is present in csv header
   if (data[0].playtime) {
     hasPlaylistLength = true
-    playlistLength = data[0].playtime
-    console.log(chalk.magenta("PLAYLIST LENGTH: ", playlistLength))
+    playlistLength = data[0].playtime    
     playlistDate = playlistStartTime.split(' ')[0]
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
 
