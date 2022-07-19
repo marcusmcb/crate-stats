@@ -137,14 +137,14 @@ const createSeratoReport = (data) => {
   let playlistLengthParsed
   let playlistDate
 
-  // check if playtime value is present in csv header
+  // check if playlist length is present in csv header
   if (data[0].playtime) {
     hasPlaylistLength = true
     playlistLength = data[0].playtime    
     playlistDate = playlistStartTime.split(' ')[0]
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
 
-    // if playtime value not present, calculate it using start & end times
+    // if playlist length is not present, calculate it using start & end times
   } else if (hasStartTimeData === true && hasEndTimeData === true) {
     hasPlaylistLength = true
     playlistLength = playlistEndTimeParsed - playlistStartTimeParsed
@@ -216,6 +216,8 @@ const createSeratoReport = (data) => {
   // exclude back-to-back doubles from results
   // algorithm to look for word patterns 
 
+  // add logic to see if two songs with the same title by different artists were played in the same set
+
   let titleArray = []
   let nullTitleCount = 0
   masterTrackLog.forEach((track) => {
@@ -238,7 +240,7 @@ const createSeratoReport = (data) => {
       artistCount[item] = (artistCount[item] || 0) + 1
     })
     uniqueArtists = new Set(artistArray)
-    // identify top three genres played
+    // identify top three artists played
     topArtistsPlayed = Object.keys(artistCount)
     topArtistsPlayed.sort((a, b) => {
       return artistCount[b] - artistCount[a]
@@ -333,7 +335,6 @@ const createSeratoReport = (data) => {
     longestTrackStartTime = longestTrack['start time']
 
     // shortest track
-
     // check if shortest track is part of a doubles pair
     // if so, note as such and query track log for shortest track not in a doubles pair
     shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
@@ -348,8 +349,6 @@ const createSeratoReport = (data) => {
       has_track_data: false,
     }
   } else {
-    // console.log("HERE **********", longestTrack.playtime.substring(3)[0])
-
     seratoPlaylistAnalysis.track_data = {
       total_tracks_played: totalTracksPlayed,
       average_track_length: averageTrackLength.substring(3),
@@ -606,6 +605,7 @@ const createSeratoReport = (data) => {
   let oldestTrack, newestTrack
   let oldestTrackCount = 0
   let newestTrackCount = 0
+  let newestYearPercentage
 
   if (trackYears.length === 0) {
     hasYearData = false
@@ -628,12 +628,14 @@ const createSeratoReport = (data) => {
     })
 
     masterTrackLog.forEach((track) => {
-      // check to see if there's more than 1 track from that oldest track year
+      // check to see if there's more than 1 track from that newest track year
       if (track.year == newestTrack) {
         newestTrackCount++
         newestTracks.push(track)
       }
     })
+
+    newestYearPercentage = (newestTrackCount / masterTrackLog.length * 100).toFixed(2)    
   }
 
   if (!hasYearData) {
@@ -654,6 +656,7 @@ const createSeratoReport = (data) => {
         year: newestTrack,
         count: newestTrackCount,
         tracks: newestTracks,
+        playlist_percentage: newestYearPercentage
       },
       tag_health: {
         percentage_with_year_tags: calculateTagHealth(

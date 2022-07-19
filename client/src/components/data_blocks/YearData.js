@@ -29,6 +29,18 @@ const YearData = (yeardata) => {
               <div className='secondary-container-value'>
                 {yeardata.data.newest_track.year}
               </div>
+              <div className='secondary-container-header'>
+                Times Played:
+              </div>
+              <div className='secondary-container-value'>
+                {yeardata.data.newest_track.count}
+              </div>
+              <div className='secondary-container-header'>
+                Playlist Percentage:
+              </div>
+              <div className='secondary-container-value'>
+                {yeardata.data.newest_track.playlist_percentage}%
+              </div>
             </div>
           </div>
           <div className='data-block-third'>
