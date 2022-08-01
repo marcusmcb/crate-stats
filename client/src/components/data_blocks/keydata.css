@@ -1,0 +1,11 @@
+.keydata-secondary-container,
+.keydata-block-toprow,
+.keydata-toprow-container {
+  display: flex;  
+}
+
+.keydata-block-secondary {
+  color: white;
+  display: flex;
+  padding: 10px;
+}

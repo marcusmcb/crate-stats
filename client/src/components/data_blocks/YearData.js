@@ -21,7 +21,7 @@ const YearData = (yeardata) => {
           <div className='data-block-secondary'>
             <div className='secondary-container'>
               {/* ****************************************** */}
-              {/* ************ BPM RANGE ******************* */}
+              {/* ************ NEWEST TRACK YEAR *********** */}
               {/* ****************************************** */}
               <div className='secondary-container-header'>
                 Newest Track Year:
