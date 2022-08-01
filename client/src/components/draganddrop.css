@@ -7,6 +7,7 @@
   flex-direction: column;
   width: 100vw;
 }
+
 label {
   width: 350px;
   box-sizing: border-box;

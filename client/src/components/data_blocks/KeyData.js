@@ -15,16 +15,16 @@ const KeyData = (keydata) => {
               {/* ****************************************** */}
               {/* ************ MOST COMMON KEY ************* */}
               {/* ****************************************** */}
-              <div className='secondary-container-header'>
+              <div className='keydata-secondary-container-header'>
                 Most Common Key:
               </div>
-              <div className='secondary-container-value'>
+              <div className='keydata-secondary-container-value'>
                 {keydata.data.most_common_key.key}
               </div>
-              <div className='secondary-container-header'>
+              <div className='keydata-secondary-container-header'>
                 Times Played:
               </div>
-              <div className='secondary-container-value'>
+              <div className='keydata-secondary-container-value'>
                 {keydata.data.most_common_key.times_played}
               </div>
             </div>
@@ -32,16 +32,16 @@ const KeyData = (keydata) => {
               {/* ****************************************** */}
               {/* ************ MOST COMMON KEY ************* */}
               {/* ****************************************** */}
-              <div className='secondary-container-header'>
+              <div className='keydata-secondary-container-header'>
                 Least Common Key:
               </div>
-              <div className='secondary-container-value'>
+              <div className='keydata-secondary-container-value'>
                 {keydata.data.least_common_key.key}
               </div>
-              <div className='secondary-container-header'>
+              <div className='keydata-secondary-container-header'>
                 Times Played:
               </div>
-              <div className='secondary-container-value'>
+              <div className='keydata-secondary-container-value'>
                 {keydata.data.least_common_key.times_played}
               </div>
             </div>

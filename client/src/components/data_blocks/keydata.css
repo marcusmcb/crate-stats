@@ -2,10 +2,28 @@
 .keydata-block-toprow,
 .keydata-toprow-container {
   display: flex;  
+  justify-content: space-around;
 }
 
 .keydata-block-secondary {
   color: white;
   display: flex;
   padding: 10px;
+  background-color: rgba(76, 94, 91, 255);
+}
+
+.keydata-secondary-container-value {
+  font-size: 1.3em;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.keydata-secondary-container-header {
+  color: rgba(145, 206, 201, 255);
+  padding: 10px 15px 10px 15px;
+  margin-left: 15px;
+  font-size: 0.9em;
+  font-weight: 600;
 }
