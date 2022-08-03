@@ -21,11 +21,8 @@ const KeyData = (keydata) => {
               <div className='keydata-secondary-container-value'>
                 {keydata.data.most_common_key.key}
               </div>
-              <div className='keydata-secondary-container-header'>
-                Times Played:
-              </div>
-              <div className='keydata-secondary-container-value'>
-                {keydata.data.most_common_key.times_played}
+              <div className='keydata-secondary-container-data'>
+                (played {keydata.data.most_common_key.times_played} times)
               </div>
             </div>
             <div className='keydata-secondary-container'>
@@ -38,11 +35,8 @@ const KeyData = (keydata) => {
               <div className='keydata-secondary-container-value'>
                 {keydata.data.least_common_key.key}
               </div>
-              <div className='keydata-secondary-container-header'>
-                Times Played:
-              </div>
-              <div className='keydata-secondary-container-value'>
-                {keydata.data.least_common_key.times_played}
+              <div className='keydata-secondary-container-data'>
+                (played {keydata.data.least_common_key.times_played} times)
               </div>
             </div>
           </div>
@@ -53,3 +47,6 @@ const KeyData = (keydata) => {
 }
 
 export default KeyData
+
+// add logic in serato report to return and display
+// total array of keys played and values for each

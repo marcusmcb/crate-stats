@@ -12,12 +12,22 @@
   background-color: rgba(76, 94, 91, 255);
 }
 
+.keydata-secondary-container-value,
+.keydata-secondary-container-data {  
+  font-weight: 600;  
+  text-align: center;  
+  padding: 0px 10px 0px 10px;
+}
+
 .keydata-secondary-container-value {
-  font-size: 1.3em;
-  font-weight: 600;
-  font-size: 15px;
-  text-align: center;
+  font-size: 1em;
+  margin-top: 8px;
+}
+
+.keydata-secondary-container-data {
+  font-size: .8em;
   margin-top: 10px;
+  color: #c6a46e;
 }
 
 .keydata-secondary-container-header {
