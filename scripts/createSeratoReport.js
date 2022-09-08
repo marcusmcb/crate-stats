@@ -149,6 +149,7 @@ const createSeratoReport = (data) => {
     hasPlaylistLength = true
     playlistLength = playlistEndTimeParsed - playlistStartTimeParsed
     playlistDate = playlistStartTime.split(' ')[0]
+
     // limits playlist length to a max of 24 hours
     let tempDate = new Date(playlistLength).toISOString().slice(11, 19)
     playlistLengthParsed = new Date(playlistDate + ' ' + tempDate)
@@ -168,6 +169,7 @@ const createSeratoReport = (data) => {
       time_format: startTimeFormatDisplay,
     }
     seratoPlaylistAnalysis.playlist_data.playlist_length = playlistLength
+    
     // check for NaN values
     seratoPlaylistAnalysis.playlist_data.playlist_length_formatted = {
       hours: playlistLengthParsed.getHours(),
@@ -214,7 +216,7 @@ const createSeratoReport = (data) => {
 
   // add logic check for unique plays of the same artist that appear more than once
   // exclude back-to-back doubles from results
-  // algorithm to look for word patterns 
+  // implement algorithm to look for word patterns in artist names
 
   // add logic to see if two songs with the same title by different artists were played in the same set
 
@@ -282,6 +284,7 @@ const createSeratoReport = (data) => {
   // *** NOTE ABOUT BITRATE EXPORT FROM SERATO ***
   // bitrate data is visible in serato's play history for certain files
   // however, i cannot get that data to export to csv properly
+  // code below will properly extract values if present
 
   // array of bitrates
   let trackBitrates = []
@@ -329,6 +332,8 @@ const createSeratoReport = (data) => {
 
     // longest track
     // add logic check to consider what to do with outliers (abnormally long playtimes)
+    // abnormally long track values with skew the average length when calculated
+
     longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
     const longestTrackIndex = trackLengths.indexOf(longestTrack)
     longestTrack = masterTrackLog[longestTrackIndex]
@@ -337,6 +342,7 @@ const createSeratoReport = (data) => {
     // shortest track
     // check if shortest track is part of a doubles pair
     // if so, note as such and query track log for shortest track not in a doubles pair
+
     shortestTrack = trackLengths.reduce((a, b) => (a < b ? a : b))
     const shortestTrackIndex = trackLengths.indexOf(shortestTrack)
     shortestTrack = masterTrackLog[shortestTrackIndex]
@@ -398,7 +404,7 @@ const createSeratoReport = (data) => {
 
     // identify biggest bpm change
     // check for data outliers (bpms that aren't consistent with the rest of the set)
-    // add logic to identify biggest change per hour
+    // add logic to identify biggest bpm change per hour
     const calculateBPMChanges = (array) => {
       var newArray = []
       for (var i = 1; i < array.length; i++)
@@ -620,7 +626,7 @@ const createSeratoReport = (data) => {
     newestTrack = Math.max(...trackYears)
 
     masterTrackLog.forEach((track) => {
-      // check to see if there's more than 1 track from that oldest track year
+      // check to see if there's more than 1 track from the oldest track year
       if (track.year == oldestTrack) {
         oldestTrackCount++
         oldestTracks.push(track)
@@ -628,13 +634,15 @@ const createSeratoReport = (data) => {
     })
 
     masterTrackLog.forEach((track) => {
-      // check to see if there's more than 1 track from that newest track year
+      // check to see if there's more than 1 track from the newest track year
       if (track.year == newestTrack) {
         newestTrackCount++
         newestTracks.push(track)
       }
     })
 
+    // calculate percentage of playlist that was from the most recent year
+    // implement similar function to do the same for the oldest track year
     newestYearPercentage = (newestTrackCount / masterTrackLog.length * 100).toFixed(2)    
   }
 
@@ -686,6 +694,9 @@ const createSeratoReport = (data) => {
 
   let mostCommonKey, mostCommonKeyCount, leastCommonKey, leastCommonKeyCount
 
+  // script currently account for each song's root key only
+  // add logic to account for and run logic on major/minor keys
+
   if (trackKeys.length === 0) {
     hasKeyData = false
   } else {
@@ -700,13 +711,13 @@ const createSeratoReport = (data) => {
       return a
     }, {})
 
-    // identify most common key played & x times
+    // identify most common key played & # of times played
     mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] > rootKeyCount[b] ? a : b
     )
     mostCommonKeyCount = Math.max(...Object.values(rootKeyCount))
 
-    // identify least common key played & x times
+    // identify least common key played & # of times played
     leastCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
       rootKeyCount[a] < rootKeyCount[b] ? a : b
     )
@@ -748,6 +759,7 @@ const createSeratoReport = (data) => {
   let nullDeckCount = 0
 
   // check if user export contains playtime data - w/o it, the deck analysis is useless
+  // add logic if absent to collect and display the number of tracks played on each deck
   if (!hasPlayTimeData) {
     seratoPlaylistAnalysis.deck_data = {
       has_deck_data: false,
