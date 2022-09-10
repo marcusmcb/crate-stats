@@ -4,7 +4,7 @@ const DoublesData = (doublesdata) => {
   return (
     <div>
       {/* ****************************************** */}
-      {/* *********** DOUBLES DATA **************** */}
+      {/* *********** DOUBLES DATA ***************** */}
       {/* ****************************************** */}
       <div className='data-block-title'>Doubles Data</div>
       <div className='data-block-toprow'>
@@ -28,7 +28,7 @@ const DoublesData = (doublesdata) => {
               Deck 2 Doubles Playtime:
             </div>
             <div className='playlist-block-primary-value-main'>
-            {doublesdata.data.deck_2_doubles_playtime.slice(4)}
+              {doublesdata.data.deck_2_doubles_playtime.slice(4)}
             </div>
           </div>
         </div>
@@ -36,23 +36,18 @@ const DoublesData = (doublesdata) => {
           <div className='tertiary-container'>
             <div className='tertiary-item'>
               {/* ****************************************** */}
-              {/* ************** SET DATE & START TIME ***** */}
+              {/* ************** DOUBLES PLAYED LIST ******* */}
               {/* ****************************************** */}
-              <div className='playlist-tertiary-header'>
-                Doubles Detected:
-              </div>
+              <div className='playlist-tertiary-header'>Doubles Detected:</div>
               <div className='playlist-tertiary-value'>
                 {doublesdata.data.doubles_detected}
               </div>
-              <div className='playlist-tertiary-header'>
-                Doubles Played:
-              </div>
-              {
-                doublesdata.data.doubles_played.map(item => <div className='playlist-tertiary-value'>{item.artist} - {item.name}</div>)
-              }
-              {/* <div className='playlist-tertiary-value'>
-                {doublesdata.data.doubles_detected}
-              </div> */}
+              <div className='playlist-tertiary-header'>Doubles Played:</div>
+              {doublesdata.data.doubles_played.map((item) => (
+                <div className='playlist-tertiary-value'>
+                  {item.artist} - {item.name}
+                </div>
+              ))}
             </div>
           </div>
         </div>
