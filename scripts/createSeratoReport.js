@@ -185,20 +185,19 @@ const createSeratoReport = (data) => {
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
   seratoPlaylistAnalysis.master_track_log = masterTrackLog
-  let uniqueTracks = []
-  for (let i = 0; i < masterTrackLog.length - 1; i++) {
-    if (
-      masterTrackLog[i].name === masterTrackLog[i + 1].name &&
-      masterTrackLog[i].artist === masterTrackLog[i + 1].artist &&
-      masterTrackLog[i].deck !== masterTrackLog[i + 1].deck
-    ) {
-      uniqueTracks.push(masterTrackLog[i].name)
-    }
-  }
+  // let uniqueTracks = []
+  // for (let i = 0; i < masterTrackLog.length - 1; i++) {
+  //   if (
+  //     masterTrackLog[i].name === masterTrackLog[i + 1].name &&
+  //     masterTrackLog[i].artist === masterTrackLog[i + 1].artist &&
+  //     masterTrackLog[i].deck !== masterTrackLog[i + 1].deck
+  //   ) {
+  //     uniqueTracks.push(masterTrackLog[i].name)
+  //   }
+  // }
 
-  let uniqueTracksPlayed = new Set(uniqueTracks)
-  console.log(uniqueTracksPlayed)
-
+  // let uniqueTracksPlayed = new Set(uniqueTracks)
+  
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -

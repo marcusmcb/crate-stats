@@ -134,7 +134,7 @@
 }
 
 .secondary-container-value {
-  font-size: 1.3em;
+  font-size: 1.5em !important;
   font-weight: 600;
   font-size: 15px;
   text-align: center;
