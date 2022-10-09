@@ -8,7 +8,7 @@ const DoublesData = (doublesdata) => {
       {/* ****************************************** */}
       <div className='data-block-title'>Doubles Data</div>
       <div className='data-block-toprow'>
-        <div className='toprow-container'>
+        <div className='column-block'>
           <div className='data-block-primary'>
             {/* ****************************************** */}
             {/* *********** DECK 1 PLAYTIME DATA ********* */}
