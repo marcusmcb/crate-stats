@@ -178,9 +178,9 @@ const createSeratoReport = (data) => {
     }
   }
 
-  // - - - - - - - - - - - - - - - - - - - - - - - -
-  //              set master track list
-  // - - - - - - - - - - - - - - - - - - - - - - - -
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  //              set master track list / unique tracks
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
