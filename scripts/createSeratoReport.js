@@ -185,18 +185,18 @@ const createSeratoReport = (data) => {
   const masterTrackLog = data.slice(1)
   masterTrackLog.pop()
   seratoPlaylistAnalysis.master_track_log = masterTrackLog
-  // let uniqueTracks = []
-  // for (let i = 0; i < masterTrackLog.length - 1; i++) {
-  //   if (
-  //     masterTrackLog[i].name === masterTrackLog[i + 1].name &&
-  //     masterTrackLog[i].artist === masterTrackLog[i + 1].artist &&
-  //     masterTrackLog[i].deck !== masterTrackLog[i + 1].deck
-  //   ) {
-  //     uniqueTracks.push(masterTrackLog[i].name)
-  //   }
-  // }
+  let uniqueTracks = []
+  for (let i = 0; i < masterTrackLog.length - 1; i++) {
+    if (
+      masterTrackLog[i].name !== masterTrackLog[i + 1].name &&
+      masterTrackLog[i].artist !== masterTrackLog[i + 1].artist 
+    ) {
+      uniqueTracks.push(masterTrackLog[i])
+    }
+  }
 
-  // let uniqueTracksPlayed = new Set(uniqueTracks)
+  console.log(uniqueTracks.length)
+  console.log(masterTrackLog.length)
   
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
@@ -356,6 +356,7 @@ const createSeratoReport = (data) => {
   } else {
     seratoPlaylistAnalysis.track_data = {
       total_tracks_played: totalTracksPlayed,
+      unique_tracks_played: uniqueTracks.length,
       average_track_length: averageTrackLength.substring(3),
       longest_track: {
         name: longestTrack.name,
@@ -642,7 +643,9 @@ const createSeratoReport = (data) => {
 
     // calculate percentage of playlist that was from the most recent year
     // implement similar function to do the same for the oldest track year
-    newestYearPercentage = (newestTrackCount / masterTrackLog.length * 100).toFixed(2)    
+    newestYearPercentage = (newestTrackCount / masterTrackLog.length * 100).toFixed(2)  
+    let oldestYearPercentage = (oldestTrackCount / masterTrackLog.length * 100).toFixed(2)  
+    console.log("OLDEST YEAR % --------", oldestYearPercentage)
   }
 
   if (!hasYearData) {
