@@ -2,8 +2,3 @@ body .ui.card, body .ui.cards>.card{
   box-shadow: none;
 }
 
-body {
-  font-family: 'Roboto', sans-serif; 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}

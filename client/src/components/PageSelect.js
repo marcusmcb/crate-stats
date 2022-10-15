@@ -25,7 +25,7 @@ const PageSelect = () => {
                 <Icon name='headphones' />
               </Button.Content>
               <Button.Content hidden>
-                <Link to='/'>
+                <Link to='/livereport'>
                   <Icon name='arrow right' />
                 </Link>
               </Button.Content>
