@@ -19,9 +19,10 @@ const CrateStats = () => {
   const [playlistName, setPlaylistName] = useState('')
 
   const getReport = async (e) => {
+    console.log(e)
     e.preventDefault()
     await axios
-      .post('http://localhost:5000/createReport', { url: url })
+      .post('http://localhost:5000/liveplaylist', { url: url })
       .then((response) => {
         console.log(response.data)
         setPlaylistData(response.data)
