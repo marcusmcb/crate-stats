@@ -3,7 +3,8 @@ import CrateStats from './components/CrateStats'
 import TestReport from './components/TestReport';
 import PageSelect from './components/PageSelect';
 
-import './App.css';
+import './app.css'
+import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   return (
