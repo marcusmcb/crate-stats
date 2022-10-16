@@ -19,37 +19,41 @@ import Titlebar from './shared/Titlebar'
 
 const LiveReport = () => {
   const [isData, setIsData] = useState(false)
+  const [noData, setNoData] = useState(false)
   const [url, setUrl] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [playlistDate, setPlaylistDate] = useState([])
   const [playlistData, setPlaylistData] = useState({})
   const [playlistName, setPlaylistName] = useState('')
 
-  const getReport = async (e) => {
-    console.log(e)
+  const getReport = async (e) => {    
     e.preventDefault()
     await axios
       .post('http://localhost:5000/liveplaylist', { url: url })
       .then((response) => {
-        console.log(response.data)
-        setPlaylistData(response.data)
-        let userName = parseDisplayName(url)
-        let dateValue = response.data.playlistDate
-        let displayDay = parseDay(response.data.playlistDate)
-
-        if (
-          response.data.playlistTitle.charAt(
-            response.data.playlistTitle.length - 5
-          ) === '/'
-        ) {
-          setPlaylistName('')
+        // check if playlist url is set to private
+        if (response.data === '') {
+          setNoData(true)
         } else {
-          setPlaylistName(response.data.playlistTitle)
-        }
+          setPlaylistData(response.data)
+          let userName = parseDisplayName(url)
+          let dateValue = response.data.playlistDate
+          let displayDay = parseDay(response.data.playlistDate)
+          // check for playlist title
+          if (
+            response.data.playlistTitle.charAt(
+              response.data.playlistTitle.length - 5
+            ) === '/'
+          ) {
+            setPlaylistName('')
+          } else {
+            setPlaylistName(response.data.playlistTitle)
+          }
 
-        setPlaylistDate([dateValue, displayDay])
-        setDisplayName(userName)
-        setIsData(true)
+          setPlaylistDate([dateValue, displayDay])
+          setDisplayName(userName)
+          setIsData(true)
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -58,6 +62,8 @@ const LiveReport = () => {
   }
 
   const handleChange = (e) => {
+    setIsData(false)
+    setNoData(false)
     setUrl(e.target.value)
   }
 
@@ -90,7 +96,9 @@ const LiveReport = () => {
               <Grid.Row centered>
                 <Grid.Column width={8}>
                   {/* header */}
-                  <Card>
+                  <Card
+                    style={{ border: '1px solid lightgrey', padding: '20px' }}
+                  >
                     <Header as='h2'>
                       <Icon name='headphones' />
                       <Header.Content>{displayName}</Header.Content>
@@ -180,7 +188,17 @@ const LiveReport = () => {
             </Grid>
           </div>
         ) : (
-          <div></div>
+          noData ? (            
+            <Grid>
+              <Grid.Row centered>
+                <Grid.Column width={8}>
+                <Container text>This playlist is currently set to private.</Container>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          ) : (
+            <div></div>
+          )
         )}
       </Fragment>
     </div>

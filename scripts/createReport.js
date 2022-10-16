@@ -2,7 +2,7 @@ const scrapeData = require('./scrapeData')
 const convertTimestamp = require('./convertTimestamp')
 const parseTimeValues = require('./parseTimeValues')
 
-const createReport = async (url) => {
+const createReport = async (url) => {  
   try {
     // function to scrape data for report
     let response = await scrapeData(url)

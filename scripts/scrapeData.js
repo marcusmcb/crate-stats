@@ -1,7 +1,7 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const scrapeData = async (url) => {
+const scrapeData = async (url) => {    
   let results, timestamps, starttime, playlistdate, playlisttitle
   try {
     await axios
@@ -15,10 +15,12 @@ const scrapeData = async (url) => {
         playlisttitle = $('div.playlist-heading h1').text().trim()
       })
       .catch((error) => {
+        console.log(error)        
         return error
       })
-  } catch (err) {
-    return err
+  } catch (error) {    
+    console.log(error)
+    return error
   }
   return [results, timestamps, starttime, playlistdate, playlisttitle]
 }
