@@ -35,6 +35,7 @@ const LiveReport = () => {
         if (response.data === '') {
           setNoData(true)
         } else {
+          console.log(response.data)
           setPlaylistData(response.data)
           let userName = parseDisplayName(url)
           let dateValue = response.data.playlistDate
@@ -180,6 +181,30 @@ const LiveReport = () => {
                             {playlistData.avgTrackLength.seconds} Seconds
                           </Container>
                         )}
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                  <Grid divided='vertically'>
+                    <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
+                      <Grid.Column width={5}>
+                        <Header as='h4' color='blue'>
+                          Shortest Track:
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        <Container text>{playlistData.shortestTrack.name}</Container>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                  <Grid divided='vertically'>
+                    <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
+                      <Grid.Column width={5}>
+                        <Header as='h4' color='blue'>
+                          Longest Track:
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        <Container text>{playlistData.longestTrack.name}</Container>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
