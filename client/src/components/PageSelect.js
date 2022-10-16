@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Card, Icon, Grid, Button } from 'semantic-ui-react'
 import Titlebar from './shared/Titlebar'
 

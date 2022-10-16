@@ -5,7 +5,7 @@ const parseTimeValues = require('./parseTimeValues')
 const createReport = async (url) => {  
   try {
     // function to scrape data for report
-    let response = await scrapeData(url)
+    let response = await scrapeData(url)    
     let results = response[0]
     let timestamps = response[1]
     let starttime = response[2]
@@ -119,8 +119,7 @@ const createReport = async (url) => {
       doublesPlayed: doublesPlayed,
       playlistDate: playlistdate,
       playlistTitle: playlisttitle,
-    }
-    // console.log(seratoReport)
+    }     
     return seratoReport
   } catch (err) {
     console.log(err)

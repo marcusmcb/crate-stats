@@ -4,6 +4,11 @@ import TestReport from './components/TestReport'
 import PageSelect from './components/PageSelect'
 import LiveReport from './components/LiveReport'
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import './app.css'
 import 'semantic-ui-css/semantic.min.css'
 

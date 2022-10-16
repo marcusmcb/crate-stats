@@ -19,7 +19,8 @@ import Titlebar from "./shared/Titlebar";
 
 const LiveReport = () => {
   const [isData, setIsData] = useState(false);
-  const [noData, setNoData] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [isBusy, setIsBusy] = useState(false)
   const [url, setUrl] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [playlistDate, setPlaylistDate] = useState([]);
@@ -28,12 +29,13 @@ const LiveReport = () => {
 
   const getReport = async (e) => {
     e.preventDefault();
+    setIsBusy(true)
     await axios
       .post("http://localhost:5000/liveplaylist", { url: url })
       .then((response) => {
         // check if playlist url is set to private
         if (response.data === "") {
-          setNoData(true);
+          setIsPrivate(true);
         } else {
           console.log(response.data);
           setPlaylistData(response.data);
@@ -54,6 +56,7 @@ const LiveReport = () => {
           setPlaylistDate([dateValue, displayDay]);
           setDisplayName(userName);
           setIsData(true);
+          setIsBusy(false)
         }
       })
       .catch((error) => {
@@ -64,7 +67,7 @@ const LiveReport = () => {
 
   const handleChange = (e) => {
     setIsData(false);
-    setNoData(false);
+    setIsPrivate(false);
     setUrl(e.target.value);
   };
 
@@ -233,12 +236,22 @@ const LiveReport = () => {
               </Grid.Row>
             </Grid>
           </div>
-        ) : noData ? (
+        ) : isPrivate ? (
           <Grid>
             <Grid.Row centered>
               <Grid.Column width={8}>
                 <Container text>
                   This playlist is currently set to private.
+                </Container>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        ) : isBusy ? (
+          <Grid>
+            <Grid.Row centered>
+              <Grid.Column width={8}>
+                <Container text>
+                  Loading data...
                 </Container>
               </Grid.Column>
             </Grid.Row>
