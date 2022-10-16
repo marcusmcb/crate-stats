@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import './titlebar.css'
 
 const Titlebar = () => {
@@ -5,7 +6,9 @@ const Titlebar = () => {
   let title = 'crate<>stats'
 
   return (
-    <div className='titlebar'>{title}</div>
+    <div className='titlebar'>
+      <Link style={{color: 'black'}} to={'/pageselect'}>{title}</Link>
+      </div>
   )
 }
 

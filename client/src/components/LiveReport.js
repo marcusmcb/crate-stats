@@ -1,13 +1,23 @@
-import { useState, useEffect, Fragment } from 'react'
-import { Card, Button, Form, Divider, Container, Grid } from 'semantic-ui-react'
+import { useState, Fragment } from 'react'
+import {
+  Icon,
+  Card,
+  Button,
+  Form,
+  Divider,
+  Container,
+  Grid,
+  Header,
+} from 'semantic-ui-react'
 import axios from 'axios'
+
+import './livereport.css'
 
 import parseDay from '../scripts/parseDay'
 import parseDisplayName from '../scripts/parseDisplayName'
 import Titlebar from './shared/Titlebar'
 
 const LiveReport = () => {
-  const [d3Data, setD3Data] = useState([])
   const [isData, setIsData] = useState(false)
   const [url, setUrl] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -23,7 +33,6 @@ const LiveReport = () => {
       .then((response) => {
         console.log(response.data)
         setPlaylistData(response.data)
-        setD3Data(response.data.trackLengthArray)
         let userName = parseDisplayName(url)
         let dateValue = response.data.playlistDate
         let displayDay = parseDay(response.data.playlistDate)
@@ -74,20 +83,105 @@ const LiveReport = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        {
-          isData ? (
-            <div>
-              <Divider></Divider>
-              <Grid padded='vertically'>
-                <Grid.Row centered>
-                  <Grid.Column>
-                    <Container text>Crate Stats</Container>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </div>
-          ) : (<div>Nope</div>)
-        }
+        {isData ? (
+          <div>
+            <Divider></Divider>
+            <Grid style={{ paddingTop: '20px' }}>
+              <Grid.Row centered>
+                <Grid.Column width={8}>
+                  {/* header */}
+                  <Card>
+                    <Header as='h2'>
+                      <Icon name='headphones' />
+                      <Header.Content>{displayName}</Header.Content>
+                    </Header>
+                    {playlistName === '' ? (
+                      <span></span>
+                    ) : (
+                      <Container text>{playlistName}</Container>
+                    )}
+                    <Container text>
+                      {playlistDate[1]}, {playlistDate[0]}
+                    </Container>
+                    <Container text>
+                      Start Time: {playlistData.setStartTime}
+                    </Container>
+                  </Card>
+                  {/* playlist data */}
+                  <Grid divided='vertically' style={{ paddingTop: '20px' }}>
+                    <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
+                      <Grid.Column width={5}>
+                        <Header as='h4' color='blue'>
+                          Set Length:
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        {playlistData.setLength.setlengthhours === '0' ? (
+                          <Container text>
+                            {playlistData.setLength.setlengthminutes} Minutes,{' '}
+                            {playlistData.setLength.setlengthseconds} Seconds
+                          </Container>
+                        ) : playlistData.setLength.setlengthhours === '1' ? (
+                          <Container text>
+                            {playlistData.setLength.setlengthhours} Hour,{' '}
+                            {playlistData.setLength.setlengthminutes} Minutes
+                          </Container>
+                        ) : (
+                          <Container text>
+                            {playlistData.setLength.setlengthhours} Hours,{' '}
+                            {playlistData.setLength.setlengthminutes} Minutes
+                          </Container>
+                        )}
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                  <Grid divided='vertically'>
+                    <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
+                      <Grid.Column width={5}>
+                        <Header as='h4' color='blue'>
+                          Total Tracks Played:
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        <Container text>
+                          {playlistData.totalTracksPlayed}
+                        </Container>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                  <Grid divided='vertically'>
+                    <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
+                      <Grid.Column width={5}>
+                        <Header as='h4' color='blue'>
+                          Average Track Length:
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        {playlistData.avgTrackLength.minutes == '0' ? (
+                          <Container text>
+                            {playlistData.avgTrackLength.seconds} Seconds
+                          </Container>
+                        ) : playlistData.avgTrackLength.minutes == '1' ? (
+                          <Container text>
+                            {playlistData.avgTrackLength.minutes} Minute,{' '}
+                            {playlistData.avgTrackLength.seconds} Seconds
+                          </Container>
+                        ) : (
+                          <Container text>
+                            {playlistData.avgTrackLength.minutes} Minutes,{' '}
+                            {playlistData.avgTrackLength.seconds} Seconds
+                          </Container>
+                        )}
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </Fragment>
     </div>
   )
