@@ -36,6 +36,7 @@ const LiveReport = () => {
         // check if playlist url is set to private
         if (response.data === "") {
           setIsPrivate(true);
+          setIsBusy(false)
         } else {
           console.log(response.data);
           setPlaylistData(response.data);
