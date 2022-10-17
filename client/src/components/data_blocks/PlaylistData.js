@@ -21,7 +21,7 @@ const PlaylistData = (playlistData) => {
       <div>
         {/* playlist data header */}
         <Typography
-          sx={{ fontSize: 14 }}
+          sx={{ fontSize: 20 }}
           color='lightgreen'
           fontWeight={500}
           gutterBottom
