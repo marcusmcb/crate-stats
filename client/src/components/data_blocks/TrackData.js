@@ -5,12 +5,12 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import { Divider } from 'semantic-ui-react'
 
 import MinutesText from '../text_spans/minutesText'
 import SecondsText from '../text_spans/secondsText'
 import MinuteText from '../text_spans/minuteText'
 import SecondText from '../text_spans/secondText'
-import { Divider } from 'semantic-ui-react'
 
 const TrackData = (trackdata) => {
   return (
