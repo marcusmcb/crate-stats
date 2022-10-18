@@ -18,7 +18,7 @@ const TrackData = (trackdata) => {
         {/* track data header */}
         <Typography
           sx={{ fontSize: 20 }}
-          color='lightgreen'
+          color='#c5e1a5'
           fontWeight={500}
           gutterBottom
         >
@@ -28,7 +28,53 @@ const TrackData = (trackdata) => {
           <Grid item md={5} sm={12}>
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
-                {/* crate stats card */}
+                <Grid container spacing={2}>
+                  <Grid item sx={3}>
+                    <Typography sx={{ fontSize: 16 }}>
+                      total tracks played:
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f'}}>
+                      {trackdata.data.total_tracks_played}
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography sx={{ fontSize: 16 }}>
+                      average track length:
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f'}}>
+                      {trackdata.data.average_track_length.slice(1)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ marginTop: 1 }}>
+                  <Grid item sx={4}>
+                    <Typography sx={{ fontSize: 16 }}>
+                      shortest track played:
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={8}>
+                    <Typography variant='h5' component='div' fontWeight={500}>
+                      {trackdata.data.shortest_track.name} - {trackdata.data.shortest_track.play_time}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ marginTop: 0 }}>
+                  <Grid item sx={4}>
+                    <Typography sx={{ fontSize: 16 }}>
+                      longest track played:
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={8}>
+                    <Typography variant='h5' component='div' fontWeight={500}>
+                      {trackdata.data.longest_track.name} - {trackdata.data.longest_track.play_time}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                {/* <CardContent>                
                 <Typography>total tracks played:</Typography>
                 <Typography variant='h4' component='div' fontWeight={500}>
                   {trackdata.data.total_tracks_played}
@@ -37,8 +83,9 @@ const TrackData = (trackdata) => {
                   average track length:
                 </Typography>
                 <Typography variant='h4' component='div' fontWeight={500}>
-                {trackdata.data.average_track_length.substring(1)}
+                  {trackdata.data.average_track_length.substring(1)}
                 </Typography>
+              </CardContent> */}
               </CardContent>
             </Card>
           </Grid>

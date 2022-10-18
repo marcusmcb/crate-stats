@@ -22,7 +22,7 @@ const PlaylistData = (playlistData) => {
         {/* playlist data header */}
         <Typography
           sx={{ fontSize: 20 }}
-          color='lightgreen'
+          color='#c5e1a5'
           fontWeight={500}
           gutterBottom
         >
@@ -31,12 +31,12 @@ const PlaylistData = (playlistData) => {
         {/* playlist data cards */}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <Grid item md={5} sm={12}>
+            <Grid item xs={12} md={5} sm={12} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   {/* crate stats card */}
                   <Typography>crate stats for:</Typography>
-                  <Typography variant='h4' component='div' fontWeight={500}>
+                  <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f' }}>
                     {playlistData.data.title}
                   </Typography>
                   <Typography sx={{ marginTop: '10px' }} color='text.secondary'>
@@ -50,12 +50,12 @@ const PlaylistData = (playlistData) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item md={7} sm={12}>
+            <Grid item xs={12} md={7} sm={12} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   {/* set length/start time card */}
                   <Typography color='text.secondary'>set length:</Typography>
-                  <Typography variant='h4' component='div' fontWeight={500}>
+                  <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f' }}>
                     {playlistData.data.playlist_length_formatted.hours} Hours,{' '}
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
                     Minutes
