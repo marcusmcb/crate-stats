@@ -1,50 +1,74 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { Divider } from 'semantic-ui-react'
 
 const KeyData = (keydata) => {
   return (
-    <div>
-      {/* ****************************************** */}
-      {/* *********** DATA **************** */}
-      {/* ****************************************** */}
-      <div className='data-block-title'>Key Data</div>
-      <div className='data-block-toprow'>
-        <div className='toprow-container'>
-          <div className='data-block-primary'>
-            {/* ****************************************** */}
-            {/* *********** DATA * */}
-            {/* ****************************************** */}
-            <div className='playlist-block-primary-header'>Key Header:</div>
-            <div className='playlist-block-primary-value-main'>
-              Value
-            </div>
-          </div>
-          <div className='data-block-secondary'>
-            <div className='secondary-container'>              
-              <div className='playlist-secondary-header'>Set Length</div>
-              <div className='playlist-secondary-value'>Value</div>              
-            </div>
-          </div>
-        </div>
-        <div className='data-block-third'>
-          <div className='tertiary-container'>
-            <div className='tertiary-item'>
-              {/* ****************************************** */}
-              {/* ************** DATA ***** */}
-              {/* ****************************************** */}
-              <div className='playlist-tertiary-header'>Set Date:</div>
-              <div className='playlist-tertiary-value'>
-                Value
-              </div>
-              <div className='playlist-tertiary-header'>Set Start Time:</div>
-              <div className='playlist-tertiary-value'>
-                Other Value
-              </div>
-            </div>
-          </div>
-        </div>
+    <Fragment>
+      <div>
+        <Typography
+          sx={{ fontSize: 20 }}
+          color='#c5e1a5'
+          fontWeight={500}
+          gutterBottom
+        >
+          key data:
+        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid item xs={12} md={5} sm={12} lg={6}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item sx={3} mt={1}>
+                    <Typography>most common key:</Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography
+                      variant='h4'
+                      component='div'
+                      fontWeight={500}
+                      sx={{ color: '#558b2f' }}
+                    >
+                      {keydata.data.most_common_key.key}
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3} mt={1}>
+                    <Typography>least common key:</Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography
+                      variant='h4'
+                      component='div'
+                      fontWeight={500}
+                      sx={{ color: '#558b2f' }}
+                    >
+                      {keydata.data.least_common_key.key}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} columns={2}>
+                  <Grid item sx={3} mt={1}>
+                    <Typography>
+                      played {keydata.data.most_common_key.times_played} times
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3} mt={1}>
+                    <Typography>
+                      played {keydata.data.least_common_key.times_played} times
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Box>
       </div>
-      <div className='data-block-bottomrow'></div>
-    </div>
+    </Fragment>
   )
 }
 

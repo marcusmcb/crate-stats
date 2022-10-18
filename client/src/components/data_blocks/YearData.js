@@ -25,7 +25,7 @@ const YearData = (yeardata) => {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item sx={3} mt={1}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                    <Typography sx={{ fontSize: 16, fontWeight: '500' }} sm={12}>
                       range of years played:
                     </Typography>
                   </Grid>
@@ -41,7 +41,7 @@ const YearData = (yeardata) => {
                     </Typography>
                   </Grid>
                   <Grid item sx={3} mt={1}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                    <Typography sx={{ fontSize: 16, fontWeight: '500' }} sm={12}>
                       average year:
                     </Typography>
                   </Grid>
