@@ -113,9 +113,9 @@ const createUserReport = (data) => {
 
   // number of tracks played
   // const totalTracksPlayed = masterTrackLog.length
-  // const calculateTagHealth = (val1, val2) => {
-  //   return (val1 / val2) * 100
-  // }
+  const calculateTagHealth = (val1, val2) => {
+    return (val1 / val2) * 100
+  }
 
   // number of tracks played per hour for each hour
   let trackStartTimes = []

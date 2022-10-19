@@ -36,7 +36,12 @@ const PlaylistData = (playlistData) => {
                 <CardContent>
                   {/* crate stats card */}
                   <Typography>crate stats for:</Typography>
-                  <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f' }}>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
                     {playlistData.data.title}
                   </Typography>
                   <Typography sx={{ marginTop: '10px' }} color='text.secondary'>
@@ -55,7 +60,12 @@ const PlaylistData = (playlistData) => {
                 <CardContent>
                   {/* set length/start time card */}
                   <Typography color='text.secondary'>set length:</Typography>
-                  <Typography variant='h4' component='div' fontWeight={500} sx={{ color: '#558b2f' }}>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
                     {playlistData.data.playlist_length_formatted.hours} Hours,{' '}
                     {playlistData.data.playlist_length_formatted.minutes}{' '}
                     Minutes

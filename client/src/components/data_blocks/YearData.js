@@ -25,7 +25,10 @@ const YearData = (yeardata) => {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item sx={3} mt={1}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }} sm={12}>
+                    <Typography
+                      sx={{ fontSize: 16, fontWeight: '500' }}
+                      sm={12}
+                    >
                       range of years played:
                     </Typography>
                   </Grid>
@@ -41,7 +44,10 @@ const YearData = (yeardata) => {
                     </Typography>
                   </Grid>
                   <Grid item sx={3} mt={1}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }} sm={12}>
+                    <Typography
+                      sx={{ fontSize: 16, fontWeight: '500' }}
+                      sm={12}
+                    >
                       average year:
                     </Typography>
                   </Grid>
@@ -61,25 +67,33 @@ const YearData = (yeardata) => {
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>oldest track:</Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      {yeardata.data.oldest_track.artist} - {yeardata.data.oldest_track.name}
+                      {yeardata.data.oldest_track.artist} -{' '}
+                      {yeardata.data.oldest_track.name}
                     </Typography>
                   </Grid>
                   <Grid item sx={4}>
-                    <Typography sx={{ fontSize: 16 }}>playlist percentage from most recent year:</Typography>                    
+                    <Typography sx={{ fontSize: 16 }}>
+                      playlist percentage from most recent year:
+                    </Typography>
                     <Typography
                       variant='h5'
                       component='div'
                       fontWeight={600}
                       sx={{ color: '#558b2f' }}
                     >
-                      {yeardata.data.newest_track.playlist_percentage.split('.')[0]}% ({yeardata.data.newest_track.tracks.length} tracks)
+                      {
+                        yeardata.data.newest_track.playlist_percentage.split(
+                          '.'
+                        )[0]
+                      }
+                      % ({yeardata.data.newest_track.tracks.length} tracks)
                     </Typography>
-                  </Grid>                  
+                  </Grid>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
-        </Box>        
+        </Box>
       </div>
     </Fragment>
   )

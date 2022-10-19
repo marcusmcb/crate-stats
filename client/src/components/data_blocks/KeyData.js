@@ -37,6 +37,16 @@ const KeyData = (keydata) => {
                       {keydata.data.most_common_key.key}
                     </Typography>
                   </Grid>
+                  <Grid item sx={3} mt={0.5}>
+                    <Typography
+                      variant='h5'
+                      component='div'
+                      fontWeight={400}
+                      sx={{ color: '#558b2f' }}
+                    >
+                      (played {keydata.data.most_common_key.times_played} times)
+                    </Typography>
+                  </Grid>
                   <Grid item sx={3} mt={1}>
                     <Typography>least common key:</Typography>
                   </Grid>
@@ -50,16 +60,15 @@ const KeyData = (keydata) => {
                       {keydata.data.least_common_key.key}
                     </Typography>
                   </Grid>
-                </Grid>
-                <Grid container spacing={2} columns={2}>
-                  <Grid item sx={3} mt={1}>
-                    <Typography>
-                      played {keydata.data.most_common_key.times_played} times
-                    </Typography>
-                  </Grid>
-                  <Grid item sx={3} mt={1}>
-                    <Typography>
-                      played {keydata.data.least_common_key.times_played} times
+                  <Grid item sx={3} mt={0.5}>
+                    <Typography
+                      variant='h5'
+                      component='div'
+                      fontWeight={400}
+                      sx={{ color: '#558b2f' }}
+                    >
+                      (played {keydata.data.least_common_key.times_played}{' '}
+                      times)
                     </Typography>
                   </Grid>
                 </Grid>
