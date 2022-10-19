@@ -202,3 +202,5 @@ const TestReport = () => {
 }
 
 export default TestReport
+
+// move 'no data' block into helper method and pass value to it if true
