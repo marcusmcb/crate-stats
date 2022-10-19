@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import Titlebar from './shared/Titlebar'
+import DataMissing from './shared/DataMissing'
 import TrackData from './data_blocks/TrackData'
 import BPMData from './data_blocks/BPMData'
 import PlaylistData from './data_blocks/PlaylistData'
@@ -165,23 +166,7 @@ const TestReport = () => {
                   >
                     doubles data:
                   </Typography>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid item md={5} sm={12}>
-                      <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                          <Grid container spacing={2}>
-                            <Grid item sx={3} mt={1.5}>
-                              <Typography
-                                sx={{ fontSize: 16, fontWeight: '500' }}
-                              >
-                                No Doubles Detected In This Set
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Box>
+                  <DataMissing data={data} />
                 </div>
               ) : (
                 <DoublesData data={data.doubles_data} />
