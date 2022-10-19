@@ -8,116 +8,94 @@ import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
 const DoublesData = (doublesdata) => {
+  console.log(doublesdata)
+
   return (
     <Fragment>
-      {doublesdata.data.has_doubles_data ? (
-        <div>
-          <Typography
-            sx={{ fontSize: 20 }}
-            color='#c5e1a5'
-            fontWeight={500}
-            gutterBottom
-          >
-            doubles data:
-          </Typography>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid item md={5} sm={12}>
+      <div>
+        <Typography
+          sx={{ fontSize: 20 }}
+          color='#c5e1a5'
+          fontWeight={500}
+          gutterBottom
+        >
+          doubles data:
+        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={5} sm={12} lg={6}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  {/* crate stats card */}
+                  <Typography>deck 1 doubles playtime:</Typography>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
+                    {doublesdata.data.deck_1_doubles_playtime.slice(1)}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={5} sm={12} lg={6}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  {/* crate stats card */}
+                  <Typography>deck 2 doubles playtime:</Typography>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
+                    {doublesdata.data.deck_2_doubles_playtime.slice(1)}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={12} sm={12} lg={12}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item sx={3} mt={1.5}>
-                      <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                        No Doubles Detected In This Set
+                    <Grid item sx={3} mt={1}>
+                      <Typography fontWeight={500}>
+                        doubles detected:
                       </Typography>
+                    </Grid>
+                    <Grid item sx={3}>
+                      <Typography
+                        variant='h4'
+                        component='div'
+                        fontWeight={500}
+                        sx={{ color: '#558b2f' }}
+                      >
+                        {doublesdata.data.doubles_detected}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider />
+                  <Grid container spacing={2}>
+                    <Grid item sx={3}>
+                      {doublesdata.data.doubles_played.map((item) => (
+                        <Typography
+                          component='div'
+                          fontWeight={500}
+                          sx={{ fontSize: 16 }}
+                        >
+                          {item.artist} - {item.name}{' '}
+                        </Typography>
+                      ))}
                     </Grid>
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
-          </Box>
-        </div>
-      ) : (
-        <div>
-          <Typography
-            sx={{ fontSize: 20 }}
-            color='#c5e1a5'
-            fontWeight={500}
-            gutterBottom
-          >
-            doubles data:
-          </Typography>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-              <Grid item xs={12} md={5} sm={12} lg={6}>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    {/* crate stats card */}
-                    <Typography>deck 1 doubles playtime:</Typography>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {doublesdata.data.deck_1_doubles_playtime.slice(1)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={5} sm={12} lg={6}>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    {/* crate stats card */}
-                    <Typography>deck 2 doubles playtime:</Typography>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {doublesdata.data.deck_2_doubles_playtime.slice(1)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={12} sm={12} lg={12}>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    <Grid container spacing={2}>
-                      <Grid item sx={3} mt={1}>
-                        <Typography fontWeight={500}>
-                          doubles detected:
-                        </Typography>
-                      </Grid>
-                      <Grid item sx={3}>
-                        <Typography
-                          variant='h4'
-                          component='div'
-                          fontWeight={500}
-                          sx={{ color: '#558b2f' }}
-                        >
-                          {doublesdata.data.doubles_detected}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                    <Divider />
-                    <Grid container spacing={2}>
-                      <Grid item sx={3}>
-                        {doublesdata.data.doubles_played.map((item) => (
-                          <Typography component='div' fontWeight={500} sx={{ fontSize: 16 }}>
-                            {item.artist} - {item.name}{' '}
-                          </Typography>
-                        ))}
-                      </Grid>
-                    </Grid>
-                  </CardContent>                  
-                </Card>
-              </Grid>
-            </Grid>
-          </Box>
-        </div>
-      )}
-    </Fragment>    
+          </Grid>
+        </Box>
+      </div>
+    </Fragment>
   )
 }
 

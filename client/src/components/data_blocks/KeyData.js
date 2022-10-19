@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import { Divider } from 'semantic-ui-react'
 
 const KeyData = (keydata) => {
   return (

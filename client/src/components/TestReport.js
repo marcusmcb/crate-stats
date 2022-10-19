@@ -8,9 +8,12 @@ import KeyData from './data_blocks/KeyData'
 import YearData from './data_blocks/YearData'
 import DeckData from './data_blocks/DeckData'
 import DoublesData from './data_blocks/DoublesData'
-
 import DragAndDrop from './DragAndDrop'
-// import BarChart from "./d3/basicchart";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 
 import './testreport.css'
 
@@ -46,14 +49,50 @@ const TestReport = () => {
           <div>
             <div className='data-block'>
               {data.playlist_data.has_playlist_data === false ? (
-                <h3 className='no-data'>No Playlist Data</h3>
+                <div>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid item md={5} sm={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Grid container spacing={2}>
+                            <Grid item sx={3} mt={1.5}>
+                              <Typography
+                                sx={{ fontSize: 16, fontWeight: '500' }}
+                              >
+                                No Playlist Data Available For This Set List
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Box>
+                </div>
               ) : (
                 <PlaylistData data={data.playlist_data} />
               )}
             </div>
             <div className='data-block'>
               {data.track_data.has_track_data === false ? (
-                <h3 className='no-data'>No Track Data</h3>
+                <div>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid item md={5} sm={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Grid container spacing={2}>
+                            <Grid item sx={3} mt={1.5}>
+                              <Typography
+                                sx={{ fontSize: 16, fontWeight: '500' }}
+                              >
+                                No Track Data Available For This Set List
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Box>
+                </div>
               ) : (
                 <TrackData data={data.track_data} />
               )}
@@ -67,21 +106,83 @@ const TestReport = () => {
             </div>
             <div className='data-block'>
               {data.year_data.has_year_data === false ? (
-                <h3 className='no-data'>No Year Data</h3>
+                <div>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid item md={5} sm={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Grid container spacing={2}>
+                            <Grid item sx={3} mt={1.5}>
+                              <Typography
+                                sx={{ fontSize: 16, fontWeight: '500' }}
+                              >
+                                No Year Data Available For This Set List
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Box>
+                </div>
               ) : (
                 <YearData data={data.year_data} />
               )}
             </div>
             <div className='data-block'>
               {data.key_data.has_key_data === false ? (
-                <h3 className='no-data'>No Key Data</h3>
+                <div>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid item md={5} sm={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Grid container spacing={2}>
+                            <Grid item sx={3} mt={1.5}>
+                              <Typography
+                                sx={{ fontSize: 16, fontWeight: '500' }}
+                              >
+                                No Key Data Available For This Set List
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Box>
+                </div>
               ) : (
                 <KeyData data={data.key_data} />
               )}
-            </div>            
+            </div>
             <div className='data-block'>
               {data.doubles_data.has_doubles_data === false ? (
-                <h3 className='no-data'>No Doubles Data</h3>
+                <div>
+                  <Typography
+                    sx={{ fontSize: 20 }}
+                    color='#c5e1a5'
+                    fontWeight={500}
+                    gutterBottom
+                  >
+                    doubles data:
+                  </Typography>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid item md={5} sm={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Grid container spacing={2}>
+                            <Grid item sx={3} mt={1.5}>
+                              <Typography
+                                sx={{ fontSize: 16, fontWeight: '500' }}
+                              >
+                                No Doubles Detected In This Set
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Box>
+                </div>
               ) : (
                 <DoublesData data={data.doubles_data} />
               )}
