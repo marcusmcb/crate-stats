@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
 const DoublesData = (doublesdata) => {
-  console.log(doublesdata)
-
   return (
     <Fragment>
       <div>

@@ -7,32 +7,46 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
 const DataMissing = (data) => {
-
-  console.log(data)
+  console.log('---------RIGHT HERE BUD---------------')
+  console.log(data.data.value)
+  console.log('-------------------------------')
   let returnText
 
-  switch (data) {
-    case data.data.doubles_data.has_doubles_data === false:
-      returnText = "No doubles were detected in this set"
-    case data.data.key_data.has_key_data === false:
-      returnText = "No key data available for this set"
-    case data.data.year_data.has_year_data === false:
-      returnText = "No year data available for this set"  
+  if (data.data.value === 'doubles') {
+    returnText = 'No doubles were detected in this set'
+  }
+  if (data.data.value === 'key') {
+    returnText = 'No key data available for this set'
+  }
+  if (data.data.value === 'year') {
+    returnText = 'No year data available for this set'
+  }
+  if (data.data.value === 'bpm') {
+    returnText = 'No bpm data available for this set'
+  }
+  if (data.data.value === 'deck') {
+    returnText = 'No deck data available for this set'
+  }
+  if (data.data.value === 'genre') {
+    returnText = 'No genre data available for this set'
+  }
+  if (data.data.value === 'track') {
+    returnText = 'No track data available for this set'
+  }
+  if (data.data.value === 'playlist') {
+    returnText = 'No playlist data available for this set'
   }
 
-  // if (data.data.doubles_data.has_doubles_data === false) {
-  //   returnText = "No doubles were detected in this set"
-  // } 
-  // if (data.data.key_data.has_key_data === false) {
-  //   returnText = "No key data available for this set"
-  // } 
-  // if (data.data.year_data.has_year_data === false) {
-  //   returnText = "No year data available for this set"
-  // }
-
-  
   return (
     <div>
+      <Typography
+        sx={{ fontSize: 20 }}
+        color='#c5e1a5'
+        fontWeight={500}
+        gutterBottom
+      >
+        {data.data.value} data:
+      </Typography>
       <Box sx={{ flexGrow: 1 }}>
         <Grid item md={5} sm={12}>
           <Card sx={{ minWidth: 275 }}>

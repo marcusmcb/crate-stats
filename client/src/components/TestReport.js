@@ -50,57 +50,21 @@ const TestReport = () => {
           <div>
             <div className='data-block'>
               {data.playlist_data.has_playlist_data === false ? (
-                <div>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid item md={5} sm={12}>
-                      <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                          <Grid container spacing={2}>
-                            <Grid item sx={3} mt={1.5}>
-                              <Typography
-                                sx={{ fontSize: 16, fontWeight: '500' }}
-                              >
-                                No Playlist Data Available For This Set List
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Box>
-                </div>
+                <DataMissing data={{ value: 'playlist' }} />
               ) : (
                 <PlaylistData data={data.playlist_data} />
               )}
             </div>
             <div className='data-block'>
               {data.track_data.has_track_data === false ? (
-                <div>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid item md={5} sm={12}>
-                      <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                          <Grid container spacing={2}>
-                            <Grid item sx={3} mt={1.5}>
-                              <Typography
-                                sx={{ fontSize: 16, fontWeight: '500' }}
-                              >
-                                No Track Data Available For This Set List
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Box>
-                </div>
+                <DataMissing data={{ value: 'track' }} />
               ) : (
                 <TrackData data={data.track_data} />
               )}
             </div>
             <div className='data-block'>
               {data.bpm_data.has_bpm_data === false ? (
-                <h3 className='no-data'>No BPM Data</h3>
+                <DataMissing data={{ value: 'bpm' }} />
               ) : (
                 <BPMData data={data.bpm_data} />
               )}
@@ -108,15 +72,7 @@ const TestReport = () => {
             <div className='data-block'>
               {data.year_data.has_year_data === false ? (
                 <div>
-                  <Typography
-                    sx={{ fontSize: 20 }}
-                    color='#c5e1a5'
-                    fontWeight={500}
-                    gutterBottom
-                  >
-                    year data:
-                  </Typography>
-                  <DataMissing data={data} />
+                  <DataMissing data={{ value: 'year' }} />
                 </div>
               ) : (
                 <YearData data={data.year_data} />
@@ -125,15 +81,7 @@ const TestReport = () => {
             <div className='data-block'>
               {data.key_data.has_key_data === false ? (
                 <div>
-                  <Typography
-                    sx={{ fontSize: 20 }}
-                    color='#c5e1a5'
-                    fontWeight={500}
-                    gutterBottom
-                  >
-                    key data:
-                  </Typography>
-                  <DataMissing data={data} />
+                  <DataMissing data={{ value: 'key' }} />
                 </div>
               ) : (
                 <KeyData data={data.key_data} />
@@ -142,15 +90,7 @@ const TestReport = () => {
             <div className='data-block'>
               {data.doubles_data.has_doubles_data === false ? (
                 <div>
-                  <Typography
-                    sx={{ fontSize: 20 }}
-                    color='#c5e1a5'
-                    fontWeight={500}
-                    gutterBottom
-                  >
-                    doubles data:
-                  </Typography>
-                  <DataMissing data={data} />
+                  <DataMissing data={{ value: 'doubles' }} />
                 </div>
               ) : (
                 <DoublesData data={data.doubles_data} />
