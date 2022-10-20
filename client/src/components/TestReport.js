@@ -108,23 +108,15 @@ const TestReport = () => {
             <div className='data-block'>
               {data.year_data.has_year_data === false ? (
                 <div>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid item md={5} sm={12}>
-                      <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                          <Grid container spacing={2}>
-                            <Grid item sx={3} mt={1.5}>
-                              <Typography
-                                sx={{ fontSize: 16, fontWeight: '500' }}
-                              >
-                                No Year Data Available For This Set List
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Box>
+                  <Typography
+                    sx={{ fontSize: 20 }}
+                    color='#c5e1a5'
+                    fontWeight={500}
+                    gutterBottom
+                  >
+                    year data:
+                  </Typography>
+                  <DataMissing data={data} />
                 </div>
               ) : (
                 <YearData data={data.year_data} />
@@ -133,23 +125,15 @@ const TestReport = () => {
             <div className='data-block'>
               {data.key_data.has_key_data === false ? (
                 <div>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid item md={5} sm={12}>
-                      <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                          <Grid container spacing={2}>
-                            <Grid item sx={3} mt={1.5}>
-                              <Typography
-                                sx={{ fontSize: 16, fontWeight: '500' }}
-                              >
-                                No Key Data Available For This Set List
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Box>
+                  <Typography
+                    sx={{ fontSize: 20 }}
+                    color='#c5e1a5'
+                    fontWeight={500}
+                    gutterBottom
+                  >
+                    key data:
+                  </Typography>
+                  <DataMissing data={data} />
                 </div>
               ) : (
                 <KeyData data={data.key_data} />
@@ -187,5 +171,3 @@ const TestReport = () => {
 }
 
 export default TestReport
-
-// move 'no data' block into helper method and pass value to it if true
