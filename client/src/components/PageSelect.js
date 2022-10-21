@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Icon, Grid, Button } from 'semantic-ui-react'
+import { Card, Icon, Grid, Button, Divider } from 'semantic-ui-react'
 import Titlebar from './shared/Titlebar'
 
 import './pageselect.css'
@@ -9,6 +9,7 @@ const PageSelect = () => {
   return (
     <Fragment>
       <Titlebar />
+      <Divider />
       <Grid divided='vertically' centered padded='vertically'>
         <Grid.Row columns={2}>
           <Grid.Column width={6}>

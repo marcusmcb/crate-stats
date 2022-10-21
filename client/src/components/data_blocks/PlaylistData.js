@@ -13,8 +13,6 @@ import SecondText from '../text_spans/secondText'
 import HoursText from '../text_spans/hoursText'
 import HourText from '../text_spans/hourText'
 
-import './playlistdata.css'
-
 const PlaylistData = (playlistData) => {
   return (
     <Fragment>
