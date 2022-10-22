@@ -21,7 +21,7 @@ const DoublesData = (doublesdata) => {
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={5} sm={12} lg={6}>
+            <Grid item xs={12} md={6} sm={12} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   {/* crate stats card */}
@@ -37,7 +37,7 @@ const DoublesData = (doublesdata) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={5} sm={12} lg={6}>
+            <Grid item xs={12} md={6} sm={12} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   {/* crate stats card */}

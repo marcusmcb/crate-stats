@@ -1,4 +1,9 @@
-.title-text {
+.pagebody {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+/* .title-text {
   text-align: center;
 }
 
@@ -141,4 +146,4 @@
 
 .no-doubles {
   color: rgb(240, 202, 131);
-}
+} */

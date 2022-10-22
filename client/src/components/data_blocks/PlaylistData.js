@@ -64,18 +64,50 @@ const PlaylistData = (playlistData) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {playlistData.data.playlist_length_formatted.hours} Hours,{' '}
-                    {playlistData.data.playlist_length_formatted.minutes}{' '}
-                    Minutes
+                    {playlistData.data.playlist_length_formatted.hours > 1 ? (
+                      <div>
+                        {playlistData.data.playlist_length_formatted.hours}{' '}
+                        <span>
+                          <HoursText />
+                        </span>
+                      </div>
+                    ) : playlistData.data.playlist_length_formatted.hours ===
+                      1 ? (
+                      <div>
+                        {playlistData.data.playlist_length_formatted.hours}{' '}
+                        <span>
+                          <HourText />
+                        </span>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                    {playlistData.data.playlist_length_formatted.minutes > 1 ||
+                    playlistData.data.playlist_length_formatted.minutes ===
+                      0 ? (
+                      <div>
+                        {playlistData.data.playlist_length_formatted.minutes}{' '}
+                        <span>
+                          <MinutesText />
+                        </span>
+                      </div>
+                    ) : playlistData.data.playlist_length_formatted.minutes ===
+                      1 ? (
+                      <div>
+                        {playlistData.data.playlist_length_formatted.minutes}{' '}
+                        <span>
+                          <MinutesText />
+                        </span>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
                   </Typography>
                   <Typography sx={{ marginTop: '10px' }} color='text.secondary'>
                     start time:
                   </Typography>
                   <Typography variant='h5' component='div'>
-                    {playlistData.data.start_time_formatted.start_time.slice(
-                      0,
-                      -3
-                    )}{' '}
+                    {playlistData.data.start_time_formatted.start_time}{' '}
                     {playlistData.data.start_time_formatted.time_format}
                   </Typography>
                 </CardContent>

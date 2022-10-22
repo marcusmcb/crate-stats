@@ -1,4 +1,9 @@
-h3, .ui {
+/* h3, .ui {
   padding: 0px;
   margin: 0px;
+} */
+
+.pagebody {
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
