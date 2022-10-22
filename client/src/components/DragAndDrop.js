@@ -23,16 +23,16 @@ const DragAndDrop = ({ getDataFromCSV }) => {
   }
   
   return (
-    <div className='foo'>
+    <div className='drag-and-drop'>
       <FileUploader
         className='uploader'
         multiple={false}
         handleChange={handleChange}
         types={fileTypes}
         name='file'
-        fileOrFiles={null}
+        fileOrFiles={null}          
       />
-      <p>{file ? `File name: ${file}` : 'no files uploaded yet'}</p>
+      <p className='drag-and-drop-label'>{file ? `File name: ${file}` : 'no files uploaded yet'}</p>
     </div>
   )
 }

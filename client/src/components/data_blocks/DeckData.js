@@ -1,55 +1,82 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 
 const DeckData = (deckdata) => {
   return (
-    <div>
-      {/* ****************************************** */}
-      {/* *********** DECK DATA **************** */}
-      {/* ****************************************** */}
-      <div className='data-block-title'>Deck Data</div>
-      <div className='data-block-toprow'>
-        <div className='toprow-container'>
-          <div className='data-block-primary'>
-            {/* ****************************************** */}
-            {/* *********** DECK 1 DATA * */}
-            {/* ****************************************** */}
-            <div className='playlist-block-primary-header'>
-              Deck 1 Average Playtime:
-            </div>
-            <div className='playlist-block-primary-value-main'>
-              {deckdata.data.deck_1_average.slice(1)}
-            </div>
-          </div>
-          <div className='data-block-primary'>
-            {/* ****************************************** */}
-            {/* *********** DECK 2 DATA * */}
-            {/* ****************************************** */}
-            <div className='playlist-block-primary-header'>
-              Deck 2 Average Playtime:
-            </div>
-            <div className='playlist-block-primary-value-main'>
-              {deckdata.data.deck_2_average.slice(1)}
-            </div>
-          </div>
-        </div>
-        <div className='data-block-third'>
-          <div className='tertiary-container'>
-            <div className='tertiary-item'>
-              {/* ****************************************** */}
-              {/* ************** SET DATE & START TIME ***** */}
-              {/* ****************************************** */}
-              <div className='playlist-tertiary-header'>
-                Missing Deck Values:
-              </div>
-              <div className='playlist-tertiary-value'>
-                {deckdata.data.missing_deck_values}
-              </div>
-            </div>
-          </div>
-        </div>
+    <Fragment>
+      <div>
+        <Typography
+          sx={{ fontSize: 20 }}
+          color='#c5e1a5'
+          fontWeight={500}
+          gutterBottom
+        >
+          deck data:
+        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={5} sm={12} lg={6}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography>deck 1 average track playtime:</Typography>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
+                    {deckdata.data.deck_1_average}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={5} sm={12} lg={6}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography>deck 2 average track playtime:</Typography>
+                  <Typography
+                    variant='h4'
+                    component='div'
+                    fontWeight={500}
+                    sx={{ color: '#558b2f' }}
+                  >
+                    {deckdata.data.deck_2_average}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={12} sm={12} lg={12}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item sx={3} mt={1}>
+                      <Typography fontWeight={500}>
+                        missing deck values:
+                      </Typography>
+                    </Grid>
+                    <Grid item sx={3}>
+                      <Typography
+                        variant='h4'
+                        component='div'
+                        fontWeight={500}
+                        sx={{ color: '#558b2f' }}
+                      >
+                        {deckdata.data.missing_deck_values}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
       </div>
-      <div className='data-block-bottomrow'></div>
-    </div>
+    </Fragment>
   )
 }
 

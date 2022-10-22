@@ -1,4 +1,4 @@
-.foo {
+.drag-and-drop {
   font-family: 'Exo 2', sans-serif;
   text-align: center;
   display: flex;
@@ -6,6 +6,16 @@
   align-items: center;
   flex-direction: column;
   width: 100vw;
+  
+}
+
+.drag-and-drop-label,
+.drag-and-drop {
+  margin-top: 10px;
+}
+
+.drag-and-drop-label {
+  font-weight: 500;
 }
 
 label {

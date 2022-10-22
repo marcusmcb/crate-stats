@@ -45,7 +45,23 @@ const TestReport = () => {
       <DragAndDrop getDataFromCSV={getDataFromCSV} />
       <div className='testpage-body'>
         {isBusy === true ? (
-          <div className='data-block loading'>Awaiting data...</div>
+          <div className='data-block'>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid item md={5} sm={12}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item sx={3} mt={1.5}>
+                      <Typography sx={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}>
+                        Awaiting data...
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Box>
+          </div>
         ) : (
           <div>
             <div className='data-block'>
@@ -98,7 +114,7 @@ const TestReport = () => {
             </div>
             <div className='data-block'>
               {data.deck_data.has_deck_data === false ? (
-                <h3 className='no-data'>No Deck Data</h3>
+                <DataMissing data={{ value: 'deck' }} />
               ) : (
                 <DeckData data={data.deck_data} />
               )}
