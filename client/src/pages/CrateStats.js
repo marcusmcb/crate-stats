@@ -3,7 +3,7 @@ import { Row, Col, Form, Input } from "reactstrap";
 import axios from "axios";
 import parseDay from "../scripts/parseDay";
 import parseDisplayName from "../scripts/parseDisplayName";
-import Titlebar from "./shared/Titlebar";
+import Titlebar from "../components/shared/Titlebar";
 import "./cratestats.css";
 
 const CrateStats = () => {  

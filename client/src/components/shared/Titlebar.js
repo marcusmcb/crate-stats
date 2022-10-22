@@ -7,7 +7,7 @@ const Titlebar = () => {
 
   return (
     <div className='titlebar'>
-      <Link style={{color: 'black'}} to={'/pageselect'}>{title}</Link>
+      <Link style={{color: 'black'}} to={'/'}>{title}</Link>
       </div>
   )
 }

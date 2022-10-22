@@ -15,7 +15,7 @@ import "./livereport.css";
 
 import parseDay from "../scripts/parseDay";
 import parseDisplayName from "../scripts/parseDisplayName";
-import Titlebar from "./shared/Titlebar";
+import Titlebar from "../components/shared/Titlebar";
 
 const LiveReport = () => {
   const [isData, setIsData] = useState(false);

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Icon, Grid, Button, Divider } from 'semantic-ui-react'
-import Titlebar from './shared/Titlebar'
+import Titlebar from "../components/shared/Titlebar";
 
 import './pageselect.css'
 
@@ -46,7 +46,7 @@ const PageSelect = () => {
                 <Icon name='magnify' />
               </Button.Content>
               <Button.Content hidden>
-                <Link to='/testreport'>
+                <Link to='/playlistreport'>
                   <Icon name='arrow right' />
                 </Link>
               </Button.Content>

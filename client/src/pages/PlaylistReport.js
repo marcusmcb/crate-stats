@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import axios from 'axios'
-import Titlebar from './shared/Titlebar'
-import DataMissing from './shared/DataMissing'
-import TrackData from './data_blocks/TrackData'
-import BPMData from './data_blocks/BPMData'
-import PlaylistData from './data_blocks/PlaylistData'
-import KeyData from './data_blocks/KeyData'
-import YearData from './data_blocks/YearData'
-import DeckData from './data_blocks/DeckData'
-import DoublesData from './data_blocks/DoublesData'
+import Titlebar from '../components/shared/Titlebar'
+import DataMissing from '../components/shared/DataMissing'
+import TrackData from '../components/data_blocks/TrackData'
+import BPMData from '../components/data_blocks/BPMData'
+import PlaylistData from '../components/data_blocks/PlaylistData'
+import KeyData from '../components/data_blocks/KeyData'
+import YearData from '../components/data_blocks/YearData'
+import DeckData from '../components/data_blocks/DeckData'
+import DoublesData from '../components/data_blocks/DoublesData'
 import DragAndDrop from './DragAndDrop'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -16,9 +16,9 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-import './testreport.css'
+import './playlistreport.css'
 
-const TestReport = () => {
+const PlaylistReport = () => {
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
   const isInitialMount = useRef(true)
@@ -46,21 +46,27 @@ const TestReport = () => {
       <div className='testpage-body'>
         {isBusy === true ? (
           <div className='data-block'>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid item md={5} sm={12}>
-              <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item sx={3} mt={1.5}>
-                      <Typography sx={{ fontSize: 16, fontWeight: '500', textAlign: 'center' }}>
-                        Awaiting data...
-                      </Typography>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid item md={5} sm={12}>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item sx={3} mt={1.5}>
+                        <Typography
+                          sx={{
+                            fontSize: 16,
+                            fontWeight: '500',
+                            textAlign: 'center',
+                          }}
+                        >
+                          Awaiting data...
+                        </Typography>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Box>
           </div>
         ) : (
           <div>
@@ -126,4 +132,4 @@ const TestReport = () => {
   )
 }
 
-export default TestReport
+export default PlaylistReport
