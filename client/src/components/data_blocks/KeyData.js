@@ -10,8 +10,10 @@ import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { styled } from '@mui/material/styles'
-
 import { Divider } from 'semantic-ui-react'
+
+import TimesText from '../text_spans/timesText'
+import TimeText from '../text_spans/timeText'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props

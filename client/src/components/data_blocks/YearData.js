@@ -87,7 +87,7 @@ const YearData = (yeardata) => {
                 <Divider />
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
                   <Grid item sx={4}>
-                    <Typography sx={{ fontSize: 16 }}>oldest track:</Typography>
+                    <Typography sx={{ fontSize: 16 }}>oldest track ({yeardata.data.oldest_track.year}):</Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
                       {yeardata.data.oldest_track.artist} -{' '}
                       {yeardata.data.oldest_track.name}
@@ -95,7 +95,7 @@ const YearData = (yeardata) => {
                   </Grid>
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>
-                      playlist percentage from most recent year:
+                      playlist percentage from most recent year ({yeardata.data.newest_track.year}):
                     </Typography>
                     <Typography
                       variant='h5'
