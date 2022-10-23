@@ -7,22 +7,10 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
-import IconButton from '@mui/material/IconButton'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { styled } from '@mui/material/styles'
+import ExpandMore from '../helpers/CardExpander'
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}))
-
-const GenreData = (genreData) => {  
+const GenreData = (genreData) => {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -95,7 +83,9 @@ const GenreData = (genreData) => {
                       <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
                         <CardContent>
                           {/* crate stats card */}
-                          <Typography>percentage of tracks played with genre tags:</Typography>
+                          <Typography>
+                            percentage of tracks played with genre tags:
+                          </Typography>
                           <Typography
                             variant='h4'
                             component='div'
@@ -105,7 +95,8 @@ const GenreData = (genreData) => {
                             {
                               genreData.data.tag_health
                                 .percentage_with_genre_tags
-                            }%
+                            }
+                            %
                           </Typography>
                         </CardContent>
                       </Card>
@@ -126,7 +117,8 @@ const GenreData = (genreData) => {
                             {
                               genreData.data.tag_health
                                 .percentage_with_other_as_genre
-                            }%
+                            }
+                            %
                           </Typography>
                         </CardContent>
                       </Card>

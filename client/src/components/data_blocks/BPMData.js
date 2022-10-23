@@ -26,21 +26,6 @@ const BPMData = (bpmdata) => {
                 <Grid container spacing={2}>
                   <Grid item sx={3} mt={1}>
                     <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                      average bpm:
-                    </Typography>
-                  </Grid>
-                  <Grid item sx={3}>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {bpmdata.data.average_bpm}
-                    </Typography>
-                  </Grid>
-                  <Grid item sx={3} mt={1}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                       bpm range:
                     </Typography>
                   </Grid>
@@ -55,14 +40,34 @@ const BPMData = (bpmdata) => {
                       {bpmdata.data.bpm_range.maximum}
                     </Typography>
                   </Grid>
+                  <Grid item sx={3} mt={1}>
+                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                      average bpm:
+                    </Typography>
+                  </Grid>
+                  <Grid item sx={3}>
+                    <Typography
+                      variant='h4'
+                      component='div'
+                      fontWeight={500}
+                      sx={{ color: '#558b2f' }}
+                    >
+                      {bpmdata.data.average_bpm}
+                    </Typography>
+                  </Grid>
                 </Grid>
                 <Divider />
                 <Grid container spacing={2}>
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>
-                      biggest change:
+                      biggest single bpm change:
                     </Typography>
-                    <Typography variant='h5' component='div' fontWeight={500}>
+                    <Typography
+                      variant='h5'
+                      component='div'
+                      fontWeight={500}
+                      color='#558b2f'
+                    >
                       {bpmdata.data.biggest_bpm_change.track_one.bpm} bpm -{' '}
                       {bpmdata.data.biggest_bpm_change.track_two.bpm} bpm
                     </Typography>

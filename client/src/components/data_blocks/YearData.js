@@ -7,24 +7,11 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
-import IconButton from '@mui/material/IconButton'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { styled } from '@mui/material/styles'
-
+import ExpandMore from '../helpers/CardExpander'
 import { Divider } from 'semantic-ui-react'
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}))
-
-const YearData = (yeardata) => {
+const YearData = (yeardata) => {  
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -61,8 +48,8 @@ const YearData = (yeardata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {yeardata.data.oldest_track.year} -{' '}
-                      {yeardata.data.newest_track.year}
+                      {yeardata.data.yeardata.oldest_track.year} -{' '}
+                      {yeardata.data.yeardata.newest_track.year}
                     </Typography>
                   </Grid>
                   <Grid item sx={3} mt={1}>
@@ -80,7 +67,7 @@ const YearData = (yeardata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {yeardata.data.average_year}
+                      {yeardata.data.yeardata.average_year}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -88,30 +75,34 @@ const YearData = (yeardata) => {
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>
-                      oldest track ({yeardata.data.oldest_track.year}):
+                      oldest track ({yeardata.data.yeardata.oldest_track.year}):
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      {yeardata.data.oldest_track.artist} -{' '}
-                      {yeardata.data.oldest_track.name}
+                      {yeardata.data.yeardata.oldest_track.artist} -{' '}
+                      {yeardata.data.yeardata.oldest_track.name}
                     </Typography>
                   </Grid>
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>
                       playlist percentage from most recent year (
-                      {yeardata.data.newest_track.year}):
+                      {yeardata.data.yeardata.newest_track.year}):
                     </Typography>
                     <Typography
-                      variant='h5'
+                      variant='h4'
                       component='div'
-                      fontWeight={600}
+                      fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
                       {
-                        yeardata.data.newest_track.playlist_percentage.split(
+                        yeardata.data.yeardata.newest_track.playlist_percentage.split(
                           '.'
                         )[0]
                       }
-                      % ({yeardata.data.newest_track.tracks.length} tracks)
+                      %{' '}
+                      <span style={{ fontSize: '22px' }}>
+                        ({yeardata.data.yeardata.newest_track.tracks.length}{' '}
+                        tracks)
+                      </span>
                     </Typography>
                   </Grid>
                 </Grid>
@@ -135,9 +126,47 @@ const YearData = (yeardata) => {
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout='auto' unmountOnExit>
-                  <CardContent>
-                    <Typography>TAG HEALTH DATA GOES HERE</Typography>
-                  </CardContent>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} md={6} sm={12} lg={6}>
+                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                        <CardContent>
+                          {/* crate stats card */}
+                          <Typography>percentage with year tags:</Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: '#558b2f' }}
+                          >
+                            {
+                              yeardata.data.yeardata.tag_health
+                                .percentage_with_year_tags
+                            }
+                            %
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6} sm={12} lg={6}>
+                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                        <CardContent>
+                          {/* crate stats card */}
+                          <Typography>tracks with empty year tags:</Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: '#558b2f' }}
+                          >
+                            {yeardata.data.yeardata.tag_health.empty_year_tags}{' '}
+                            <span style={{ fontSize: '18px' }}>
+                              of {yeardata.data.mtll} total tracks
+                            </span>
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
                 </Collapse>
               </Card>
             </Card>

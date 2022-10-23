@@ -98,7 +98,7 @@ const PlaylistReport = () => {
                   <DataMissing data={{ value: 'year' }} />
                 </div>
               ) : (
-                <YearData data={data.year_data} />
+                <YearData data={{ yeardata: data.year_data, mtll: data.master_track_log.length }} />
               )}
             </div>
             <div className='data-block'>
