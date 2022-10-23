@@ -11,6 +11,7 @@ const createReport = async (url) => {
     let starttime = response[2]
     let playlistdate = response[3]
     let playlisttitle = response[4]
+    let playlistartist = response[5]    
 
     let tracksPlayed = []
     let trackTimestamps = []
@@ -90,6 +91,7 @@ const createReport = async (url) => {
 
     let seratoReport = {
       trackLengthArray: timeDiffs,
+      djName: playlistartist,
       setLength: {
         lengthValue: playlistLength,
         setlengthhours: playlistLengthValues[0],

@@ -2,7 +2,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const scrapeData = async (url) => {    
-  let results, timestamps, starttime, playlistdate, playlisttitle
+  let results, timestamps, starttime, playlistdate, playlisttitle, playlistartist
   try {
     await axios
       .get(url)
@@ -13,6 +13,7 @@ const scrapeData = async (url) => {
         starttime = $('div.playlist-timestamp').first().text().trim()
         playlistdate = $('span.playlist-start-time').first().text().trim()
         playlisttitle = $('div.playlist-heading h1').text().trim()
+        playlistartist = $('span.playlist-dj-subtitle').text().trim()
       })
       .catch((error) => {
         console.log(error)        
@@ -22,7 +23,8 @@ const scrapeData = async (url) => {
     console.log(error)
     return error
   }
-  return [results, timestamps, starttime, playlistdate, playlisttitle]
+  playlistartist = playlistartist.split(' ')[3]
+  return [results, timestamps, starttime, playlistdate, playlisttitle, playlistartist]
 }
 
 module.exports = scrapeData

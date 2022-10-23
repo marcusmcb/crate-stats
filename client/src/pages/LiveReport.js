@@ -8,13 +8,20 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
-// import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'
+
+import HoursText from '../components/text_spans/hoursText'
+import HourText from '../components/text_spans/hourText'
+import MinutesText from '../components/text_spans/minutesText'
+import MinuteText from '../components/text_spans/minuteText'
+import SecondsText from '../components/text_spans/secondsText'
+import SecondText from '../components/text_spans/secondText'
 
 import parseDay from '../scripts/parseDay'
 import parseDisplayName from '../scripts/parseDisplayName'
 import Titlebar from '../components/shared/Titlebar'
 import './livereport.css'
-import { OutlinedInput, Typography } from '@mui/material'
+import { OutlinedInput } from '@mui/material'
 
 const LiveReport = () => {
   const [isData, setIsData] = useState(false)
@@ -25,8 +32,6 @@ const LiveReport = () => {
   const [playlistDate, setPlaylistDate] = useState([])
   const [playlistData, setPlaylistData] = useState({})
   const [playlistName, setPlaylistName] = useState('')
-
-  console.log(url)
 
   const getReport = async (e) => {
     e.preventDefault()
@@ -50,7 +55,7 @@ const LiveReport = () => {
               response.data.playlistTitle.length - 5
             ) === '/'
           ) {
-            setPlaylistName('')
+            setPlaylistName(response.data.playlistTitle)
           } else {
             setPlaylistName(response.data.playlistTitle)
           }
@@ -105,6 +110,7 @@ const LiveReport = () => {
               sx={{
                 maxWidth: '100px',
                 marginTop: '20px',
+                marginBottom: '10px',
                 alignSelf: 'center',
                 borderColor: 'black',
                 color: 'black',
@@ -115,148 +121,285 @@ const LiveReport = () => {
           </FormControl>
         </Box>
         {isData ? (
-          <div>Data</div>
-        ) : // <div>
-        //   <Grid style={{ paddingTop: '20px' }}>
-        //     <Grid.Row centered>
-        //       <Grid.Column width={8}>
-        //         {/* header */}
-        //         <Card
-        //           style={{ border: '1px solid lightgrey', padding: '20px' }}
-        //         >
-        //           <Header as='h2'>
-        //             <Icon name='headphones' />
-        //             <Header.Content>{displayName}</Header.Content>
-        //           </Header>
-        //           {playlistName === '' ? (
-        //             <span></span>
-        //           ) : (
-        //             <Container text>{playlistName}</Container>
-        //           )}
-        //           <Container text>
-        //             {playlistDate[1]}, {playlistDate[0]}
-        //           </Container>
-        //           <Container text>
-        //             Start Time: {playlistData.setStartTime}
-        //           </Container>
-        //         </Card>
-        //         {/* playlist data */}
-        //         <Grid divided='vertically' style={{ paddingTop: '20px' }}>
-        //           <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
-        //             <Grid.Column width={5}>
-        //               <Header as='h4' color='blue'>
-        //                 Set Length:
-        //               </Header>
-        //             </Grid.Column>
-        //             <Grid.Column width={3}>
-        //               {playlistData.setLength.setlengthhours === '0' ? (
-        //                 <Container text>
-        //                   {playlistData.setLength.setlengthminutes} Minutes,{' '}
-        //                   {playlistData.setLength.setlengthseconds} Seconds
-        //                 </Container>
-        //               ) : playlistData.setLength.setlengthhours === '1' ? (
-        //                 <Container text>
-        //                   {playlistData.setLength.setlengthhours} Hour,{' '}
-        //                   {playlistData.setLength.setlengthminutes} Minutes
-        //                 </Container>
-        //               ) : (
-        //                 <Container text>
-        //                   {playlistData.setLength.setlengthhours} Hours,{' '}
-        //                   {playlistData.setLength.setlengthminutes} Minutes
-        //                 </Container>
-        //               )}
-        //             </Grid.Column>
-        //           </Grid.Row>
-        //         </Grid>
-        //         <Grid divided='vertically'>
-        //           <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
-        //             <Grid.Column width={5}>
-        //               <Header as='h4' color='blue'>
-        //                 Total Tracks Played:
-        //               </Header>
-        //             </Grid.Column>
-        //             <Grid.Column width={3}>
-        //               <Container text>
-        //                 {playlistData.totalTracksPlayed}
-        //               </Container>
-        //             </Grid.Column>
-        //           </Grid.Row>
-        //         </Grid>
-        //         <Grid divided='vertically'>
-        //           <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
-        //             <Grid.Column width={5}>
-        //               <Header as='h4' color='blue'>
-        //                 Average Track Length:
-        //               </Header>
-        //             </Grid.Column>
-        //             <Grid.Column width={3}>
-        //               {playlistData.avgTrackLength.minutes == '0' ? (
-        //                 <Container text>
-        //                   {playlistData.avgTrackLength.seconds} Seconds
-        //                 </Container>
-        //               ) : playlistData.avgTrackLength.minutes == '1' ? (
-        //                 <Container text>
-        //                   {playlistData.avgTrackLength.minutes} Minute,{' '}
-        //                   {playlistData.avgTrackLength.seconds} Seconds
-        //                 </Container>
-        //               ) : (
-        //                 <Container text>
-        //                   {playlistData.avgTrackLength.minutes} Minutes,{' '}
-        //                   {playlistData.avgTrackLength.seconds} Seconds
-        //                 </Container>
-        //               )}
-        //             </Grid.Column>
-        //           </Grid.Row>
-        //         </Grid>
-        //         <Grid divided='vertically'>
-        //           <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
-        //             <Grid.Column width={5}>
-        //               <Header as='h4' color='blue'>
-        //                 Shortest Track:
-        //               </Header>
-        //             </Grid.Column>
-        //             <Grid.Column width={3}>
-        //               <Container text>
-        //                 {playlistData.shortestTrack.name}
-        //               </Container>
-        //             </Grid.Column>
-        //           </Grid.Row>
-        //         </Grid>
-        //         <Grid divided='vertically'>
-        //           <Grid.Row columns={2} style={{ padding: '0', margin: '0' }}>
-        //             <Grid.Column width={5}>
-        //               <Header as='h4' color='blue'>
-        //                 Longest Track:
-        //               </Header>
-        //             </Grid.Column>
-        //             <Grid.Column width={3}>
-        //               <Container text>
-        //                 {playlistData.longestTrack.name}
-        //               </Container>
-        //             </Grid.Column>
-        //           </Grid.Row>
-        //         </Grid>
-        //         {playlistData.doublesPlayed.length != 0 ? (
-        //           <div>Has Doubles</div>
-        //         ) : (
-        //           <Grid divided='vertically'>
-        //             <Grid.Row
-        //               columns={1}
-        //               style={{ padding: '0', margin: '0' }}
-        //             >
-        //               <Grid.Column width={10}>
-        //                 <Header as='h4' color='blue'>
-        //                   No doubles detected in this set.
-        //                 </Header>
-        //               </Grid.Column>
-        //             </Grid.Row>
-        //           </Grid>
-        //         )}
-        //       </Grid.Column>
-        //     </Grid.Row>
-        //   </Grid>
-        // </div>
-        isPrivate ? (
+          <div className='data-block'>
+            <Typography
+              sx={{ fontSize: 22 }}
+              fontWeight={500}
+              color='#c5e1a5'
+              gutterBottom
+            >
+              {displayName}
+            </Typography>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} md={6} sm={12} lg={6}>
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardContent>
+                      {/* crate stats card */}
+                      <Typography>crate stats for:</Typography>
+                      <Typography
+                        variant='h4'
+                        component='div'
+                        fontWeight={500}
+                        sx={{ color: '#558b2f' }}
+                      >
+                        {playlistName === '' ? (
+                          <span></span>
+                        ) : (
+                          <span>{playlistName}</span>
+                        )}
+                      </Typography>
+                      <Typography
+                        sx={{ marginTop: '10px' }}
+                        color='text.secondary'
+                      >
+                        set date:
+                      </Typography>
+                      <Typography variant='h5' component='div'>
+                        {playlistDate}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6} sm={12} lg={6}>
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardContent>
+                      {/* crate stats card */}
+                      <Typography>set length:</Typography>
+                      <Typography
+                        variant='h4'
+                        component='div'
+                        fontWeight={500}
+                        sx={{ color: '#558b2f' }}
+                      >
+                        {playlistData.setLength.setlengthhours > 1 ? (
+                          playlistData.setLength.setlengthminutes > 1 ||
+                          playlistData.setLength.setlengthminutes === 0 ? (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthhours}{' '}
+                                <HoursText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinutesText />
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthhours}{' '}
+                                <HoursText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinuteText />
+                              </span>
+                            </div>
+                          )
+                        ) : playlistData.setLength.setlengthhours === 1 ? (
+                          playlistData.setLength.setlengthminutes > 1 ||
+                          playlistData.setLength.setlengthminutes === 0 ? (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthhours}{' '}
+                                <HourText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinutesText />
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthhours}{' '}
+                                <HourText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinuteText />
+                              </span>
+                            </div>
+                          )
+                        ) : playlistData.setLength.setlengthminutes !== 0 ? (
+                          playlistData.setLength.setlengthseconds > 1 ||
+                          playlistData.setLength.setlengthseconds > 1 ||
+                          playlistData.setLength.setlengthseconds === 0 ? (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinutesText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <SecondsText />
+                              </span>
+                            </div>
+                          ) : (
+                            <div>
+                              <span>
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <MinutesText />,{' '}
+                                {playlistData.setLength.setlengthminutes}{' '}
+                                <SecondText />
+                              </span>
+                            </div>
+                          )
+                        ) : (
+                          <div>
+                            <span>Too short to determine set length</span>
+                          </div>
+                        )}
+                      </Typography>
+                      <Typography
+                        sx={{ marginTop: '10px' }}
+                        color='text.secondary'
+                      >
+                        start time:
+                      </Typography>
+                      <Typography variant='h5' component='div'>
+                        {playlistData.setStartTime}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box sx={{ flexGrow: 1, marginTop: '15px' }}>
+              <Grid item md={5} sm={12}>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item sx={3} mt={1.5}>
+                        <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                          total tracks played:
+                        </Typography>
+                      </Grid>
+                      <Grid item sx={3}>
+                        <Typography
+                          variant='h3'
+                          component='div'
+                          fontWeight={500}
+                          sx={{ color: '#558b2f' }}
+                        >
+                          {playlistData.totalTracksPlayed}
+                        </Typography>
+                      </Grid>
+                      <Grid item sx={3} mt={1.5}>
+                        <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                          average track length:
+                        </Typography>
+                      </Grid>
+                      <Grid item sx={3}>
+                        <Typography
+                          variant='h3'
+                          component='div'
+                          fontWeight={500}
+                          sx={{ color: '#558b2f' }}
+                        >
+                          {playlistData.avgTrackLength.lengthValue}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: 1 }}>
+                      <Grid item sx={4}>
+                        <Typography sx={{ fontSize: 16 }}>
+                          shortest track:
+                        </Typography>
+                        <Typography
+                          variant='h5'
+                          component='div'
+                          fontWeight={500}
+                        >
+                          {playlistData.shortestTrack.name}
+                        </Typography>
+                        <Typography
+                          variant='h5'
+                          component='div'
+                          fontWeight={500}
+                          sx={{ color: '#558b2f' }}
+                        >
+                          ({playlistData.shortestTrack.lengthValue})
+                        </Typography>
+                        {/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
+                          - played @{' '}
+                          <span style={{ color: '#1b5e20', fontWeight: '500' }}>
+                            {trackdata.data.shortest_track.played_at}
+                          </span>
+                        </Typography> */}
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} sx={{ marginTop: 0 }}>
+                      <Grid item sx={4}>
+                        <Typography sx={{ fontSize: 16 }}>
+                          longest track:
+                        </Typography>
+                        <Typography
+                          variant='h5'
+                          component='div'
+                          fontWeight={500}
+                        >
+                          {playlistData.longestTrack.name}
+                        </Typography>
+                        <Typography
+                          variant='h5'
+                          component='div'
+                          fontWeight={500}
+                          sx={{ color: '#558b2f' }}
+                        >
+                          ({playlistData.longestTrack.lengthValue})
+                        </Typography>
+                        {/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
+                          - played @{' '}
+                          <span style={{ color: '#1b5e20', fontWeight: '500' }}>
+                            {trackdata.data.longest_track.played_at}
+                          </span>
+                        </Typography> */}
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={1} mt={1}>
+                <Grid item xs={12} md={12} sm={12} lg={12}>
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardContent>
+                      <Grid container spacing={2}>
+                        <Grid item sx={3} mt={1}>
+                          <Typography fontWeight={500}>
+                            doubles detected:
+                          </Typography>
+                        </Grid>
+                        <Grid item sx={3}>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: '#558b2f' }}
+                          >
+                            {playlistData.doublesPlayed.length >= 1 ? (
+                              <div>{playlistData.doublesPlayed.length}</div>
+                            ) : (
+                              <div>No doubles detected in this set</div>
+                            )}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <Grid container spacing={2}>
+                        <Grid item sx={3}>
+                          {playlistData.doublesPlayed.map((item) => (
+                            <Typography
+                              component='div'
+                              fontWeight={500}
+                              sx={{ fontSize: 16 }}
+                            >
+                              {item.name}
+                            </Typography>
+                          ))}
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </Box>
+          </div>
+        ) : isPrivate ? (
           <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
             <Grid item>
               <Card sx={{ midWidth: 275, boxShadow: 'none' }}>

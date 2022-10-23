@@ -65,42 +65,101 @@ const PlaylistData = (playlistData) => {
                     sx={{ color: '#558b2f' }}
                   >
                     {playlistData.data.playlist_length_formatted.hours > 1 ? (
-                      <div>
-                        {playlistData.data.playlist_length_formatted.hours}{' '}
-                        <span>
-                          <HoursText />
-                        </span>
-                      </div>
+                      playlistData.data.playlist_length_formatted.minutes > 1 ||
+                      playlistData.data.playlist_length_formatted.minutes ===
+                        0 ? (
+                        <div>
+                          <span>
+                            {playlistData.data.playlist_length_formatted.hours}{' '}
+                            <HoursText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinutesText />
+                          </span>
+                        </div>
+                      ) : (
+                        <div>
+                          <span>
+                            {playlistData.data.playlist_length_formatted.hours}{' '}
+                            <HoursText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinuteText />
+                          </span>
+                        </div>
+                      )
                     ) : playlistData.data.playlist_length_formatted.hours ===
                       1 ? (
-                      <div>
-                        {playlistData.data.playlist_length_formatted.hours}{' '}
-                        <span>
-                          <HourText />
-                        </span>
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
-                    {playlistData.data.playlist_length_formatted.minutes > 1 ||
-                    playlistData.data.playlist_length_formatted.minutes ===
+                      playlistData.data.playlist_length_formatted.minutes > 1 ||
+                      playlistData.data.playlist_length_formatted.minutes ===
+                        0 ? (
+                        <div>
+                          <span>
+                            {playlistData.data.playlist_length_formatted.hours}{' '}
+                            <HourText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinutesText />
+                          </span>
+                        </div>
+                      ) : (
+                        <div>
+                          <span>
+                            {playlistData.data.playlist_length_formatted.hours}{' '}
+                            <HourText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinuteText />
+                          </span>
+                        </div>
+                      )
+                    ) : playlistData.data.playlist_length_formatted.minutes !==
                       0 ? (
-                      <div>
-                        {playlistData.data.playlist_length_formatted.minutes}{' '}
-                        <span>
-                          <MinutesText />
-                        </span>
-                      </div>
-                    ) : playlistData.data.playlist_length_formatted.minutes ===
-                      1 ? (
-                      <div>
-                        {playlistData.data.playlist_length_formatted.minutes}{' '}
-                        <span>
-                          <MinutesText />
-                        </span>
-                      </div>
+                      playlistData.data.playlist_length_formatted.seconds > 1 ||
+                      playlistData.data.playlist_length_formatted.seconds ===
+                        0 ? (
+                        <div>
+                          <span>
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinutesText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .seconds
+                            }{' '}
+                            <SecondsText />
+                          </span>
+                        </div>
+                      ) : (
+                        <div>
+                          <span>
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .minutes
+                            }{' '}
+                            <MinutesText />,{' '}
+                            {
+                              playlistData.data.playlist_length_formatted
+                                .seconds
+                            }{' '}
+                            <SecondText />
+                          </span>
+                        </div>
+                      )
                     ) : (
-                      <div></div>
+                      <div>
+                        <span>Too short to determine set length</span>
+                      </div>
                     )}
                   </Typography>
                   <Typography sx={{ marginTop: '10px' }} color='text.secondary'>
