@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 import Papa from 'papaparse'
 
-import './draganddrop.css'
+import './style/draganddrop.css'
 
 const fileTypes = ['CSV']
 

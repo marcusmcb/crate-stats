@@ -20,7 +20,7 @@ import SecondText from '../components/text_spans/secondText'
 import parseDay from '../scripts/parseDay'
 import parseDisplayName from '../scripts/parseDisplayName'
 import Titlebar from '../components/shared/Titlebar'
-import './livereport.css'
+import './style/livereport.css'
 import { OutlinedInput } from '@mui/material'
 
 const LiveReport = () => {

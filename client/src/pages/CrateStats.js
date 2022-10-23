@@ -4,7 +4,7 @@ import axios from "axios";
 import parseDay from "../scripts/parseDay";
 import parseDisplayName from "../scripts/parseDisplayName";
 import Titlebar from "../components/shared/Titlebar";
-import "./cratestats.css";
+import "./style/cratestats.css";
 
 const CrateStats = () => {  
   const [isData, setIsData] = useState(false);

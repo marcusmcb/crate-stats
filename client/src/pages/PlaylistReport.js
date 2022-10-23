@@ -17,7 +17,7 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import './playlistreport.css'
+import './style/playlistreport.css'
 
 const PlaylistReport = () => {
   const [data, setData] = useState(null)

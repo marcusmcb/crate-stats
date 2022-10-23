@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, Icon, Grid, Button, Divider } from 'semantic-ui-react'
 import Titlebar from "../components/shared/Titlebar";
 
-import './pageselect.css'
+import './style/pageselect.css'
 
 const PageSelect = () => {
   return (
