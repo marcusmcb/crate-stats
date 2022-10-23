@@ -89,7 +89,7 @@ const LiveReport = () => {
               <CardContent>
                 <Grid>
                   <Typography sx={{ fontWeight: 500, fontSize: 16 }}>
-                    Enter your Serato Live Playlist URL below
+                    Enter your public Serato Live Playlist URL below
                   </Typography>
                 </Grid>
               </CardContent>
