@@ -8,6 +8,7 @@ import KeyData from '../components/data_blocks/KeyData'
 import YearData from '../components/data_blocks/YearData'
 import DeckData from '../components/data_blocks/DeckData'
 import DoublesData from '../components/data_blocks/DoublesData'
+import GenreData from '../components/data_blocks/GenreData'
 import DragAndDrop from './DragAndDrop'
 
 import axios from 'axios'
@@ -123,6 +124,13 @@ const PlaylistReport = () => {
                 <DataMissing data={{ value: 'deck' }} />
               ) : (
                 <DeckData data={data.deck_data} />
+              )}
+            </div>
+            <div className='data-block'>
+              {data.genre_data.has_genre_data === false ? (
+                <DataMissing data={{ value: 'genre' }} />
+              ) : (
+                <GenreData data={data.genre_data} />
               )}
             </div>
           </div>
