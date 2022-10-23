@@ -30,7 +30,7 @@ const DeckData = (deckdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {deckdata.data.deck_1_average}
+                    {deckdata.data.deck_1_average.slice(1)}
                   </Typography>
                 </CardContent>
               </Card>
@@ -45,7 +45,7 @@ const DeckData = (deckdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {deckdata.data.deck_2_average}
+                    {deckdata.data.deck_2_average.slice(1)}
                   </Typography>
                 </CardContent>
               </Card>

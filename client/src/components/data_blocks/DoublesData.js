@@ -32,7 +32,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_1_doubles_playtime.slice(1)}
+                    {doublesdata.data.deck_1_doubles_playtime.slice(4)}
                   </Typography>
                 </CardContent>
               </Card>
@@ -48,7 +48,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_2_doubles_playtime.slice(1)}
+                    {doublesdata.data.deck_2_doubles_playtime.slice(4)}
                   </Typography>
                 </CardContent>
               </Card>
