@@ -52,7 +52,7 @@ const PlaylistReport = () => {
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>
                     <Grid container spacing={2}>
-                      <Grid item sx={3} mt={1.5}>
+                      <Grid item mt={1.5}>
                         <Typography
                           sx={{
                             fontSize: 16,
