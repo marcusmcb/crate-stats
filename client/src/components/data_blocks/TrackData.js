@@ -30,7 +30,7 @@ const TrackData = (trackdata) => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item sx={3} mt={1.5}>
+                  <Grid item mt={1.5}>
                     <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                       total tracks played:
                     </Typography>
@@ -45,12 +45,12 @@ const TrackData = (trackdata) => {
                       {trackdata.data.total_tracks_played}
                     </Typography>
                   </Grid>
-                  <Grid item sx={3} mt={1.5}>
+                  <Grid item mt={1.5}>
                     <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                       average track length:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant='h3'
                       component='div'
@@ -62,8 +62,8 @@ const TrackData = (trackdata) => {
                   </Grid>
                 </Grid>
                 <Divider />
-                <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item sx={4}>
+                <Grid container spacing={2}>
+                  <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       shortest track:
                     </Typography>
@@ -87,7 +87,7 @@ const TrackData = (trackdata) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ marginTop: 0 }}>
-                  <Grid item sx={4}>
+                  <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       longest track:
                     </Typography>

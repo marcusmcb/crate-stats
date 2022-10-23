@@ -76,11 +76,12 @@ const DoublesData = (doublesdata) => {
                   <Divider />
                   <Grid container spacing={2}>
                     <Grid item sx={3}>
-                      {doublesdata.data.doubles_played.map((item) => (
+                      {doublesdata.data.doubles_played.map((item, i) => (
                         <Typography
                           component='div'
                           fontWeight={500}
                           sx={{ fontSize: 16 }}
+                          key={i}
                         >
                           {item.artist} - {item.name}{' '}
                         </Typography>

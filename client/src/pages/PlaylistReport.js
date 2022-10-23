@@ -102,6 +102,13 @@ const PlaylistReport = () => {
               )}
             </div>
             <div className='data-block'>
+              {data.genre_data.has_genre_data === false ? (
+                <DataMissing data={{ value: 'genre' }} />
+              ) : (
+                <GenreData data={data.genre_data} />
+              )}
+            </div>
+            <div className='data-block'>
               {data.key_data.has_key_data === false ? (
                 <div>
                   <DataMissing data={{ value: 'key' }} />
@@ -126,13 +133,7 @@ const PlaylistReport = () => {
                 <DeckData data={data.deck_data} />
               )}
             </div>
-            <div className='data-block'>
-              {data.genre_data.has_genre_data === false ? (
-                <DataMissing data={{ value: 'genre' }} />
-              ) : (
-                <GenreData data={data.genre_data} />
-              )}
-            </div>
+            
           </div>
         )}
       </div>
