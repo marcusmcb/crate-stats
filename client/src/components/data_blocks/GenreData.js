@@ -10,7 +10,6 @@ import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { styled } from '@mui/material/styles'
-import { Divider } from 'semantic-ui-react'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props
@@ -23,8 +22,7 @@ const ExpandMore = styled((props) => {
   }),
 }))
 
-const GenreData = (genreData) => {
-  console.log(genreData)
+const GenreData = (genreData) => {  
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -74,7 +72,13 @@ const GenreData = (genreData) => {
                     </Typography>
                   ))}
                 </CardContent>
-                <CardActions disableSpacing>
+                <CardActions
+                  sx={{
+                    height: '4vh',
+                    backgroundColor: '#616161',
+                    color: 'white',
+                  }}
+                >
                   <CardContent>tag health</CardContent>
                   <ExpandMore
                     expand={expanded}
@@ -82,13 +86,52 @@ const GenreData = (genreData) => {
                     aria-expanded={expanded}
                     aria-label='show more'
                   >
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon sx={{ color: 'white' }} />
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout='auto' unmountOnExit>
-                  <CardContent>
-                    <Typography>TAG HEALTH DATA GOES HERE</Typography>
-                  </CardContent>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} md={6} sm={12} lg={6}>
+                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                        <CardContent>
+                          {/* crate stats card */}
+                          <Typography>percentage of tracks played with genre tags:</Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: '#558b2f' }}
+                          >
+                            {
+                              genreData.data.tag_health
+                                .percentage_with_genre_tags
+                            }%
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6} sm={12} lg={6}>
+                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                        <CardContent>
+                          {/* crate stats card */}
+                          <Typography>
+                            ...with "other" as their main genre:
+                          </Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: '#558b2f' }}
+                          >
+                            {
+                              genreData.data.tag_health
+                                .percentage_with_other_as_genre
+                            }%
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
                 </Collapse>
               </Card>
             </Grid>

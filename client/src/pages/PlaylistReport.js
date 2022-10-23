@@ -133,7 +133,6 @@ const PlaylistReport = () => {
                 <DeckData data={data.deck_data} />
               )}
             </div>
-            
           </div>
         )}
       </div>

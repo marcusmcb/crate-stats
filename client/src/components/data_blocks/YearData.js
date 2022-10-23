@@ -87,7 +87,9 @@ const YearData = (yeardata) => {
                 <Divider />
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
                   <Grid item sx={4}>
-                    <Typography sx={{ fontSize: 16 }}>oldest track ({yeardata.data.oldest_track.year}):</Typography>
+                    <Typography sx={{ fontSize: 16 }}>
+                      oldest track ({yeardata.data.oldest_track.year}):
+                    </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
                       {yeardata.data.oldest_track.artist} -{' '}
                       {yeardata.data.oldest_track.name}
@@ -95,7 +97,8 @@ const YearData = (yeardata) => {
                   </Grid>
                   <Grid item sx={4}>
                     <Typography sx={{ fontSize: 16 }}>
-                      playlist percentage from most recent year ({yeardata.data.newest_track.year}):
+                      playlist percentage from most recent year (
+                      {yeardata.data.newest_track.year}):
                     </Typography>
                     <Typography
                       variant='h5'
@@ -114,7 +117,13 @@ const YearData = (yeardata) => {
                 </Grid>
               </CardContent>
               <Card sx={{ midWidth: 245 }}>
-                <CardActions disableSpacing>
+                <CardActions
+                  sx={{
+                    height: '4vh',
+                    backgroundColor: '#616161',
+                    color: 'white',
+                  }}
+                >
                   <CardContent>tag health</CardContent>
                   <ExpandMore
                     expand={expanded}
@@ -122,7 +131,7 @@ const YearData = (yeardata) => {
                     aria-expanded={expanded}
                     aria-label='show more'
                   >
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon sx={{ color: 'white' }} />
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout='auto' unmountOnExit>

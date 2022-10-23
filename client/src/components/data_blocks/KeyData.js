@@ -99,7 +99,13 @@ const KeyData = (keydata) => {
                 </Grid>
               </CardContent>
               <Card sx={{ midWidth: 245 }}>
-                <CardActions disableSpacing>
+                <CardActions
+                  sx={{
+                    height: '4vh',
+                    backgroundColor: '#616161',
+                    color: 'white',
+                  }}
+                >
                   <CardContent>tag health</CardContent>
                   <ExpandMore
                     expand={expanded}
@@ -107,7 +113,7 @@ const KeyData = (keydata) => {
                     aria-expanded={expanded}
                     aria-label='show more'
                   >
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon sx={{ color: 'white' }} />
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout='auto' unmountOnExit>
