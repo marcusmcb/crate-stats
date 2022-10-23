@@ -8,7 +8,7 @@
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && node run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
