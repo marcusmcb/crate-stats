@@ -9,7 +9,7 @@ const readUserFile = require('./scripts/readUserFile')
 const createUserReport = require('./scripts/createUserReport')
 const createSeratoReport = require('./scripts/createSeratoReport')
 
-const PORT = 5000 || process.env.PORT
+const PORT = process.env.PORT || 5000
 const app = express()
 
 app.use(cors())
