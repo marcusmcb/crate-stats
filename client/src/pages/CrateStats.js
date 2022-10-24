@@ -18,7 +18,7 @@ const CrateStats = () => {
     console.log(e);
     e.preventDefault();
     await axios
-      .post("http://localhost:5000/liveplaylist", { url: url })
+      .post("/liveplaylist", { url: url })
       .then((response) => {
         console.log(response.data);
         setPlaylistData(response.data);        

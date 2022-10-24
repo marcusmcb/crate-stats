@@ -25,7 +25,7 @@ const PlaylistReport = () => {
   const isInitialMount = useRef(true)
 
   const getDataFromCSV = (userData) => {
-    axios.post('http://localhost:5000/sendFile', userData).then((response) => {
+    axios.post('/sendFile', userData).then((response) => {
       console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
       console.log(response.data)
       setData(response.data)

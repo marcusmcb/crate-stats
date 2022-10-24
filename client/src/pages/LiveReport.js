@@ -37,7 +37,7 @@ const LiveReport = () => {
     e.preventDefault()
     setIsBusy(true)
     await axios
-      .post('http://localhost:5000/liveplaylist', { url: url })
+      .post('/liveplaylist', { url: url })
       .then((response) => {
         // check if playlist url is set to private
         if (response.data === '') {
