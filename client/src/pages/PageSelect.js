@@ -20,10 +20,15 @@ import Titlebar from '../components/shared/Titlebar'
 import './style/pageselect.css'
 
 const PageSelect = () => {
-  const [expanded, setExpanded] = React.useState(false)
+  const [expandedL, setExpandedL] = React.useState(false)
+  const [expandedR, setExpandedR] = React.useState(false)
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
+  const handleExpandLClick = () => {
+    setExpandedL(!expandedL)
+  }
+
+  const handleExpandRClick = () => {
+    setExpandedR(!expandedR)
   }
   return (
     <Fragment>
@@ -62,15 +67,15 @@ const PageSelect = () => {
                 <CardActions disableSpacing>
                   <Typography>Learn More</Typography>
                   <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
+                    expand={expandedL}
+                    onClick={handleExpandLClick}
+                    aria-expanded={expandedL}
                     aria-label='show more'
                   >
                     <ExpandMoreIcon />
                   </ExpandMore>
                 </CardActions>
-                <Collapse in={expanded} timeout='auto' unmountOnExit>
+                <Collapse in={expandedL} timeout='auto' unmountOnExit>
                   <CardContent>
                     <Typography>Additional info goes here</Typography>
                   </CardContent>
@@ -108,15 +113,15 @@ const PageSelect = () => {
                 <CardActions disableSpacing>
                   <Typography>Learn More</Typography>
                   <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
+                    expand={expandedR}
+                    onClick={handleExpandRClick}
+                    aria-expanded={expandedR}
                     aria-label='show more'
                   >
                     <ExpandMoreIcon />
                   </ExpandMore>
                 </CardActions>
-                <Collapse in={expanded} timeout='auto' unmountOnExit>
+                <Collapse in={expandedR} timeout='auto' unmountOnExit>
                   <CardContent>
                     <Typography>Additional info goes here</Typography>
                   </CardContent>
