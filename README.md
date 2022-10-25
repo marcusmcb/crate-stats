@@ -1,6 +1,6 @@
 # crate-stats
 A data analytics tool for Serato DJ set lists.
 
-Deployed site coming soon to the web.
+Visit the live site ---> [CrateStats](http://www.cratestats.com)
 
 Marcus McBride, 2022.
