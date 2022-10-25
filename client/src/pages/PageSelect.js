@@ -5,7 +5,6 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardActions from '@mui/material/CardActions'
@@ -19,6 +18,10 @@ import Typography from '@mui/material/Typography'
 import Titlebar from '../components/shared/Titlebar'
 import './style/pageselect.css'
 
+import LivePlaylistImageOne from '../images/liveplaylist_01.png'
+import LivePlaylistImageTwo from '../images/liveplaylist_02.png'
+import LivePlaylistImageThree from '../images/liveplaylist_03.png'
+
 const PageSelect = () => {
   const [expandedL, setExpandedL] = React.useState(false)
   const [expandedR, setExpandedR] = React.useState(false)
@@ -30,6 +33,7 @@ const PageSelect = () => {
   const handleExpandRClick = () => {
     setExpandedR(!expandedR)
   }
+
   return (
     <Fragment>
       <div className='pagebody'>
@@ -56,7 +60,7 @@ const PageSelect = () => {
                   type='submit'
                   variant='contained'
                   sx={{
-                    backgroundColor: '#558b2f',
+                    backgroundColor: '#1b5e20',
                     ':hover': { backgroundColor: '#9ccc65' },
                   }}
                   component={Link}
@@ -65,7 +69,9 @@ const PageSelect = () => {
                   GO
                 </Button>
                 <CardActions disableSpacing>
-                  <Typography>Learn More</Typography>
+                  <Typography sx={{ fontWeight: '500' }}>
+                    Tell me more
+                  </Typography>
                   <ExpandMore
                     expand={expandedL}
                     onClick={handleExpandLClick}
@@ -76,8 +82,26 @@ const PageSelect = () => {
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expandedL} timeout='auto' unmountOnExit>
-                  <CardContent>
-                    <Typography>Additional info goes here</Typography>
+                  <CardContent sx={{ backgroundColor: '#a5d6a7' }}>
+                    <Typography gutterBottom variant='h5' component='div'>
+                      Crate Stats for Serato Live Playlists
+                    </Typography>
+                    <Typography variant='body2' fontSize={14}>
+                      This features allows you to enter the link from any of
+                      your Serato Live Playlists into Crate Stats for a quick
+                      analysis of your set.
+                    </Typography>
+                    <CardMedia
+                      component='img'
+                      alt='green iguana'
+                      image={LivePlaylistImageOne}
+                      sx={{ marginTop: '10px' }}
+                    />
+                    <CardContent></CardContent>
+                    {/* <CardActions>
+                      <Button size='small'>Share</Button>
+                      <Button size='small'>Learn More</Button>
+                    </CardActions> */}
                   </CardContent>
                 </Collapse>
               </Card>
@@ -102,7 +126,7 @@ const PageSelect = () => {
                   type='submit'
                   variant='contained'
                   sx={{
-                    backgroundColor: '#558b2f',
+                    backgroundColor: '#1b5e20',
                     ':hover': { backgroundColor: '#9ccc65' },
                   }}
                   component={Link}
@@ -111,7 +135,9 @@ const PageSelect = () => {
                   GO
                 </Button>
                 <CardActions disableSpacing>
-                  <Typography>Learn More</Typography>
+                  <Typography sx={{ fontWeight: '500' }}>
+                    Tell Me More
+                  </Typography>
                   <ExpandMore
                     expand={expandedR}
                     onClick={handleExpandRClick}
