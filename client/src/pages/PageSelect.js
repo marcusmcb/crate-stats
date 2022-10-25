@@ -48,7 +48,7 @@ const PageSelect = () => {
                 <CardMedia
                   component="img"
                   height="300"
-                  image="https://st4.depositphotos.com/6046792/24962/i/600/depositphotos_249622532-stock-photo-dj-controller-panel-on-for.jpg"
+                  image="https://media-exp1.licdn.com/dms/image/C4D12AQHDoCsY44zQaA/article-cover_image-shrink_600_2000/0/1630855319553?e=2147483647&v=beta&t=yTZKBwHvKf9gfmaPwoTQ-yLk_FPY07VCNdO-XoX6JtI"
                   alt="Pioneer dj equipment in a dj booth"
                 />
                 <CardContent>
