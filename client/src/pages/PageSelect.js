@@ -9,6 +9,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
 import CardActions from '@mui/material/CardActions'
 
+
 import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../components/helpers/CardExpander'
@@ -18,9 +19,12 @@ import Typography from '@mui/material/Typography'
 import Titlebar from '../components/shared/Titlebar'
 import './style/pageselect.css'
 
-import LivePlaylistImageOne from '../images/liveplaylist_01.png'
+
 import LivePlaylistImageTwo from '../images/liveplaylist_02.png'
 import LivePlaylistImageThree from '../images/liveplaylist_03.png'
+import CSVExportImageOne from '../images/csvexport_01.png'
+import CSVExportImageTwo from '../images/csvexport_02.png'
+
 
 const PageSelect = () => {
   const [expandedL, setExpandedL] = React.useState(false)
@@ -46,13 +50,13 @@ const PageSelect = () => {
                 <CardHeader title='Live Playlist Analysis' />
                 <CardMedia
                   component='img'
-                  height='194'
-                  image='https://media.istockphoto.com/photos/and-a-concept-yellow-question-mark-glowing-amid-black-question-marks-picture-id1305169776?b=1&k=20&m=1305169776&s=612x612&w=0&h=_6uT3hmXDsfxspEAzAsXhg8AXhpvypKIOMxerPW5-Q0='
-                  alt='Paella dish'
+                  height='300'
+                  image='https://st4.depositphotos.com/6046792/24962/i/600/depositphotos_249622532-stock-photo-dj-controller-panel-on-for.jpg'
+                  alt='Pioneer dj equipment in a dj booth'
                 />
                 <CardContent>
                   <Typography color='text.secondary'>
-                    Enter the URL for your Serato Live Playlist link to get real
+                    Enter the URL for your Serato© Live Playlist link to get real
                     time analytics for your DJ set or stream.
                   </Typography>
                 </CardContent>
@@ -61,7 +65,7 @@ const PageSelect = () => {
                   variant='contained'
                   sx={{
                     backgroundColor: '#1b5e20',
-                    ':hover': { backgroundColor: '#9ccc65' },
+                    ':hover': { backgroundColor: '#7cb342', color: 'white' },
                   }}
                   component={Link}
                   to={'/livereport'}
@@ -82,26 +86,59 @@ const PageSelect = () => {
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expandedL} timeout='auto' unmountOnExit>
-                  <CardContent sx={{ backgroundColor: '#a5d6a7' }}>
+                  <CardContent sx={{ backgroundColor: '#c5e1a5' }}>
                     <Typography gutterBottom variant='h5' component='div'>
                       Crate Stats for Serato Live Playlists
                     </Typography>
+                    <Divider />
                     <Typography variant='body2' fontSize={14}>
-                      This features allows you to enter the link from any of
-                      your Serato Live Playlists into Crate Stats for a quick
-                      analysis of your set.
+                      This feature allows you to enter the link from any of your
+                      Serato© Live Playlists into Crate Stats for a quick analysis of
+                      your set.
                     </Typography>
+                    <br />
+                    <Typography variant='body2' fontSize={14}>
+                      After logging into your{' '}
+                      <a
+                        href='https://id.Serato©.com/en/login'
+                        style={{ textDecoration: 'none', color: '#33691e' }}
+                      >
+                        Serato©
+                      </a>{' '}
+                      account you can find the links to your live playlists in
+                      the menu under your avatar.
+                    </Typography>
+                    <br />
+                    <Typography variant='body2' fontSize={14}>
+                      Select any of your live playlists and, once open, copy the
+                      url from your browser.
+                    </Typography>
+                    <br />
+                    <Typography>
+                      You'll need to make sure that the playlist you've selected
+                      is set to public - they're set to "private" by default. If
+                      you scroll to the bottom of your live playlist page,
+                      you'll see an option to the edit its details.
+                    </Typography>
+                    <br />
                     <CardMedia
                       component='img'
                       alt='green iguana'
-                      image={LivePlaylistImageOne}
-                      sx={{ marginTop: '10px' }}
+                      image={LivePlaylistImageTwo}
                     />
                     <CardContent></CardContent>
-                    {/* <CardActions>
-                      <Button size='small'>Share</Button>
-                      <Button size='small'>Learn More</Button>
-                    </CardActions> */}
+                    <Typography>
+                      After selecting "edit details" you'll see an option to set
+                      your playlist's visibility. Select "Public" and save. Your
+                      live playlist is now ready for Crate Stats analysis!
+                    </Typography>
+                    <br />
+                    <CardMedia
+                      component='img'
+                      alt='green iguana'
+                      image={LivePlaylistImageThree}
+                    />
+                    <CardContent></CardContent>
                   </CardContent>
                 </Collapse>
               </Card>
@@ -112,14 +149,14 @@ const PageSelect = () => {
 
                 <CardMedia
                   component='img'
-                  height='194'
-                  image='https://media.istockphoto.com/photos/and-a-concept-yellow-question-mark-glowing-amid-black-question-marks-picture-id1305169776?b=1&k=20&m=1305169776&s=612x612&w=0&h=_6uT3hmXDsfxspEAzAsXhg8AXhpvypKIOMxerPW5-Q0='
-                  alt='Paella dish'
+                  height='300'
+                  image='https://media.istockphoto.com/photos/glowing-lights-from-dj-mixer-music-remote-buttons-picture-id1173145186?k=20&m=1173145186&s=612x612&w=0&h=PC_IKnFl14TCpytJzYHG89NeX6hbtVpfase6if2ks0Q='
+                  alt='Pioneer DJ equipment in a dj booth'
                 />
                 <CardContent>
                   <Typography color='text.secondary'>
-                    Export your Serato DJ playlist as a CSV and use it to get
-                    your Crate Stats set list analysis.
+                    Export your Serato© DJ playlist as a CSV and use it to get
+                    your Crate Stats playlist analysis.
                   </Typography>
                 </CardContent>
                 <Button
@@ -127,7 +164,7 @@ const PageSelect = () => {
                   variant='contained'
                   sx={{
                     backgroundColor: '#1b5e20',
-                    ':hover': { backgroundColor: '#9ccc65' },
+                    ':hover': { backgroundColor: '#7cb342', color: 'white' },
                   }}
                   component={Link}
                   to={'/playlistreport'}
@@ -148,13 +185,92 @@ const PageSelect = () => {
                   </ExpandMore>
                 </CardActions>
                 <Collapse in={expandedR} timeout='auto' unmountOnExit>
-                  <CardContent>
-                    <Typography>Additional info goes here</Typography>
+                  <CardContent sx={{ backgroundColor: '#c5e1a5' }}>
+                    <Typography gutterBottom variant='h5' component='div'>
+                      Crate Stats for Serato DJ Playlists
+                    </Typography>
+                    <Divider />
+                    <Typography variant='body2' fontSize={14}>
+                      This is the full Serato© DJ playlist analysis from Crate
+                      Stats. You may use this tool to run an analysis on any any
+                      playlist history you export from the software.
+                    </Typography>
+                    <br />
+                    <Typography variant='body2' fontSize={14}>
+                      To do this, open your Serato© DJ software and select the
+                      "history" option. You should see a panel that looks
+                      something like this.
+                    </Typography>
+                    <br />
+                    <CardMedia
+                      component='img'
+                      alt='green iguana'
+                      image={CSVExportImageOne}
+                    />
+                    <br />
+                    <Typography>
+                      From here, you can select any individual set list that
+                      you'd like to analyze. Make sure the format option is set
+                      to 'csv' and select 'Export' to save the file to your
+                      laptop.
+                    </Typography>
+                    <br />
+                    <Typography>
+                      You can then select the Post DJ Set Analysis option above
+                      and use the file created to get your Crate Stats!
+                    </Typography>
+                    <br />
+                    <Typography gutterBottom variant='h5' component='div'>
+                      A few tips...
+                    </Typography>
+                    <br />
+                    <Typography>
+                      Serato© gives each playlist a default name of the date on
+                      which it was played. You can double-click this in the
+                      history view to rename it.
+                    </Typography>
+                    <br />
+                    <CardMedia
+                      component='img'
+                      alt='green iguana'
+                      image={CSVExportImageTwo}
+                    />
+                    <br />
+                    <Typography>
+                      If you right-click the history panel's header, you'll be
+                      given a list of options to add to the history view.
+                    </Typography>
+                    <br />
+                    <Typography>
+                      The values present in the panel will be exported in your
+                      csv file. Crate Stats currently runs analysis on the
+                      following values so be sure to include them in your
+                      exported file:
+                    </Typography>
+                    <Divider />
+                    <Typography>
+                      <li>name</li>
+                      <li>artist</li>
+                      <li>start/end times</li>
+                      <li>playtime</li>
+                      <li>deck</li>
+                      <li>bpm</li>
+                      <li>genre</li>
+                      <li>year</li>
+                    </Typography>
                   </CardContent>
                 </Collapse>
               </Card>
             </Grid>
           </Grid>
+          <Typography
+            sx={{ marginTop: '50px', textAlign: 'center', color: '#1b5e20', fontWeight: '500', fontSize: '16px' }}
+          >
+            Crate Stats 2022
+          </Typography>
+          <Typography sx={{ textAlign: 'center', fontSize: '12px', marginTop: '5px' }}>
+            Errors or issues? <a style={{ color: 'black'}} href='mailto:cratestats@gmail.com'>cratestats@gmail.com</a>
+          </Typography>
         </Box>
       </div>
     </Fragment>
