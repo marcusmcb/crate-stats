@@ -17,6 +17,7 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 import './style/playlistreport.css'
 
 const PlaylistReport = () => {
@@ -68,6 +69,19 @@ const PlaylistReport = () => {
                 </Card>
               </Grid>
             </Box>
+            <Typography
+              sx={{
+                textAlign: 'center',
+                fontSize: '12px',
+                marginTop: '20px',
+                paddingBottom: '15px',
+                color: 'white',
+              }}
+            >
+              Don't have Serato? Grab a{' '}
+              <span style={{ color: '#c5e1a5' }}>test file</span> to demo this
+              page.
+            </Typography>
           </div>
         ) : (
           <div>
@@ -98,7 +112,12 @@ const PlaylistReport = () => {
                   <DataMissing data={{ value: 'year' }} />
                 </div>
               ) : (
-                <YearData data={{ yeardata: data.year_data, mtll: data.master_track_log.length }} />
+                <YearData
+                  data={{
+                    yeardata: data.year_data,
+                    mtll: data.master_track_log.length,
+                  }}
+                />
               )}
             </div>
             <div className='data-block'>
