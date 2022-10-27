@@ -76,7 +76,7 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      ({trackdata.data.shortest_track.play_time.slice(1)})
+                      ({trackdata.data.shortest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                       - played @{' '}
@@ -100,7 +100,7 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      ({trackdata.data.longest_track.play_time.slice(1)})
+                      ({trackdata.data.longest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                       - played @{' '}
