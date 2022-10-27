@@ -17,8 +17,9 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 import './style/playlistreport.css'
+
+import CrateStatsSample from '../data/cinco_de_mayo.csv'
 
 const PlaylistReport = () => {
   const [data, setData] = useState(null)
@@ -47,18 +48,17 @@ const PlaylistReport = () => {
       <DragAndDrop getDataFromCSV={getDataFromCSV} />
       <div className='testpage-body'>
         {isBusy === true ? (
-          <div className='data-block'>
+          <div className='data-block await-data'>
             <Box sx={{ flexGrow: 1 }}>
-              <Grid item md={5} sm={12}>
-                <Card sx={{ minWidth: 275 }}>
+              <Grid>
+                <Card>
                   <CardContent>
-                    <Grid container spacing={2}>
+                    <Grid>
                       <Grid item mt={1.5}>
                         <Typography
                           sx={{
                             fontSize: 16,
                             fontWeight: '500',
-                            textAlign: 'center',
                           }}
                         >
                           Awaiting data...
@@ -72,15 +72,24 @@ const PlaylistReport = () => {
             <Typography
               sx={{
                 textAlign: 'center',
-                fontSize: '12px',
+                fontSize: '14px',
                 marginTop: '20px',
                 paddingBottom: '15px',
                 color: 'white',
               }}
             >
               Don't have Serato? Grab a{' '}
-              <span style={{ color: '#c5e1a5' }}>test file</span> to demo this
-              page.
+              <span>
+                <a
+                  style={{ color: '#c5e1a5', fontWeight: '400' }}
+                  href={CrateStatsSample}
+                  download='crate_stats_sample.csv'
+                  target='_blank'
+                >
+                  test file
+                </a>
+              </span>{' '}
+              to demo this page.
             </Typography>
           </div>
         ) : (

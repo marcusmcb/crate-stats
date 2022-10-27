@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.await-data {
+  text-align: center;
+}
+
 .data-block {
   margin: 10px;
   background-color: rgba(54, 72, 69, 255);
