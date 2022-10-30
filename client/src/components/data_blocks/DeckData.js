@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const DeckData = (deckdata) => {
   return (
@@ -12,7 +12,7 @@ const DeckData = (deckdata) => {
       <div>
         <Typography
           sx={{ fontSize: 20 }}
-          color='#c5e1a5'
+          color="#c5e1a5"
           fontWeight={500}
           gutterBottom
         >
@@ -25,10 +25,10 @@ const DeckData = (deckdata) => {
                 <CardContent>
                   <Typography>deck 1 average track playtime:</Typography>
                   <Typography
-                    variant='h4'
-                    component='div'
+                    variant="h4"
+                    component="div"
                     fontWeight={500}
-                    sx={{ color: '#558b2f' }}
+                    sx={{ color: "#558b2f" }}
                   >
                     {deckdata.data.deck_1_average.slice(1)}
                   </Typography>
@@ -40,10 +40,10 @@ const DeckData = (deckdata) => {
                 <CardContent>
                   <Typography>deck 2 average track playtime:</Typography>
                   <Typography
-                    variant='h4'
-                    component='div'
+                    variant="h4"
+                    component="div"
                     fontWeight={500}
-                    sx={{ color: '#558b2f' }}
+                    sx={{ color: "#558b2f" }}
                   >
                     {deckdata.data.deck_2_average.slice(1)}
                   </Typography>
@@ -61,10 +61,10 @@ const DeckData = (deckdata) => {
                     </Grid>
                     <Grid item sx={3}>
                       <Typography
-                        variant='h4'
-                        component='div'
+                        variant="h4"
+                        component="div"
                         fontWeight={500}
-                        sx={{ color: '#558b2f' }}
+                        sx={{ color: "#558b2f" }}
                       >
                         {deckdata.data.missing_deck_values}
                       </Typography>
@@ -77,7 +77,7 @@ const DeckData = (deckdata) => {
         </Box>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default DeckData
+export default DeckData;

@@ -1,47 +1,50 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const DataMissing = (data) => {
-  console.log('---------RIGHT HERE BUD---------------')
-  console.log(data.data.value)
-  console.log('-------------------------------')
-  let returnText
+  let returnText;
 
-  if (data.data.value === 'doubles') {
-    returnText = 'No doubles were detected in this set'
+  if (data.data.value === "doubles") {
+    returnText = "No doubles were detected in this set";
   }
-  if (data.data.value === 'key') {
-    returnText = 'No key data available for this set'
+  if (data.data.value === "key") {
+    returnText = "No key data available for this set";
   }
-  if (data.data.value === 'year') {
-    returnText = 'No year data available for this set'
+  if (data.data.value === "year") {
+    returnText = "No year data available for this set";
   }
-  if (data.data.value === 'bpm') {
-    returnText = 'No bpm data available for this set'
+  if (data.data.value === "bpm") {
+    returnText = "No bpm data available for this set";
   }
-  if (data.data.value === 'deck') {
-    returnText = 'No deck data available for this set'
+  if (data.data.value === "deck") {
+    returnText = "No deck data available for this set";
   }
-  if (data.data.value === 'genre') {
-    returnText = 'No genre data available for this set'
+  if (data.data.value === "genre") {
+    returnText = "No genre data available for this set";
   }
-  if (data.data.value === 'track') {
-    returnText = 'No track data available for this set'
+  if (data.data.value === "track") {
+    returnText = "No track data available for this set";
   }
-  if (data.data.value === 'playlist') {
-    returnText = 'No playlist data available for this set'
+  if (data.data.value === "playlist") {
+    returnText = "No playlist data available for this set";
+  }
+  if (data.data.value === "artist") {
+    returnText = "No artist data available for this set";
+  }
+  if (data.data.value === "album") {
+    returnText = "No album data available for this set";
   }
 
   return (
     <div>
       <Typography
         sx={{ fontSize: 20 }}
-        color='#c5e1a5'
+        color="#c5e1a5"
         fontWeight={500}
         gutterBottom
       >
@@ -53,7 +56,7 @@ const DataMissing = (data) => {
             <CardContent>
               <Grid container spacing={2}>
                 <Grid item sx={3} mt={1.5}>
-                  <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                  <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
                     {returnText}
                   </Typography>
                 </Grid>
@@ -63,7 +66,7 @@ const DataMissing = (data) => {
         </Grid>
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default DataMissing
+export default DataMissing;

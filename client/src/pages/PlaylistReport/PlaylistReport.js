@@ -1,15 +1,17 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
-import Titlebar from '../components/shared/Titlebar'
-import DataMissing from '../components/shared/DataMissing'
-import TrackData from '../components/data_blocks/TrackData'
-import BPMData from '../components/data_blocks/BPMData'
-import PlaylistData from '../components/data_blocks/PlaylistData'
-import KeyData from '../components/data_blocks/KeyData'
-import YearData from '../components/data_blocks/YearData'
-import DeckData from '../components/data_blocks/DeckData'
-import DoublesData from '../components/data_blocks/DoublesData'
-import GenreData from '../components/data_blocks/GenreData'
-import DragAndDrop from '../components/shared/DragAndDrop'
+import Titlebar from '../../components/shared/Titlebar'
+import DataMissing from '../../components/shared/DataMissing'
+import TrackData from '../../components/data_blocks/TrackData'
+import BPMData from '../../components/data_blocks/BPMData'
+import PlaylistData from '../../components/data_blocks/PlaylistData'
+import KeyData from '../../components/data_blocks/KeyData'
+import YearData from '../../components/data_blocks/YearData'
+import DeckData from '../../components/data_blocks/DeckData'
+import DoublesData from '../../components/data_blocks/DoublesData'
+import GenreData from '../../components/data_blocks/GenreData'
+import ArtistData from '../../components/data_blocks/ArtistData'
+import AlbumData from '../../components/data_blocks/AlbumData'
+import DragAndDrop from '../../components/shared/DragAndDrop'
 
 import axios from 'axios'
 import Box from '@mui/material/Box'
@@ -17,9 +19,9 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import './style/playlistreport.css'
+import './playlistreport.css'
 
-import CrateStatsSample from '../data/cinco_de_mayo.csv'
+import CrateStatsSample from '../../data/cinco_de_mayo.csv'
 
 const PlaylistReport = () => {
   const [data, setData] = useState(null)
@@ -159,6 +161,20 @@ const PlaylistReport = () => {
                 <DataMissing data={{ value: 'deck' }} />
               ) : (
                 <DeckData data={data.deck_data} />
+              )}
+            </div>
+            <div className='data-block'>
+              {data.artist_data.has_artist_data === false ? (
+                <DataMissing data={{ value: 'artist' }} />
+              ) : (
+                <ArtistData data={data.artist_data} />
+              )}
+            </div>
+            <div className='data-block'>
+              {data.album_data.has_album_data === false ? (
+                <DataMissing data={{ value: 'album' }} />
+              ) : (
+                <AlbumData data={data.album_data} />
               )}
             </div>
           </div>

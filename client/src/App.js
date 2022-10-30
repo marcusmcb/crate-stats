@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import CrateStats from './pages/CrateStats'
-import PlaylistReport from './pages/PlaylistReport'
+import PlaylistReport from './pages/PlaylistReport/PlaylistReport'
 import PageSelect from './pages/PageSelect'
 import LiveReport from './pages/LiveReport'
 

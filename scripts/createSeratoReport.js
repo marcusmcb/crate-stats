@@ -78,6 +78,7 @@ const createSeratoReport = (data) => {
   // check if start time data is present and defined in header
   if (data[0]['start time'] && data[0]['start time'] != '') {
     hasStartTimeData = true
+    console.log("START TIME ------------", typeof(data[0]['start time']))
     playlistStartTime = data[0]['start time']
     const [var1, var2] = playlistStartTime.split(' ')
     
