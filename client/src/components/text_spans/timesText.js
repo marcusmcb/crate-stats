@@ -2,7 +2,7 @@ import React from 'react'
 
 const TimesText = () => {
   return (
-    <span>Times</span>
+    <span>times</span>
   )
 }
 

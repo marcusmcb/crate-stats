@@ -9,7 +9,7 @@ import YearData from '../components/data_blocks/YearData'
 import DeckData from '../components/data_blocks/DeckData'
 import DoublesData from '../components/data_blocks/DoublesData'
 import GenreData from '../components/data_blocks/GenreData'
-import DragAndDrop from './DragAndDrop'
+import DragAndDrop from '../components/shared/DragAndDrop'
 
 import axios from 'axios'
 import Box from '@mui/material/Box'

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './titlebar.css'
+import './style/titlebar.css'
 
 const Titlebar = () => {
 
