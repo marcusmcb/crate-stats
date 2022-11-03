@@ -29,11 +29,11 @@ const createSeratoReport = (data) => {
 
   let seratoPlaylistAnalysis = {}
 
-  console.log(chalk.green(' * * * CSV HEADER * * * '))
-  console.log(data[0])
+  // console.log(chalk.green(' * * * CSV HEADER * * * '))
+  // console.log(data[0])
 
-  console.log(chalk.green(' * * * DATA SAMPLE * * * '))
-  console.log(data[3])
+  // console.log(chalk.green(' * * * DATA SAMPLE * * * '))
+  // console.log(data[3])
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              set playlist metadata
