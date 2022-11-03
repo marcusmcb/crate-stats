@@ -5,17 +5,8 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import CardActions from '@mui/material/CardActions'
-import Collapse from '@mui/material/Collapse'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandMore from '../helpers/CardExpander'
 
-const AlbumData = (albumData) => {
-  const [expanded, setExpanded] = useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
+const AlbumData = (albumData) => {  
 
   return (
     <Fragment>
