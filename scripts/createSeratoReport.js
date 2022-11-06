@@ -88,8 +88,12 @@ const createSeratoReport = (data) => {
       // comma format
       
       const tempDate = new Date(data[0]['start time'])
-      console.log(chalk.yellow('TEMP DATE --------', tempDate.getMonth()))
-      
+      // const tempDateString = data[0]['start time'].replace(' ', ', ')
+      // console.log(tempDateString)
+      console.log(chalk.cyan('START TIME ---------------', data[0]['start time']))
+      console.log(chalk.cyan('TEMP DATE OBJ ------------', tempDate))
+      console.log(chalk.yellow('TEMP DATE MONTH --------', tempDate.getMonth()))
+      console.log(chalk.yellow('TEMP DATE DAY ----------', tempDate.getDay()))
       
       
       const [split1, split2] = data[0]['start time'].split(',')      
@@ -105,8 +109,14 @@ const createSeratoReport = (data) => {
       }
     } else {      
       // no commas present
-      const tempDate = new Date(data[0]['start time'])
-      console.log(chalk.yellow('TEMP DATE --------', tempDate.getDay()))
+      // const tempDate = new Date(data[0]['start time'])
+      const tempDateString = data[0]['start time'].replace(' ', ', ')
+      console.log(tempDateString)
+      const tempDate = new Date(tempDateString)
+      console.log(chalk.cyan('START TIME ---------------', data[0]['start time']))
+      console.log(chalk.cyan('TEMP DATE OBJ n/COMMA ------------', tempDate))
+      console.log(chalk.yellow('TEMP DATE MONTH n/COMMA --------', tempDate.getMonth()))
+      console.log(chalk.yellow('TEMP DATE DAY n/COMMA ----------', tempDate.getDay()))
 
 
       const [split1, split2] = data[0]['start time'].split(' ') 
@@ -185,19 +195,24 @@ const createSeratoReport = (data) => {
 
   // check if playlist length is present in csv header
   if (data[0].playtime) {
-
-    // check error with playlist length parse display
-    
     hasPlaylistLength = true
+    console.log(chalk.yellow("SET LENGTH ---------", data[0].playtime))    
+    let abc = data[0]['start time'].split(' ')[0]
+    console.log(abc)
+    let xyz = new Date(data[0]['start time'].split(' ')[0] + (', ') + data[0].playtime)    
+    console.log(chalk.yellow("DATE PARSED ---------", xyz.getHours()))
+
+    // check error with playlist length parse display    
+    
     playlistLength = data[0].playtime    
     playlistDate = newPlaylistStartTime.split(' ')[0]
 
-    let x = new Date(playlistDate + ' ' + data[0].playtime)
-    console.log(chalk.red("PRE PARSE ---------", x))
+    // let x = new Date(playlistDate + ' ' + data[0].playtime)
+    // console.log(chalk.red("PRE PARSE ---------", x))
 
 
 
-    playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
+    playlistLengthParsed = new Date(data[0]['start time'].split(' ')[0] + (', ') + data[0].playtime)
 
     // if playlist length is not present, calculate it using start & end times
   } else if (hasStartTimeData === true && hasEndTimeData === true) {
@@ -222,6 +237,7 @@ const createSeratoReport = (data) => {
     
     
     
+    console.log("NEW PST ----------", newPlaylistStartTime)
     
     seratoPlaylistAnalysis.playlist_data.start_time = newPlaylistStartTime
     seratoPlaylistAnalysis.playlist_data.start_time_formatted = {
