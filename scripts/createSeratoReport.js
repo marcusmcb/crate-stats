@@ -73,25 +73,61 @@ const createSeratoReport = (data) => {
     playlistDateDay,
     has12HourFormat,
     has24HourFormat,
-    startTimeFormatDisplay
+    startTimeFormatDisplay,
+    newPlaylistStartTime
 
   // check if start time data is present and defined in header
   if (data[0]['start time'] && data[0]['start time'] != '') {
     hasStartTimeData = true
     console.log("START TIME ------------", typeof(data[0]['start time']))
-    playlistStartTime = data[0]['start time']
-    const [var1, var2] = playlistStartTime.split(' ')
-    
-    // check to see if start time is given in AM/PM or 24-hour format
-    let var5 = var2.split(':')[0]
-    if (var5 > 12) {
-      has24HourFormat = true
-      startTimeFormatDisplay = 'local time'
-    } else {
-      has12HourFormat = true
-      startTimeFormatDisplay = playlistStartTime.split(' ')[2]
+
+    // determine start time format (comma or not present in start time)
+    if (data[0]['start time'].indexOf(',') > -1) {
+      
+      
+      // comma format
+      const [split1, split2] = data[0]['start time'].split(',')      
+      playlistStartTimeParsed = new Date(split1 + '  ' + split2)
+      const [split3, split4, split5] = split2.split(':')
+      const amOrPM = split5.split(' ')[1]
+      // console.log('split5 ----', split5)
+      if (split3 > 12) {
+        newPlaylistStartTime = (split3 - 12) + ":" + split4 + ` ${amOrPM}`
+        console.log("START TIME -------------", newPlaylistStartTime)
+      } else {
+        newPlaylistStartTime = split3 + ":" + split4 + ` ${amOrPM}`
+        console.log("START TIME -------------", newPlaylistStartTime)
+      }
+    } else {      
+      // no commas present
+      const [split1, split2] = data[0]['start time'].split(' ') 
+      playlistStartTime = new Date(split1 + '  ' + split2)
+      const [split3, split4] = split2.split(':')
+      if (split3 > 12) {
+        newPlaylistStartTime = (split3 - 12) + ":" + split4 + " PM"
+        
+        console.log("START TIME -------------", newPlaylistStartTime)
+      } else {
+        newPlaylistStartTime = split3 + ":" + split4 + " AM"
+        console.log("START TIME -------------", newPlaylistStartTime)
+      }
     }
-    playlistStartTimeParsed = new Date(var1 + '  ' + var2)
+
+    // playlistStartTime = data[0]['start time']
+    // const [var1, var2] = playlistStartTime.split(' ')
+    
+    // // check to see if start time is given in AM/PM or 24-hour format
+    // let var5 = var2.split(':')[0]
+    // if (var5 > 12) {
+    //   has24HourFormat = true
+    //   startTimeFormatDisplay = 'local time'
+    // } else {
+    //   has12HourFormat = true
+    //   startTimeFormatDisplay = playlistStartTime.split(' ')[2]
+    // }
+    // playlistStartTimeParsed = new Date(var1 + '  ' + var2)
+    // console.log("var 1 - ", var1, " var 2 - ", var2)
+    // console.log("PARSED ***************", playlistStartTimeParsed)
 
     // check if end time data is present and defined in header
     if (data[0]['end time'] && data[0]['end time'] != '') {
@@ -142,14 +178,16 @@ const createSeratoReport = (data) => {
   if (data[0].playtime) {
     hasPlaylistLength = true
     playlistLength = data[0].playtime    
-    playlistDate = playlistStartTime.split(' ')[0]
+    playlistDate = newPlaylistStartTime.split(' ')[0]
+    let x = playlistDate + ' ' + data[0].playtime
+    console.log(chalk.red("PRE PARSE ---------", x))
     playlistLengthParsed = new Date(playlistDate + ' ' + data[0].playtime)
 
     // if playlist length is not present, calculate it using start & end times
   } else if (hasStartTimeData === true && hasEndTimeData === true) {
     hasPlaylistLength = true
     playlistLength = playlistEndTimeParsed - playlistStartTimeParsed
-    playlistDate = playlistStartTime.split(' ')[0]
+    playlistDate = newPlaylistStartTime.split(' ')[0]
 
     // limits playlist length to a max of 24 hours
     let tempDate = new Date(playlistLength).toISOString().slice(11, 19)
@@ -161,12 +199,14 @@ const createSeratoReport = (data) => {
   if (!hasPlaylistLength) {
     seratoPlaylistAnalysis.playlist_data.has_playlist_length = false
   } else {
-    seratoPlaylistAnalysis.playlist_data.start_time = playlistStartTime
+    console.log(chalk.magenta(playlistLength))
+    console.log(chalk.cyan(playlistLengthParsed))
+    seratoPlaylistAnalysis.playlist_data.start_time = newPlaylistStartTime
     seratoPlaylistAnalysis.playlist_data.start_time_formatted = {
       day: playlistDay,
       month: playlistMonth,
       dateday: playlistDateDay,
-      start_time: playlistStartTime.split(' ')[1],
+      start_time: newPlaylistStartTime.split(' ')[1],
       time_format: startTimeFormatDisplay,
     }
     seratoPlaylistAnalysis.playlist_data.playlist_length = playlistLength
@@ -196,8 +236,8 @@ const createSeratoReport = (data) => {
     }
   }
 
-  console.log(uniqueTracks.length)
-  console.log(masterTrackLog.length)
+  // console.log(uniqueTracks.length)
+  // console.log(masterTrackLog.length)
   
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
@@ -645,8 +685,7 @@ const createSeratoReport = (data) => {
     // calculate percentage of playlist that was from the most recent year
     // implement similar function to do the same for the oldest track year
     newestYearPercentage = (newestTrackCount / masterTrackLog.length * 100).toFixed(2)  
-    let oldestYearPercentage = (oldestTrackCount / masterTrackLog.length * 100).toFixed(2)  
-    console.log("OLDEST YEAR % --------", oldestYearPercentage)
+    let oldestYearPercentage = (oldestTrackCount / masterTrackLog.length * 100).toFixed(2)      
   }
 
   if (!hasYearData) {
