@@ -166,12 +166,7 @@ const PlaylistData = (playlistData) => {
                     start time:
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {playlistData.data.start_time_formatted.start_time.substring(
-                      0,
-                      playlistData.data.start_time_formatted.start_time.length -
-                        3
-                    )}{" "}
-                    {playlistData.data.start_time_formatted.time_format}
+                    {playlistData.data.start_time}
                   </Typography>
                 </CardContent>
               </Card>
