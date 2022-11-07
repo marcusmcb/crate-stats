@@ -54,12 +54,12 @@ const DeckData = (deckdata) => {
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item sx={3} mt={1}>
+                    <Grid item mt={1}>
                       <Typography fontWeight={500}>
                         missing deck values:
                       </Typography>
                     </Grid>
-                    <Grid item sx={3}>
+                    <Grid item>
                       <Typography
                         variant="h4"
                         component="div"

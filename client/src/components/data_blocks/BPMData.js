@@ -24,12 +24,12 @@ const BPMData = (bpmdata) => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                       bpm range:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant='h4'
                       component='div'
@@ -40,12 +40,12 @@ const BPMData = (bpmdata) => {
                       {bpmdata.data.bpm_range.maximum}
                     </Typography>
                   </Grid>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                       average bpm:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant='h4'
                       component='div'
@@ -58,7 +58,7 @@ const BPMData = (bpmdata) => {
                 </Grid>
                 <Divider />
                 <Grid container spacing={2}>
-                  <Grid item sx={4}>
+                  <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       biggest single bpm change:
                     </Typography>
@@ -74,7 +74,7 @@ const BPMData = (bpmdata) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item sx={4}>
+                  <Grid item>
                     <Typography
                       sx={{ fontSize: 16, fontWeight: '500', color: '#558b2f' }}
                     >
@@ -86,7 +86,7 @@ const BPMData = (bpmdata) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item sx={4}>
+                  <Grid item>
                     <Typography
                       sx={{ fontSize: 16, fontWeight: '500', color: '#558b2f' }}
                     >

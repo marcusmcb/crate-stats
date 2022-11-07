@@ -36,10 +36,10 @@ const KeyData = (keydata) => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography>most common key:</Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant="h4"
                       component="div"
@@ -49,7 +49,7 @@ const KeyData = (keydata) => {
                       {keydata.data.most_common_key.key}
                     </Typography>
                   </Grid>
-                  <Grid item sx={3} mt={0.5}>
+                  <Grid item mt={0.5}>
                     {keydata.data.most_common_key.times_played > 1 ? (
                       <Typography
                         variant="h5"
@@ -72,10 +72,10 @@ const KeyData = (keydata) => {
                       </Typography>
                     )}
                   </Grid>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography>least common key:</Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant="h4"
                       component="div"
@@ -85,7 +85,7 @@ const KeyData = (keydata) => {
                       {keydata.data.least_common_key.key}
                     </Typography>
                   </Grid>
-                  <Grid item sx={3} mt={0.5}>
+                  <Grid item mt={0.5}>
                     {keydata.data.least_common_key.times_played > 1 ? (
                       <Typography
                         variant="h5"

@@ -33,7 +33,7 @@ const YearData = (yeardata) => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Grid container spacing={2}>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography
                       sx={{ fontSize: 16, fontWeight: '500' }}
                       sm={12}
@@ -41,7 +41,7 @@ const YearData = (yeardata) => {
                       range of years played:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant='h4'
                       component='div'
@@ -52,7 +52,7 @@ const YearData = (yeardata) => {
                       {yeardata.data.yeardata.newest_track.year}
                     </Typography>
                   </Grid>
-                  <Grid item sx={3} mt={1}>
+                  <Grid item mt={1}>
                     <Typography
                       sx={{ fontSize: 16, fontWeight: '500' }}
                       sm={12}
@@ -60,7 +60,7 @@ const YearData = (yeardata) => {
                       average year:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant='h4'
                       component='div'
@@ -73,7 +73,7 @@ const YearData = (yeardata) => {
                 </Grid>
                 <Divider />
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item sx={4}>
+                  <Grid item >
                     <Typography sx={{ fontSize: 16 }}>
                       oldest track ({yeardata.data.yeardata.oldest_track.year}):
                     </Typography>
@@ -82,7 +82,7 @@ const YearData = (yeardata) => {
                       {yeardata.data.yeardata.oldest_track.name}
                     </Typography>
                   </Grid>
-                  <Grid item sx={4}>
+                  <Grid item >
                     <Typography sx={{ fontSize: 16 }}>
                       playlist percentage from most recent year (
                       {yeardata.data.yeardata.newest_track.year}):

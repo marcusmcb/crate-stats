@@ -57,12 +57,12 @@ const DoublesData = (doublesdata) => {
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item sx={3} mt={1}>
+                    <Grid item mt={1}>
                       <Typography fontWeight={500}>
                         doubles detected:
                       </Typography>
                     </Grid>
-                    <Grid item sx={3}>
+                    <Grid item>
                       <Typography
                         variant='h4'
                         component='div'
@@ -75,7 +75,7 @@ const DoublesData = (doublesdata) => {
                   </Grid>
                   <Divider />
                   <Grid container spacing={2}>
-                    <Grid item sx={3}>
+                    <Grid item>
                       {doublesdata.data.doubles_played.map((item, i) => (
                         <Typography
                           component='div'
