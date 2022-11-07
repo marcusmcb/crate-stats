@@ -261,12 +261,12 @@ const LiveReport = () => {
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>
                     <Grid container spacing={2}>
-                      <Grid item sx={3} mt={1.5}>
+                      <Grid item mt={1.5}>
                         <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                           total tracks played:
                         </Typography>
                       </Grid>
-                      <Grid item sx={3}>
+                      <Grid item>
                         <Typography
                           variant='h3'
                           component='div'
@@ -276,12 +276,12 @@ const LiveReport = () => {
                           {playlistData.totalTracksPlayed}
                         </Typography>
                       </Grid>
-                      <Grid item sx={3} mt={1.5}>
+                      <Grid item mt={1.5}>
                         <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
                           average track length:
                         </Typography>
                       </Grid>
-                      <Grid item sx={3}>
+                      <Grid item>
                         <Typography
                           variant='h3'
                           component='div'
@@ -294,7 +294,7 @@ const LiveReport = () => {
                     </Grid>
                     <Divider />
                     <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                      <Grid item sx={4}>
+                      <Grid item>
                         <Typography sx={{ fontSize: 16 }}>
                           shortest track:
                         </Typography>
@@ -322,7 +322,7 @@ const LiveReport = () => {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} sx={{ marginTop: 0 }}>
-                      <Grid item sx={4}>
+                      <Grid item>
                         <Typography sx={{ fontSize: 16 }}>
                           longest track:
                         </Typography>
@@ -359,12 +359,12 @@ const LiveReport = () => {
                   <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                       <Grid container spacing={2}>
-                        <Grid item sx={3} mt={1}>
+                        <Grid item mt={1}>
                           <Typography fontWeight={500}>
                             doubles detected:
                           </Typography>
                         </Grid>
-                        <Grid item sx={3}>
+                        <Grid item>
                           <Typography
                             variant='h4'
                             component='div'
@@ -381,9 +381,10 @@ const LiveReport = () => {
                       </Grid>
                       <Divider />
                       <Grid container spacing={2}>
-                        <Grid item sx={3}>
-                          {playlistData.doublesPlayed.map((item) => (
+                        <Grid item>
+                          {playlistData.doublesPlayed.map((item, i) => (
                             <Typography
+                              key={i}
                               component='div'
                               fontWeight={500}
                               sx={{ fontSize: 16 }}

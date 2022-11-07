@@ -1,17 +1,16 @@
-const scrapeData = require('./scrapeData')
-const convertTimestamp = require('./convertTimestamp')
-const parseTimeValues = require('./parseTimeValues')
+const scrapeData = require('./LiveReportHelpers/scrapeData')
+const parseTimeValues = require('./LiveReportHelpers/parseTimeValues')
 
-const createReport = async (url) => {  
+const createReport = async (url) => {
   try {
     // function to scrape data for report
-    let response = await scrapeData(url)    
+    let response = await scrapeData(url)
     let results = response[0]
     let timestamps = response[1]
     let starttime = response[2]
     let playlistdate = response[3]
     let playlisttitle = response[4]
-    let playlistartist = response[5]    
+    let playlistartist = response[5]
 
     let tracksPlayed = []
     let trackTimestamps = []
@@ -121,7 +120,7 @@ const createReport = async (url) => {
       doublesPlayed: doublesPlayed,
       playlistDate: playlistdate,
       playlistTitle: playlisttitle,
-    }     
+    }
     return seratoReport
   } catch (err) {
     console.log(err)

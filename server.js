@@ -3,11 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path');
 
-const csv = require('csvtojson')
-
-const createReport = require('./scripts/createReport')
-const readUserFile = require('./scripts/readUserFile')
-const createUserReport = require('./scripts/createUserReport')
+const createSeratoLiveReport = require('./scripts/createSeratoLiveReport')
 const createSeratoReport = require('./scripts/createSeratoReport')
 
 const PORT = process.env.PORT || 5000
@@ -18,16 +14,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.post('/createReport', async (req, res) => { 
-  let userData = await readUserFile()
-  let userReport = await createUserReport(userData)  
-  const url = req.body.url
-  res.send(await createReport(url))
-})
-
 app.post('/liveplaylist', async (req, res) => {  
-  let livePlaylistReport = await createReport(req.body.url)  
-  res.send(livePlaylistReport)
+  let seratoLivePlaylistReport = await createSeratoLiveReport(req.body.url)  
+  res.send(seratoLivePlaylistReport)
 })
 
 app.post('/sendFile', async (req, res) => {    
