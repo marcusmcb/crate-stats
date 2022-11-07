@@ -14,29 +14,34 @@
   padding: 10px;
 }
 
+.playlistreport-body {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
 @media (min-width: 1700px) {
-  .testpage-body {
-    margin-left: 20vw;
-    margin-right: 20vw;
+  .playlistreport-body {
+    margin-left: 15vw;
+    margin-right: 15vw;
   }
 }
 
 @media (max-width: 1300px) {
-  .testpage-body {
+  .playlistreport-body {
     margin-left: 10vw;
     margin-right: 10vw;
   }
 }
 
 @media (max-width: 920px) {
-  .testpage-body {
+  .playlistreport-body {
     margin-left: 5vw;
     margin-right: 5vw;
   }
 }
 
 @media (max-width: 760px) {
-  .testpage-body {
+  .playlistreport-body {
     margin-left: 2vw;
     margin-right: 2vw;
   }

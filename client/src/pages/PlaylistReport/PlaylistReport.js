@@ -48,7 +48,7 @@ const PlaylistReport = () => {
     <Fragment>
       <Titlebar />
       <DragAndDrop getDataFromCSV={getDataFromCSV} />
-      <div className="testpage-body">
+      <div className="playlistreport-body">
         {isBusy === true ? (
           <div className="data-block await-data">
             <Box sx={{ flexGrow: 1 }}>

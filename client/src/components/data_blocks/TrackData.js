@@ -35,7 +35,7 @@ const TrackData = (trackdata) => {
                       total tracks played:
                     </Typography>
                   </Grid>
-                  <Grid item sx={3}>
+                  <Grid item>
                     <Typography
                       variant="h3"
                       component="div"
@@ -66,7 +66,7 @@ const TrackData = (trackdata) => {
                   <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       shortest track:
-                    </Typography>
+                    </Typography>                    
                     <Typography variant="h5" component="div" fontWeight={500}>
                       {trackdata.data.shortest_track.name}
                     </Typography>
@@ -85,8 +85,6 @@ const TrackData = (trackdata) => {
                       </span>
                     </Typography>
                   </Grid>
-                </Grid>
-                <Grid container spacing={2} sx={{ marginTop: 0 }}>
                   <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       longest track:
@@ -109,6 +107,30 @@ const TrackData = (trackdata) => {
                       </span>
                     </Typography>
                   </Grid>
+                </Grid>
+                <Grid container spacing={2} sx={{ marginTop: 0 }}>
+                  {/* <Grid item>
+                    <Typography sx={{ fontSize: 16 }}>
+                      longest track:
+                    </Typography>
+                    <Typography variant="h5" component="div" fontWeight={500}>
+                      {trackdata.data.longest_track.name}
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      fontWeight={500}
+                      sx={{ color: "#558b2f" }}
+                    >
+                      ({trackdata.data.longest_track.play_time})
+                    </Typography>
+                    <Typography sx={{ fontSize: 14, marginTop: 1 }}>
+                      - played @{" "}
+                      <span style={{ color: "#1b5e20", fontWeight: "500" }}>
+                        {trackdata.data.longest_track.played_at}
+                      </span>
+                    </Typography>
+                  </Grid> */}
                 </Grid>
               </CardContent>
             </Card>
