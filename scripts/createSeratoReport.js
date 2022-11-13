@@ -621,3 +621,6 @@ const createSeratoReport = (data) => {
 }
 
 module.exports = createSeratoReport
+
+// need to test with playlists that use more than 2 decks
+// need to test with playlists that only use a single deck

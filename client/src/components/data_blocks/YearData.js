@@ -81,7 +81,7 @@ const YearData = (yeardata) => {
                       {yeardata.data.yeardata.oldest_track.artist} -{' '}
                       {yeardata.data.yeardata.oldest_track.name}
                     </Typography>
-                    <Typography sx={{ fontSize: 14, marginTop: .5 }}>
+                    <Typography sx={{ fontSize: 14, marginTop: 0.5 }}>
                       - played @{' '}
                       <span style={{ color: '#1b5e20', fontWeight: '500' }}>
                         {yeardata.data.yeardata.oldest_track.occurred_at}
