@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -9,13 +9,15 @@ import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../helpers/CardExpander'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 
 const GenreData = (genreData) => {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
-  }
+  }  
+
   return (
     <Fragment>
       <div>
@@ -106,8 +108,16 @@ const GenreData = (genreData) => {
                         <CardContent>
                           {/* crate stats card */}
                           <Typography>
-                            ...with "other" as their main genre:
+                            <span>
+                              ...with "other" as their main genre:{' '}
+                              <HelpOutlineIcon
+                                onClick={() => {
+                                  console.log('clicked')
+                                }}
+                              />
+                            </span>
                           </Typography>
+
                           <Typography
                             variant='h4'
                             component='div'
@@ -128,10 +138,12 @@ const GenreData = (genreData) => {
               </Card>
             </Grid>
           </Grid>
-        </Box>
+        </Box>        
       </div>
     </Fragment>
   )
 }
 
 export default GenreData
+
+// check calcs on tag health - percentage w/other as genre
