@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import PlaylistReport from './pages/PlaylistReport/PlaylistReport'
-import PageSelect from './pages/PageSelect'
-import LiveReport from './pages/LiveReport'
+import PageSelect from './pages/PageSelect/PageSelect'
+import LiveReport from './pages/LiveReport/LiveReport'
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

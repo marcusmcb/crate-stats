@@ -6,12 +6,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import MinutesText from "../text_spans/minutesText";
-import SecondsText from "../text_spans/secondsText";
-import MinuteText from "../text_spans/minuteText";
-import SecondText from "../text_spans/secondText";
-import HoursText from "../text_spans/hoursText";
-import HourText from "../text_spans/hourText";
+import MinutesText from "../shared/text_spans/minutesText";
+import SecondsText from "../shared/text_spans/secondsText";
+import MinuteText from "../shared/text_spans/minuteText";
+import SecondText from "../shared/text_spans/secondText";
+import HoursText from "../shared/text_spans/hoursText";
+import HourText from "../shared/text_spans/hourText";
 
 const PlaylistData = (playlistData) => {
   return (

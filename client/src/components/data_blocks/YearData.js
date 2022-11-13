@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../helpers/CardExpander'
 import { Divider } from 'semantic-ui-react'
 
-const YearData = (yeardata) => {  
+const YearData = (yeardata) => {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -73,7 +73,7 @@ const YearData = (yeardata) => {
                 </Grid>
                 <Divider />
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item >
+                  <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       oldest track ({yeardata.data.yeardata.oldest_track.year}):
                     </Typography>
@@ -81,8 +81,14 @@ const YearData = (yeardata) => {
                       {yeardata.data.yeardata.oldest_track.artist} -{' '}
                       {yeardata.data.yeardata.oldest_track.name}
                     </Typography>
+                    <Typography sx={{ fontSize: 14, marginTop: .5 }}>
+                      - played @{' '}
+                      <span style={{ color: '#1b5e20', fontWeight: '500' }}>
+                        {yeardata.data.yeardata.oldest_track.occurred_at}
+                      </span>
+                    </Typography>
                   </Grid>
-                  <Grid item >
+                  <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       playlist percentage from most recent year (
                       {yeardata.data.yeardata.newest_track.year}):

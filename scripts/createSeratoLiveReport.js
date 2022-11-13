@@ -87,7 +87,6 @@ const createReport = async (url) => {
 
     // shortest track played
     let shortestSeconds
-
     let min = Math.min(...timeDiffs)
     let minIndex = timeDiffs.indexOf(min)
     let shortestTrack = Math.abs(
@@ -125,7 +124,7 @@ const createReport = async (url) => {
       ', ' +
       playlistdate.split(' ')[2]
 
-    let seratoReport = {
+    let seratoLiveReport = {
       trackLengthArray: timeDiffs,
       djName: playlistartist,
       setLength: {
@@ -158,16 +157,14 @@ const createReport = async (url) => {
       playlistDate: playlistdate_formatted,
       playlistTitle: playlisttitle,
     }
-    return seratoReport
+    return seratoLiveReport
   } catch (err) {
     console.log(err)
   }
 }
 // FUTURE DEV NOTES
 //
-// AVERAGE TRACKS PER HOUR
-//
-// CLOUD AVERAGE
+// calculate average tracks per hour for longer sets
 //
 // add option for user to anonymously submit stats to the site
 // as part of aggregrate data to compare user results against
@@ -183,5 +180,10 @@ const createReport = async (url) => {
 // check if shortest track is part of a doubles pair
 //
 // is there a way to gen data for private playlists? (probably not...)
+//
+// add logic to determine longest track played @ time
+// add logic to determine shortest track played @ time
+// subtract playtime from set start time
+// add helper method for calcuations
 
 module.exports = createReport

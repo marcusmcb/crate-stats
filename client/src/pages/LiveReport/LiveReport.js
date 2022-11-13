@@ -9,19 +9,19 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-
-import HoursText from '../components/text_spans/hoursText'
-import HourText from '../components/text_spans/hourText'
-import MinutesText from '../components/text_spans/minutesText'
-import MinuteText from '../components/text_spans/minuteText'
-import SecondsText from '../components/text_spans/secondsText'
-import SecondText from '../components/text_spans/secondText'
-
-import parseDay from '../scripts/parseDay'
-import parseDisplayName from '../scripts/parseDisplayName'
-import Titlebar from '../components/shared/Titlebar'
-import './style/livereport.css'
 import { OutlinedInput } from '@mui/material'
+
+import HoursText from '../../components/shared/text_spans/hoursText'
+import HourText from '../../components/shared/text_spans/hourText'
+import MinutesText from '../../components/shared/text_spans/minutesText'
+import MinuteText from '../../components/shared/text_spans/minuteText'
+import SecondsText from '../../components/shared/text_spans/secondsText'
+import SecondText from '../../components/shared/text_spans/secondText'
+
+import parseDay from '../../scripts/parseDay'
+import parseDisplayName from '../../scripts/parseDisplayName'
+import Titlebar from '../../components/shared/Titlebar'
+import './livereport.css'
 
 const LiveReport = () => {
   const [isData, setIsData] = useState(false)

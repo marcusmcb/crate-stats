@@ -10,8 +10,8 @@ import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../helpers/CardExpander'
 
-import TimesText from '../text_spans/timesText'
-import TimeText from '../text_spans/timeText'
+import TimesText from '../shared/text_spans/timesText'
+import TimeText from '../shared/text_spans/timeText'
 
 const KeyData = (keydata) => {
   const [expanded, setExpanded] = React.useState(false)

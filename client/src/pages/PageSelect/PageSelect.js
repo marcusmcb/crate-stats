@@ -11,17 +11,17 @@ import CardActions from '@mui/material/CardActions'
 
 import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandMore from '../components/helpers/CardExpander'
+import ExpandMore from '../../components/helpers/CardExpander'
 
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import Titlebar from '../components/shared/Titlebar'
-import './style/pageselect.css'
+import Titlebar from '../../components/shared/Titlebar'
+import './pageselect.css'
 
-import LivePlaylistImageTwo from '../images/liveplaylist_02.png'
-import LivePlaylistImageThree from '../images/liveplaylist_03.png'
-import CSVExportImageOne from '../images/csvexport_01.png'
-import CSVExportImageTwo from '../images/csvexport_02.png'
+import LivePlaylistImageTwo from '../../images/liveplaylist_02.png'
+import LivePlaylistImageThree from '../../images/liveplaylist_03.png'
+import CSVExportImageOne from '../../images/csvexport_01.png'
+import CSVExportImageTwo from '../../images/csvexport_02.png'
 
 const PageSelect = () => {
   const [expandedL, setExpandedL] = React.useState(false)
