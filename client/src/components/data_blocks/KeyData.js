@@ -1,31 +1,31 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandMore from "../helpers/CardExpander";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import CardActions from '@mui/material/CardActions'
+import Collapse from '@mui/material/Collapse'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandMore from '../helpers/CardExpander'
 
-import TimesText from "../text_spans/timesText";
-import TimeText from "../text_spans/timeText";
+import TimesText from '../text_spans/timesText'
+import TimeText from '../text_spans/timeText'
 
 const KeyData = (keydata) => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    setExpanded(!expanded)
+  }
 
   return (
     <Fragment>
       <div>
         <Typography
           sx={{ fontSize: 20 }}
-          color="#c5e1a5"
+          color='#c5e1a5'
           fontWeight={500}
           gutterBottom
         >
@@ -41,10 +41,10 @@ const KeyData = (keydata) => {
                   </Grid>
                   <Grid item>
                     <Typography
-                      variant="h4"
-                      component="div"
+                      variant='h4'
+                      component='div'
                       fontWeight={500}
-                      sx={{ color: "#558b2f" }}
+                      sx={{ color: '#558b2f' }}
                     >
                       {keydata.data.most_common_key.key}
                     </Typography>
@@ -52,22 +52,22 @@ const KeyData = (keydata) => {
                   <Grid item mt={0.5}>
                     {keydata.data.most_common_key.times_played > 1 ? (
                       <Typography
-                        variant="h5"
-                        component="div"
+                        variant='h5'
+                        component='div'
                         fontWeight={400}
-                        sx={{ color: "#558b2f" }}
+                        sx={{ color: '#558b2f' }}
                       >
-                        (played {keydata.data.most_common_key.times_played}{" "}
+                        (played {keydata.data.most_common_key.times_played}{' '}
                         <TimesText />)
                       </Typography>
                     ) : (
                       <Typography
-                        variant="h5"
-                        component="div"
+                        variant='h5'
+                        component='div'
                         fontWeight={400}
-                        sx={{ color: "#558b2f" }}
+                        sx={{ color: '#558b2f' }}
                       >
-                        (played {keydata.data.most_common_key.times_played}{" "}
+                        (played {keydata.data.most_common_key.times_played}{' '}
                         <TimeText />)
                       </Typography>
                     )}
@@ -77,10 +77,10 @@ const KeyData = (keydata) => {
                   </Grid>
                   <Grid item>
                     <Typography
-                      variant="h4"
-                      component="div"
+                      variant='h4'
+                      component='div'
                       fontWeight={500}
-                      sx={{ color: "#558b2f" }}
+                      sx={{ color: '#558b2f' }}
                     >
                       {keydata.data.least_common_key.key}
                     </Typography>
@@ -88,22 +88,22 @@ const KeyData = (keydata) => {
                   <Grid item mt={0.5}>
                     {keydata.data.least_common_key.times_played > 1 ? (
                       <Typography
-                        variant="h5"
-                        component="div"
+                        variant='h5'
+                        component='div'
                         fontWeight={400}
-                        sx={{ color: "#558b2f" }}
+                        sx={{ color: '#558b2f' }}
                       >
-                        (played {keydata.data.least_common_key.times_played}{" "}
+                        (played {keydata.data.least_common_key.times_played}{' '}
                         <TimesText />)
                       </Typography>
                     ) : (
                       <Typography
-                        variant="h5"
-                        component="div"
+                        variant='h5'
+                        component='div'
                         fontWeight={400}
-                        sx={{ color: "#558b2f" }}
+                        sx={{ color: '#558b2f' }}
                       >
-                        (played {keydata.data.least_common_key.times_played}{" "}
+                        (played {keydata.data.least_common_key.times_played}{' '}
                         <TimeText />)
                       </Typography>
                     )}
@@ -113,9 +113,9 @@ const KeyData = (keydata) => {
               <Card sx={{ midWidth: 245 }}>
                 <CardActions
                   sx={{
-                    height: "4vh",
-                    backgroundColor: "#616161",
-                    color: "white",
+                    height: '4vh',
+                    backgroundColor: '#616161',
+                    color: 'white',
                   }}
                 >
                   <CardContent>tag health</CardContent>
@@ -123,25 +123,25 @@ const KeyData = (keydata) => {
                     expand={expanded}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
-                    aria-label="show more"
+                    aria-label='show more'
                   >
-                    <ExpandMoreIcon sx={{ color: "white" }} />
+                    <ExpandMoreIcon sx={{ color: 'white' }} />
                   </ExpandMore>
                 </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Collapse in={expanded} timeout='auto' unmountOnExit>
                   <Grid container spacing={1}>
                     <Grid item xs={12} md={6} sm={12} lg={6}>
-                      <Card sx={{ minWidth: 275, boxShadow: "none" }}>
+                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
                         <CardContent>
                           {/* crate stats card */}
                           <Typography>
                             percentage of tracks played with key tags:
                           </Typography>
                           <Typography
-                            variant="h4"
-                            component="div"
+                            variant='h4'
+                            component='div'
                             fontWeight={500}
-                            sx={{ color: "#558b2f" }}
+                            sx={{ color: '#558b2f' }}
                           >
                             {keydata.data.tag_health.percentage_with_key_tags}%
                           </Typography>
@@ -149,20 +149,24 @@ const KeyData = (keydata) => {
                       </Card>
                     </Grid>
                     <Grid item xs={12} md={6} sm={12} lg={6}>
-                      <Card sx={{ minWidth: 275, boxShadow: "none" }}>
-                        <CardContent>
-                          {/* crate stats card */}
-                          <Typography>tracks with empty key tags:</Typography>
-                          <Typography
-                            variant="h4"
-                            component="div"
-                            fontWeight={500}
-                            sx={{ color: "#558b2f" }}
-                          >
-                            {keydata.data.tag_health.empty_key_tags}
-                          </Typography>
-                        </CardContent>
-                      </Card>
+                      {keydata.data.tag_health.empty_key_tags === 0 ? (
+                        <></>
+                      ) : (
+                        <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                          <CardContent>
+                            {/* crate stats card */}
+                            <Typography>tracks with empty key tags:</Typography>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: '#558b2f' }}
+                            >
+                              {keydata.data.tag_health.empty_key_tags}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      )}
                     </Grid>
                   </Grid>
                 </Collapse>
@@ -172,7 +176,7 @@ const KeyData = (keydata) => {
         </Box>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default KeyData;
+export default KeyData
