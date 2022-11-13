@@ -1,5 +1,6 @@
 const scrapeData = require('./LiveReportHelpers/scrapeData')
 const parseTimeValues = require('./LiveReportHelpers/parseTimeValues')
+const parseStartTime = require('./LiveReportHelpers/parseStartTime')
 
 const createReport = async (url) => {
   try {
@@ -14,7 +15,18 @@ const createReport = async (url) => {
 
     let tracksPlayed = []
     let trackTimestamps = []
-    let doublesPlayed = []
+    let doublesPlayed = []    
+
+    let starttime_string
+
+    // parse start time for proper display in UI
+    if (starttime.length === 7) {
+      const [first, second] = parseStartTime(starttime, 5)
+      starttime_string = first + ' ' + second.toUpperCase()
+    } else {
+      const [first, second] = parseStartTime(starttime, 4)
+      starttime_string = first + ' ' + second.toUpperCase()
+    }
 
     // loop through tracks played and clean data from scrape
     for (let i = 0; i < results.length; i++) {
@@ -57,22 +69,39 @@ const createReport = async (url) => {
     })
 
     // longest track played
+    let longestSeconds
     let max = Math.max(...timeDiffs)
     let maxIndex = timeDiffs.indexOf(max)
     let longestTrack = Math.abs(
       (trackTimestamps[maxIndex] - trackTimestamps[maxIndex + 1]) / 1000
     )
     let longestMinutes = Math.floor(longestTrack / 60) % 60
-    let longestSeconds = longestTrack % 60
+    let tempLongestSeconds = longestTrack % 60
+
+    // check length of longest seconds for display parsing
+    if (tempLongestSeconds.toString().length === 1) {
+      longestSeconds = '0' + tempLongestSeconds
+    } else {
+      longestSeconds = tempLongestSeconds
+    }
 
     // shortest track played
+    let shortestSeconds
+
     let min = Math.min(...timeDiffs)
     let minIndex = timeDiffs.indexOf(min)
     let shortestTrack = Math.abs(
       (trackTimestamps[minIndex] - trackTimestamps[minIndex + 1]) / 1000
     )
     let shortestMinutes = Math.floor(shortestTrack / 60) % 60
-    let shortestSeconds = shortestTrack % 60
+    let tempShortestSeconds = shortestTrack % 60
+
+    // check length of shortest seconds for display parsing
+    if (tempShortestSeconds.toString().length === 1) {
+      shortestSeconds = '0' + tempShortestSeconds
+    } else {
+      shortestSeconds = tempShortestSeconds
+    }
 
     // average track length played
     let sumDiff = 0
@@ -88,6 +117,14 @@ const createReport = async (url) => {
     let playlistLength = timestamps.last().text().trim()
     let playlistLengthValues = parseTimeValues(playlistLength)
 
+    // playlist date formatting
+    let playlistdate_formatted =
+      playlistdate.split(' ')[1] +
+      ' ' +
+      playlistdate.split(' ')[0] +
+      ', ' +
+      playlistdate.split(' ')[2]
+
     let seratoReport = {
       trackLengthArray: timeDiffs,
       djName: playlistartist,
@@ -97,11 +134,11 @@ const createReport = async (url) => {
         setlengthminutes: playlistLengthValues[1],
         setlengthseconds: playlistLengthValues[2],
       },
-      setStartTime: starttime,
+      setStartTime: starttime_string,
       totalTracksPlayed: trackLog.length,
       longestTrack: {
         name: trackLog[maxIndex].trackId,
-        lengthValue: longestMinutes + ':' + 04,
+        lengthValue: longestMinutes + ':' + longestSeconds,
         minutes: longestMinutes,
         seconds: 04,
       },
@@ -118,7 +155,7 @@ const createReport = async (url) => {
       },
       trackLog: trackLog,
       doublesPlayed: doublesPlayed,
-      playlistDate: playlistdate,
+      playlistDate: playlistdate_formatted,
       playlistTitle: playlisttitle,
     }
     return seratoReport
@@ -127,9 +164,6 @@ const createReport = async (url) => {
   }
 }
 // FUTURE DEV NOTES
-//
-// User option to download summary
-// User option to aggregate summary (requires data storage $$)
 //
 // AVERAGE TRACKS PER HOUR
 //
@@ -145,6 +179,8 @@ const createReport = async (url) => {
 // plan for ui to show aggregate data on site load once user base is contributing
 //
 // PRIVATE REPORTS
+//
+// check if shortest track is part of a doubles pair
 //
 // is there a way to gen data for private playlists? (probably not...)
 

@@ -156,7 +156,7 @@ const LiveReport = () => {
                         set date:
                       </Typography>
                       <Typography variant='h5' component='div'>
-                        {playlistDate}
+                        {playlistDate[1]} {playlistDate[0]}
                       </Typography>
                     </CardContent>
                   </Card>
