@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -16,7 +16,7 @@ const GenreData = (genreData) => {
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
-  }  
+  }
 
   return (
     <Fragment>
@@ -138,7 +138,7 @@ const GenreData = (genreData) => {
               </Card>
             </Grid>
           </Grid>
-        </Box>        
+        </Box>
       </div>
     </Fragment>
   )

@@ -2,15 +2,16 @@ const chalk = require('chalk')
 const calculateAverageTime = require('./shared/calculateAverageTime')
 const getPlaylistData = require('./SeratoReportHelpers/getPlaylistData')
 const getArtistData = require('./SeratoReportHelpers/getArtistData')
+const getBpmData = require('./SeratoReportHelpers/getBpmData')
+const getGenreData = require('./SeratoReportHelpers/getGenreData')
+const getAlbumData = require('./SeratoReportHelpers/getAlbumData')
 const calculateTagHealth = require('./SeratoReportHelpers/calculateTagHealth')
 const parsePlayedAtTime = require('./SeratoReportHelpers/parsePlayedAtTime')
 
 const createSeratoReport = (data) => {
-  let hasDeckData,
-    hasBPMData,
+  let hasDeckData,    
     hasKeyData,
-    hasYearData,
-    hasGenreData,
+    hasYearData,    
     hasAlbumData,
     hasDoublesData
 
@@ -128,217 +129,22 @@ const createSeratoReport = (data) => {
   //              bpm data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // array of bpms
-  let bpmArray = []
-  let nullBPMCount = 0
-  masterTrackLog.forEach((track) => {
-    if (!track.bpm || track.bpm === '') {
-      nullBPMCount++
-    } else {
-      bpmArray.push(new Number(track.bpm))
-    }
-  })
-
-  let bpmRange, averageBPM, largestBPMDifference, bpmChangeIndex
-
-  if (bpmArray.length === 0) {
-    hasBPMData = false
-  } else {
-    hasBPMData = true
-
-    // identify bpm range
-    bpmRange = {
-      minBPM: Math.min(...bpmArray),
-      maxBPM: Math.max(...bpmArray),
-    }
-
-    // identify average BPM
-    averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
-
-    // identify biggest bpm change
-    // check for data outliers (bpms that aren't consistent with the rest of the set)
-    // add logic to identify biggest bpm change per hour
-    const calculateBPMChanges = (array) => {
-      var newArray = []
-      for (var i = 1; i < array.length; i++)
-        newArray.push(array[i] - array[i - 1])
-      bpmChangeIndex = newArray.indexOf(Math.max(...newArray))
-      return newArray
-    }
-    largestBPMDifference = Math.max(...calculateBPMChanges(bpmArray))
-  }
-
-  if (!hasBPMData) {
-    seratoPlaylistAnalysis.bpm_data = {
-      has_bpm_data: false,
-    }
-  } else {
-    seratoPlaylistAnalysis.bpm_data = {
-      average_bpm: averageBPM.toFixed(1),
-      bpm_range: {
-        minimum: bpmRange.minBPM,
-        maximum: bpmRange.maxBPM,
-      },
-      biggest_bpm_change: {
-        track_one: {
-          bpm: masterTrackLog[bpmChangeIndex].bpm,
-          name: masterTrackLog[bpmChangeIndex].name,
-        },
-        track_two: {
-          bpm: masterTrackLog[bpmChangeIndex + 1].bpm,
-          name: masterTrackLog[bpmChangeIndex + 1].name,
-        },
-        occurred_at: parsePlayedAtTime(masterTrackLog[bpmChangeIndex + 1]['start time']),
-      },
-      tag_health: {
-        percentage_with_bpm_tags: calculateTagHealth(
-          bpmArray.length,
-          masterTrackLog.length
-        ).toFixed(1),
-        empty_bpm_tags: nullBPMCount,
-      },
-    }
-  }
+  let seratoBpmData = getBpmData(masterTrackLog)
+  seratoPlaylistAnalysis.bpm_data = seratoBpmData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              genre data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // array of genres (removing 'Other' from result & counting total instances in playlist)
-  // add better syntax casing for multi-word genres (convert to lowercase, etc)
-
-  let trackGenres = []
-  let nullGenreCount = 0
-  let otherGenreCount = 0
-  let genreTagsWithValues = 0
-
-  masterTrackLog.forEach((track) => {
-    if (!track.genre || track.genre === '') {
-      nullGenreCount++
-    } else if (track.genre === 'Other') {
-      otherGenreCount++
-      genreTagsWithValues++
-    } else {
-      if (track.genre.includes('-')) {
-        trackGenres.push(track.genre.replace('-', ' '))
-        genreTagsWithValues++
-      } else {
-        trackGenres.push(track.genre.toLowerCase())
-        genreTagsWithValues++
-      }
-    }
-  })
-
-  let uniqueGenres, topGenresPlayed
-  let topThreeGenres = []
-  let genreCount = {}
-
-  if (trackGenres.length === 0) {
-    hasGenreData = false
-  } else {
-    hasGenreData = true
-
-    // identify number of unique genres played
-    // add logic to identify unique genres per hour
-    trackGenres.forEach((item) => {
-      genreCount[item] = (genreCount[item] || 0) + 1
-    })
-    uniqueGenres = new Set(trackGenres)
-
-    // identify top three genres played
-    topGenresPlayed = Object.keys(genreCount)
-    topGenresPlayed.sort((a, b) => {
-      return genreCount[b] - genreCount[a]
-    })
-    topThreeGenres.push(
-      topGenresPlayed[0],
-      topGenresPlayed[1],
-      topGenresPlayed[2]
-    )
-  }
-
-  if (!hasGenreData) {
-    seratoPlaylistAnalysis.genre_data = {
-      has_genre_data: false,
-    }
-  } else {
-    seratoPlaylistAnalysis.genre_data = {
-      unique_genres_played: uniqueGenres.size,
-      top_three_genres: [
-        topThreeGenres[0],
-        topThreeGenres[1],
-        topThreeGenres[2],
-      ],
-      tag_health: {
-        percentage_with_genre_tags: calculateTagHealth(
-          genreTagsWithValues,
-          masterTrackLog.length
-        ).toFixed(1),
-        percentage_with_other_as_genre: calculateTagHealth(
-          otherGenreCount,
-          trackGenres.length
-        ).toFixed(1),
-        empty_genre_tags: nullGenreCount,
-        other_genre_tags: otherGenreCount,
-      },
-    }
-  }
+  let seratoGenreData = getGenreData(masterTrackLog)
+  seratoPlaylistAnalysis.genre_data = seratoGenreData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              album data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // array of albums
-  let trackAlbums = []
-  let nullAlbumCount = 0
-  masterTrackLog.forEach((track) => {
-    if (!track.album || track.album === '') {
-      nullAlbumCount++
-    } else {
-      trackAlbums.push(track.album)
-    }
-  })
-
-  let albumCount = {}
-  let topThreeAlbums = []
-  let uniqueAlbums, topAlbumsPlayed
-
-  if (trackAlbums.length === 0) {
-    hasAlbumData = false
-  } else {
-    hasAlbumData = true
-
-    trackAlbums.forEach((item) => {
-      albumCount[item] = (albumCount[item] || 0) + 1
-    })
-    uniqueAlbums = new Set(trackAlbums)
-
-    // identify top three genres played
-    topAlbumsPlayed = Object.keys(albumCount)
-    topAlbumsPlayed.sort((a, b) => {
-      return albumCount[b] - albumCount[a]
-    })
-    topThreeAlbums.push(
-      topAlbumsPlayed[0],
-      topAlbumsPlayed[1],
-      topAlbumsPlayed[2]
-    )
-  }
-
-  if (!hasAlbumData) {
-    seratoPlaylistAnalysis.album_data = {
-      has_album_data: false,
-    }
-  } else {
-    seratoPlaylistAnalysis.album_data = {
-      unique_albums_played: uniqueAlbums.size,
-      top_three_albums: [
-        topThreeAlbums[0],
-        topThreeAlbums[1],
-        topThreeAlbums[2],
-      ],
-    }
-  }
+  let seratoAlbumData = getAlbumData(masterTrackLog)
+  seratoPlaylistAnalysis.album_data = seratoAlbumData
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              year data & analysis
@@ -422,7 +228,7 @@ const createSeratoReport = (data) => {
         name: oldestTracks[0].name,
         count: oldestTrackCount,
         tracks: oldestTracks,
-        occurred_at: parsePlayedAtTime(oldestTracks[0]['start time'])
+        occurred_at: parsePlayedAtTime(oldestTracks[0]['start time']),
       },
       newest_track: {
         year: newestTrack,
