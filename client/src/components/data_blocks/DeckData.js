@@ -20,7 +20,7 @@ const DeckData = (deckdata) => {
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={6} sm={12} lg={6}>
+            <Grid item xs={12} md={6} sm={6} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography>deck 1 average track playtime:</Typography>
@@ -35,7 +35,7 @@ const DeckData = (deckdata) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6} sm={12} lg={6}>
+            <Grid item xs={12} md={6} sm={6} lg={6}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography>deck 2 average track playtime:</Typography>
