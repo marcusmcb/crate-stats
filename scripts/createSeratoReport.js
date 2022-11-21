@@ -64,9 +64,12 @@ const createSeratoReport = (data) => {
     if (!track.playtime || track.playtime === '') {
       nullLengthCount++
     } else {
-      trackLengths.push(track.playtime)
+      trackLengths.push(track.playtime.substring(3))
     }
   })
+
+  console.log(chalk.magenta("----- TRACK LENGTHS ------"))
+  console.log(chalk.cyan(trackLengths))
 
   let averageTrackLength,
     longestTrack,
@@ -262,6 +265,9 @@ const createSeratoReport = (data) => {
     }
   })
 
+  console.log(chalk.magenta("----- TRACK KEYS -----"))
+  console.log(chalk.yellow(trackKeys))
+
   let mostCommonKey, mostCommonKeyCount, leastCommonKey, leastCommonKeyCount
 
   // script currently account for each song's root key only
@@ -279,7 +285,7 @@ const createSeratoReport = (data) => {
     let rootKeyCount = [...rootKeys].reduce((a, e) => {
       a[e] = a[e] ? a[e] + 1 : 1
       return a
-    }, {})
+    }, {})    
 
     // identify most common key played & # of times played
     mostCommonKey = Object.keys(rootKeyCount).reduce((a, b) =>
