@@ -1,20 +1,41 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import InfoIcon from "@mui/icons-material/Info";
-import { Divider } from "semantic-ui-react";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import InfoIcon from '@mui/icons-material/Info'
+import { Divider } from 'semantic-ui-react'
+import Modal from '@mui/material/Modal'
 
 const DoublesData = (doublesdata) => {
+  const [openL, setOpenL] = React.useState(false)
+  const handleOpenL = () => setOpenL(true)
+  const handleCloseL = () => setOpenL(false)
+
+  const [openR, setOpenR] = React.useState(false)
+  const handleOpenR = () => setOpenR(true)
+  const handleCloseR = () => setOpenR(false)
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  }
+
   return (
     <Fragment>
       <div>
         <Typography
           sx={{ fontSize: 20 }}
-          color="#c5e1a5"
+          color='#c5e1a5'
           fontWeight={500}
           gutterBottom
         >
@@ -27,21 +48,21 @@ const DoublesData = (doublesdata) => {
                 <CardContent>
                   {/* crate stats card */}
                   <Typography>
-                    deck 1 doubles playtime:{" "}
+                    deck 1 doubles playtime:{' '}
                     <span>
-                      <InfoIcon 
-                        onClick={() => {
-                          console.log("INFO ICON")
+                      <InfoIcon
+                        onClick={() => {                          
+                          handleOpenL()
                         }}
-                        style={{ paddingBottom: '5px'}}
+                        style={{ paddingBottom: '5px' }}
                       />
                     </span>
                   </Typography>
                   <Typography
-                    variant="h4"
-                    component="div"
+                    variant='h4'
+                    component='div'
                     fontWeight={500}
-                    sx={{ color: "#558b2f" }}
+                    sx={{ color: '#558b2f' }}
                   >
                     {doublesdata.data.deck_1_doubles_playtime.slice(4)}
                   </Typography>
@@ -53,21 +74,21 @@ const DoublesData = (doublesdata) => {
                 <CardContent>
                   {/* crate stats card */}
                   <Typography>
-                    deck 2 doubles playtime:{" "}
+                    deck 2 doubles playtime:{' '}
                     <span>
-                      <InfoIcon 
-                        onClick={() => {
-                          console.log("INFO ICON")
+                      <InfoIcon
+                        onClick={() => {                          
+                          handleOpenR()
                         }}
-                        style={{ paddingBottom: '5px'}}
+                        style={{ paddingBottom: '5px' }}
                       />
                     </span>
                   </Typography>
                   <Typography
-                    variant="h4"
-                    component="div"
+                    variant='h4'
+                    component='div'
                     fontWeight={500}
-                    sx={{ color: "#558b2f" }}
+                    sx={{ color: '#558b2f' }}
                   >
                     {doublesdata.data.deck_2_doubles_playtime.slice(4)}
                   </Typography>
@@ -85,10 +106,10 @@ const DoublesData = (doublesdata) => {
                     </Grid>
                     <Grid item>
                       <Typography
-                        variant="h4"
-                        component="div"
+                        variant='h4'
+                        component='div'
                         fontWeight={500}
-                        sx={{ color: "#558b2f" }}
+                        sx={{ color: '#558b2f' }}
                       >
                         {doublesdata.data.doubles_detected}
                       </Typography>
@@ -99,16 +120,64 @@ const DoublesData = (doublesdata) => {
                     <Grid item>
                       {doublesdata.data.doubles_played.map((item, i) => (
                         <Typography
-                          component="div"
+                          component='div'
                           fontWeight={500}
                           sx={{ fontSize: 16 }}
                           key={i}
                         >
-                          {item.artist} - {item.name}{" "}
+                          {item.artist} - {item.name}{' '}
                         </Typography>
                       ))}
                     </Grid>
                   </Grid>
+                  <Modal
+                    open={openL}
+                    onClose={handleCloseL}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id='modal-modal-title'
+                        variant='h6'
+                        component='h2'
+                        style={{ color: '#558b2f' }}
+                      >
+                        When playing the same track on both decks...
+                      </Typography>
+                      <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                        You played that track on deck 1 for an average of {' '}
+                        <span style={{ color: '#558b2f', fontWeight: '600' }}>
+                          {doublesdata.data.deck_1_doubles_playtime.slice(4)}
+                        </span>{' '}
+                        during this set.
+                      </Typography>
+                    </Box>
+                  </Modal>
+                  <Modal
+                    open={openR}
+                    onClose={handleCloseR}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id='modal-modal-title'
+                        variant='h6'
+                        component='h2'
+                        style={{ color: '#558b2f' }}
+                      >
+                        When playing the same track on both decks...
+                      </Typography>
+                      <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                        You played that track on deck 2 for an average of {' '}
+                        <span style={{ color: '#558b2f', fontWeight: '500' }}>
+                          {doublesdata.data.deck_2_doubles_playtime.slice(4)}
+                        </span>{' '}
+                        during this set.
+                      </Typography>
+                    </Box>
+                  </Modal>
                 </CardContent>
               </Card>
             </Grid>
@@ -116,7 +185,7 @@ const DoublesData = (doublesdata) => {
         </Box>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default DoublesData;
+export default DoublesData

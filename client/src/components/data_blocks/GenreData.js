@@ -128,8 +128,7 @@ const GenreData = (genreData) => {
                             <span>
                               ...with "other" as their main genre:{" "}
                               <HelpOutlineIcon
-                                onClick={() => {
-                                  console.log("clicked");
+                                onClick={() => {                                  
                                   handleOpen();
                                 }}
                               />

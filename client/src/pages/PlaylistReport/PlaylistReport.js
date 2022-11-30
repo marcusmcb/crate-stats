@@ -11,6 +11,7 @@ import DoublesData from '../../components/data_blocks/DoublesData'
 import GenreData from '../../components/data_blocks/GenreData'
 import ArtistData from '../../components/data_blocks/ArtistData'
 import AlbumData from '../../components/data_blocks/AlbumData'
+import MasterTracklog from '../../components/data_blocks/MasterTracklog'
 import DragAndDrop from '../../components/shared/DragAndDrop'
 
 import axios from 'axios'
@@ -181,6 +182,13 @@ const PlaylistReport = () => {
                 <DataMissing data={{ value: 'artist' }} />
               ) : (
                 <ArtistData data={data.artist_data} />
+              )}
+            </div>
+            <div className='data-block'>
+              {!data.master_track_log ? (
+                <DataMissing data={{ value: 'tracklog' }} />
+              ) : (
+                <MasterTracklog data={data.master_track_log} />
               )}
             </div>
           </div>
