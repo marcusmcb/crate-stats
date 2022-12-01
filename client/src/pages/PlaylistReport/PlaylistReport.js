@@ -13,6 +13,7 @@ import ArtistData from '../../components/data_blocks/ArtistData'
 import AlbumData from '../../components/data_blocks/AlbumData'
 import MasterTracklog from '../../components/data_blocks/MasterTracklog'
 import DragAndDrop from '../../components/shared/DragAndDrop'
+import Summary from '../../components/data_blocks/Summary'
 
 import axios from 'axios'
 import Box from '@mui/material/Box'
@@ -98,6 +99,9 @@ const PlaylistReport = () => {
           </div>
         ) : (
           <div>
+            {/* <div className='data-block'>
+              <Summary/>
+            </div> */}
             <div className='data-block'>
               {data.playlist_data.has_playlist_data === false ? (
                 <DataMissing data={{ value: 'playlist' }} />
