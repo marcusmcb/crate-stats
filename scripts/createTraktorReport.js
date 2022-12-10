@@ -34,22 +34,18 @@ const convertToCSV = (data) => {
 
 // helper method to replace index icon in csv data
 const replaceHash = (string) => {
-  return string.replace(/��#/g, 'index');
+  return string.replace(/��#/g, "index");
 };
 
-function convertObjectToArray(object) {
-  var array = [];
-  for (var key in object) {
-    if (object.hasOwnProperty(key)) {
-      array.push(object[key]);
-    }
-  }
-  return array;
+function convertJsonStringToArray(jsonString) {
+  return JSON.parse('[' + jsonString + ']');
 }
 
 setTimeout(() => {
-  let x = convertToCSV(textData);
+  let x = convertToCSV(textData);  
+  console.log(x)
   let y = replaceHash(x);
+  
   try {
     y = y.replace(/[\u0000-\u001F]+/g, "");
     y = y
@@ -61,14 +57,26 @@ setTimeout(() => {
       .replace(/\\t/g, "\\t")
       .replace(/\\b/g, "\\b")
       .replace(/\\f/g, "\\f");
-    let z = JSON.parse(JSON.stringify(y));    
-    console.log("******************************")
-    let beebee = z.split(/\},\s*\{/g)
-    // console.log(beebee)
-    let ceecee = convertObjectToArray(beebee)
-    console.log(ceecee)
+    let z = JSON.parse(JSON.stringify(y));
+    // console.log(z)
+    // let w = convertJsonStringToArray(z)
+    // console.log(w)
+    
+    console.log("******************************");
+    // convert json string to object
+    let stringToObj = z.split(/\},\s*\{/g);
+
+    let arr = [];
+    // let blarfy = Object.values(stringToObj)
+    // console.log(blarfy)
+    let temp = Object.entries(stringToObj).forEach((item) => {
+      arr.push(item);
+    });
+    
+    // let ceecee = convertObjectToArray(beebee)
+    // console.log(ceecee)
   } catch (err) {
     console.log("ERR: ", err);
   }
-  let z = JSON.parse(JSON.stringify(y));  
+  let z = JSON.parse(JSON.stringify(y));
 }, 500);
