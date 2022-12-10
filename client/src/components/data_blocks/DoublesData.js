@@ -64,7 +64,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_1_doubles_playtime.slice(4)}
+                    {doublesdata.data.deck_1_doubles_playtime}
                   </Typography>
                 </CardContent>
               </Card>
@@ -90,7 +90,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_2_doubles_playtime.slice(4)}
+                    {doublesdata.data.deck_2_doubles_playtime}
                   </Typography>
                 </CardContent>
               </Card>
@@ -148,7 +148,7 @@ const DoublesData = (doublesdata) => {
                       <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                         You played that track on deck 1 for an average of {' '}
                         <span style={{ color: '#558b2f', fontWeight: '600' }}>
-                          {doublesdata.data.deck_1_doubles_playtime.slice(4)}
+                          {doublesdata.data.deck_1_doubles_playtime}
                         </span>{' '}
                         during this set.
                       </Typography>
@@ -172,7 +172,7 @@ const DoublesData = (doublesdata) => {
                       <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                         You played that track on deck 2 for an average of {' '}
                         <span style={{ color: '#558b2f', fontWeight: '500' }}>
-                          {doublesdata.data.deck_2_doubles_playtime.slice(4)}
+                          {doublesdata.data.deck_2_doubles_playtime}
                         </span>{' '}
                         during this set.
                       </Typography>

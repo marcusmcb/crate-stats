@@ -51,7 +51,7 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {trackdata.data.average_track_length.slice(1)}
+                      {trackdata.data.average_track_length}
                     </Typography>
                   </Grid>
                 </Grid>
