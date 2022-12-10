@@ -1,6 +1,7 @@
 const scrapeData = require('./LiveReportHelpers/scrapeData')
 const parseTimeValues = require('./LiveReportHelpers/parseTimeValues')
 const parseStartTime = require('./LiveReportHelpers/parseStartTime')
+const calculateAverageTime = require('./LiveReportHelpers/calculateAverageTime')
 
 const createReport = async (url) => {
   try {
@@ -59,6 +60,7 @@ const createReport = async (url) => {
       }
     }
 
+    // master track log 
     let trackLog = tracksPlayed.map((result, index) => {
       return {
         trackId: result,
@@ -67,6 +69,16 @@ const createReport = async (url) => {
         length: timeDiffs[index],
       }
     })
+
+    // create an array of track lengths in MS and send to
+    // calculateAverageTime to convert and return average
+    let msArray = []
+    
+    for (let i = 0; i < trackLog.length - 1; i++) {      
+      msArray.push(trackLog[i]['length'])
+    }      
+
+    let average_track_length = calculateAverageTime(msArray)    
 
     // longest track played
     let longestSeconds
@@ -100,17 +112,7 @@ const createReport = async (url) => {
       shortestSeconds = '0' + tempShortestSeconds
     } else {
       shortestSeconds = tempShortestSeconds
-    }
-
-    // average track length played
-    let sumDiff = 0
-    for (let m = 0; m < timeDiffs.length; m++) {
-      sumDiff += timeDiffs[m]
-    }
-    let avg = sumDiff / timeDiffs.length
-    let w = (avg / 1000).toFixed()
-    let minutes = Math.floor(w / 60) % 60
-    let seconds = w % 60
+    }   
 
     // playlist length & parse hours/minutes/seconds
     let playlistLength = timestamps.last().text().trim()
@@ -147,10 +149,11 @@ const createReport = async (url) => {
         minutes: shortestMinutes,
         seconds: shortestSeconds,
       },
-      avgTrackLength: {
-        lengthValue: minutes + ':' + seconds,
-        minutes: minutes,
-        seconds: seconds,
+      averageTrackLength: average_track_length,
+      avgTrackLength: {        
+        lengthValue: average_track_length,
+        minutes: average_track_length.split(':')[0],
+        seconds: average_track_length.split(':')[1],
       },
       trackLog: trackLog,
       doublesPlayed: doublesPlayed,
