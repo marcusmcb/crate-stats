@@ -71,6 +71,19 @@ const createSeratoReport = (data) => {
   console.log(chalk.magenta("----- TRACK LENGTHS ------"))
   console.log(chalk.cyan(trackLengths))
 
+  const averageTime = (times) => {
+    const totalSeconds = times.reduce((acc, time) => {
+      const [minutes, seconds] = time.split(':').map(Number);
+      return acc + (minutes * 60) + seconds;
+    }, 0);
+    const averageSeconds = totalSeconds / times.length;
+    const minutes = Math.floor(averageSeconds / 60);
+    const seconds = Math.floor(averageSeconds % 60);
+    console.log(`${minutes}:${seconds}`)
+  }
+
+  averageTime(trackLengths)
+
   let averageTrackLength,
     longestTrack,
     longestTrackStartTime,
