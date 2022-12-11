@@ -24,8 +24,7 @@ const convertJsonStringToArray = (jsonString) => {
   return JSON.parse("[" + jsonString + "]");
 };
 
-// helper method to remove unnecessary artwork and index values
-// from playlist data
+// helper method to remove unnecessary artwork and index values from playlist data
 const cleanTraktorArray = (array) => {
   for (var i = 0; i < array.length; i++) {
     delete array[i].Artwork;
@@ -43,8 +42,7 @@ const calculateAverage = (arr) => {
   return sum / arr.length;
 }
 
-// helper method to convert average track length from 
-// milliseconds back to MM:SS format
+// helper method to convert average track length from milliseconds back to MM:SS format
 const convertMSToMMSS = (milliseconds) => {
   var minutes = Math.floor(milliseconds / 60000);
   var seconds = ((milliseconds % 60000) / 1000).toFixed(0);
@@ -52,15 +50,14 @@ const convertMSToMMSS = (milliseconds) => {
 }
 
 // helper method to convert MM:SS values to milliseconds
-const convertTime = (times) => {
+const convertMMSStoMS = (times) => {
   return times.map(time => {
     const [minutes, seconds] = time.split(':');
     return (parseInt(minutes) * 60 + parseInt(seconds)) * 1000;
   });
 }
 
-// helper method to replace white space with underscores
-// in playlist array objects
+// helper method to replace white space with underscores in playlist array objects
 const cleanTraktorKeys = (array) => {
   var newArray = [];
   for (var i = 0; i < array.length; i++) {
@@ -82,7 +79,7 @@ module.exports = {
   convertJsonStringToArray: convertJsonStringToArray,
   cleanTraktorArray: cleanTraktorArray,
   cleanTraktorKeys: cleanTraktorKeys,
-  convertTime: convertTime,
+  convertMMSStoMS: convertMMSStoMS,
   calculateAverage: calculateAverage,
   convertMSToMMSS: convertMSToMMSS
 };

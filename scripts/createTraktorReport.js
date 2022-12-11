@@ -13,7 +13,7 @@ const {
   cleanTraktorArray,
   cleanTraktorKeys,
   replaceHash,
-  convertTime,
+  convertMMSStoMS,
   convertMSToMMSS,
   calculateAverage
 } = require('./TraktorReportHelpers/fileImportHelpers')
@@ -64,10 +64,9 @@ setTimeout(() => {
       trackLengths.push(track.Time)
     })    
 
-    let msArray = convertTime(trackLengths)    
+    let msArray = convertMMSStoMS(trackLengths)    
     let msAverage = Math.round(calculateAverage(msArray))    
-    let averageTrackLength = convertMSToMMSS(msAverage)
-    
+    let averageTrackLength = convertMSToMMSS(msAverage)    
 
     traktorPlaylistData.master_track_log = traktorData
     traktorPlaylistData.track_data = {
