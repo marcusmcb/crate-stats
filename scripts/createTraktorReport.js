@@ -16,9 +16,9 @@ const {
   convertMMSStoMS,
   convertMSToMMSS,
   calculateAverage,
-  genreCount,
+  arrayCount,
   getUniqueGenres,
-  sortGenresPlayed
+  sortObject,
 } = require('./TraktorReportHelpers/fileImportHelpers')
 
 const fs = require('fs')
@@ -146,13 +146,13 @@ setTimeout(() => {
     })
 
     // total genres played & total unique genres played
-    const genresPlayed = genreCount(genres)    
+    const genresPlayed = arrayCount(genres)
 
     // unique genres played in set
     let uniqueGenres = getUniqueGenres(genres)
-    
+
     // top three genres played in set
-    let topGenresSorted = sortGenresPlayed(genresPlayed)    
+    let topGenresSorted = sortObject(genresPlayed)
     topThreeGenres.push(
       Object.keys(topGenresSorted)[0],
       Object.keys(topGenresSorted)[1],
@@ -178,6 +178,54 @@ setTimeout(() => {
       },
     }
     console.log(traktorPlaylistData)
+
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+    //              key data & analysis
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // array of keys
+    let trackKeys = []
+    let nullKeyCount = 0
+    traktorData.forEach((track) => {
+      if (!track.Key || track.Key === '') {
+        nullKeyCount++
+      } else {
+        trackKeys.push(track.Key)
+      }
+    })
+
+    console.log(trackKeys)
+
+    let keysPlayed = arrayCount(trackKeys)
+    let topKeysPlayed = sortObject(keysPlayed)
+    let mostCommonKey = Object.keys(topKeysPlayed)[0]
+    let mostCommonKeyTimesPlayed = Object.values(topKeysPlayed)[0]
+    let keys = Object.keys(topKeysPlayed)    
+    let values = Object.values(topKeysPlayed)
+    let leastCommonKey = keys[keys.length - 1] 
+    let leastCommonKeyTimesPlayed = values[values.length - 1]
+
+    
+    traktorPlaylistData.key_data = {
+      most_common_key: {
+        key: mostCommonKey,
+        times_played: mostCommonKeyTimesPlayed
+      },
+      least_common_key: {
+        key: leastCommonKey,
+        times_played: leastCommonKeyTimesPlayed
+      },
+      tag_health: {
+        percentage_with_key_tags: calculateTagHealth(
+          trackKeys.length,
+          traktorData.length
+        ).toFixed(1),
+        empty_key_tags: nullKeyCount
+      }
+    }
+
+    console.log(traktorPlaylistData)
+    
 
   } catch (err) {
     console.log('ERR: ', err)

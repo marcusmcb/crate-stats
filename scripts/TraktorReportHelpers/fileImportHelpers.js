@@ -74,7 +74,7 @@ const cleanTraktorKeys = (array) => {
 }
 
 // helper method to create a count of each genre played in set
-const genreCount = (arr) => {
+const arrayCount = (arr) => {
   var counts = {}
   for (var i = 0; i < arr.length; i++) {
     var num = arr[i]
@@ -95,7 +95,7 @@ const getUniqueGenres = (arr) => {
 }
 
 // helper method to sort the top three genres played in traktor set
-const sortGenresPlayed = (obj) => {
+const sortObject = (obj) => {
   var sorted = {}
   var keys = Object.keys(obj)
   keys.sort(function (a, b) {
@@ -116,7 +116,7 @@ module.exports = {
   convertMMSStoMS: convertMMSStoMS,
   calculateAverage: calculateAverage,
   convertMSToMMSS: convertMSToMMSS,
-  genreCount: genreCount,
+  arrayCount: arrayCount,
   getUniqueGenres: getUniqueGenres,
-  sortGenresPlayed: sortGenresPlayed,
+  sortObject: sortObject,
 }
