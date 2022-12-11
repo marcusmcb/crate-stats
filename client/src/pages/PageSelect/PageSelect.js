@@ -142,7 +142,7 @@ const PageSelect = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                <CardHeader title='Post DJ Set Analysis' />
+                <CardHeader title='DJ Playlist Analysis' />
 
                 <CardMedia
                   component='img'
