@@ -34,6 +34,14 @@ const cleanTraktorArray = (array) => {
   return array;
 };
 
+// helper method to convert MM:SS values to milliseconds
+const convertTime = (times) => {
+  return times.map(time => {
+    const [minutes, seconds] = time.split(':');
+    return (parseInt(minutes) * 60 + parseInt(seconds)) * 1000;
+  });
+}
+
 // helper method to replace white space with underscores
 // in playlist array objects
 const cleanTraktorKeys = (array) => {
@@ -56,5 +64,6 @@ module.exports = {
   replaceHash: replaceHash,
   convertJsonStringToArray: convertJsonStringToArray,
   cleanTraktorArray: cleanTraktorArray,
-  cleanTraktorKeys: cleanTraktorKeys
+  cleanTraktorKeys: cleanTraktorKeys,
+  convertTime: convertTime
 };

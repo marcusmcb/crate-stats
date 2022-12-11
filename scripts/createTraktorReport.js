@@ -13,6 +13,7 @@ const {
   cleanTraktorArray,
   cleanTraktorKeys,
   replaceHash,
+  convertTime
 } = require('./TraktorReportHelpers/fileImportHelpers')
 
 const fs = require('fs')
@@ -57,10 +58,10 @@ setTimeout(() => {
     let trackLengths = []
     traktorData.forEach((track) => {
       trackLengths.push(track.Time)
-    })
-
-    console.log(trackLengths)      
-
+    })        
+    let msArray = convertTime(trackLengths)   
+    console.log(msArray)
+    
     traktorPlaylistData.master_track_log = traktorData
     traktorPlaylistData.total_tracks_played = totalTracksPlayed
   } catch (err) {
