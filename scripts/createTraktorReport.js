@@ -13,7 +13,9 @@ const {
   cleanTraktorArray,
   cleanTraktorKeys,
   replaceHash,
-  convertTime
+  convertTime,
+  convertMSToMMSS,
+  calculateAverage
 } = require('./TraktorReportHelpers/fileImportHelpers')
 
 const fs = require('fs')
@@ -30,6 +32,8 @@ fs.readFile('./HISTORY-2020-02-15.txt', 'utf8', (err, data) => {
   }
 })
 
+
+
 // try block fails without the timeout
 // await result of fs.readFile()?
 setTimeout(() => {
@@ -41,7 +45,7 @@ setTimeout(() => {
     let traktorData = convertJsonStringToArray(parsedCSVData)
     traktorData = cleanTraktorArray(traktorData)
     traktorData = cleanTraktorKeys(traktorData)
-    console.log(traktorData)
+    traktorData = traktorData.slice(0, -1)     
 
     // data parsed as array of objects and ready for analysis
 
@@ -58,12 +62,54 @@ setTimeout(() => {
     let trackLengths = []
     traktorData.forEach((track) => {
       trackLengths.push(track.Time)
-    })        
-    let msArray = convertTime(trackLengths)   
-    console.log(msArray)
+    })    
+
+    let msArray = convertTime(trackLengths)    
+    let msAverage = Math.round(calculateAverage(msArray))    
+    let averageTrackLength = convertMSToMMSS(msAverage)
     
+
     traktorPlaylistData.master_track_log = traktorData
-    traktorPlaylistData.total_tracks_played = totalTracksPlayed
+    traktorPlaylistData.track_data = {
+      total_tracks_played: totalTracksPlayed,
+      average_track_length: averageTrackLength,
+      shortest_track_played: {
+        title: traktorData[msArray.indexOf(Math.min(...msArray))].Track_Title,
+        artist: traktorData[msArray.indexOf(Math.min(...msArray))].Artist,
+        length: traktorData[msArray.indexOf(Math.min(...msArray))].Time
+      },      
+      longest_track_played: {
+        title: traktorData[msArray.indexOf(Math.max(...msArray))].Track_Title,
+        artist: traktorData[msArray.indexOf(Math.max(...msArray))].Artist,
+        length: traktorData[msArray.indexOf(Math.max(...msArray))].Time
+      },
+    }   
+
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+    //              bpm data & analysis
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+
+    let bpmArray = []
+    let nullBPMCount = 0
+    traktorData.forEach((track) => {
+      if (!track['BPM'] || track['BPM'] === '') {
+        nullBPMCount++
+      } else {
+        bpmArray.push(new Number(track['BPM']))
+      }
+    })
+
+    let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
+
+    traktorPlaylistData.bpm_data = {
+      average_bpm: averageBPM.toFixed(),
+      bpm_range: {
+        minBPM: Math.min(...bpmArray),
+        maxBPM: Math.max(...bpmArray)
+      },
+      empty_bpm_tags: nullBPMCount
+    }
+    console.log(traktorPlaylistData)        
   } catch (err) {
     console.log('ERR: ', err)
   }

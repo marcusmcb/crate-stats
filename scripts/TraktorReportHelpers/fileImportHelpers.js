@@ -34,6 +34,23 @@ const cleanTraktorArray = (array) => {
   return array;
 };
 
+// helper method to calculate average track length in MS
+const calculateAverage = (arr) => {
+  var sum = 0;
+  for (var i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+}
+
+// helper method to convert average track length from 
+// milliseconds back to MM:SS format
+const convertMSToMMSS = (milliseconds) => {
+  var minutes = Math.floor(milliseconds / 60000);
+  var seconds = ((milliseconds % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
 // helper method to convert MM:SS values to milliseconds
 const convertTime = (times) => {
   return times.map(time => {
@@ -65,5 +82,7 @@ module.exports = {
   convertJsonStringToArray: convertJsonStringToArray,
   cleanTraktorArray: cleanTraktorArray,
   cleanTraktorKeys: cleanTraktorKeys,
-  convertTime: convertTime
+  convertTime: convertTime,
+  calculateAverage: calculateAverage,
+  convertMSToMMSS: convertMSToMMSS
 };
