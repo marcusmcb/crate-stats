@@ -13,35 +13,57 @@ const {
   cleanTraktorArray,
   cleanTraktorKeys,
   replaceHash,
-} = require("./TraktorReportHelpers/fileImportHelpers");
+} = require('./TraktorReportHelpers/fileImportHelpers')
 
-const fs = require("fs");
+const fs = require('fs')
 
-let textData;
-
-const file = "file:///HISTORY-2020-02-15.txt";
+let textData
 
 // read txt data from test file
-fs.readFile("./HISTORY-2020-02-15.txt", "utf8", (err, data) => {
+fs.readFile('./HISTORY-2020-02-15.txt', 'utf8', (err, data) => {
   if (err) {
-    console.log(err);
+    console.log(err)
   } else {
-    textData = data;
-    return data;
+    textData = data
+    return data
   }
-});
+})
 
+// try block fails without the timeout
+// await result of fs.readFile()?
 setTimeout(() => {
   try {
-    let csvData = convertToCSV(textData);
-    let cleanCSVData = replaceHash(csvData);
-    cleanCSVData = cleanCSVData.replace(/[\u0000-\u001F]+/g, "");
-    let parsedCSVData = JSON.parse(JSON.stringify(cleanCSVData));
-    let traktorData = convertJsonStringToArray(parsedCSVData);
-    traktorData = cleanTraktorArray(traktorData);
-    traktorData = cleanTraktorKeys(traktorData);
-    console.log(traktorData);
+    let csvData = convertToCSV(textData)
+    let cleanCSVData = replaceHash(csvData)
+    cleanCSVData = cleanCSVData.replace(/[\u0000-\u001F]+/g, '')
+    let parsedCSVData = JSON.parse(JSON.stringify(cleanCSVData))
+    let traktorData = convertJsonStringToArray(parsedCSVData)
+    traktorData = cleanTraktorArray(traktorData)
+    traktorData = cleanTraktorKeys(traktorData)
+    console.log(traktorData)
+
+    // data parsed as array of objects and ready for analysis
+
+    let traktorPlaylistData = {}
+
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+    //              track data & analysis
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // total tracks played
+    const totalTracksPlayed = traktorData.length
+
+    // array of track lengths
+    let trackLengths = []
+    traktorData.forEach((track) => {
+      trackLengths.push(track.Time)
+    })
+
+    console.log(trackLengths)      
+
+    traktorPlaylistData.master_track_log = traktorData
+    traktorPlaylistData.total_tracks_played = totalTracksPlayed
   } catch (err) {
-    console.log("ERR: ", err);
+    console.log('ERR: ', err)
   }
-}, 500);
+}, 50)
