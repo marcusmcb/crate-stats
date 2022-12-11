@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const path = require('path');
 
 const createSeratoLiveReport = require('./scripts/createSeratoLiveReport')
-const createSeratoReport = require('./scripts/createSeratoReport')
+const createSeratoReport = require('./scripts/createSeratoReport');
+const { reset } = require('nodemon');
 
 const PORT = process.env.PORT || 5000
 const app = express()
@@ -21,6 +22,11 @@ app.post('/liveplaylist', async (req, res) => {
 
 app.post('/sendFile', async (req, res) => {    
   let userReport = await createSeratoReport(req.body)  
+  res.send(userReport)
+})
+
+app.post('/sendTraktorFile', async (req, res) => {
+  let userReport = await createTraktorReport(req.body)
   res.send(userReport)
 })
 
