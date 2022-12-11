@@ -65,7 +65,8 @@ const PlaylistReport = () => {
                             fontWeight: '500',
                           }}
                         >
-                          Awaiting data...
+                          Upload or drop your exported Serato CSV above to view
+                          your CrateStats analysis.
                         </Typography>
                       </Grid>
                     </Grid>
