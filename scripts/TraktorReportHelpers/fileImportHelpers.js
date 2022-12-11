@@ -73,6 +73,16 @@ const cleanTraktorKeys = (array) => {
   return newArray;
 };
 
+// helper method to create a count of each genre played in set
+const genreCount = (arr) => {
+  var counts = {};
+  for (var i = 0; i < arr.length; i++) {
+    var num = arr[i];
+    counts[num] = counts[num] ? counts[num] + 1 : 1;
+  }
+  return counts;
+}
+
 module.exports = {
   convertToCSV: convertToCSV,
   replaceHash: replaceHash,
@@ -81,5 +91,6 @@ module.exports = {
   cleanTraktorKeys: cleanTraktorKeys,
   convertMMSStoMS: convertMMSStoMS,
   calculateAverage: calculateAverage,
-  convertMSToMMSS: convertMSToMMSS
+  convertMSToMMSS: convertMSToMMSS,
+  genreCount: genreCount
 };
