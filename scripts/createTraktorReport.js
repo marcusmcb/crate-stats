@@ -146,12 +146,10 @@ setTimeout(() => {
     })
 
     // total genres played & total unique genres played
-    const genresPlayed = genreCount(genres)
+    const genresPlayed = genreCount(genres)    
 
-    
-
+    // unique genres played in set
     let uniqueGenres = getUniqueGenres(genres)
-
     
     // top three genres played in set
     let topGenresSorted = sortGenresPlayed(genresPlayed)    
@@ -161,6 +159,7 @@ setTimeout(() => {
       Object.keys(topGenresSorted)[2]
     )
 
+    // append genre data to object return
     traktorPlaylistData.genre_data = {
       total_genres_played: genres.length,
       unique_genres_played: uniqueGenres.length,

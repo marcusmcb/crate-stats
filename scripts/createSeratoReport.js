@@ -259,8 +259,8 @@ const createSeratoReport = (data) => {
     }
   });
 
-  console.log(chalk.magenta("----- TRACK KEYS -----"));
-  console.log(chalk.yellow(trackKeys));
+  // console.log(chalk.magenta("----- TRACK KEYS -----"));
+  // console.log(chalk.yellow(trackKeys));
 
   let mostCommonKey, mostCommonKeyCount, leastCommonKey, leastCommonKeyCount;
 
