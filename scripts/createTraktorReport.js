@@ -16,10 +16,13 @@ const {
   convertMMSStoMS,
   convertMSToMMSS,
   calculateAverage,
-  genreCount
+  genreCount,
+  getUniqueGenres,
+  sortGenresPlayed
 } = require('./TraktorReportHelpers/fileImportHelpers')
 
 const fs = require('fs')
+const calculateTagHealth = require('./SeratoReportHelpers/calculateTagHealth')
 
 let textData
 
@@ -112,7 +115,6 @@ setTimeout(() => {
       },
       empty_bpm_tags: nullBPMCount,
     }
-    console.log(traktorPlaylistData)
 
     // - - - - - - - - - - - - - - - - - - - - - - - -
     //              genre data & analysis
@@ -122,7 +124,10 @@ setTimeout(() => {
     let nullGenreCount = 0
     let otherGenreCount = 0
     let genreTagsWithValues = 0
+    let topThreeGenres = []
 
+    // determine if genre value is empty or doesn't exist
+    // determine if genre given is 'other'
     traktorData.forEach((track) => {
       if (!track.Genre || track.Genre === '') {
         nullGenreCount++
@@ -130,8 +135,8 @@ setTimeout(() => {
         otherGenreCount++
         genreTagsWithValues++
       } else {
-        if (track.Genre.includes('-')) {
-          genres.push(track.Genre.replace('-', ' '))
+        if (track.Genre.includes('-') || track.Genre.includes('/')) {
+          genres.push(track.Genre.replace(/[\/-]/g, ' '))
           genreTagsWithValues++
         } else {
           genres.push(track.Genre.toLowerCase())
@@ -140,10 +145,40 @@ setTimeout(() => {
       }
     })
 
-    console.log(genres)
+    // total genres played & total unique genres played
+    const genresPlayed = genreCount(genres)
 
-    console.log(genreCount(genres))
+    
 
+    let uniqueGenres = getUniqueGenres(genres)
+
+    
+    // top three genres played in set
+    let topGenresSorted = sortGenresPlayed(genresPlayed)    
+    topThreeGenres.push(
+      Object.keys(topGenresSorted)[0],
+      Object.keys(topGenresSorted)[1],
+      Object.keys(topGenresSorted)[2]
+    )
+
+    traktorPlaylistData.genre_data = {
+      total_genres_played: genres.length,
+      unique_genres_played: uniqueGenres.length,
+      top_three_genres: topThreeGenres,
+      tag_health: {
+        percentage_with_genre_tags: calculateTagHealth(
+          genreTagsWithValues,
+          traktorData.length
+        ).toFixed(1),
+        percentage_with_other_as_genre: calculateTagHealth(
+          otherGenreCount,
+          genres.length
+        ).toFixed(1),
+        empty_genre_tags: nullGenreCount,
+        other_genre_tags: otherGenreCount,
+      },
+    }
+    console.log(traktorPlaylistData)
 
   } catch (err) {
     console.log('ERR: ', err)

@@ -83,6 +83,31 @@ const genreCount = (arr) => {
   return counts;
 }
 
+// helper method to determine number of unique genres played in set
+const getUniqueGenres = (arr) => {
+  var unique = []
+  for (var i = 0; i < arr.length; i++) {
+    if (unique.indexOf(arr[i]) === -1) {
+      unique.push(arr[i])
+    }
+  }
+  return unique
+}
+
+// helper method to sort the top three genres played in traktor set
+const sortGenresPlayed = (obj) => {
+  var sorted = {}
+  var keys = Object.keys(obj)
+  keys.sort(function (a, b) {
+    return obj[b] - obj[a]
+  })
+  for (var i = 0; i < keys.length; i++) {
+    sorted[keys[i]] = obj[keys[i]]
+  }
+  return sorted
+}
+
+
 module.exports = {
   convertToCSV: convertToCSV,
   replaceHash: replaceHash,
@@ -92,5 +117,7 @@ module.exports = {
   convertMMSStoMS: convertMMSStoMS,
   calculateAverage: calculateAverage,
   convertMSToMMSS: convertMSToMMSS,
-  genreCount: genreCount
+  genreCount: genreCount,
+  getUniqueGenres: getUniqueGenres,
+  sortGenresPlayed: sortGenresPlayed
 };
