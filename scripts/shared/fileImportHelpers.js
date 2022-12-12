@@ -25,7 +25,7 @@ const convertJsonStringToArray = (jsonString) => {
 }
 
 // helper method to remove unnecessary artwork and index values from playlist data
-const cleanTraktorArray = (array) => {
+const cleanPlaylistArray = (array) => {
   for (var i = 0; i < array.length; i++) {
     delete array[i].Artwork
     delete array[i].index
@@ -58,7 +58,7 @@ const convertMMSStoMS = (times) => {
 }
 
 // helper method to replace white space with underscores in playlist array objects
-const cleanTraktorKeys = (array) => {
+const cleanPlaylistKeys = (array) => {
   var newArray = []
   for (var i = 0; i < array.length; i++) {
     var object = {}
@@ -111,8 +111,8 @@ module.exports = {
   convertToCSV: convertToCSV,
   replaceHash: replaceHash,
   convertJsonStringToArray: convertJsonStringToArray,
-  cleanTraktorArray: cleanTraktorArray,
-  cleanTraktorKeys: cleanTraktorKeys,
+  cleanPlaylistArray: cleanPlaylistArray,
+  cleanPlaylistKeys: cleanPlaylistKeys,
   convertMMSStoMS: convertMMSStoMS,
   calculateAverage: calculateAverage,
   convertMSToMMSS: convertMSToMMSS,

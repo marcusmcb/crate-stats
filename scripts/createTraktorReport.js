@@ -10,8 +10,8 @@
 const {
   convertJsonStringToArray,
   convertToCSV,
-  cleanTraktorArray,
-  cleanTraktorKeys,
+  cleanPlaylistArray,
+  cleanPlaylistKeys,
   replaceHash,
   convertMMSStoMS,
   convertMSToMMSS,
@@ -19,10 +19,10 @@ const {
   arrayCount,
   getUniqueGenres,
   sortObject,
-} = require('./TraktorReportHelpers/fileImportHelpers')
+} = require('./shared/fileImportHelpers')
 
 const fs = require('fs')
-const calculateTagHealth = require('./SeratoReportHelpers/calculateTagHealth')
+const calculateTagHealth = require('./shared/calculateTagHealth')
 
 let textData
 
@@ -47,8 +47,8 @@ setTimeout(() => {
     let traktorData = convertJsonStringToArray(parsedCSVData)
 
     // run helper methods and remove final undefined obj from array
-    traktorData = cleanTraktorArray(traktorData)
-    traktorData = cleanTraktorKeys(traktorData)
+    traktorData = cleanPlaylistArray(traktorData)
+    traktorData = cleanPlaylistKeys(traktorData)
     traktorData = traktorData.slice(0, -1)
 
     let traktorPlaylistData = {}
@@ -200,34 +200,49 @@ setTimeout(() => {
     let topKeysPlayed = sortObject(keysPlayed)
     let mostCommonKey = Object.keys(topKeysPlayed)[0]
     let mostCommonKeyTimesPlayed = Object.values(topKeysPlayed)[0]
-    let keys = Object.keys(topKeysPlayed)    
+    let keys = Object.keys(topKeysPlayed)
     let values = Object.values(topKeysPlayed)
-    let leastCommonKey = keys[keys.length - 1] 
+    let leastCommonKey = keys[keys.length - 1]
     let leastCommonKeyTimesPlayed = values[values.length - 1]
 
-    
     traktorPlaylistData.key_data = {
       most_common_key: {
         key: mostCommonKey,
-        times_played: mostCommonKeyTimesPlayed
+        times_played: mostCommonKeyTimesPlayed,
       },
       least_common_key: {
         key: leastCommonKey,
-        times_played: leastCommonKeyTimesPlayed
+        times_played: leastCommonKeyTimesPlayed,
       },
       tag_health: {
         percentage_with_key_tags: calculateTagHealth(
           trackKeys.length,
           traktorData.length
         ).toFixed(1),
-        empty_key_tags: nullKeyCount
-      }
+        empty_key_tags: nullKeyCount,
+      },
     }
 
-    console.log(traktorPlaylistData)
-    
+    // - - - - - - - - - - - - - - - - - - - - - - - -
+    //              artist data & analysis
+    // - - - - - - - - - - - - - - - - - - - - - - - -
 
+    let artistArray = []
+    let nullArtistCount = 0
+    traktorData.forEach((track) => {
+      if (!track.Artist || track.Artist === '') {
+        nullArtistCount++
+      } else {
+        artistArray.push(track.Artist)
+      }
+    })
+
+    console.log(artistArray)
+
+    
   } catch (err) {
     console.log('ERR: ', err)
   }
+
+  
 }, 50)

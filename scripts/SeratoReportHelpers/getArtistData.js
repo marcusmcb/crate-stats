@@ -1,4 +1,4 @@
-const calculateTagHealth = require('./calculateTagHealth')
+const calculateTagHealth = require('../shared/calculateTagHealth')
 
 const getArtistData = (masterTrackLog) => {
   

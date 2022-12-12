@@ -1,4 +1,4 @@
-const calculateTagHealth = require('./calculateTagHealth')
+const calculateTagHealth = require('../shared/calculateTagHealth')
 
 const getGenreData = (masterTrackLog) => {
   let genre_data, hasGenreData
