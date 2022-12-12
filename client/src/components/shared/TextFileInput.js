@@ -4,6 +4,7 @@ import { FileUploader } from 'react-drag-drop-files'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
+import Button from '@mui/material/Button'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
@@ -18,13 +19,17 @@ const TraktorFileInput = () => {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    const formData = new FormData()
-    formData.append('file', file)
+    event.preventDefault()    
+    
     console.log('FILE? ', file)
     fetch('/sendTraktorFile', {
       method: 'POST',
-      body: formData,
+      body: JSON.stringify({
+        file: file
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
       .then((res) => {
         console.log(res)
@@ -47,6 +52,12 @@ const TraktorFileInput = () => {
         <p className='drag-and-drop-label'>
           {file ? `File name: ${file}` : 'no files uploaded yet'}
         </p>
+        <Button
+        type='submit'
+        onClick={handleSubmit}
+        >
+          Get Data
+        </Button>
       </div>
     </Fragment>
   )
