@@ -1,9 +1,9 @@
 import React from 'react'
 
-const PlaylistReport = () => {
+const RekordboxPlaylistReport = () => {
   return (
     <div>Rekordbox Playlist Report</div>
   )
 }
 
-export default PlaylistReport
+export default RekordboxPlaylistReport

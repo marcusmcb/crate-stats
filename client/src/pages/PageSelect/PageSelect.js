@@ -279,6 +279,11 @@ const PageSelect = () => {
               cratestats@gmail.com
             </a>
           </Typography>
+          <Typography
+            sx={{ textAlign: 'center', fontSize: '12px', marginTop: '5px' }}
+          >
+            Rekordbox & Traktor support currently in development.
+          </Typography>
           <br />
         </Box>
       </div>
