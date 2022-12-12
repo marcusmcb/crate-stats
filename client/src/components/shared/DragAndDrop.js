@@ -7,8 +7,7 @@ import './style/draganddrop.css'
 const fileTypes = ['CSV']
 
 const DragAndDrop = ({ getDataFromCSV }) => {
-  
-  const [file, setFile] = useState(null) 
+  const [file, setFile] = useState(null)
 
   const handleChange = (event) => {
     console.log(event.name)
@@ -16,12 +15,12 @@ const DragAndDrop = ({ getDataFromCSV }) => {
     Papa.parse(event, {
       header: true,
       download: false,
-      complete: (results) => {        
+      complete: (results) => {
         getDataFromCSV(results.data)
       },
     })
   }
-  
+
   return (
     <div className='drag-and-drop'>
       <FileUploader
@@ -30,9 +29,11 @@ const DragAndDrop = ({ getDataFromCSV }) => {
         handleChange={handleChange}
         types={fileTypes}
         name='file'
-        fileOrFiles={null}          
+        fileOrFiles={null}
       />
-      <p className='drag-and-drop-label'>{file ? `File name: ${file}` : 'no files uploaded yet'}</p>
+      <p className='drag-and-drop-label'>
+        {file ? `File name: ${file}` : 'no files uploaded yet'}
+      </p>
     </div>
   )
 }
