@@ -1,4 +1,4 @@
-// convert txt data to csv format
+// convert text data to csv format
 const convertToCSV = (data) => {
   const rows = data.split('\n')
   const headers = rows[0].split('\t')
@@ -94,7 +94,7 @@ const getUniqueGenres = (arr) => {
   return unique
 }
 
-// helper method to sort the top three genres played in traktor set
+// helper method to sort the top three genres played in set
 const sortObject = (obj) => {
   var sorted = {}
   var keys = Object.keys(obj)
