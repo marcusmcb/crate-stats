@@ -14,29 +14,18 @@ const TraktorFileInput = () => {
   const [file, setFile] = useState(null)
 
   const handleChange = (event) => {
-    console.log(event)
-    setFile(event.name)
+    setFile(event)
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()    
-    
-    console.log('FILE? ', file)
-    fetch('/sendTraktorFile', {
-      method: 'POST',
-      body: JSON.stringify({
-        file: file
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const formData = new FormData()
+    formData.append('file', file)
+    try {
+      await axios.post('/sendTraktorFile', formData).then(response => console.log(response))
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -50,12 +39,9 @@ const TraktorFileInput = () => {
           fileOrFiles={null}
         />
         <p className='drag-and-drop-label'>
-          {file ? `File name: ${file}` : 'no files uploaded yet'}
+          {file ? `File name: ${file.name}` : 'no files uploaded yet'}
         </p>
-        <Button
-        type='submit'
-        onClick={handleSubmit}
-        >
+        <Button type='submit' onClick={handleSubmit}>
           Get Data
         </Button>
       </div>
