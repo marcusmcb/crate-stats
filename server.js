@@ -13,7 +13,7 @@ const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.post('/liveplaylist', async (req, res) => {
@@ -28,7 +28,7 @@ app.post('/sendFile', async (req, res) => {
 
 app.post('/sendTraktorFile', async (req, res) => {
   console.log("HERE")
-  console.log(req)
+  console.log(req.body)
 })
 
 app.get('*', (req, res) => {
