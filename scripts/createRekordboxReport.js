@@ -1,44 +1,23 @@
-const fs = require('fs')
-
-const {
-  convertJsonStringToArray,
-  convertToCSV,
-  cleanPlaylistArray,
-  cleanPlaylistKeys,
-  replaceHash,
-  convertMMSStoMS,
-  convertMSToMMSS,
-  calculateAverage,
-  arrayCount,
-  getUniqueGenres,
-  sortObject,
-} = require('./shared/fileImportHelpers')
-
 const calculateTagHealth = require('./shared/calculateTagHealth')
 
-let textData
+const createRekordboxReport = (data) => {
+  const {
+    convertJsonStringToArray,
+    convertToCSV,
+    cleanPlaylistArray,
+    cleanPlaylistKeys,
+    replaceHash,
+    convertMMSStoMS,
+    convertMSToMMSS,
+    calculateAverage,
+    arrayCount,
+    getUniqueGenres,
+    sortObject,
+  } = require('./shared/fileImportHelpers')
 
-// data import
-fs.readFile(
-  './_rekordbox_sample_data/rekordbox_sample_03.txt',
-  'utf8',
-  (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      textData = data
-      return data
-    }
-  }
-)
+  let rekordBoxData = data
 
-setTimeout(() => {
   // data cleaning
-  let csvData = convertToCSV(textData)
-  let cleanCSVData = replaceHash(csvData)
-  cleanCSVData = cleanCSVData.replace(/[\u0000-\u001F]+/g, '')
-  let parsedCSVData = JSON.parse(JSON.stringify(cleanCSVData))
-  let rekordBoxData = convertJsonStringToArray(parsedCSVData)
   rekordBoxData = cleanPlaylistKeys(rekordBoxData)
   rekordBoxData = cleanPlaylistArray(rekordBoxData)
   rekordBoxData = rekordBoxData.slice(0, -1)
@@ -268,7 +247,7 @@ setTimeout(() => {
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              year data & analysis
-  // - - - - - - - - - - - - - - - - - - - - - - - -  
+  // - - - - - - - - - - - - - - - - - - - - - - - -
 
   let yearArray = []
   let nullYearCount = 0
@@ -287,19 +266,19 @@ setTimeout(() => {
 
   // determine oldest and most recent years played in set
   let oldestTrackYear = Math.min(...yearArray)
-  let newestTrackYear = Math.max(...yearArray)  
+  let newestTrackYear = Math.max(...yearArray)
 
   // populate oldest/newest track arrays
   rekordBoxData.forEach((track) => {
-    if (+(track.Year) === oldestTrackYear) {
+    if (+track.Year === oldestTrackYear) {
       oldestTracks.push(track)
-    } else if (+(track.Year) === newestTrackYear) {
+    } else if (+track.Year === newestTrackYear) {
       newestTracks.push(track)
     }
   })
 
   // object with the count of each year played
-  let yearsPlayed = arrayCount(yearArray)  
+  let yearsPlayed = arrayCount(yearArray)
 
   // append year data to export
   rekordBoxPlaylistData.year_data = {
@@ -307,22 +286,24 @@ setTimeout(() => {
     oldest_tracks: {
       year: oldestTrackYear,
       times_played: oldestTracks.length,
-      tracks_played: oldestTracks
+      tracks_played: oldestTracks,
     },
     newest_tracks: {
       year: newestTrackYear,
       times_played: newestTracks.length,
-      tracks_played: newestTracks
+      tracks_played: newestTracks,
     },
     tag_health: {
       percentage_with_year_tags: calculateTagHealth(
         yearArray.length,
         rekordBoxData.length
       ).toFixed(1),
-      empty_year_tags: nullYearCount
-    }
+      empty_year_tags: nullYearCount,
+    },
   }
 
   console.log(rekordBoxPlaylistData)
-  
-}, 100)
+  return rekordBoxPlaylistData
+}
+
+module.exports = createRekordboxReport

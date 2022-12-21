@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
+import RekordboxFileInput from '../../../components/shared/RekordboxFileInput'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -13,7 +14,7 @@ const RekordboxPlaylistReport = () => {
     <Fragment>
       <Titlebar />
       {/* <DragAndDrop /> */}
-      {/* <TraktorFileInput /> */}
+      <RekordboxFileInput />
       <div className='playlistreport-body'>
         {isBusy ? (
           <div className='data-block await-data'>
@@ -29,7 +30,7 @@ const RekordboxPlaylistReport = () => {
                             fontWeight: '500',
                           }}
                         >
-                          Upload or drop your exported Traktor TXT file above to
+                          Upload or drop your exported Rekordbox TXT file above to
                           view your CrateStats analysis.
                         </Typography>
                       </Grid>
@@ -47,12 +48,12 @@ const RekordboxPlaylistReport = () => {
                 color: 'white',
               }}
             >
-              Don't have Traktor? Grab a{' '}
+              Don't have Rekordbox? Grab a{' '}
               <span>
                 <a
                   style={{ color: '#c5e1a5', fontWeight: '400' }}
                   href={'/'}
-                  download='crate_stats_sample.csv'
+                  download=''
                   target='_blank'
                   rel='noreferrer'
                 >

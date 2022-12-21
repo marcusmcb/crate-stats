@@ -74,7 +74,7 @@ const TraktorPlaylistReport = () => {
                 <a
                   style={{ color: '#c5e1a5', fontWeight: '400' }}
                   href={'/'}
-                  download='crate_stats_sample.csv'
+                  download=''
                   target='_blank'
                   rel='noreferrer'
                 >
