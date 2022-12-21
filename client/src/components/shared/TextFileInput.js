@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Papa from 'papaparse'
+import Papa from "papaparse";
 
 const TraktorFileInput = () => {
   const [file, setFile] = useState("");
@@ -14,40 +14,22 @@ const TraktorFileInput = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    var csvData = Papa.parse(file, {
+    const textData = Papa.parse(file, {
       header: true,
       download: true,
       skipEmptyLines: true,
-      complete: async function (results) {
-        console.log(results.data);
+      complete: async (results) => {
         try {
-          const response = await axios.post('/sendTraktorFile', results.data)
-          const data = response.json()
-          console.log(data)
+          await axios
+            .post("/sendTraktorFile", results.data)
+            .then((response) => {
+              console.log(response.data);
+            });
         } catch (err) {
-          console.log(err)
+          console.log(err);
         }
       },
     });
-
-    // e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // try {
-    //   const res = await axios.post("/sendTraktorFile", formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   });
-    //   const { fileName, filePath } = res.data;
-    //   setUploadedFile({ fileName, filePath });
-    // } catch (err) {
-    //   if (err.response.status === 500) {
-    //     console.log("There was a problem with the server");
-    //   } else {
-    //     console.log(err.response.data.msg);
-    //   }
-    // }
   };
 
   return (

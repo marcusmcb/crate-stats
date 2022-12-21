@@ -26,9 +26,10 @@ app.post('/sendFile', async (req, res) => {
   res.send(userReport)
 })
 
-app.post('/sendTraktorFile', async (req, res) => {
-  console.log("HERE")
-  console.log(req.body)
+app.post('/sendTraktorFile', async (req, res) => {  
+  let userReport = await createTraktorReport(req.body)
+  console.log(userReport)
+  res.send(userReport)
 })
 
 app.get('*', (req, res) => {
