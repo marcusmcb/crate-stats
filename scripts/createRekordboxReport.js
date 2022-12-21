@@ -1,20 +1,16 @@
 const calculateTagHealth = require('./shared/calculateTagHealth')
+const {
+  cleanPlaylistArray,
+  cleanPlaylistKeys,
+  convertMMSStoMS,
+  convertMSToMMSS,
+  calculateAverage,
+  arrayCount,
+  getUniqueGenres,
+  sortObject,
+} = require('./shared/fileImportHelpers')
 
 const createRekordboxReport = (data) => {
-  const {
-    convertJsonStringToArray,
-    convertToCSV,
-    cleanPlaylistArray,
-    cleanPlaylistKeys,
-    replaceHash,
-    convertMMSStoMS,
-    convertMSToMMSS,
-    calculateAverage,
-    arrayCount,
-    getUniqueGenres,
-    sortObject,
-  } = require('./shared/fileImportHelpers')
-
   let rekordBoxData = data
 
   // data cleaning
