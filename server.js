@@ -22,7 +22,7 @@ app.post('/liveplaylist', async (req, res) => {
 })
 
 app.post('/sendFile', async (req, res) => {
-  let userReport = await req.body
+  let userReport = await createSeratoReport(req.body)
   res.send(userReport)
 })
 
