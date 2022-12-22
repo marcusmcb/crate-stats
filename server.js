@@ -6,7 +6,6 @@ const path = require('path')
 const createSeratoLiveReport = require('./scripts/createSeratoLiveReport')
 const createSeratoReport = require('./scripts/createSeratoReport')
 const createTraktorReport = require('./scripts/createTraktorReport')
-const { reset } = require('nodemon')
 const createRekordboxReport = require('./scripts/createRekordboxReport')
 
 const PORT = process.env.PORT || 5000

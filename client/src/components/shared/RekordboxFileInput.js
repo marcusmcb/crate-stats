@@ -6,7 +6,7 @@ import './style/draganddrop.css'
 
 const fileTypes = ['TXT']
 
-const RekordboxFileInput = () => {
+const RekordboxFileInput = ({ getDataFromTXT }) => {
   const [file, setFile] = useState('')
 
   const onChange = (event) => {
@@ -15,16 +15,8 @@ const RekordboxFileInput = () => {
       header: true,
       download: false,
       skipEmptyLines: true,
-      complete: async (results) => {
-        try {
-          await axios
-            .post('/sendRekordboxFile', results.data)
-            .then((response) => {
-              console.log(response.data)
-            })
-        } catch (err) {
-          console.log(err)
-        }
+      complete: (results) => {
+        getDataFromTXT(results.data)
       },
     })
   }

@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect, useRef } from 'react'
+import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
 import RekordboxFileInput from '../../../components/shared/RekordboxFileInput'
 import Box from '@mui/material/Box'
@@ -9,12 +10,31 @@ import Typography from '@mui/material/Typography'
 import './rekordboxplaylistreport.css'
 
 const RekordboxPlaylistReport = () => {
+  const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
+  const isInitialMount = useRef(true)
+
+  const getDataFromTXT = (userData) => {
+    axios.post('/sendRekordboxFile', userData).then((response) => {
+      console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
+      console.log(response.data)
+      setData(response.data)
+    })
+  }
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    } else {
+      setIsBusy(false)
+    }
+  })
+
   return (
     <Fragment>
       <Titlebar />
       {/* <DragAndDrop /> */}
-      <RekordboxFileInput />
+      <RekordboxFileInput getDataFromTXT={getDataFromTXT}/>
       <div className='playlistreport-body'>
         {isBusy ? (
           <div className='data-block await-data'>
