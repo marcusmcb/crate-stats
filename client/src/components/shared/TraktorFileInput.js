@@ -6,7 +6,7 @@ import './style/draganddrop.css'
 
 const fileTypes = ['TXT']
 
-const RekordboxFileInput = () => {
+const TraktorFileInput = () => {
   const [file, setFile] = useState('')
 
   const onChange = (event) => {
@@ -18,7 +18,7 @@ const RekordboxFileInput = () => {
       complete: async (results) => {
         try {
           await axios
-            .post('/sendRekordboxFile', results.data)
+            .post('/sendTraktorFile', results.data)
             .then((response) => {
               console.log(response.data)
             })
@@ -45,4 +45,4 @@ const RekordboxFileInput = () => {
     </div>
   )
 }
-export default RekordboxFileInput
+export default TraktorFileInput

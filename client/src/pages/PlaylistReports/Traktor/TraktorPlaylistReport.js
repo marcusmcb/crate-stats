@@ -1,6 +1,6 @@
 import { Fragment, useState, useRef, useEffect } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
-import TraktorFileInput from '../../../components/shared/TextFileInput'
+import TraktorFileInput from '../../../components/shared/TraktorFileInput'
 import DragAndDrop from '../../../components/shared/DragAndDrop'
 import axios from 'axios'
 import Box from '@mui/material/Box'

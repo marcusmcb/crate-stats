@@ -1,4 +1,15 @@
 const chalk = require("chalk");
+const calculateTagHealth = require("./shared/calculateTagHealth"); 
+const {    
+  cleanPlaylistArray,
+  cleanPlaylistKeys,    
+  convertMMSStoMS,
+  convertMSToMMSS,
+  calculateAverage,
+  arrayCount,
+  getUniqueGenres,
+  sortObject,
+} = require("./shared/fileImportHelpers"); 
 
 // TRAKTOR DATA IMPORT:
 //
@@ -12,20 +23,7 @@ const chalk = require("chalk");
 const createTraktorReport = (data) => {
   console.log(chalk.green("-----------------"));
   console.log(chalk.green("  TRAKTOR DATA:"));
-  console.log(chalk.green("-----------------"));  
-
-  const {    
-    cleanPlaylistArray,
-    cleanPlaylistKeys,    
-    convertMMSStoMS,
-    convertMSToMMSS,
-    calculateAverage,
-    arrayCount,
-    getUniqueGenres,
-    sortObject,
-  } = require("./shared/fileImportHelpers");
-  
-  const calculateTagHealth = require("./shared/calculateTagHealth"); 
+  console.log(chalk.green("-----------------"));   
 
   let traktorData = data;
 
