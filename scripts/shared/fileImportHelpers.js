@@ -113,7 +113,15 @@ const addMSArray = (numbers) => {
   for (var i = 0; i < numbers.length; i++) {
     sum += numbers[i];
   }
-  return sum;
+
+  let playTimes = []
+  var timeCount = 0
+  for (var i = 0; i < numbers.length; i++) {    
+    playTimes.push(getTimeFromMS(Math.abs(timeCount - numbers[i])))
+    timeCount = timeCount + numbers[i]
+  }
+  console.log(playTimes)
+  return sum
 }
 
 // convert set length from MS to HH:MM:SS
