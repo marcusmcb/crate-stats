@@ -289,9 +289,21 @@ const createRekordboxReport = (data) => {
   // object with the count of each year played
   let yearsPlayed = arrayCount(yearArray)
 
+  function averageYear(years) {
+    var sum = 0;
+    for (var i = 0; i < years.length; i++) {
+      sum += years[i];
+    }
+    var avg = sum / years.length;
+    return avg;
+  }
+
+  console.log(Math.round(averageYear(yearArray)))
+
   // append year data to export
   rekordBoxPlaylistData.year_data = {
     years_played: yearsPlayed,
+    average_year: Math.round(averageYear(yearArray)),
     oldest_tracks: {
       year: oldestTrackYear,
       times_played: oldestTracks.length,
@@ -311,7 +323,7 @@ const createRekordboxReport = (data) => {
     },
   }
 
-  // console.log(rekordBoxPlaylistData)
+  // console.log(rekordBoxPlaylistData.year_data.oldest_tracks.tracks_played)
   return rekordBoxPlaylistData
 }
 

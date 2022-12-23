@@ -120,7 +120,7 @@ const addMSArray = (numbers) => {
     playTimes.push(getTimeFromMS(Math.abs(timeCount - numbers[i])))
     timeCount = timeCount + numbers[i]
   }
-  console.log(playTimes)
+  // console.log(playTimes)
   return sum
 }
 
