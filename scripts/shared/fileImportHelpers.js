@@ -107,6 +107,27 @@ const sortObject = (obj) => {
   return sorted
 }
 
+// determine set length in MS by adding track lengths
+const addMSArray = (numbers) => {
+  var sum = 0;
+  for (var i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+}
+
+// convert set length from MS to HH:MM:SS
+const getTimeFromMS = (milliseconds) => {
+  var seconds = Math.floor(milliseconds / 1000);
+  var minutes = Math.floor(seconds / 60);
+  var hours = Math.floor(minutes / 60);
+  return {
+    hours: hours,
+    minutes: minutes % 60,
+    seconds: seconds % 60
+  };
+}
+
 module.exports = {
   convertToCSV: convertToCSV,
   replaceHash: replaceHash,
@@ -119,4 +140,6 @@ module.exports = {
   arrayCount: arrayCount,
   getUniqueGenres: getUniqueGenres,
   sortObject: sortObject,
+  addMSArray: addMSArray,
+  getTimeFromMS: getTimeFromMS
 }

@@ -8,15 +8,18 @@ const {
   arrayCount,
   getUniqueGenres,
   sortObject,
+  getTimeFromMS,
+  addMSArray
 } = require('./shared/fileImportHelpers')
 
 const createRekordboxReport = (data) => {
+  
   let rekordBoxData = data
 
   // data cleaning
   rekordBoxData = cleanPlaylistKeys(rekordBoxData)
-  rekordBoxData = cleanPlaylistArray(rekordBoxData)
-  rekordBoxData = rekordBoxData.slice(0, -1)
+  rekordBoxData = cleanPlaylistArray(rekordBoxData)  
+  rekordBoxData = rekordBoxData.slice(0, -1)  
 
   // set final return object as a dummy arr
   let rekordBoxPlaylistData = {}
@@ -32,15 +35,25 @@ const createRekordboxReport = (data) => {
   let trackLengths = []
   rekordBoxData.forEach((track) => {
     trackLengths.push(track.Time)
-  })
+  }) 
 
   // determine average track length for playlist
-  let msArray = convertMMSStoMS(trackLengths)
-  let msAverage = Math.round(calculateAverage(msArray))
-  let averageTrackLength = convertMSToMMSS(msAverage)
+  // determine set length from track lengths sum
+  const msArray = convertMMSStoMS(trackLengths)  
+  const setLengthMS = addMSArray(msArray)  
+  const setLengthValues = getTimeFromMS(setLengthMS)
+  const msAverage = Math.round(calculateAverage(msArray))
+  const averageTrackLength = convertMSToMMSS(msAverage)
 
   // append track data and master log to object return
   rekordBoxPlaylistData.master_track_log = rekordBoxData
+  rekordBoxPlaylistData.playlist_data = {
+    set_length: {
+      hours: setLengthValues.hours,
+      minutes: setLengthValues.minutes,
+      seconds: setLengthValues.seconds
+    }
+  }
   rekordBoxPlaylistData.track_data = {
     total_tracks_played: totalTracksPlayed,
     average_track_length: averageTrackLength,
