@@ -431,7 +431,7 @@ const RekordboxPlaylistReport = () => {
                       <CardActions
                         sx={{
                           height: "4vh",
-                          backgroundColor: "#616161",
+                          backgroundColor: "rgba(101, 105, 114, 1)",
                           color: "white",
                         }}
                       >
@@ -607,7 +607,7 @@ const RekordboxPlaylistReport = () => {
                       <CardActions
                         sx={{
                           height: "4vh",
-                          backgroundColor: "#616161",
+                          backgroundColor: "rgba(101, 105, 114, 1)",
                           color: "white",
                         }}
                       >
