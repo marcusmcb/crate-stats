@@ -149,7 +149,17 @@ const percentageOf = (array, value) => {
   return (count / array.length) * 100;
 }
 
+const averageYear = (years) => {
+  var sum = 0;
+  for (var i = 0; i < years.length; i++) {
+    sum += years[i];
+  }
+  var avg = sum / years.length;
+  return avg;
+}
+
 module.exports = {
+  averageYear: averageYear,
   convertToCSV: convertToCSV,
   percentageOf: percentageOf,
   replaceHash: replaceHash,

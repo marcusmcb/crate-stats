@@ -10,7 +10,8 @@ const {
   sortObject,
   getTimeFromMS,
   addMSArray,
-  percentageOf
+  percentageOf,
+  averageYear
 } = require('./shared/fileImportHelpers')
 
 const createRekordboxReport = (data) => {
@@ -288,22 +289,10 @@ const createRekordboxReport = (data) => {
   })
 
   // object with the count of each year played
-  let yearsPlayed = arrayCount(yearArray)
+  let yearsPlayed = arrayCount(yearArray)  
 
-  function averageYear(years) {
-    var sum = 0;
-    for (var i = 0; i < years.length; i++) {
-      sum += years[i];
-    }
-    var avg = sum / years.length;
-    return avg;
-  }
-
-  const newestYearPercentage = percentageOf(yearArray, new Number(newestTrackYear)).toFixed()
-  
-
-  console.log(Math.round(averageYear(yearArray)))
-
+  // percentage of playlist from most recent track year
+  const newestYearPercentage = percentageOf(yearArray, new Number(newestTrackYear)).toFixed()  
 
   // append year data to export
   rekordBoxPlaylistData.year_data = {
