@@ -28,12 +28,12 @@ app.post('/sendFile', async (req, res) => {
 
 app.post('/sendTraktorFile', async (req, res) => {  
   let userReport = await createTraktorReport(req.body)
-  console.log(userReport)
+  // console.log(userReport)
   res.send(userReport)
 })
 
 app.post('/sendRekordboxFile', async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   let userReport = await createRekordboxReport(req.body)  
   res.send(userReport)
 })

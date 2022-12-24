@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Typography from "@mui/material/Typography";
 
 const MasterTracklog = (masterTrackLog) => {
-  console.log(masterTrackLog)
+  // console.log(masterTrackLog)
   return (
     <Fragment>
       <div>
