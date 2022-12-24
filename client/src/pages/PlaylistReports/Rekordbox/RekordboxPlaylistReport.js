@@ -554,30 +554,27 @@ const RekordboxPlaylistReport = () => {
                       <Grid container spacing={2} sx={{ marginTop: 1 }}>
                         <Grid item>
                           <Typography sx={{ fontSize: 16 }}>
-                            oldest track (
-                            {data.year_data.oldest_tracks.year}):
+                            oldest track ({data.year_data.oldest_tracks.year}):
                           </Typography>
                           <Typography
                             variant="h5"
                             component="div"
                             fontWeight={500}
                           >
-                            {data.year_data.oldest_tracks.tracks_played.artist} -{" "}
-                            {data.year_data.oldest_tracks.tracks_played.name}
-                          </Typography>
-                          <Typography sx={{ fontSize: 14, marginTop: 0.5 }}>
-                            - played @{" "}
-                            <span
-                              style={{ color: "#1b5e20", fontWeight: "500" }}
-                            >
-                              {data.year_data.oldest_tracks.occurred_at}
-                            </span>
+                            {
+                              data.year_data.oldest_tracks.tracks_played[0]
+                                .Artist
+                            }{" "}
+                            -{" "}
+                            {
+                              data.year_data.oldest_tracks.tracks_played[0]
+                                .Track_Title
+                            }
                           </Typography>
                         </Grid>
                         <Grid item>
                           <Typography sx={{ fontSize: 16 }}>
-                            playlist percentage from most recent year (
-                            {data.year_data.newest_tracks.year}):
+                            playlist percentage from most recent year:{" "}
                           </Typography>
                           <Typography
                             variant="h4"
@@ -585,20 +582,14 @@ const RekordboxPlaylistReport = () => {
                             fontWeight={500}
                             sx={{ color: "rgba(29, 79, 145, 0.8)" }}
                           >
-                            {/* {
-                              data.year_data.newest_tracks.playlist_percentage.split(
-                                "."
-                              )[0]
-                            }
-                            %{" "} */}
-                            {/* <span style={{ fontSize: "22px" }}>
-                              (
-                              {
-                                data.year_data.newest_tracks.tracks
-                                  .length
-                              }{" "}
-                              tracks)
-                            </span> */}
+                            <span>
+                              {data.year_data.newest_tracks.playlist_percentage}
+                              %
+                            </span>{" "}
+                            <span style={{ fontSize: "18px" }}>
+                              ( played{" "}
+                              {data.year_data.newest_tracks.times_played} times)
+                            </span>
                           </Typography>
                         </Grid>
                       </Grid>
@@ -658,10 +649,7 @@ const RekordboxPlaylistReport = () => {
                                   fontWeight={500}
                                   sx={{ color: "rgba(29, 79, 145, 0.8)" }}
                                 >
-                                  {
-                                    data.year_data.tag_health
-                                      .empty_year_tags
-                                  }{" "}
+                                  {data.year_data.tag_health.empty_year_tags}{" "}
                                   <span style={{ fontSize: "18px" }}>
                                     of {data.mtll_} total tracks
                                   </span>

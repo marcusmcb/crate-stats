@@ -136,8 +136,22 @@ const getTimeFromMS = (milliseconds) => {
   };
 }
 
+const percentageOf = (array, value) => {  
+  console.log("MAX YEAR: ", value)
+  var count = 0;
+  for (var i = 0; i < array.length; i++) {
+    console.log(array[i])
+    if ((array[i]).toString() === value.toString()) {      
+      count++;
+    }
+  }
+  console.log(count, array.length)
+  return (count / array.length) * 100;
+}
+
 module.exports = {
   convertToCSV: convertToCSV,
+  percentageOf: percentageOf,
   replaceHash: replaceHash,
   convertJsonStringToArray: convertJsonStringToArray,
   cleanPlaylistArray: cleanPlaylistArray,
