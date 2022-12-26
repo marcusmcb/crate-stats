@@ -135,38 +135,36 @@ const RekordboxPlaylistReport = () => {
   //     </div>
   //   )
   // }
-  // const BarChart = ({ data, width, height }) => {
-  //   const [state, setState] = useState({ data })
-  //   const ref = useRef()
-  //   useEffect(() => {
-  //     const svg = d3.select(ref.current)
-  //     const x = d3
-  //       .scaleLinear()
-  //       .domain([0, d3.max(data)])
-  //       .range([0, width])
-  //     const y = d3.scaleBand().domain(d3.range(data.length)).range([0, height])
-  //     svg
-  //       .selectAll('rect')
-  //       .data(data)
-  //       .enter()
-  //       .append('rect')
-  //       .attr('x', 0)
-  //       .attr('y', (d, i) => y(i))
-  //       .attr('width', x)
-  //       .attr('height', y.bandwidth())
-  //       .on('click', (d, i) => {
-  //         setState({
-  //           data: data.map((e, j) => (j === i ? e * 2 : e)),
-  //         })
-  //       })
-  //   }, [])
 
-  //   return (
-  //     <div>
-  //       <svg ref={ref} width={width} height={height} transform={'rotate(90)'}></svg>
-  //     </div>
-  //   )
-  // }
+  const BarChart = ({ data, width, height }) => {
+    const [state, setState] = useState({ data })
+    const ref = useRef()
+    useEffect(() => {
+      const svg = d3.select(ref.current)
+      const x = d3
+        .scaleLinear()
+        .domain([0, d3.max(data)])
+        .range([0, width])
+      const y = d3.scaleBand().domain(d3.range(data.length)).range([0, height])
+      svg
+        .selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', (d, i) => y(i))
+        .attr('width', x)
+        .attr('height', y.bandwidth())
+        .on('click', (d, i) => {
+          setState({
+            data: data.map((e, j) => (j === i ? e * 2 : e)),
+          })
+        })
+    }, [])
+    return (
+      <svg ref={ref} width={width} height={height} transform='rotate(90)'></svg>
+    )
+  }
 
   return (
     <Fragment>
@@ -394,7 +392,7 @@ const RekordboxPlaylistReport = () => {
                           </Typography>
                         </Grid>
                       </Grid>
-                      {/* <BarChart data={data.bpm_data.bpm_array} width={900} height={100}/> */}
+                      {/* <BarChart data={data.bpm_data.bpm_array} width={900} height={150}/> */}
                       {/* <ReactD3SparklineWithPoints data={data.bpm_data.bpm_array} /> */}
                       {/* <Divider />
                       <Grid container spacing={2}>
