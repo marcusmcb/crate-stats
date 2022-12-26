@@ -8,7 +8,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import { Divider } from 'semantic-ui-react'
 
 import CardActions from '@mui/material/CardActions'
@@ -805,7 +805,9 @@ const RekordboxPlaylistReport = () => {
                                       id='modal-modal-title'
                                       variant='h6'
                                       component='h2'
-                                      style={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                      style={{
+                                        color: 'rgba(29, 79, 145, 0.8)',
+                                      }}
                                     >
                                       What this means...
                                     </Typography>
@@ -836,6 +838,50 @@ const RekordboxPlaylistReport = () => {
                           </Grid>
                         </Grid>
                       </Collapse>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </Box>
+            </div>
+            <div className='data-block-two'>
+              <Typography
+                sx={{ fontSize: 20 }}
+                color='white'
+                fontWeight={500}
+                gutterBottom
+              >
+                bitrate data:
+              </Typography>
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} md={12} sm={12} lg={12}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent>
+                        <Typography>sub 320 tracks played:</Typography>
+                        <Typography
+                          variant='h4'
+                          component='div'
+                          fontWeight={500}
+                          sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                        >
+                          {data.bitrate_data.sub320_tracks.length} <span style={{ fontSize: '26px', color: 'black' }}>(out of {data.master_track_log.length} tracks)</span>
+                        </Typography>
+                        <Divider />
+                        <Typography style={{ marginBottom: '15px' }}>track title / bitrate:</Typography>
+                        {data.bitrate_data.sub320_tracks.map((item, key) => {
+                          return (
+                            <Typography
+                              variant='h5'
+                              key={key}
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {item.title} - {item.bitrate}
+                            </Typography>
+                          )
+                        })}
+                      </CardContent>
                     </Card>
                   </Grid>
                 </Grid>

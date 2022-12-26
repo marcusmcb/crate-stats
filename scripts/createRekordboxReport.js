@@ -1,4 +1,4 @@
-const calculateTagHealth = require("./shared/calculateTagHealth");
+const calculateTagHealth = require('./shared/calculateTagHealth')
 const {
   cleanPlaylistArray,
   cleanPlaylistKeys,
@@ -12,49 +12,49 @@ const {
   addMSArray,
   percentageOf,
   averageYear,
-} = require("./shared/fileImportHelpers");
+} = require('./shared/fileImportHelpers')
 
 const createRekordboxReport = (data) => {
-  let rekordBoxData = data;
+  let rekordBoxData = data
 
   // data cleaning
-  rekordBoxData = cleanPlaylistKeys(rekordBoxData);
-  rekordBoxData = cleanPlaylistArray(rekordBoxData);
-  rekordBoxData = rekordBoxData.slice(0, -1);
+  rekordBoxData = cleanPlaylistKeys(rekordBoxData)
+  rekordBoxData = cleanPlaylistArray(rekordBoxData)
+  rekordBoxData = rekordBoxData.slice(0, -1)
 
   // set final return object as a dummy arr
-  let rekordBoxPlaylistData = {};
+  let rekordBoxPlaylistData = {}
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              track data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // total tracks played
-  const totalTracksPlayed = rekordBoxData.length;
+  const totalTracksPlayed = rekordBoxData.length
 
   // array of track lengths
-  let trackLengths = [];
+  let trackLengths = []
   rekordBoxData.forEach((track) => {
-    trackLengths.push(track.Time);
-  });
+    trackLengths.push(track.Time)
+  })
 
   // determine average track length for playlist
   // determine set length from track lengths sum
-  const msArray = convertMMSStoMS(trackLengths);
-  const setLengthMS = addMSArray(msArray);
-  const setLengthValues = getTimeFromMS(setLengthMS);
-  const msAverage = Math.round(calculateAverage(msArray));
-  const averageTrackLength = convertMSToMMSS(msAverage);
+  const msArray = convertMMSStoMS(trackLengths)
+  const setLengthMS = addMSArray(msArray)
+  const setLengthValues = getTimeFromMS(setLengthMS)
+  const msAverage = Math.round(calculateAverage(msArray))
+  const averageTrackLength = convertMSToMMSS(msAverage)
 
   // append track data and master log to object return
-  rekordBoxPlaylistData.master_track_log = rekordBoxData;
+  rekordBoxPlaylistData.master_track_log = rekordBoxData
   rekordBoxPlaylistData.playlist_data = {
     set_length: {
       hours: setLengthValues.hours,
       minutes: setLengthValues.minutes,
       seconds: setLengthValues.seconds,
     },
-  };
+  }
   rekordBoxPlaylistData.track_data = {
     total_tracks_played: totalTracksPlayed,
     average_track_length: averageTrackLength,
@@ -68,38 +68,38 @@ const createRekordboxReport = (data) => {
       artist: rekordBoxData[msArray.indexOf(Math.max(...msArray))].Artist,
       length: rekordBoxData[msArray.indexOf(Math.max(...msArray))].Time,
     },
-  };
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              bpm data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // array of bpms
-  let bpmArray = [];
-  let nullBPMCount = 0;
+  let bpmArray = []
+  let nullBPMCount = 0
   rekordBoxData.forEach((track) => {
-    if (!track["BPM"] || track["BPM"] === "") {
-      nullBPMCount++;
+    if (!track['BPM'] || track['BPM'] === '') {
+      nullBPMCount++
     } else {
-      bpmArray.push(new Number(track["BPM"]));
+      bpmArray.push(new Number(track['BPM']))
     }
-  });
+  })
 
   // determine average bpm from playlist
-  let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length;
+  let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
 
   const maxBPMDifference = (bpmArray) => {
-    var maxDiff = 0;
+    var maxDiff = 0
     for (var i = 0; i < rekordBoxData.length - 1; i++) {
-      var diff = bpmArray[i + 1] - bpmArray[i];
+      var diff = bpmArray[i + 1] - bpmArray[i]
       if (diff > maxDiff) {
-        maxDiff = diff;
+        maxDiff = diff
       }
     }
-    return maxDiff;
-  };
+    return maxDiff
+  }
 
-  console.log("BPM DIFF?", maxBPMDifference(bpmArray));
+  console.log('BPM DIFF?', maxBPMDifference(bpmArray))
 
   // append bpm data to object return
   rekordBoxPlaylistData.bpm_data = {
@@ -109,50 +109,50 @@ const createRekordboxReport = (data) => {
       maxBPM: Math.max(...bpmArray),
     },
     empty_bpm_tags: nullBPMCount,
-  };
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              genre data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  let genres = [];
-  let nullGenreCount = 0;
-  let otherGenreCount = 0;
-  let genreTagsWithValues = 0;
-  let topThreeGenres = [];
+  let genres = []
+  let nullGenreCount = 0
+  let otherGenreCount = 0
+  let genreTagsWithValues = 0
+  let topThreeGenres = []
 
   // determine if genre value is empty or doesn't exist
   // determine if genre given is 'other'
   rekordBoxData.forEach((track) => {
-    if (!track.Genre || track.Genre === "") {
-      nullGenreCount++;
-    } else if (track.Genre === "Other") {
-      otherGenreCount++;
-      genreTagsWithValues++;
+    if (!track.Genre || track.Genre === '') {
+      nullGenreCount++
+    } else if (track.Genre === 'Other') {
+      otherGenreCount++
+      genreTagsWithValues++
     } else {
-      if (track.Genre.includes("-") || track.Genre.includes("/")) {
-        genres.push(track.Genre.replace(/[\/-]/g, " "));
-        genreTagsWithValues++;
+      if (track.Genre.includes('-') || track.Genre.includes('/')) {
+        genres.push(track.Genre.replace(/[\/-]/g, ' '))
+        genreTagsWithValues++
       } else {
-        genres.push(track.Genre.toLowerCase());
-        genreTagsWithValues++;
+        genres.push(track.Genre.toLowerCase())
+        genreTagsWithValues++
       }
     }
-  });
+  })
 
   // total genres played & total unique genres played
-  const genresPlayed = arrayCount(genres);
+  const genresPlayed = arrayCount(genres)
 
   // unique genres played in set
-  let uniqueGenres = getUniqueGenres(genres);
+  let uniqueGenres = getUniqueGenres(genres)
 
   // top three genres played in set
-  let topGenresSorted = sortObject(genresPlayed);
+  let topGenresSorted = sortObject(genresPlayed)
   topThreeGenres.push(
     Object.keys(topGenresSorted)[0],
     Object.keys(topGenresSorted)[1],
     Object.keys(topGenresSorted)[2]
-  );
+  )
 
   // append genre data to object return
   rekordBoxPlaylistData.genre_data = {
@@ -171,32 +171,32 @@ const createRekordboxReport = (data) => {
       empty_genre_tags: nullGenreCount,
       other_genre_tags: otherGenreCount,
     },
-  };
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              key data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
   // array of keys
-  let trackKeys = [];
-  let nullKeyCount = 0;
+  let trackKeys = []
+  let nullKeyCount = 0
   rekordBoxData.forEach((track) => {
-    if (!track.Key || track.Key === "") {
-      nullKeyCount++;
+    if (!track.Key || track.Key === '') {
+      nullKeyCount++
     } else {
-      trackKeys.push(track.Key);
+      trackKeys.push(track.Key)
     }
-  });
+  })
 
   // determine most and least common keys and times each played
-  let keysPlayed = arrayCount(trackKeys);
-  let topKeysPlayed = sortObject(keysPlayed);
-  let mostCommonKey = Object.keys(topKeysPlayed)[0];
-  let mostCommonKeyTimesPlayed = Object.values(topKeysPlayed)[0];
-  let keys = Object.keys(topKeysPlayed);
-  let values = Object.values(topKeysPlayed);
-  let leastCommonKey = keys[keys.length - 1];
-  let leastCommonKeyTimesPlayed = values[values.length - 1];
+  let keysPlayed = arrayCount(trackKeys)
+  let topKeysPlayed = sortObject(keysPlayed)
+  let mostCommonKey = Object.keys(topKeysPlayed)[0]
+  let mostCommonKeyTimesPlayed = Object.values(topKeysPlayed)[0]
+  let keys = Object.keys(topKeysPlayed)
+  let values = Object.values(topKeysPlayed)
+  let leastCommonKey = keys[keys.length - 1]
+  let leastCommonKeyTimesPlayed = values[values.length - 1]
 
   // append key data to export
   rekordBoxPlaylistData.key_data = {
@@ -215,99 +215,103 @@ const createRekordboxReport = (data) => {
       ).toFixed(1),
       empty_key_tags: nullKeyCount,
     },
-  };
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              artist data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  let artistArray = [];
-  let nullArtistCount = 0;
+  let artistArray = []
+  let nullArtistCount = 0
   rekordBoxData.forEach((track) => {
-    if (!track.Artist || track.Artist === "") {
-      nullArtistCount++;
+    if (!track.Artist || track.Artist === '') {
+      nullArtistCount++
     } else {
-      artistArray.push(track.Artist);
+      artistArray.push(track.Artist)
     }
-  });
+  })
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              bitrate data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  let lowerBitrateTracks = [];
+  let lowerBitrateTracks = []
 
   // logic to check for any lower bitrate tracks < 320 kbps
   rekordBoxData.forEach((track) => {
-    if (!track.Bitrate || track.Bitrate === "") {
-      nullBitrateCount++;
+    if (!track.Bitrate || track.Bitrate === '') {
+      nullBitrateCount++
     } else {
-      let bitRate = +track.Bitrate.split(" ")[0];
+      let bitRate = +track.Bitrate.split(' ')[0]
       if (bitRate < 320) {
-        lowerBitrateTracks.push(track);
+        lowerBitrateTracks.push({
+          title: track.Track_Title,
+          artist: track.Artist,
+          bitrate: track.Bitrate
+        })
       }
     }
-  });
+  })
 
   // logic to check for different file format useage based
   // on bit depth (file type available in RB export?)
 
-  let bitrateArray = [];
-  let nullBitrateCount = 0;
+  let bitrateArray = []
+  let nullBitrateCount = 0
   rekordBoxData.forEach((track) => {
-    if (!track.Bitrate || track.Bitrate === "") {
-      nullBitrateCount++;
+    if (!track.Bitrate || track.Bitrate === '') {
+      nullBitrateCount++
     } else {
-      bitrateArray.push(track.Bitrate);
+      bitrateArray.push(track.Bitrate)
     }
-  });
+  })
 
   // append bit rate data to export
   rekordBoxPlaylistData.bitrate_data = {
     sub320_tracks: lowerBitrateTracks,
     empty_bitrate_tags: nullBitrateCount,
-  };
+  }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
   //              year data & analysis
   // - - - - - - - - - - - - - - - - - - - - - - - -
 
-  let yearArray = [];
-  let nullYearCount = 0;
+  let yearArray = []
+  let nullYearCount = 0
 
   // get null/malformed year count and populate year array
   rekordBoxData.forEach((track) => {
-    if (!track.Year || track.Year === "" || track.Year === "0") {
-      nullYearCount++;
+    if (!track.Year || track.Year === '' || track.Year === '0') {
+      nullYearCount++
     } else {
-      yearArray.push(new Number(track.Year));
+      yearArray.push(new Number(track.Year))
     }
-  });
+  })
 
-  let oldestTracks = [];
-  let newestTracks = [];
+  let oldestTracks = []
+  let newestTracks = []
 
   // determine oldest and most recent years played in set
-  let oldestTrackYear = Math.min(...yearArray);
-  let newestTrackYear = Math.max(...yearArray);
+  let oldestTrackYear = Math.min(...yearArray)
+  let newestTrackYear = Math.max(...yearArray)
 
   // populate oldest/newest track arrays
   rekordBoxData.forEach((track) => {
     if (+track.Year === oldestTrackYear) {
-      oldestTracks.push(track);
+      oldestTracks.push(track)
     } else if (+track.Year === newestTrackYear) {
-      newestTracks.push(track);
+      newestTracks.push(track)
     }
-  });
+  })
 
   // object with the count of each year played
-  let yearsPlayed = arrayCount(yearArray);
+  let yearsPlayed = arrayCount(yearArray)
 
   // percentage of playlist from most recent track year
   const newestYearPercentage = percentageOf(
     yearArray,
     new Number(newestTrackYear)
-  ).toFixed();
+  ).toFixed()
 
   // append year data to export
   rekordBoxPlaylistData.year_data = {
@@ -331,10 +335,10 @@ const createRekordboxReport = (data) => {
       ).toFixed(1),
       empty_year_tags: nullYearCount,
     },
-  };
+  }
 
   // console.log(rekordBoxPlaylistData.year_data.oldest_tracks.tracks_played)
-  return rekordBoxPlaylistData;
-};
+  return rekordBoxPlaylistData
+}
 
-module.exports = createRekordboxReport;
+module.exports = createRekordboxReport
