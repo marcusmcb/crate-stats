@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import { Divider } from 'semantic-ui-react'
+import * as d3 from 'd3'
 
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
@@ -62,6 +63,110 @@ const RekordboxPlaylistReport = () => {
       setIsBusy(false)
     }
   })
+
+  // const ReactD3BarChart = (props) => {
+  //   const { data } = props
+  //   console.log(data)
+  //   const svgRef = useRef()
+  //   useEffect(() => {
+  //     const svg = d3.select(svgRef.current)
+  //     svg
+  //       .selectAll('rect')
+  //       .data(data)
+  //       .join('rect')
+  //       .attr('x', (d, i) => i * 25)
+  //       .attr('y', (d) => 100 - 10 * d)
+  //       .attr('width', '20px')
+  //       .attr('height', (d) => d * 10)
+  //       .attr('fill', 'blue')
+  //   }, [data])
+
+  //   return (
+  //     <div>
+  //       <svg ref={svgRef}></svg>
+  //     </div>
+  //   )
+  // }
+
+  // const ReactD3SparklineWithPoints = (props) => {
+  //   const { data } = props
+  //   const svgRef = useRef()
+  //   useEffect(() => {
+  //     const svg = d3.select(svgRef.current)
+  //     const xScale = d3
+  //       .scaleLinear()
+  //       .domain([0, data.length - 1])
+  //       .range([0, 300])
+  //     const yScale = d3
+  //       .scaleLinear()
+  //       .domain([0, d3.max(data)])
+  //       .range([100, 0])
+  //     const lineGenerator = d3
+  //       .line()
+  //       .x((d, i) => xScale(i))
+  //       .y((d) => yScale(d))
+  //       .curve(d3.curveBasis)
+  //     const pathData = lineGenerator(data)
+  //     svg
+  //       .selectAll('path')
+  //       .data([pathData])
+  //       .join('path')
+  //       .attr('d', (d) => d)
+  //       .attr('fill', 'none')
+  //       .attr('stroke', 'blue')
+  //     svg
+  //       .selectAll('circle')
+  //       .data(data)
+  //       .join('circle')
+  //       .attr('cx', (d, i) => xScale(i))
+  //       .attr('cy', (d) => yScale(d))
+  //       .attr('r', '2px')
+  //       .attr('fill', 'blue')
+  //       .on('mouseenter', (d, i, n) => {
+  //         d3.select(n[i]).attr('r', '5px')
+  //       })
+  //       .on('mouseleave', (d, i, n) => {
+  //         d3.select(n[i]).attr('r', '2px')
+  //       })
+  //   }, [data])
+  //   return (
+  //     <div>
+  //       <svg ref={svgRef}></svg>
+  //     </div>
+  //   )
+  // }
+  // const BarChart = ({ data, width, height }) => {
+  //   const [state, setState] = useState({ data })
+  //   const ref = useRef()
+  //   useEffect(() => {
+  //     const svg = d3.select(ref.current)
+  //     const x = d3
+  //       .scaleLinear()
+  //       .domain([0, d3.max(data)])
+  //       .range([0, width])
+  //     const y = d3.scaleBand().domain(d3.range(data.length)).range([0, height])
+  //     svg
+  //       .selectAll('rect')
+  //       .data(data)
+  //       .enter()
+  //       .append('rect')
+  //       .attr('x', 0)
+  //       .attr('y', (d, i) => y(i))
+  //       .attr('width', x)
+  //       .attr('height', y.bandwidth())
+  //       .on('click', (d, i) => {
+  //         setState({
+  //           data: data.map((e, j) => (j === i ? e * 2 : e)),
+  //         })
+  //       })
+  //   }, [])
+
+  //   return (
+  //     <div>
+  //       <svg ref={ref} width={width} height={height} transform={'rotate(90)'}></svg>
+  //     </div>
+  //   )
+  // }
 
   return (
     <Fragment>
@@ -182,7 +287,11 @@ const RekordboxPlaylistReport = () => {
                             fontWeight={500}
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                           >
-                            ({data.track_data.shortest_track_played['length'].slice(1)})
+                            (
+                            {data.track_data.shortest_track_played[
+                              'length'
+                            ].slice(1)}
+                            )
                           </Typography>
                           <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                             - played @{' '}
@@ -214,7 +323,11 @@ const RekordboxPlaylistReport = () => {
                             fontWeight={500}
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                           >
-                            ({data.track_data.longest_track_played['length'].slice(1)})
+                            (
+                            {data.track_data.longest_track_played[
+                              'length'
+                            ].slice(1)}
+                            )
                           </Typography>
                           <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                             - played @{' '}
@@ -281,6 +394,8 @@ const RekordboxPlaylistReport = () => {
                           </Typography>
                         </Grid>
                       </Grid>
+                      {/* <BarChart data={data.bpm_data.bpm_array} width={900} height={100}/> */}
+                      {/* <ReactD3SparklineWithPoints data={data.bpm_data.bpm_array} /> */}
                       {/* <Divider />
                       <Grid container spacing={2}>
                         <Grid item>
