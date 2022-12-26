@@ -291,18 +291,6 @@ const RekordboxPlaylistReport = () => {
                             ].slice(1)}
                             )
                           </Typography>
-                          <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                            - played @{' '}
-                            <span
-                              style={{
-                                color: 'rgba(29, 79, 145, 0.8)',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {/* {data.track_data.shortest_track.played_at} */}
-                              No Value
-                            </span>
-                          </Typography>
                         </Grid>
                         <Grid item>
                           <Typography sx={{ fontSize: 16 }}>
@@ -326,18 +314,6 @@ const RekordboxPlaylistReport = () => {
                               'length'
                             ].slice(1)}
                             )
-                          </Typography>
-                          <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                            - played @{' '}
-                            <span
-                              style={{
-                                color: 'rgba(29, 79, 145, 0.8)',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {/* {data.track_data.longest_track.played_at} */}
-                              No Value
-                            </span>
                           </Typography>
                         </Grid>
                       </Grid>
@@ -389,6 +365,99 @@ const RekordboxPlaylistReport = () => {
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                           >
                             {data.bpm_data.average_bpm}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <Grid container spacing={2}>
+                        <Grid item mt={1}>
+                          <Typography>most common bpm:</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {data.bpm_data.most_common_bpm.value}{' '}
+                            <span style={{ fontSize: '18px', color: 'black' }}>
+                              (played{' '}
+                              {data.bpm_data.most_common_bpm.times_played} times
+                              in this set)
+                            </span>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <Grid container spacing={2}>
+                        <Grid item mt={1}>
+                          <div style={{ marginBottom: '15px' }}>
+                            <Typography
+                              style={{ fontSize: '18px', fontWeight: '600' }}
+                            >
+                              biggest single bpm change:
+                            </Typography>
+                          </div>
+                        </Grid>
+                        {/* <Grid item>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {new Number(
+                              data.bpm_data.biggest_bpm_change.from_track.bpm
+                            ).toFixed()}{' '}
+                            -->{' '}
+                            {new Number(
+                              data.bpm_data.biggest_bpm_change.to_track.bpm
+                            ).toFixed()}
+                          </Typography>
+                        </Grid> */}
+                      </Grid>
+                      <Grid container spacing={2}>
+                        <Grid item>
+                          <Typography sx={{ fontSize: 16 }}>from:</Typography>
+                          <Typography
+                            variant='h5'
+                            component='div'
+                            fontWeight={500}
+                          >
+                            {data.bpm_data.biggest_bpm_change.from_track.title}
+                          </Typography>
+                          <Typography
+                            variant='h5'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {new Number(
+                              data.bpm_data.biggest_bpm_change.from_track.bpm
+                            ).toFixed()}{' '}
+                            BPM
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography sx={{ fontSize: 16 }}>to:</Typography>
+                          <Typography
+                            variant='h5'
+                            component='div'
+                            fontWeight={500}
+                          >
+                            {data.bpm_data.biggest_bpm_change.to_track.title}
+                          </Typography>
+                          <Typography
+                            variant='h5'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {new Number(
+                              data.bpm_data.biggest_bpm_change.to_track.bpm
+                            ).toFixed()}{' '}
+                            BPM
                           </Typography>
                         </Grid>
                       </Grid>
@@ -758,10 +827,9 @@ const RekordboxPlaylistReport = () => {
                                   fontWeight={500}
                                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                 >
-                                  {
-                                    data.year_data.tag_health
-                                      .percentage_with_year_tags
-                                  }
+                                  {new Number(
+                                    data.year_data.tag_health.percentage_with_year_tags
+                                  ).toFixed()}
                                   %
                                 </Typography>
                               </CardContent>
@@ -782,7 +850,8 @@ const RekordboxPlaylistReport = () => {
                                 >
                                   {data.year_data.tag_health.empty_year_tags}{' '}
                                   <span style={{ fontSize: '18px' }}>
-                                    of {data.mtll_} total tracks
+                                    (of {data.master_track_log.length} total
+                                    tracks)
                                   </span>
                                 </Typography>
                               </CardContent>
@@ -871,10 +940,9 @@ const RekordboxPlaylistReport = () => {
                                   fontWeight={500}
                                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                 >
-                                  {
-                                    data.genre_data.tag_health
-                                      .percentage_with_genre_tags
-                                  }
+                                  {new Number(
+                                    data.genre_data.tag_health.percentage_with_genre_tags
+                                  ).toFixed()}
                                   %
                                 </Typography>
                               </CardContent>
@@ -901,10 +969,9 @@ const RekordboxPlaylistReport = () => {
                                   fontWeight={500}
                                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                 >
-                                  {
-                                    data.genre_data.tag_health
-                                      .percentage_with_other_as_genre
-                                  }
+                                  {new Number(
+                                    data.genre_data.tag_health.percentage_with_other_as_genre
+                                  ).toFixed()}
                                   %
                                 </Typography>
                                 <Modal
@@ -981,42 +1048,58 @@ const RekordboxPlaylistReport = () => {
                           fontWeight={500}
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
-                          {data.bitrate_data.sub320_tracks.length}{' '}
-                          <span style={{ fontSize: '20px', color: 'black' }}>
-                            (out of {data.master_track_log.length} tracks)
-                          </span>
+                          {data.bitrate_data.sub320_tracks.length === 0 ? (
+                            <div>None detected</div>
+                          ) : (
+                            <div>
+                              {data.bitrate_data.sub320_tracks.length}{' '}
+                              <span
+                                style={{ fontSize: '20px', color: 'black' }}
+                              >
+                                (out of {data.master_track_log.length} tracks)
+                              </span>
+                            </div>
+                          )}
                         </Typography>
-                        <Divider />
-                        <Typography
-                          style={{ marginBottom: '15px', fontSize: '16px' }}
-                        >
-                          track title & bitrate:
-                        </Typography>
-                        {data.bitrate_data.sub320_tracks.map((item, key) => {
-                          return (
+                        {data.bitrate_data.sub320_tracks.length === 0 ? (
+                          <></>
+                        ) : (
+                          <div>
+                            <Divider />
                             <Typography
-                              key={key}
-                              component='div'
-                              fontWeight={500}
-                              sx={{
-                                color:
-                                  item.bitrate === '256 kbps'
-                                    ? 'rgba(255, 104, 39, 0.8)'
-                                    : item.bitrate === '192 kbps'
-                                    ? 'rgba(255, 39, 77, 0.8)'
-                                    : item.bitrate === '224 kbps'
-                                    ? 'rgba(255, 35, 129, 0.8)'
-                                    : 'black',
-                              }}
-                              style={{ fontSize: '20px' }}
+                              style={{ marginBottom: '15px', fontSize: '16px' }}
                             >
-                              <span style={{ color: 'black' }}>
-                                {item.title} -
-                              </span>{' '}
-                              {item.bitrate}
+                              track title & bitrate:
                             </Typography>
-                          )
-                        })}
+                            {data.bitrate_data.sub320_tracks.map(
+                              (item, key) => {
+                                return (
+                                  <Typography
+                                    key={key}
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{
+                                      color:
+                                        item.bitrate === '256 kbps'
+                                          ? 'rgba(255, 104, 39, 0.8)'
+                                          : item.bitrate === '192 kbps'
+                                          ? 'rgba(255, 39, 77, 0.8)'
+                                          : item.bitrate === '224 kbps'
+                                          ? 'rgba(255, 35, 129, 0.8)'
+                                          : 'black',
+                                    }}
+                                    style={{ fontSize: '20px' }}
+                                  >
+                                    <span style={{ color: 'black' }}>
+                                      {item.title} -
+                                    </span>{' '}
+                                    {item.bitrate}
+                                  </Typography>
+                                )
+                              }
+                            )}
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </Grid>

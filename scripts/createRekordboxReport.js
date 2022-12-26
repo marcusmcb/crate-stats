@@ -6,6 +6,7 @@ const {
   convertMSToMMSS,
   calculateAverage,
   arrayCount,
+  findMaxObjectValue,
   getUniqueGenres,
   sortObject,
   getTimeFromMS,
@@ -76,17 +77,34 @@ const createRekordboxReport = (data) => {
 
   // array of bpms
   let bpmArray = []
+  let bpmArrayCleaned = []
   let nullBPMCount = 0
   rekordBoxData.forEach((track) => {
     if (!track['BPM'] || track['BPM'] === '') {
       nullBPMCount++
     } else {
       bpmArray.push(new Number(track['BPM']))
+      bpmArrayCleaned.push(new Number(track['BPM']).toFixed())
     }
-  })
+  })    
 
+  // determine most common bpm played in set
+  let bpmCount = arrayCount(bpmArrayCleaned)
+  console.log(bpmCount)
+  
+  // add logic to account for when mostCommonBPM has more than 1 value
+  let mostCommonBPMValues = findMaxObjectValue(bpmCount)
+  const mostCommonBPM = mostCommonBPMValues[0]
+  const mostCommonBPMTimesPlayed = mostCommonBPMValues[1]
+
+  console.log(mostCommonBPMValues)
+  
   // determine average bpm from playlist
   let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
+  
+  // helper method to determine biggest single BPM change in set
+  let fromTrack
+  let intoTrack
 
   const maxBPMDifference = (bpmArray) => {
     var maxDiff = 0
@@ -94,12 +112,12 @@ const createRekordboxReport = (data) => {
       var diff = bpmArray[i + 1] - bpmArray[i]
       if (diff > maxDiff) {
         maxDiff = diff
+        fromTrack = rekordBoxData[i]
+        intoTrack = rekordBoxData[i + 1]        
       }
     }
     return maxDiff
-  }
-
-  console.log('BPM DIFF?', maxBPMDifference(bpmArray))
+  }  
 
   // append bpm data to object return
   rekordBoxPlaylistData.bpm_data = {
@@ -109,7 +127,25 @@ const createRekordboxReport = (data) => {
       maxBPM: Math.max(...bpmArray),
     },
     empty_bpm_tags: nullBPMCount,
-    bpm_array: bpmArray
+    bpm_array: bpmArray,
+    most_common_bpm: {
+      value: new Number(mostCommonBPM),
+      times_played: mostCommonBPMTimesPlayed
+    },
+    biggest_bpm_change: {
+      diff: maxBPMDifference(bpmArray),
+      from_track: {
+        title: fromTrack.Track_Title,
+        artist: fromTrack.Artist,
+        bpm: fromTrack['BPM']
+      },
+      to_track: {
+        title: intoTrack.Track_Title,
+        artist: intoTrack.Artist,
+        bpm: intoTrack['BPM']
+      }
+      
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -132,7 +168,7 @@ const createRekordboxReport = (data) => {
       genreTagsWithValues++
     } else {
       if (track.Genre.includes('-') || track.Genre.includes('/')) {
-        genres.push(track.Genre.replace(/[\/-]/g, ' '))
+        genres.push(track.Genre.toLowerCase().replace(/[\/-]/g, ' '))
         genreTagsWithValues++
       } else {
         genres.push(track.Genre.toLowerCase())
