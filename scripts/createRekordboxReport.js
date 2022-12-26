@@ -109,6 +109,7 @@ const createRekordboxReport = (data) => {
       maxBPM: Math.max(...bpmArray),
     },
     empty_bpm_tags: nullBPMCount,
+    bpm_array: bpmArray
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
