@@ -144,7 +144,6 @@ const percentageOf = (array, value) => {
       count++
     }
   }
-
   return (count / array.length) * 100
 }
 

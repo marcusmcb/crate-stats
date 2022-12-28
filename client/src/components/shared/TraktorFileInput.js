@@ -6,7 +6,7 @@ import './style/draganddrop.css'
 
 const fileTypes = ['TXT']
 
-const TraktorFileInput = () => {
+const TraktorFileInput = ({ getDataFromTXT }) => {
   const [file, setFile] = useState('')
 
   const onChange = (event) => {
@@ -21,6 +21,7 @@ const TraktorFileInput = () => {
             .post('/sendTraktorFile', results.data)
             .then((response) => {
               console.log(response.data)
+              getDataFromTXT(response.data)
             })
         } catch (err) {
           console.log(err)

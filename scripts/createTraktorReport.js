@@ -215,7 +215,7 @@ const createTraktorReport = (data) => {
         artistArray.push(track.Artist);
       }
     });   
-
+    console.log(traktorPlaylistData)
     return traktorPlaylistData;
   } catch (err) {
     console.log(chalk.red('------------------'))
