@@ -153,8 +153,7 @@ const PageSelect = () => {
                 <CardContent>
                   <Typography color="text.secondary">
                     Export your set list history from your DVS software as a CSV
-                    or TXT file and use it to get your Crate Stats playlist
-                    analysis.
+                    or TXT file and use it to get your Crate Stats report.
                   </Typography>
                 </CardContent>
                 <div
