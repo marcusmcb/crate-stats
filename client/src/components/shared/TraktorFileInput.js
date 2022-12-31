@@ -16,16 +16,7 @@ const TraktorFileInput = ({ getDataFromTXT }) => {
       download: false,
       skipEmptyLines: true,
       complete: async (results) => {
-        try {
-          await axios
-            .post('/sendTraktorFile', results.data)
-            .then((response) => {
-              console.log(response.data)
-              getDataFromTXT(response.data)
-            })
-        } catch (err) {
-          console.log(err)
-        }
+        getDataFromTXT(results.data)
       },
     })
   }
