@@ -262,7 +262,7 @@ const TraktorPlaylistReport = () => {
                         </Grid>
                       </Grid>
                       <Divider />
-                      {/* <Grid container spacing={2}>
+                      <Grid container spacing={2}>
                         <Grid item mt={1}>
                           <Typography>most common bpm:</Typography>
                         </Grid>
@@ -281,9 +281,9 @@ const TraktorPlaylistReport = () => {
                             </span>
                           </Typography>
                         </Grid>
-                      </Grid> */}
+                      </Grid>
                       <Divider />
-                      {/* <Grid container spacing={2}>
+                      <Grid container spacing={2}>
                         <Grid item mt={1}>
                           <div style={{ marginBottom: '15px' }}>
                             <Typography
@@ -292,8 +292,8 @@ const TraktorPlaylistReport = () => {
                               biggest single bpm change:
                             </Typography>
                           </div>
-                        </Grid> */}
-                        {/* <Grid item>
+                        </Grid>
+                        <Grid item>
                           <Typography
                             variant='h4'
                             component='div'
@@ -308,9 +308,9 @@ const TraktorPlaylistReport = () => {
                               data.bpm_data.biggest_bpm_change.to_track.bpm
                             ).toFixed()}
                           </Typography>
-                        </Grid> */}
-                      {/* </Grid> */}
-                      {/* <Grid container spacing={2}>
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={2}>
                         <Grid item>
                           <Typography sx={{ fontSize: 16 }}>from:</Typography>
                           <Typography
@@ -353,7 +353,7 @@ const TraktorPlaylistReport = () => {
                             BPM
                           </Typography>
                         </Grid>
-                      </Grid>                       */}
+                      </Grid>                      
                     </CardContent>
                   </Card>
                 </Grid>

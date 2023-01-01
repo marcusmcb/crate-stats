@@ -170,7 +170,21 @@ const findMaxObjectValue = (obj) => {
   return [maxKey, max]
 }
 
+const maxBPMDifference = (bpmArray) => {
+  var maxDiff = 0
+  for (var i = 0; i < rekordBoxData.length - 1; i++) {
+    var diff = bpmArray[i + 1] - bpmArray[i]
+    if (diff > maxDiff) {
+      maxDiff = diff
+      fromTrack = rekordBoxData[i]
+      intoTrack = rekordBoxData[i + 1]
+    }
+  }
+  return maxDiff
+}
+
 module.exports = {
+  maxBPMDifference: maxBPMDifference,
   averageYear: averageYear,
   findMaxObjectValue: findMaxObjectValue,
   convertToCSV: convertToCSV,

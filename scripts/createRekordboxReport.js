@@ -86,22 +86,20 @@ const createRekordboxReport = (data) => {
       bpmArray.push(new Number(track['BPM']))
       bpmArrayCleaned.push(new Number(track['BPM']).toFixed())
     }
-  })    
+  })
 
   // determine most common bpm played in set
   let bpmCount = arrayCount(bpmArrayCleaned)
   console.log(bpmCount)
-  
+
   // add logic to account for when mostCommonBPM has more than 1 value
   let mostCommonBPMValues = findMaxObjectValue(bpmCount)
   const mostCommonBPM = mostCommonBPMValues[0]
   const mostCommonBPMTimesPlayed = mostCommonBPMValues[1]
 
-  console.log(mostCommonBPMValues)
-  
   // determine average bpm from playlist
   let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length
-  
+
   // helper method to determine biggest single BPM change in set
   let fromTrack
   let intoTrack
@@ -113,11 +111,11 @@ const createRekordboxReport = (data) => {
       if (diff > maxDiff) {
         maxDiff = diff
         fromTrack = rekordBoxData[i]
-        intoTrack = rekordBoxData[i + 1]        
+        intoTrack = rekordBoxData[i + 1]
       }
     }
     return maxDiff
-  }  
+  }
 
   // append bpm data to object return
   rekordBoxPlaylistData.bpm_data = {
@@ -130,22 +128,21 @@ const createRekordboxReport = (data) => {
     bpm_array: bpmArray,
     most_common_bpm: {
       value: new Number(mostCommonBPM),
-      times_played: mostCommonBPMTimesPlayed
+      times_played: mostCommonBPMTimesPlayed,
     },
     biggest_bpm_change: {
       diff: maxBPMDifference(bpmArray),
       from_track: {
         title: fromTrack.Track_Title,
         artist: fromTrack.Artist,
-        bpm: fromTrack['BPM']
+        bpm: fromTrack['BPM'],
       },
       to_track: {
         title: intoTrack.Track_Title,
         artist: intoTrack.Artist,
-        bpm: intoTrack['BPM']
-      }
-      
-    }
+        bpm: intoTrack['BPM'],
+      },
+    },
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -284,7 +281,7 @@ const createRekordboxReport = (data) => {
         lowerBitrateTracks.push({
           title: track.Track_Title,
           artist: track.Artist,
-          bitrate: track.Bitrate
+          bitrate: track.Bitrate,
         })
       }
     }
@@ -373,8 +370,6 @@ const createRekordboxReport = (data) => {
       empty_year_tags: nullYearCount,
     },
   }
-
-  // console.log(rekordBoxPlaylistData.year_data.oldest_tracks.tracks_played)
   return rekordBoxPlaylistData
 }
 

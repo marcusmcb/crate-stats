@@ -8,7 +8,8 @@ const {
   calculateAverage,
   arrayCount,
   getUniqueGenres,
-  sortObject,
+  sortObject,  
+  findMaxObjectValue,  
 } = require("./shared/fileImportHelpers");
 
 // TRAKTOR DATA IMPORT:
@@ -75,17 +76,44 @@ const createTraktorReport = (data) => {
 
   // array of bpms
   let bpmArray = [];
+  let bpmArrayCleaned = []
   let nullBPMCount = 0;
   traktorData.forEach((track) => {
     if (!track["BPM"] || track["BPM"] === "") {
       nullBPMCount++;
     } else {
       bpmArray.push(new Number(track["BPM"]));
+      bpmArrayCleaned.push(new Number(track['BPM']).toFixed())
     }
   });
 
+  // determine most common bpm played in set
+  let bpmCount = arrayCount(bpmArrayCleaned)
+
   // determine average bpm from playlist
   let averageBPM = bpmArray.reduce((a, b) => a + b) / bpmArray.length;
+
+  // add logic to account for when mostCommonBPM has more than 1 value
+  let mostCommonBPMValues = findMaxObjectValue(bpmCount)
+  const mostCommonBPM = mostCommonBPMValues[0]
+  const mostCommonBPMTimesPlayed = mostCommonBPMValues[1]
+
+  // helper method to determine biggest single BPM change in set
+  let fromTrack
+  let intoTrack
+
+  const maxBPMDifference = (bpmArray) => {
+    var maxDiff = 0
+    for (var i = 0; i < traktorData.length - 1; i++) {
+      var diff = bpmArray[i + 1] - bpmArray[i]
+      if (diff > maxDiff) {
+        maxDiff = diff
+        fromTrack = traktorData[i]
+        intoTrack = traktorData[i + 1]
+      }
+    }
+    return maxDiff
+  }
 
   // append bpm data to object return
   traktorPlaylistData.bpm_data = {
@@ -95,6 +123,24 @@ const createTraktorReport = (data) => {
       maxBPM: Math.max(...bpmArray),
     },
     empty_bpm_tags: nullBPMCount,
+    bpm_array: bpmArray,
+    most_common_bpm: {
+      value: new Number(mostCommonBPM),
+      times_played: mostCommonBPMTimesPlayed,
+    },
+    biggest_bpm_change: {
+      diff: maxBPMDifference(bpmArray),
+      from_track: {
+        title: fromTrack.Track_Title,
+        artist: fromTrack.Artist,
+        bpm: fromTrack['BPM'],
+      },
+      to_track: {
+        title: intoTrack.Track_Title,
+        artist: intoTrack.Artist,
+        bpm: intoTrack['BPM'],
+      },
+    },
   };
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
