@@ -21,6 +21,8 @@ import TimeText from '../../../components/shared/text_spans/timeText'
 import TimesText from '../../../components/shared/text_spans/timesText'
 import './rekordboxplaylistreport.css'
 
+import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
+
 const RekordboxPlaylistReport = () => {
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
@@ -208,8 +210,8 @@ const RekordboxPlaylistReport = () => {
               <span>
                 <a
                   style={{ color: 'white', fontWeight: '400' }}
-                  href={'/'}
-                  download=''
+                  href={CrateStatsSample}
+                  download='rekordbox_sample_03.txt'
                   target='_blank'
                   rel='noreferrer'
                 >

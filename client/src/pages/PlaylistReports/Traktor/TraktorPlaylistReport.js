@@ -20,6 +20,8 @@ import TimeText from '../../../components/shared/text_spans/timeText'
 import TimesText from '../../../components/shared/text_spans/timesText'
 import './traktorplaylistreport.css'
 
+import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
+
 const TraktorPlaylistReport = () => {
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
@@ -104,9 +106,9 @@ const TraktorPlaylistReport = () => {
               Don't have Traktor? Grab a{' '}
               <span>
                 <a
-                  style={{ color: 'rgba(61, 37, 23, 0.8)', fontWeight: '400' }}
-                  href={'/'}
-                  download=''
+                  style={{ color: 'white', fontWeight: '400' }}
+                  href={CrateStatsSample}
+                  download='traktor_sample.txt'
                   target='_blank'
                   rel='noreferrer'
                 >
