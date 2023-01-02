@@ -777,7 +777,8 @@ const TraktorPlaylistReport = () => {
                                 {/* crate stats card */}
                                 <Typography>
                                   <span>
-                                    percentage of playlist with a five star rating:
+                                    percentage of playlist with a five star
+                                    rating:
                                     <HelpOutlineIcon
                                       onClick={() => {
                                         handleOpen()
@@ -818,20 +819,18 @@ const TraktorPlaylistReport = () => {
                                       sx={{ mt: 2 }}
                                     >
                                       Of the tracks you played in this set that
-                                      have genre tags,{' '}
+                                      have ratings,{' '}
                                       <span
                                         style={{
                                           color: 'rgba(29, 79, 145, 0.8)',
                                           fontWeight: '500',
                                         }}
                                       >
-                                        {
-                                          data.genre_data.tag_health
-                                            .percentage_with_other_as_genre
-                                        }
+                                        {new Number(
+                                          data.rating_data.tag_health.percentage_with_five_star_ratings
+                                        ).toFixed()}
                                       </span>
-                                      % of those tracks have 'Other' as their
-                                      main genre.
+                                      % of those tracks you have rated as five stars.
                                     </Typography>
                                   </Box>
                                 </Modal>
