@@ -301,7 +301,7 @@ const PageSelect = () => {
               fontSize: "16px",
             }}
           >
-            Crate Stats 2022
+            Crate Stats {(new Date()).getFullYear()}
           </Typography>
           <Typography
             sx={{ textAlign: "center", fontSize: "12px", marginTop: "5px" }}
