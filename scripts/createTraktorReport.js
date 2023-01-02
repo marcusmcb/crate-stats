@@ -260,8 +260,39 @@ const createTraktorReport = (data) => {
       artistArray.push(track.Artist);
     }
   });
-  console.log(chalk.magenta("---- YOOOOO -----"));
-  console.log(traktorPlaylistData);
+
+  let ratingArray = [] 
+  let nullRatingCount = 0
+  let fiveStarTracks = []
+  traktorData.forEach((track) => {
+    if (!track.Rating || track.Rating === "     ") {
+      nullRatingCount++
+    } else if (track.Rating === '*****') {
+      ratingArray.push(5)
+      fiveStarTracks.push({
+        title: track.Track_Title,
+        artist: track.Artist
+      })
+    } else if (track.Rating === '**** ') {
+      ratingArray.push(4)
+    } else if (track.Rating === '***  ') {
+      ratingArray.push(3)
+    } else if (track.Rating === '**   ') {
+      ratingArray.push(2)
+    } else {
+      ratingArray.push(1)
+    }
+  })
+
+  let ratingCount = arrayCount(ratingArray)
+
+  traktorPlaylistData.rating_data = {
+    track_ratings: ratingCount,
+    five_star_tracks: fiveStarTracks
+  }  
+
+  // console.log(chalk.magenta("---- YOOOOO -----"));
+  // console.log(traktorPlaylistData);
   return traktorPlaylistData;
 };
 

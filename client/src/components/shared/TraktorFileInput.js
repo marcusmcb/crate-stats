@@ -11,6 +11,7 @@ const TraktorFileInput = ({ getDataFromTXT }) => {
 
   const onChange = (event) => {
     setFile(event.name)
+    console.log(event)
     Papa.parse(event, {
       header: true,
       download: false,
