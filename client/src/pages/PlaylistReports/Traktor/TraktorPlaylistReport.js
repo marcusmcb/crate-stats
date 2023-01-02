@@ -762,7 +762,7 @@ const TraktorPlaylistReport = () => {
                                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                 >
                                   {new Number(
-                                    data.genre_data.tag_health.percentage_with_genre_tags
+                                    data.rating_data.tag_health.percentage_with_ratings
                                   ).toFixed()}
                                   %
                                 </Typography>
@@ -783,7 +783,6 @@ const TraktorPlaylistReport = () => {
                                     />
                                   </span>
                                 </Typography>
-
                                 <Typography
                                   variant='h4'
                                   component='div'
@@ -791,7 +790,7 @@ const TraktorPlaylistReport = () => {
                                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                 >
                                   {new Number(
-                                    data.genre_data.tag_health.percentage_with_other_as_genre
+                                    data.rating_data.tag_health.percentage_with_five_star_ratings
                                   ).toFixed()}
                                   %
                                 </Typography>

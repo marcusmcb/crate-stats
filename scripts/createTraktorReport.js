@@ -288,8 +288,12 @@ const createTraktorReport = (data) => {
 
   traktorPlaylistData.rating_data = {
     track_ratings: ratingCount,
-    five_star_tracks: fiveStarTracks
-  }  
+    five_star_tracks: fiveStarTracks,
+    tag_health: {
+      percentage_with_ratings: ratingArray.length / traktorData.length * 100,
+      percentage_with_five_star_ratings: fiveStarTracks.length / traktorData.length * 100
+    }
+  } 
 
   // console.log(chalk.magenta("---- YOOOOO -----"));
   // console.log(traktorPlaylistData);

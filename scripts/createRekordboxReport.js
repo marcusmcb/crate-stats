@@ -370,6 +370,41 @@ const createRekordboxReport = (data) => {
       empty_year_tags: nullYearCount,
     },
   }
+
+  let ratingArray = [] 
+  let nullRatingCount = 0
+  let fiveStarTracks = []
+  rekordBoxData.forEach((track) => {
+    if (!track.Rating || track.Rating === "     ") {
+      nullRatingCount++
+    } else if (track.Rating === '*****') {
+      ratingArray.push(5)
+      fiveStarTracks.push({
+        title: track.Track_Title,
+        artist: track.Artist
+      })
+    } else if (track.Rating === '**** ') {
+      ratingArray.push(4)
+    } else if (track.Rating === '***  ') {
+      ratingArray.push(3)
+    } else if (track.Rating === '**   ') {
+      ratingArray.push(2)
+    } else {
+      ratingArray.push(1)
+    }
+  })
+
+  let ratingCount = arrayCount(ratingArray)
+  rekordBoxPlaylistData.rating_data = {
+    track_ratings: ratingCount,
+    five_star_tracks: fiveStarTracks,
+    tag_health: {
+      percentage_with_ratings: ratingArray.length / rekordBoxData.length * 100,
+      percentage_with_five_star_ratings: fiveStarTracks.length / rekordBoxData.length * 100
+    }
+  }
+  console.log(fiveStarTracks)
+  // console.log(rekordBoxPlaylistData)
   return rekordBoxPlaylistData
 }
 
