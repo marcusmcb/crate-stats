@@ -403,8 +403,8 @@ const createRekordboxReport = (data) => {
       percentage_with_five_star_ratings: fiveStarTracks.length / rekordBoxData.length * 100
     }
   }
-  console.log(fiveStarTracks)
-  // console.log(rekordBoxPlaylistData)
+  
+  console.log(rekordBoxPlaylistData)
   return rekordBoxPlaylistData
 }
 
