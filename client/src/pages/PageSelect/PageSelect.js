@@ -159,8 +159,8 @@ const PageSelect = () => {
                 <div
                   style={{
                     display: "flex",
-                    alignItems: 'center',
-                    justifyContent: 'space-around'
+                    alignItems: 'center',                    
+                    
                   }}
                 >
                   <Button
@@ -169,6 +169,9 @@ const PageSelect = () => {
                     sx={{
                       backgroundColor: "#1b5e20",
                       ":hover": { backgroundColor: "#7cb342", color: "white" },
+                    }}
+                    style={{
+                      marginRight: '15px'
                     }}
                     component={Link}
                     to={"/playlistreport"}
@@ -181,6 +184,9 @@ const PageSelect = () => {
                     sx={{
                       backgroundColor: "#1b5e20",
                       ":hover": { backgroundColor: "#7cb342", color: "white" },
+                    }}
+                    style={{
+                      marginRight: '15px'
                     }}
                     component={Link}
                     to={"/rekordbox"}

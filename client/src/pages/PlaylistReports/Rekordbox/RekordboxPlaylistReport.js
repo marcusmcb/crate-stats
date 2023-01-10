@@ -1240,8 +1240,7 @@ const RekordboxPlaylistReport = () => {
                                       id='modal-modal-description'
                                       sx={{ mt: 2 }}
                                     >
-                                      Of the tracks you played in this set that
-                                      have ratings,{' '}
+                                      Of the tracks you played in this set,{' '}
                                       <span
                                         style={{
                                           color: 'rgba(29, 79, 145, 0.8)',
@@ -1252,8 +1251,7 @@ const RekordboxPlaylistReport = () => {
                                           data.rating_data.tag_health.percentage_with_five_star_ratings
                                         ).toFixed()}
                                       </span>
-                                      % of those tracks you have rated as five
-                                      stars.
+                                      % of them are rated as five stars.
                                     </Typography>
                                   </Box>
                                 </Modal>
