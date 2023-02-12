@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import Titlebar from '../../components/shared/Titlebar'
+import './playlists.css'
 
 const Playlists = () => {
   return (
-    <div>Playlists</div>
+    <Fragment>
+      <div className='playlist-pagebody'>
+        <Titlebar />
+        <div>Playlists</div>
+      </div>
+    </Fragment>
   )
 }
 

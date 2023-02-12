@@ -1,8 +1,7 @@
 .titlebar {
   text-align: center;  
-  font-size: 50px;
-  padding: 20px;
-  padding-bottom: 25px;
-  font-family: 'Exo 2', sans-serif;
-  /* background-color: #c5e1a5; */  
+  font-family: 'Exo 2', sans-serif;    
+  background-image: url('../../../images/vinyl.jpg');  
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

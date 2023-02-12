@@ -1,14 +1,65 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+
 import './style/titlebar.css'
+import { border } from '@mui/system'
 
 const Titlebar = () => {
-
   let title = 'crate<>stats'
 
   return (
     <div className='titlebar'>
-      <Link style={{color: 'black'}} to={'/'}>{title}</Link>
-      </div>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}
+      >
+        <Grid item>
+          <Button
+            variant='contained'
+            sx={{
+              backgroundColor: 'darkslategrey',
+              ':hover': { backgroundColor: 'slategrey', color: 'white' },
+            }}
+          >
+            Sign In
+          </Button>
+        </Grid>
+        <Grid item>
+          <Link
+            style={{
+              color: 'white',
+              // border: '2px solid gray',
+              // borderRadius: '15px',
+              padding: '10px',  
+              textDecoration: 'none'                          
+            }}
+            to={'/'}
+          >
+            <span style={{ color: 'yellow', fontSize: '40px'}}>{title}</span>
+          </Link>
+        </Grid>
+        <Grid item>
+          <Button
+            variant='contained'
+            sx={{
+              backgroundColor: 'darkslategrey',
+              ':hover': { backgroundColor: 'slategrey', color: 'white' },
+            }}
+            component={Link}
+            to={'/playlists'}
+          >
+            Playlists
+          </Button>
+        </Grid>
+      </Box>
+    </div>
   )
 }
 
