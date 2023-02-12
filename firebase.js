@@ -36,7 +36,7 @@ const getPlaylists = async () => {
   })
 }
 
-getPlaylists()
+// getPlaylists()
 
 module.exports = {
   setNewPlaylist: setNewPlaylist,
