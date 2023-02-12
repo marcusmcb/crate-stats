@@ -158,7 +158,7 @@ const getPlaylistData = (data) => {
       month: playlistMonth,
       dateday: playlistDateDay,
       start_time: playlistStartTime.split(' ')[1],
-      time_format: startTimeFormatDisplay,
+      // time_format: startTimeFormatDisplay,
     }
     playlist_data.playlist_length = playlistLength
 
@@ -168,7 +168,7 @@ const getPlaylistData = (data) => {
       minutes: playlistLengthParsed.getMinutes(),
       seconds: playlistLengthParsed.getSeconds(),
     }
-  }
+  }  
 
   return playlist_data
 }

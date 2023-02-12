@@ -1,34 +1,41 @@
-const { initializeApp } = require("firebase/app");
+const {
+  initializeApp,
+  applicationDefault,
+  cert,
+} = require('firebase-admin/app')
+
 const {
   getFirestore,
-  collection,
-  getDocs,
-} = require("firebase/firestore/lite");
-const dotenv = require("dotenv");
+  Timestamp,
+  FieldValue,
+} = require('firebase-admin/firestore')
 
-dotenv.config();
+const serviceAccount = require('./firebase/crate-stats-firebase-adminsdk-brtkl-1febc4b47c.json')
 
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "crate-stats.firebaseapp.com",
-  projectId: "crate-stats",
-  storageBucket: "crate-stats.appspot.com",
-  messagingSenderId: "191253184984",
-  appId: "1:191253184984:web:2ebfcf4a93ccaca19372ad",
-  measurementId: "G-QYRB7DGTF6",
-};
+initializeApp({
+  credential: cert(serviceAccount),
+})
 
-const firebaseConnection = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseConnection);
+const db = getFirestore()
 
-const playlistData = async (db) => {
-  const querySnapshot = await getDocs(collection(db, "playlists"));
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
-};
+const generateRandomString = () => {
+  var text = ''
+  var possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (var i = 0; i < 12; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
 
-playlistData(db)
+const setNewPlaylist = async (playlistData) => {
+  const res = await db
+    .collection('playlists')
+    .doc(generateRandomString())
+    .set(playlistData)
+  return res
+}
 
-module.exports = db;
+module.exports = {
+  setNewPlaylist: setNewPlaylist,
+}

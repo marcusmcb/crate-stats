@@ -183,6 +183,20 @@ const maxBPMDifference = (bpmArray) => {
   return maxDiff
 }
 
+const removeEmptyKey = (obj) => {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (key === '') {
+        delete obj[key]
+      }
+      if (typeof obj[key] === 'object') {
+        removeEmptyKey(obj[key])
+      }
+    }
+  }
+  return obj
+}
+
 module.exports = {
   maxBPMDifference: maxBPMDifference,
   averageYear: averageYear,
@@ -201,4 +215,5 @@ module.exports = {
   sortObject: sortObject,
   addMSArray: addMSArray,
   getTimeFromMS: getTimeFromMS,
+  removeEmptyKey: removeEmptyKey,
 }
