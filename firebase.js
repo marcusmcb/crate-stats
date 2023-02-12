@@ -1,15 +1,5 @@
-const {
-  initializeApp,
-  applicationDefault,
-  cert,
-} = require('firebase-admin/app')
-
-const {
-  getFirestore,
-  Timestamp,
-  FieldValue,
-} = require('firebase-admin/firestore')
-
+const { initializeApp, cert } = require('firebase-admin/app')
+const { getFirestore } = require('firebase-admin/firestore')
 const serviceAccount = require('./firebase/crate-stats-firebase-adminsdk-brtkl-1febc4b47c.json')
 
 initializeApp({
@@ -35,6 +25,18 @@ const setNewPlaylist = async (playlistData) => {
     .set(playlistData)
   return res
 }
+
+const getPlaylists = async () => {
+  const playlists = db.collection('playlists')
+  playlists.get().then((QuerySnapshot) => {
+    QuerySnapshot.forEach((doc) => {
+      console.log('------------------------------------------')
+      console.log(`${doc.id} => ${JSON.stringify(doc.data(), null, 2)}`)
+    })
+  })
+}
+
+getPlaylists()
 
 module.exports = {
   setNewPlaylist: setNewPlaylist,

@@ -10,7 +10,11 @@ const DragAndDrop = ({ getDataFromCSV }) => {
   const [file, setFile] = useState(null)
 
   const handleChange = (event) => {
-    console.log(event.name)
+    console.log(event.size)
+    
+    // append file size to results data and send w/API call
+    // use later to avoid duplicate playlist uploads to firestore
+
     setFile(event.name)
     Papa.parse(event, {
       header: true,

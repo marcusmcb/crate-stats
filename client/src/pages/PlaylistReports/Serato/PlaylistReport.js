@@ -28,7 +28,7 @@ import CrateStatsSample from '../../../data/cinco_de_mayo.csv'
 const PlaylistReport = () => {
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
-  const isInitialMount = useRef(true)
+  const isInitialMount = useRef(true)  
 
   const getDataFromCSV = (userData) => {
     axios.post('/sendFile', userData).then((response) => {
