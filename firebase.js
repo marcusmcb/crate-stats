@@ -12,13 +12,13 @@ const generateRandomString = () => {
   var text = ''
   var possible =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  for (var i = 0; i < 12; i++) {
+  for (var i = 0; i < 16; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length))
   }
   return text
 }
 
-const setNewPlaylist = async (playlistData) => {
+const addNewPlaylist = async (playlistData) => {
   const res = await db
     .collection('playlists')
     .doc(generateRandomString())
@@ -39,5 +39,6 @@ const getPlaylists = async () => {
 // getPlaylists()
 
 module.exports = {
-  setNewPlaylist: setNewPlaylist,
+  addNewPlaylist: addNewPlaylist,
+  getPlaylists: getPlaylists
 }
