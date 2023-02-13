@@ -47,9 +47,9 @@ const Playlists = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography style={{ fontSize: '20px', marginTop: '20px' }}>
+          {/* <Typography style={{ fontSize: '20px', marginTop: '20px' }}>
             User Playlists
-          </Typography>
+          </Typography> */}
         </Stack>
         <Stack direction={{ sm: 'row', xs: 'column' }}>
           <CardContent
@@ -59,6 +59,23 @@ const Playlists = () => {
           >
             {hasData ? (
               <div style={{ marginTop: '10px' }}>
+                <div
+                  style={{
+                    backgroundColor: 'white',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    marginBottom: '2px',
+                    border: '1px solid black',
+                  }}
+                >
+                  <Typography
+                    style={{
+                      fontWeight: '600',
+                    }}
+                  >
+                    Playlist Collection
+                  </Typography>
+                </div>
                 {userPlaylists.map((item, i) => (
                   <div
                     key={i}
@@ -101,6 +118,7 @@ const Playlists = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   fontSize: '25px',
+                  marginTop: '50px',
                 }}
               >
                 Select a file to view that playlist's Crate Stats report
