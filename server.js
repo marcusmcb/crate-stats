@@ -37,13 +37,13 @@ app.post('/sendTraktorFile', async (req, res) => {
   res.send(userReport)
 })
 
-app.post('/sendRekordboxFile', async (req, res) => {  
+app.post('/sendRekordboxFile', async (req, res) => {
   let userReport = await createRekordboxReport(req.body)
   res.send(userReport)
 })
 
-app.post('/getPlaylists', async (req, res) => {    
-  let userPlaylists = await getPlaylists()  
+app.post('/getPlaylists', async (req, res) => {
+  let userPlaylists = await getPlaylists()
   res.send(userPlaylists)
 })
 

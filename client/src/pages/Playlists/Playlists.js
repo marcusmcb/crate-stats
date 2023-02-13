@@ -25,9 +25,10 @@ import './playlists.css'
 const Playlists = () => {
   const [userPlaylists, setUserPlaylists] = useState([])
   const [fileSelected, setFileSelected] = useState(null)
+  const [fileIndex, setFileIndex] = useState()
   const [hasData, setHasData] = useState(false)
 
-  const getUserPlaylists = async () => {
+  const getUserPlaylists = () => {
     axios.post('/getPlaylists').then((response) => {
       setUserPlaylists(response.data)
       setHasData(true)
@@ -46,24 +47,43 @@ const Playlists = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography style={{ fontSize: '20px', padding: '15px' }}>
-            Playlists
+          <Typography style={{ fontSize: '20px', marginTop: '20px' }}>
+            User Playlists
           </Typography>
         </Stack>
         <Stack direction={{ sm: 'row', xs: 'column' }}>
           <CardContent
             style={{
-              backgroundColor: 'rgba(217, 217, 217, 0.8)',
               width: '20%',
             }}
           >
             {hasData ? (
-              <div>
+              <div style={{ marginTop: '10px' }}>
                 {userPlaylists.map((item, i) => (
-                  <Typography key={i} onClick={() => {
-                    setFileSelected(item)
-                    console.log("ITEM: ", item)
-                  }}>{item.playlist_data.title}</Typography>
+                  <div
+                    key={i}
+                    onClick={() => {
+                      setFileSelected(item)
+                      setFileIndex(i)
+                      console.log('ITEM: ', item)
+                    }}
+                    style={{
+                      backgroundColor:
+                        fileIndex === i ? '#c5e1a5' : 'rgba(54, 72, 69, 255)',
+                      color:
+                        fileIndex === i ? 'rgba(54, 72, 69, 255)' : 'white',
+                      padding: '10px',
+                      borderRadius: '5px',
+                      marginBottom: '2px',
+                      border: fileIndex === i ? '1px solid black' : 'none',
+                    }}
+                  >
+                    <Typography
+                      style={{ fontWeight: fileIndex === i ? '600' : '400' }}
+                    >
+                      {item.playlist_data.title}
+                    </Typography>
+                  </div>
                 ))}
               </div>
             ) : (
@@ -72,12 +92,21 @@ const Playlists = () => {
           </CardContent>
           <CardContent
             style={{
-              backgroundColor: 'rgba(235, 235, 235, 0.8)',
               width: '80%',
             }}
           >
-            {
-              fileSelected === null ? (<div>Select A File To Get Started</div>) : (<div>                
+            {fileSelected === null ? (
+              <Typography
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontSize: '25px',
+                }}
+              >
+                Select a file to view that playlist's Crate Stats report
+              </Typography>
+            ) : (
+              <div>
                 <div className='data-block'>
                   {fileSelected.playlist_data.has_playlist_data === false ? (
                     <DataMissing data={{ value: 'playlist' }} />
@@ -171,8 +200,8 @@ const Playlists = () => {
                     <MasterTracklog data={fileSelected.master_track_log} />
                   )}
                 </div>
-              </div>)
-            }
+              </div>
+            )}
           </CardContent>
         </Stack>
       </div>

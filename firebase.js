@@ -31,11 +31,9 @@ const getPlaylists = async () => {
   const playlists = db.collection('playlists')
   await playlists.get().then((QuerySnapshot) => {
     QuerySnapshot.forEach((doc) => {
-      // console.log('------------------------------------------')
-      // console.log(`${doc.id} => ${JSON.stringify(doc.data(), null, 2)}`)
       playlistArr.push(doc.data())
     })
-  })  
+  })
   return playlistArr
 }
 
@@ -43,5 +41,5 @@ const getPlaylists = async () => {
 
 module.exports = {
   addNewPlaylist: addNewPlaylist,
-  getPlaylists: getPlaylists
+  getPlaylists: getPlaylists,
 }
