@@ -31,7 +31,7 @@ const Playlists = () => {
   useEffect(() => {
     const getUserPlaylists = () => {
       axios.post('/getPlaylists').then((response) => {
-        console.log(response)
+        console.log(response.data)
         setUserPlaylists(response.data)
         setHasData(true)
       })
@@ -97,7 +97,7 @@ const Playlists = () => {
                     <Typography
                       style={{ fontWeight: fileIndex === i ? '600' : '400' }}
                     >
-                      {item.playlist_data.title}
+                      {item.data.playlist_data.title}
                     </Typography>
                   </div>
                 ))}
@@ -125,96 +125,96 @@ const Playlists = () => {
             ) : (
               <div>
                 <div className='data-block'>
-                  {fileSelected.playlist_data.has_playlist_data === false ? (
+                  {fileSelected.data.playlist_data.has_playlist_data === false ? (
                     <DataMissing data={{ value: 'playlist' }} />
                   ) : (
-                    <PlaylistData data={fileSelected.playlist_data} />
+                    <PlaylistData data={fileSelected.data.playlist_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.track_data.has_track_data === false ? (
+                  {fileSelected.data.track_data.has_track_data === false ? (
                     <DataMissing data={{ value: 'track' }} />
                   ) : (
-                    <TrackData data={fileSelected.track_data} />
+                    <TrackData data={fileSelected.data.track_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.bpm_data.has_bpm_data === false ? (
+                  {fileSelected.data.bpm_data.has_bpm_data === false ? (
                     <DataMissing data={{ value: 'bpm' }} />
                   ) : (
-                    <BPMData data={fileSelected.bpm_data} />
+                    <BPMData data={fileSelected.data.bpm_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.year_data.has_year_data === false ? (
+                  {fileSelected.data.year_data.has_year_data === false ? (
                     <div>
                       <DataMissing data={{ value: 'year' }} />
                     </div>
                   ) : (
                     <YearData
                       data={{
-                        yeardata: fileSelected.year_data,
-                        mtll: fileSelected.master_track_log.length,
+                        yeardata: fileSelected.data.year_data,
+                        mtll: fileSelected.data.master_track_log.length,
                       }}
                     />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.genre_data.has_genre_data === false ? (
+                  {fileSelected.data.genre_data.has_genre_data === false ? (
                     <DataMissing data={{ value: 'genre' }} />
                   ) : (
-                    <GenreData data={fileSelected.genre_data} />
+                    <GenreData data={fileSelected.data.genre_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.key_data.has_key_data === false ? (
+                  {fileSelected.data.key_data.has_key_data === false ? (
                     <div>
                       <DataMissing data={{ value: 'key' }} />
                     </div>
                   ) : (
-                    <KeyData data={fileSelected.key_data} />
+                    <KeyData data={fileSelected.data.key_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.doubles_data.has_doubles_data === false ? (
+                  {fileSelected.data.doubles_data.has_doubles_data === false ? (
                     <div>
                       <DataMissing data={{ value: 'doubles' }} />
                     </div>
                   ) : (
-                    <DoublesData data={fileSelected.doubles_data} />
+                    <DoublesData data={fileSelected.data.doubles_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.deck_data.has_deck_data === false ? (
+                  {fileSelected.data.deck_data.has_deck_data === false ? (
                     <DataMissing data={{ value: 'deck' }} />
                   ) : (
-                    <DeckData data={fileSelected.deck_data} />
+                    <DeckData data={fileSelected.data.deck_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.album_data.has_album_data === false ? (
+                  {fileSelected.data.album_data.has_album_data === false ? (
                     <DataMissing data={{ value: 'album' }} />
                   ) : (
                     <AlbumData
                       data={{
-                        albumdata: fileSelected.album_data,
-                        mtll: fileSelected.master_track_log.length,
+                        albumdata: fileSelected.data.album_data,
+                        mtll: fileSelected.data.master_track_log.length,
                       }}
                     />
                   )}
                 </div>
                 <div className='data-block'>
-                  {fileSelected.artist_data.has_artist_data === false ? (
+                  {fileSelected.data.artist_data.has_artist_data === false ? (
                     <DataMissing data={{ value: 'artist' }} />
                   ) : (
-                    <ArtistData data={fileSelected.artist_data} />
+                    <ArtistData data={fileSelected.data.artist_data} />
                   )}
                 </div>
                 <div className='data-block'>
-                  {!fileSelected.master_track_log ? (
+                  {!fileSelected.data.master_track_log ? (
                     <DataMissing data={{ value: 'tracklog' }} />
                   ) : (
-                    <MasterTracklog data={fileSelected.master_track_log} />
+                    <MasterTracklog data={fileSelected.data.master_track_log} />
                   )}
                 </div>
               </div>

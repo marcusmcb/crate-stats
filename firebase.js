@@ -30,8 +30,11 @@ const addNewPlaylist = async (playlistData) => {
 const getPlaylists = async () => {
   let playlistArr = []
   await playlists.get().then((QuerySnapshot) => {
-    QuerySnapshot.forEach((doc) => {      
-      playlistArr.push(doc.data())
+    QuerySnapshot.forEach((doc) => {    
+      console.log(doc.id)  
+      playlistArr.push({
+        id: doc.id,
+        data: doc.data()})
     })
   })
   return playlistArr
