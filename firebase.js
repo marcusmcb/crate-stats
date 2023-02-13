@@ -7,6 +7,7 @@ initializeApp({
 })
 
 const db = getFirestore()
+const playlists = db.collection('playlists')
 
 const generateRandomString = () => {
   var text = ''
@@ -28,18 +29,37 @@ const addNewPlaylist = async (playlistData) => {
 
 const getPlaylists = async () => {
   let playlistArr = []
-  const playlists = db.collection('playlists')
   await playlists.get().then((QuerySnapshot) => {
-    QuerySnapshot.forEach((doc) => {
+    QuerySnapshot.forEach((doc) => {      
       playlistArr.push(doc.data())
     })
   })
   return playlistArr
 }
 
-// getPlaylists()
+const queryPlaylist = async () => {
+  const queryRef = await playlists
+    .where('track_data.total_tracks_played', '<', 50)
+    .get()
+  if (queryRef.empty) {
+    console.log('NOPE')
+    return
+  } else {
+    queryRef.forEach((doc) => {
+      // console.log(doc.data())
+      console.log("YEP")
+    })
+  }
+}
+
+const deletePlaylist = async (fileID) => {
+
+}
+
+// console.log(queryPlaylist())
 
 module.exports = {
   addNewPlaylist: addNewPlaylist,
   getPlaylists: getPlaylists,
+  deletePlaylist: deletePlaylist,
 }

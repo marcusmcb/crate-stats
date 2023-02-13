@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Titlebar from '../../components/shared/Titlebar'
 
 import DataMissing from '../../components/shared/DataMissing'
@@ -28,13 +28,16 @@ const Playlists = () => {
   const [fileIndex, setFileIndex] = useState()
   const [hasData, setHasData] = useState(false)
 
-  const getUserPlaylists = () => {
-    axios.post('/getPlaylists').then((response) => {
-      setUserPlaylists(response.data)
-      setHasData(true)
-    })
-  }
-  getUserPlaylists()
+  useEffect(() => {
+    const getUserPlaylists = () => {
+      axios.post('/getPlaylists').then((response) => {
+        console.log(response)
+        setUserPlaylists(response.data)
+        setHasData(true)
+      })
+    }
+    getUserPlaylists()
+  }, [])
 
   return (
     <Fragment>
@@ -46,11 +49,7 @@ const Playlists = () => {
             display: 'flex',
             justifyContent: 'center',
           }}
-        >
-          {/* <Typography style={{ fontSize: '20px', marginTop: '20px' }}>
-            User Playlists
-          </Typography> */}
-        </Stack>
+        ></Stack>
         <Stack direction={{ sm: 'row', xs: 'column' }}>
           <CardContent
             style={{
@@ -64,13 +63,13 @@ const Playlists = () => {
                     backgroundColor: 'white',
                     padding: '10px',
                     borderRadius: '5px',
-                    marginBottom: '2px',
+                    marginBottom: '10px',
                     border: '1px solid black',
                   }}
                 >
                   <Typography
                     style={{
-                      fontWeight: '600',
+                      fontWeight: '600',                      
                     }}
                   >
                     Playlist Collection

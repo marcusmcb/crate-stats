@@ -9,7 +9,7 @@ const createSeratoReport = require('./scripts/createSeratoReport')
 const createTraktorReport = require('./scripts/createTraktorReport')
 const createRekordboxReport = require('./scripts/createRekordboxReport')
 
-const { addNewPlaylist, getPlaylists } = require('./firebase')
+const { addNewPlaylist, getPlaylists, deletePlaylist } = require('./firebase')
 
 dotenv.config()
 
@@ -28,7 +28,7 @@ app.post('/liveplaylist', async (req, res) => {
 
 app.post('/sendFile', async (req, res) => {
   let userReport = await createSeratoReport(req.body)
-  // await addNewPlaylist(userReport)
+  await addNewPlaylist(userReport)
   res.send(userReport)
 })
 
@@ -45,6 +45,11 @@ app.post('/sendRekordboxFile', async (req, res) => {
 app.post('/getPlaylists', async (req, res) => {
   let userPlaylists = await getPlaylists()
   res.send(userPlaylists)
+})
+
+app.post('/deletePlaylist', async (req, res) => {
+  console.log(req.body)
+  let deletedPlaylist = await deletePlaylist(file_id)
 })
 
 app.get('*', (req, res) => {
