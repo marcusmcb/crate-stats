@@ -170,152 +170,27 @@ const RekordboxPlaylistReport = () => {
 
   return (
     <Fragment>
-      <Titlebar />
-      {/* <DragAndDrop /> */}
-      <RekordboxFileInput getDataFromTXT={getDataFromTXT} />
       <div className='playlistreport-body'>
-        {isBusy ? (
-          <div className='data-block-two await-data'>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid>
-                <Card>
-                  <CardContent>
-                    <Grid>
-                      <Grid item mt={1.5}>
-                        <Typography
-                          sx={{
-                            fontSize: 16,
-                            fontWeight: '500',
-                          }}
-                        >
-                          Upload or drop your exported Rekordbox TXT file above
-                          to view your CrateStats analysis.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Box>
-            <Typography
-              sx={{
-                textAlign: 'center',
-                fontSize: '14px',
-                marginTop: '20px',
-                paddingBottom: '15px',
-                color: 'white',
-              }}
-            >
-              Don't have Rekordbox? Grab a{' '}
-              <span>
-                <a
-                  style={{ color: 'white', fontWeight: '400' }}
-                  href={CrateStatsSample}
-                  download='rekordbox_sample_03.txt'
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  test file
-                </a>
-              </span>{' '}
-              to demo this page.
-            </Typography>
-          </div>
-        ) : (
-          <div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                track data:
-              </Typography>
+        <Titlebar />
+        {/* <DragAndDrop /> */}
+        <RekordboxFileInput getDataFromTXT={getDataFromTXT} />
+        <div>
+          {isBusy ? (
+            <div className='data-block-two await-data'>
               <Box sx={{ flexGrow: 1 }}>
-                <Grid item md={5} sm={12}>
-                  <Card sx={{ minWidth: 275 }}>
+                <Grid>
+                  <Card>
                     <CardContent>
-                      <Grid container spacing={2}>
+                      <Grid>
                         <Grid item mt={1.5}>
-                          <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                            total tracks played:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
                           <Typography
-                            variant='h3'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            sx={{
+                              fontSize: 16,
+                              fontWeight: '500',
+                            }}
                           >
-                            {data.track_data.total_tracks_played}
-                          </Typography>
-                        </Grid>
-                        <Grid item mt={1.5}>
-                          <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                            average track length:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h3'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.track_data.average_track_length}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Divider />
-                      <Grid container spacing={2}>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>
-                            shortest track:
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                          >
-                            {data.track_data.shortest_track_played.title}
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            (
-                            {data.track_data.shortest_track_played[
-                              'length'
-                            ].slice(1)}
-                            )
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>
-                            longest track:
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                          >
-                            {data.track_data.longest_track_played.title}
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            (
-                            {data.track_data.longest_track_played[
-                              'length'
-                            ].slice(1)}
-                            )
+                            Upload or drop your exported Rekordbox TXT file
+                            above to view your CrateStats analysis.
                           </Typography>
                         </Grid>
                       </Grid>
@@ -323,86 +198,222 @@ const RekordboxPlaylistReport = () => {
                   </Card>
                 </Grid>
               </Box>
-            </div>
-            <div className='data-block-two'>
               <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
+                sx={{
+                  textAlign: 'center',
+                  fontSize: '14px',
+                  marginTop: '20px',
+                  paddingBottom: '15px',
+                  color: 'white',
+                }}
               >
-                bpm data:
+                Don't have Rekordbox? Grab a{' '}
+                <span>
+                  <a
+                    style={{ color: 'white', fontWeight: '400' }}
+                    href={CrateStatsSample}
+                    download='rekordbox_sample_03.txt'
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    test file
+                  </a>
+                </span>{' '}
+                to demo this page.
               </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid item md={5} sm={12}>
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <Grid container spacing={2}>
-                        <Grid item mt={1}>
-                          <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                            bpm range:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.bpm_data.bpm_range.minBPM} -{' '}
-                            {data.bpm_data.bpm_range.maxBPM}
-                          </Typography>
-                        </Grid>
-                        <Grid item mt={1}>
-                          <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
-                            average bpm:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.bpm_data.average_bpm}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Divider />
-                      <Grid container spacing={2}>
-                        <Grid item mt={1}>
-                          <Typography>most common bpm:</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.bpm_data.most_common_bpm.value}{' '}
-                            <span style={{ fontSize: '18px', color: 'black' }}>
-                              (played{' '}
-                              {data.bpm_data.most_common_bpm.times_played} times
-                              in this set)
-                            </span>
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Divider />
-                      <Grid container spacing={2}>
-                        <Grid item mt={1}>
-                          <div style={{ marginBottom: '15px' }}>
+            </div>
+          ) : (
+            <div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  track data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid item md={5} sm={12}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent>
+                        <Grid container spacing={2}>
+                          <Grid item mt={1.5}>
                             <Typography
-                              style={{ fontSize: '18px', fontWeight: '600' }}
+                              sx={{ fontSize: 16, fontWeight: '500' }}
                             >
-                              biggest single bpm change:
+                              total tracks played:
                             </Typography>
-                          </div>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h3'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.track_data.total_tracks_played}
+                            </Typography>
+                          </Grid>
+                          <Grid item mt={1.5}>
+                            <Typography
+                              sx={{ fontSize: 16, fontWeight: '500' }}
+                            >
+                              average track length:
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h3'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.track_data.average_track_length}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        {/* <Grid item>
+                        <Divider />
+                        <Grid container spacing={2}>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>
+                              shortest track:
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                            >
+                              {data.track_data.shortest_track_played.title}
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              (
+                              {data.track_data.shortest_track_played[
+                                'length'
+                              ].slice(1)}
+                              )
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>
+                              longest track:
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                            >
+                              {data.track_data.longest_track_played.title}
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              (
+                              {data.track_data.longest_track_played[
+                                'length'
+                              ].slice(1)}
+                              )
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  bpm data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid item md={5} sm={12}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent>
+                        <Grid container spacing={2}>
+                          <Grid item mt={1}>
+                            <Typography
+                              sx={{ fontSize: 16, fontWeight: '500' }}
+                            >
+                              bpm range:
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.bpm_data.bpm_range.minBPM} -{' '}
+                              {data.bpm_data.bpm_range.maxBPM}
+                            </Typography>
+                          </Grid>
+                          <Grid item mt={1}>
+                            <Typography
+                              sx={{ fontSize: 16, fontWeight: '500' }}
+                            >
+                              average bpm:
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.bpm_data.average_bpm}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Divider />
+                        <Grid container spacing={2}>
+                          <Grid item mt={1}>
+                            <Typography>most common bpm:</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.bpm_data.most_common_bpm.value}{' '}
+                              <span
+                                style={{ fontSize: '18px', color: 'black' }}
+                              >
+                                (played{' '}
+                                {data.bpm_data.most_common_bpm.times_played}{' '}
+                                times in this set)
+                              </span>
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Divider />
+                        <Grid container spacing={2}>
+                          <Grid item mt={1}>
+                            <div style={{ marginBottom: '15px' }}>
+                              <Typography
+                                style={{ fontSize: '18px', fontWeight: '600' }}
+                              >
+                                biggest single bpm change:
+                              </Typography>
+                            </div>
+                          </Grid>
+                          {/* <Grid item>
                           <Typography
                             variant='h4'
                             component='div'
@@ -418,54 +429,57 @@ const RekordboxPlaylistReport = () => {
                             ).toFixed()}
                           </Typography>
                         </Grid> */}
-                      </Grid>
-                      <Grid container spacing={2}>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>from:</Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                          >
-                            {data.bpm_data.biggest_bpm_change.from_track.title}
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {new Number(
-                              data.bpm_data.biggest_bpm_change.from_track.bpm
-                            ).toFixed()}{' '}
-                            BPM
-                          </Typography>
                         </Grid>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>to:</Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                          >
-                            {data.bpm_data.biggest_bpm_change.to_track.title}
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {new Number(
-                              data.bpm_data.biggest_bpm_change.to_track.bpm
-                            ).toFixed()}{' '}
-                            BPM
-                          </Typography>
+                        <Grid container spacing={2}>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>from:</Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                            >
+                              {
+                                data.bpm_data.biggest_bpm_change.from_track
+                                  .title
+                              }
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {new Number(
+                                data.bpm_data.biggest_bpm_change.from_track.bpm
+                              ).toFixed()}{' '}
+                              BPM
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>to:</Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                            >
+                              {data.bpm_data.biggest_bpm_change.to_track.title}
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {new Number(
+                                data.bpm_data.biggest_bpm_change.to_track.bpm
+                              ).toFixed()}{' '}
+                              BPM
+                            </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      {/* <BarChart data={data.bpm_data.bpm_array} width={900} height={150}/> */}
-                      {/* <ReactD3SparklineWithPoints data={data.bpm_data.bpm_array} /> */}
-                      {/* <Divider />
+                        {/* <BarChart data={data.bpm_data.bpm_array} width={900} height={150}/> */}
+                        {/* <ReactD3SparklineWithPoints data={data.bpm_data.bpm_array} /> */}
+                        {/* <Divider />
                       <Grid container spacing={2}>
                         <Grid item>
                           <Typography sx={{ fontSize: 16 }}>
@@ -532,154 +546,129 @@ const RekordboxPlaylistReport = () => {
                           No Value
                         </span>
                       </Typography> */}
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Box>
-            </div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                key data:
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid item xs={12} md={5} sm={12} lg={6}>
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <Grid container spacing={2}>
-                        <Grid item mt={1}>
-                          <Typography>most common key:</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.key_data.most_common_key.key}
-                          </Typography>
-                        </Grid>
-                        <Grid item mt={0.5}>
-                          {data.key_data.most_common_key.times_played > 1 ? (
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={400}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (played{' '}
-                              {data.key_data.most_common_key.times_played}{' '}
-                              <TimesText />)
-                            </Typography>
-                          ) : (
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={400}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (played{' '}
-                              {data.key_data.most_common_key.times_played}{' '}
-                              <TimeText />)
-                            </Typography>
-                          )}
-                        </Grid>
-                        <Grid item mt={1}>
-                          <Typography>least common key:</Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.key_data.least_common_key.key}
-                          </Typography>
-                        </Grid>
-                        <Grid item mt={0.5}>
-                          {data.key_data.least_common_key.times_played > 1 ? (
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={400}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (played{' '}
-                              {data.key_data.least_common_key.times_played}{' '}
-                              <TimesText />)
-                            </Typography>
-                          ) : (
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={400}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (played{' '}
-                              {data.key_data.least_common_key.times_played}{' '}
-                              <TimeText />)
-                            </Typography>
-                          )}
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                    <Card sx={{ midWidth: 245 }}>
-                      <CardActions
-                        sx={{
-                          height: '4vh',
-                          backgroundColor: 'rgba(101, 105, 114, 1)',
-                          color: 'white',
-                        }}
-                      >
-                        <CardContent>tag health</CardContent>
-                        <ExpandMore
-                          expand={expanded}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label='show more'
-                        >
-                          <ExpandMoreIcon sx={{ color: 'white' }} />
-                        </ExpandMore>
-                      </CardActions>
-                      <Collapse in={expanded} timeout='auto' unmountOnExit>
-                        <Grid container spacing={1}>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  percentage of tracks played with key tags:
-                                </Typography>
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {
-                                    data.key_data.tag_health
-                                      .percentage_with_key_tags
-                                  }
-                                  %
-                                </Typography>
-                              </CardContent>
-                            </Card>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  key data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid item xs={12} md={5} sm={12} lg={6}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent>
+                        <Grid container spacing={2}>
+                          <Grid item mt={1}>
+                            <Typography>most common key:</Typography>
                           </Grid>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            {data.key_data.tag_health.empty_key_tags === 0 ? (
-                              <></>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.key_data.most_common_key.key}
+                            </Typography>
+                          </Grid>
+                          <Grid item mt={0.5}>
+                            {data.key_data.most_common_key.times_played > 1 ? (
+                              <Typography
+                                variant='h5'
+                                component='div'
+                                fontWeight={400}
+                                sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              >
+                                (played{' '}
+                                {data.key_data.most_common_key.times_played}{' '}
+                                <TimesText />)
+                              </Typography>
                             ) : (
+                              <Typography
+                                variant='h5'
+                                component='div'
+                                fontWeight={400}
+                                sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              >
+                                (played{' '}
+                                {data.key_data.most_common_key.times_played}{' '}
+                                <TimeText />)
+                              </Typography>
+                            )}
+                          </Grid>
+                          <Grid item mt={1}>
+                            <Typography>least common key:</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.key_data.least_common_key.key}
+                            </Typography>
+                          </Grid>
+                          <Grid item mt={0.5}>
+                            {data.key_data.least_common_key.times_played > 1 ? (
+                              <Typography
+                                variant='h5'
+                                component='div'
+                                fontWeight={400}
+                                sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              >
+                                (played{' '}
+                                {data.key_data.least_common_key.times_played}{' '}
+                                <TimesText />)
+                              </Typography>
+                            ) : (
+                              <Typography
+                                variant='h5'
+                                component='div'
+                                fontWeight={400}
+                                sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              >
+                                (played{' '}
+                                {data.key_data.least_common_key.times_played}{' '}
+                                <TimeText />)
+                              </Typography>
+                            )}
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                      <Card sx={{ midWidth: 245 }}>
+                        <CardActions
+                          sx={{
+                            height: '4vh',
+                            backgroundColor: 'rgba(101, 105, 114, 1)',
+                            color: 'white',
+                          }}
+                        >
+                          <CardContent>tag health</CardContent>
+                          <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'
+                          >
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                          </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout='auto' unmountOnExit>
+                          <Grid container spacing={1}>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
                               <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
                                 <CardContent>
                                   {/* crate stats card */}
                                   <Typography>
-                                    tracks with empty key tags:
+                                    percentage of tracks played with key tags:
                                   </Typography>
                                   <Typography
                                     variant='h4'
@@ -687,586 +676,620 @@ const RekordboxPlaylistReport = () => {
                                     fontWeight={500}
                                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                   >
-                                    {data.key_data.tag_health.empty_key_tags}
+                                    {
+                                      data.key_data.tag_health
+                                        .percentage_with_key_tags
+                                    }
+                                    %
                                   </Typography>
                                 </CardContent>
                               </Card>
-                            )}
-                          </Grid>
-                        </Grid>
-                      </Collapse>
-                    </Card>
-                  </Card>
-                </Grid>
-              </Box>
-            </div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                year data:
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid item md={5} sm={12}>
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <Grid container spacing={2}>
-                        <Grid item mt={1}>
-                          <Typography
-                            sx={{ fontSize: 16, fontWeight: '500' }}
-                            sm={12}
-                          >
-                            range of years played:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.year_data.oldest_tracks.year} -{' '}
-                            {data.year_data.newest_tracks.year}
-                          </Typography>
-                        </Grid>
-                        <Grid item mt={1}>
-                          <Typography
-                            sx={{ fontSize: 16, fontWeight: '500' }}
-                            sm={12}
-                          >
-                            average year:
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            {data.year_data.average_year}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Divider />
-                      <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>
-                            oldest track ({data.year_data.oldest_tracks.year}):
-                          </Typography>
-                          <Typography
-                            variant='h5'
-                            component='div'
-                            fontWeight={500}
-                          >
-                            {
-                              data.year_data.oldest_tracks.tracks_played[0]
-                                .Artist
-                            }{' '}
-                            -{' '}
-                            {
-                              data.year_data.oldest_tracks.tracks_played[0]
-                                .Track_Title
-                            }
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography sx={{ fontSize: 16 }}>
-                            playlist percentage from most recent year:{' '}
-                          </Typography>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                          >
-                            <span>
-                              {data.year_data.newest_tracks.playlist_percentage}
-                              %
-                            </span>{' '}
-                            <span style={{ fontSize: '18px' }}>
-                              ( played{' '}
-                              {data.year_data.newest_tracks.times_played} times)
-                            </span>
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                    <Card sx={{ midWidth: 245 }}>
-                      <CardActions
-                        sx={{
-                          height: '4vh',
-                          backgroundColor: 'rgba(101, 105, 114, 1)',
-                          color: 'white',
-                        }}
-                      >
-                        <CardContent>tag health</CardContent>
-                        <ExpandMore
-                          expand={expanded}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label='show more'
-                        >
-                          <ExpandMoreIcon sx={{ color: 'white' }} />
-                        </ExpandMore>
-                      </CardActions>
-                      <Collapse in={expanded} timeout='auto' unmountOnExit>
-                        <Grid container spacing={1}>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  percentage with year tags:
-                                </Typography>
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {new Number(
-                                    data.year_data.tag_health.percentage_with_year_tags
-                                  ).toFixed()}
-                                  %
-                                </Typography>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  tracks with empty year tags:
-                                </Typography>
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {data.year_data.tag_health.empty_year_tags}{' '}
-                                  <span style={{ fontSize: '18px' }}>
-                                    (of {data.master_track_log.length} total
-                                    tracks)
-                                  </span>
-                                </Typography>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                        </Grid>
-                      </Collapse>
-                    </Card>
-                  </Card>
-                </Grid>
-              </Box>
-            </div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                genre data:
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} md={12} sm={12} lg={12}>
-                    <Card sx={{ minWidth: 275 }}>
-                      <CardContent>
-                        <Typography>unique genres played:</Typography>
-                        <Typography
-                          variant='h4'
-                          component='div'
-                          fontWeight={500}
-                          sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                        >
-                          {data.genre_data.unique_genres_played}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} md={12} sm={12} lg={12}>
-                    <Card sx={{ minWidth: 275 }}>
-                      <CardContent>
-                        <Typography>
-                          top three genre tags from this set:
-                        </Typography>
-                        {data.genre_data.top_three_genres.map((item, i) => (
-                          <Typography
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            key={i}
-                            fontSize={22}
-                          >
-                            {item}{' '}
-                          </Typography>
-                        ))}
-                      </CardContent>
-                      <CardActions
-                        sx={{
-                          height: '4vh',
-                          backgroundColor: '#616161',
-                          color: 'white',
-                        }}
-                      >
-                        <CardContent>tag health</CardContent>
-                        <ExpandMore
-                          expand={expanded}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label='show more'
-                        >
-                          <ExpandMoreIcon sx={{ color: 'white' }} />
-                        </ExpandMore>
-                      </CardActions>
-                      <Collapse in={expanded} timeout='auto' unmountOnExit>
-                        <Grid container spacing={1}>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  percentage of tracks played with genre tags:
-                                </Typography>
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {new Number(
-                                    data.genre_data.tag_health.percentage_with_genre_tags
-                                  ).toFixed()}
-                                  %
-                                </Typography>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  <span>
-                                    ...with "other" as their main genre:{' '}
-                                    <HelpOutlineIcon
-                                      onClick={() => {
-                                        handleOpen()
-                                      }}
-                                    />
-                                  </span>
-                                </Typography>
-
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {new Number(
-                                    data.genre_data.tag_health.percentage_with_other_as_genre
-                                  ).toFixed()}
-                                  %
-                                </Typography>
-                                <Modal
-                                  open={open}
-                                  onClose={handleClose}
-                                  aria-labelledby='modal-modal-title'
-                                  aria-describedby='modal-modal-description'
-                                >
-                                  <Box sx={style}>
-                                    <Typography
-                                      id='modal-modal-title'
-                                      variant='h6'
-                                      component='h2'
-                                      style={{
-                                        color: 'rgba(29, 79, 145, 0.8)',
-                                      }}
-                                    >
-                                      What this means...
+                            </Grid>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              {data.key_data.tag_health.empty_key_tags === 0 ? (
+                                <></>
+                              ) : (
+                                <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                  <CardContent>
+                                    {/* crate stats card */}
+                                    <Typography>
+                                      tracks with empty key tags:
                                     </Typography>
                                     <Typography
-                                      id='modal-modal-description'
-                                      sx={{ mt: 2 }}
+                                      variant='h4'
+                                      component='div'
+                                      fontWeight={500}
+                                      sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                     >
-                                      Of the tracks you played in this set that
-                                      have genre tags,{' '}
-                                      <span
-                                        style={{
-                                          color: 'rgba(29, 79, 145, 0.8)',
-                                          fontWeight: '500',
-                                        }}
-                                      >
-                                        {
-                                          data.genre_data.tag_health
-                                            .percentage_with_other_as_genre
-                                        }
-                                      </span>
-                                      % of those tracks have 'Other' as their
-                                      main genre.
+                                      {data.key_data.tag_health.empty_key_tags}
                                     </Typography>
-                                  </Box>
-                                </Modal>
-                              </CardContent>
-                            </Card>
+                                  </CardContent>
+                                </Card>
+                              )}
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </Collapse>
+                        </Collapse>
+                      </Card>
                     </Card>
                   </Grid>
-                </Grid>
-              </Box>
-            </div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                bitrate data:
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} md={12} sm={12} lg={12}>
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  year data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid item md={5} sm={12}>
                     <Card sx={{ minWidth: 275 }}>
                       <CardContent>
-                        <Typography
-                          style={{ fontWeight: '400', fontSize: '16px' }}
-                        >
-                          sub 320 tracks played:
-                        </Typography>
-                        <Typography
-                          variant='h4'
-                          component='div'
-                          fontWeight={500}
-                          sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                        >
-                          {data.bitrate_data.sub320_tracks.length === 0 ? (
-                            <div>None detected</div>
-                          ) : (
-                            <div>
-                              {data.bitrate_data.sub320_tracks.length}{' '}
-                              <span
-                                style={{ fontSize: '20px', color: 'black' }}
-                              >
-                                (out of {data.master_track_log.length} tracks)
-                              </span>
-                            </div>
-                          )}
-                        </Typography>
-                        {data.bitrate_data.sub320_tracks.length === 0 ? (
-                          <></>
-                        ) : (
-                          <div>
-                            <Divider />
+                        <Grid container spacing={2}>
+                          <Grid item mt={1}>
                             <Typography
-                              style={{ marginBottom: '15px', fontSize: '16px' }}
+                              sx={{ fontSize: 16, fontWeight: '500' }}
+                              sm={12}
                             >
-                              track title & bitrate:
+                              range of years played:
                             </Typography>
-                            {data.bitrate_data.sub320_tracks.map(
-                              (item, key) => {
-                                return (
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.year_data.oldest_tracks.year} -{' '}
+                              {data.year_data.newest_tracks.year}
+                            </Typography>
+                          </Grid>
+                          <Grid item mt={1}>
+                            <Typography
+                              sx={{ fontSize: 16, fontWeight: '500' }}
+                              sm={12}
+                            >
+                              average year:
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              {data.year_data.average_year}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Divider />
+                        <Grid container spacing={2} sx={{ marginTop: 1 }}>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>
+                              oldest track ({data.year_data.oldest_tracks.year}
+                              ):
+                            </Typography>
+                            <Typography
+                              variant='h5'
+                              component='div'
+                              fontWeight={500}
+                            >
+                              {
+                                data.year_data.oldest_tracks.tracks_played[0]
+                                  .Artist
+                              }{' '}
+                              -{' '}
+                              {
+                                data.year_data.oldest_tracks.tracks_played[0]
+                                  .Track_Title
+                              }
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography sx={{ fontSize: 16 }}>
+                              playlist percentage from most recent year:{' '}
+                            </Typography>
+                            <Typography
+                              variant='h4'
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                            >
+                              <span>
+                                {
+                                  data.year_data.newest_tracks
+                                    .playlist_percentage
+                                }
+                                %
+                              </span>{' '}
+                              <span style={{ fontSize: '18px' }}>
+                                ( played{' '}
+                                {data.year_data.newest_tracks.times_played}{' '}
+                                times)
+                              </span>
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                      <Card sx={{ midWidth: 245 }}>
+                        <CardActions
+                          sx={{
+                            height: '4vh',
+                            backgroundColor: 'rgba(101, 105, 114, 1)',
+                            color: 'white',
+                          }}
+                        >
+                          <CardContent>tag health</CardContent>
+                          <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'
+                          >
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                          </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout='auto' unmountOnExit>
+                          <Grid container spacing={1}>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    percentage with year tags:
+                                  </Typography>
                                   <Typography
-                                    key={key}
+                                    variant='h4'
                                     component='div'
                                     fontWeight={500}
-                                    sx={{
-                                      color:
-                                        item.bitrate === '256 kbps'
-                                          ? 'rgba(255, 104, 39, 0.8)'
-                                          : item.bitrate === '192 kbps'
-                                          ? 'rgba(255, 39, 77, 0.8)'
-                                          : item.bitrate === '224 kbps'
-                                          ? 'rgba(255, 35, 129, 0.8)'
-                                          : 'black',
-                                    }}
-                                    style={{ fontSize: '20px' }}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                                   >
-                                    <span style={{ color: 'black' }}>
-                                      {item.title} -
-                                    </span>{' '}
-                                    {item.bitrate}
+                                    {new Number(
+                                      data.year_data.tag_health.percentage_with_year_tags
+                                    ).toFixed()}
+                                    %
                                   </Typography>
-                                )
-                              }
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
+                                </CardContent>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    tracks with empty year tags:
+                                  </Typography>
+                                  <Typography
+                                    variant='h4'
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                  >
+                                    {data.year_data.tag_health.empty_year_tags}{' '}
+                                    <span style={{ fontSize: '18px' }}>
+                                      (of {data.master_track_log.length} total
+                                      tracks)
+                                    </span>
+                                  </Typography>
+                                </CardContent>
+                              </Card>
+                            </Grid>
+                          </Grid>
+                        </Collapse>
+                      </Card>
                     </Card>
                   </Grid>
-                </Grid>
-              </Box>
-            </div>
-            <div className='data-block-two'>
-              <Typography
-                sx={{ fontSize: 20 }}
-                color='white'
-                fontWeight={500}
-                gutterBottom
-              >
-                track rating data:
-              </Typography>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} md={12} sm={12} lg={12}>
-                    <Card sx={{ minWidth: 275 }}>
-                      <CardContent>
-                        <Typography>five-star tracks played:</Typography>
-                        <Typography
-                          variant='h4'
-                          component='div'
-                          fontWeight={500}
-                          sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                        >
-                          {data.rating_data.five_star_tracks.length}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} md={12} sm={12} lg={12}>
-                    <Card sx={{ minWidth: 275 }}>
-                      <CardContent>
-                        <Typography>
-                          five star tracks played during this set:
-                        </Typography>
-                        {data.rating_data.five_star_tracks.map((item, i) => (
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  genre data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} md={12} sm={12} lg={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Typography>unique genres played:</Typography>
                           <Typography
+                            variant='h4'
                             component='div'
                             fontWeight={500}
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            key={i}
-                            fontSize={22}
                           >
-                            {item.artist} - {item.title}
+                            {data.genre_data.unique_genres_played}
                           </Typography>
-                        ))}
-                      </CardContent>
-                      <CardActions
-                        sx={{
-                          height: '4vh',
-                          backgroundColor: '#616161',
-                          color: 'white',
-                        }}
-                      >
-                        <CardContent>tag health</CardContent>
-                        <ExpandMore
-                          expand={expanded}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label='show more'
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={12} sm={12} lg={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Typography>
+                            top three genre tags from this set:
+                          </Typography>
+                          {data.genre_data.top_three_genres.map((item, i) => (
+                            <Typography
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              key={i}
+                              fontSize={22}
+                            >
+                              {item}{' '}
+                            </Typography>
+                          ))}
+                        </CardContent>
+                        <CardActions
+                          sx={{
+                            height: '4vh',
+                            backgroundColor: '#616161',
+                            color: 'white',
+                          }}
                         >
-                          <ExpandMoreIcon sx={{ color: 'white' }} />
-                        </ExpandMore>
-                      </CardActions>
-                      <Collapse in={expanded} timeout='auto' unmountOnExit>
-                        <Grid container spacing={1}>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  percentage of tracks played with ratings:
-                                </Typography>
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {new Number(
-                                    data.rating_data.tag_health.percentage_with_ratings
-                                  ).toFixed()}
-                                  %
-                                </Typography>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                          <Grid item xs={12} md={6} sm={12} lg={6}>
-                            <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                              <CardContent>
-                                {/* crate stats card */}
-                                <Typography>
-                                  <span>
-                                    percentage of playlist with a five star
-                                    rating:
-                                    <HelpOutlineIcon
-                                      onClick={() => {
-                                        handleOpen()
-                                      }}
-                                    />
-                                  </span>
-                                </Typography>
+                          <CardContent>tag health</CardContent>
+                          <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'
+                          >
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                          </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout='auto' unmountOnExit>
+                          <Grid container spacing={1}>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    percentage of tracks played with genre tags:
+                                  </Typography>
+                                  <Typography
+                                    variant='h4'
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                  >
+                                    {new Number(
+                                      data.genre_data.tag_health.percentage_with_genre_tags
+                                    ).toFixed()}
+                                    %
+                                  </Typography>
+                                </CardContent>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    <span>
+                                      ...with "other" as their main genre:{' '}
+                                      <HelpOutlineIcon
+                                        onClick={() => {
+                                          handleOpen()
+                                        }}
+                                      />
+                                    </span>
+                                  </Typography>
 
-                                <Typography
-                                  variant='h4'
-                                  component='div'
-                                  fontWeight={500}
-                                  sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                                >
-                                  {new Number(
-                                    data.rating_data.tag_health.percentage_with_five_star_ratings
-                                  ).toFixed()}
-                                  %
-                                </Typography>
-                                <Modal
-                                  open={open}
-                                  onClose={handleClose}
-                                  aria-labelledby='modal-modal-title'
-                                  aria-describedby='modal-modal-description'
-                                >
-                                  <Box sx={style}>
-                                    <Typography
-                                      id='modal-modal-title'
-                                      variant='h6'
-                                      component='h2'
-                                      style={{
-                                        color: 'rgba(29, 79, 145, 0.8)',
-                                      }}
-                                    >
-                                      What this means...
-                                    </Typography>
-                                    <Typography
-                                      id='modal-modal-description'
-                                      sx={{ mt: 2 }}
-                                    >
-                                      Of the tracks you played in this set,{' '}
-                                      <span
+                                  <Typography
+                                    variant='h4'
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                  >
+                                    {new Number(
+                                      data.genre_data.tag_health.percentage_with_other_as_genre
+                                    ).toFixed()}
+                                    %
+                                  </Typography>
+                                  <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby='modal-modal-title'
+                                    aria-describedby='modal-modal-description'
+                                  >
+                                    <Box sx={style}>
+                                      <Typography
+                                        id='modal-modal-title'
+                                        variant='h6'
+                                        component='h2'
                                         style={{
                                           color: 'rgba(29, 79, 145, 0.8)',
-                                          fontWeight: '500',
                                         }}
                                       >
-                                        {new Number(
-                                          data.rating_data.tag_health.percentage_with_five_star_ratings
-                                        ).toFixed()}
-                                      </span>
-                                      % of them are rated as five stars.
-                                    </Typography>
-                                  </Box>
-                                </Modal>
-                              </CardContent>
-                            </Card>
+                                        What this means...
+                                      </Typography>
+                                      <Typography
+                                        id='modal-modal-description'
+                                        sx={{ mt: 2 }}
+                                      >
+                                        Of the tracks you played in this set
+                                        that have genre tags,{' '}
+                                        <span
+                                          style={{
+                                            color: 'rgba(29, 79, 145, 0.8)',
+                                            fontWeight: '500',
+                                          }}
+                                        >
+                                          {
+                                            data.genre_data.tag_health
+                                              .percentage_with_other_as_genre
+                                          }
+                                        </span>
+                                        % of those tracks have 'Other' as their
+                                        main genre.
+                                      </Typography>
+                                    </Box>
+                                  </Modal>
+                                </CardContent>
+                              </Card>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </Collapse>
-                    </Card>
+                        </Collapse>
+                      </Card>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  bitrate data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} md={12} sm={12} lg={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Typography
+                            style={{ fontWeight: '400', fontSize: '16px' }}
+                          >
+                            sub 320 tracks played:
+                          </Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {data.bitrate_data.sub320_tracks.length === 0 ? (
+                              <div>None detected</div>
+                            ) : (
+                              <div>
+                                {data.bitrate_data.sub320_tracks.length}{' '}
+                                <span
+                                  style={{ fontSize: '20px', color: 'black' }}
+                                >
+                                  (out of {data.master_track_log.length} tracks)
+                                </span>
+                              </div>
+                            )}
+                          </Typography>
+                          {data.bitrate_data.sub320_tracks.length === 0 ? (
+                            <></>
+                          ) : (
+                            <div>
+                              <Divider />
+                              <Typography
+                                style={{
+                                  marginBottom: '15px',
+                                  fontSize: '16px',
+                                }}
+                              >
+                                track title & bitrate:
+                              </Typography>
+                              {data.bitrate_data.sub320_tracks.map(
+                                (item, key) => {
+                                  return (
+                                    <Typography
+                                      key={key}
+                                      component='div'
+                                      fontWeight={500}
+                                      sx={{
+                                        color:
+                                          item.bitrate === '256 kbps'
+                                            ? 'rgba(255, 104, 39, 0.8)'
+                                            : item.bitrate === '192 kbps'
+                                            ? 'rgba(255, 39, 77, 0.8)'
+                                            : item.bitrate === '224 kbps'
+                                            ? 'rgba(255, 35, 129, 0.8)'
+                                            : 'black',
+                                      }}
+                                      style={{ fontSize: '20px' }}
+                                    >
+                                      <span style={{ color: 'black' }}>
+                                        {item.title} -
+                                      </span>{' '}
+                                      {item.bitrate}
+                                    </Typography>
+                                  )
+                                }
+                              )}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </div>
+              <div className='data-block-two'>
+                <Typography
+                  sx={{ fontSize: 20 }}
+                  color='white'
+                  fontWeight={500}
+                  gutterBottom
+                >
+                  track rating data:
+                </Typography>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} md={12} sm={12} lg={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Typography>five-star tracks played:</Typography>
+                          <Typography
+                            variant='h4'
+                            component='div'
+                            fontWeight={500}
+                            sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                          >
+                            {data.rating_data.five_star_tracks.length}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={12} sm={12} lg={12}>
+                      <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                          <Typography>
+                            five star tracks played during this set:
+                          </Typography>
+                          {data.rating_data.five_star_tracks.map((item, i) => (
+                            <Typography
+                              component='div'
+                              fontWeight={500}
+                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                              key={i}
+                              fontSize={22}
+                            >
+                              {item.artist} - {item.title}
+                            </Typography>
+                          ))}
+                        </CardContent>
+                        <CardActions
+                          sx={{
+                            height: '4vh',
+                            backgroundColor: '#616161',
+                            color: 'white',
+                          }}
+                        >
+                          <CardContent>tag health</CardContent>
+                          <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'
+                          >
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                          </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout='auto' unmountOnExit>
+                          <Grid container spacing={1}>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    percentage of tracks played with ratings:
+                                  </Typography>
+                                  <Typography
+                                    variant='h4'
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                  >
+                                    {new Number(
+                                      data.rating_data.tag_health.percentage_with_ratings
+                                    ).toFixed()}
+                                    %
+                                  </Typography>
+                                </CardContent>
+                              </Card>
+                            </Grid>
+                            <Grid item xs={12} md={6} sm={12} lg={6}>
+                              <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+                                <CardContent>
+                                  {/* crate stats card */}
+                                  <Typography>
+                                    <span>
+                                      percentage of playlist with a five star
+                                      rating:
+                                      <HelpOutlineIcon
+                                        onClick={() => {
+                                          handleOpen()
+                                        }}
+                                      />
+                                    </span>
+                                  </Typography>
+
+                                  <Typography
+                                    variant='h4'
+                                    component='div'
+                                    fontWeight={500}
+                                    sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+                                  >
+                                    {new Number(
+                                      data.rating_data.tag_health.percentage_with_five_star_ratings
+                                    ).toFixed()}
+                                    %
+                                  </Typography>
+                                  <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby='modal-modal-title'
+                                    aria-describedby='modal-modal-description'
+                                  >
+                                    <Box sx={style}>
+                                      <Typography
+                                        id='modal-modal-title'
+                                        variant='h6'
+                                        component='h2'
+                                        style={{
+                                          color: 'rgba(29, 79, 145, 0.8)',
+                                        }}
+                                      >
+                                        What this means...
+                                      </Typography>
+                                      <Typography
+                                        id='modal-modal-description'
+                                        sx={{ mt: 2 }}
+                                      >
+                                        Of the tracks you played in this set,{' '}
+                                        <span
+                                          style={{
+                                            color: 'rgba(29, 79, 145, 0.8)',
+                                            fontWeight: '500',
+                                          }}
+                                        >
+                                          {new Number(
+                                            data.rating_data.tag_health.percentage_with_five_star_ratings
+                                          ).toFixed()}
+                                        </span>
+                                        % of them are rated as five stars.
+                                      </Typography>
+                                    </Box>
+                                  </Modal>
+                                </CardContent>
+                              </Card>
+                            </Grid>
+                          </Grid>
+                        </Collapse>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </Fragment>
   )

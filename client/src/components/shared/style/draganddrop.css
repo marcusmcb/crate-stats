@@ -4,9 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 100vw;
-  
+  flex-direction: column;    
 }
 
 .drag-and-drop-label,

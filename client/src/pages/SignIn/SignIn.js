@@ -123,7 +123,7 @@ const SignIn = () => {
                       control={
                         <Checkbox value='allowExtraEmails' color='primary' />
                       }
-                      label='I want to receive inspiration, marketing promotions and updates via email.'
+                      label='I want to receive news and updates about CrateStats via email.'
                     />
                   </Grid>
                 </Grid>
