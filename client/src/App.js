@@ -6,6 +6,7 @@ import LiveReport from './pages/LiveReport/LiveReport'
 import RekordboxPlaylistReport from './pages/PlaylistReports/Rekordbox/RekordboxPlaylistReport'
 import TraktorPlaylistReport from './pages/PlaylistReports/Traktor/TraktorPlaylistReport'
 import Playlists from './pages/Playlists/Playlists'
+import SignIn from './pages/SignIn/SignIn'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -24,6 +25,7 @@ function App() {
         <Route path='/rekordbox' element={<RekordboxPlaylistReport />} />
         <Route path='/traktor' element={<TraktorPlaylistReport />} />
         <Route path='/playlists' element={<Playlists />} />
+        <Route path='/signin' element={<SignIn/>} />
       </Routes>
     </Router>
   )

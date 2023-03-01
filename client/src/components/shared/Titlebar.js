@@ -25,6 +25,8 @@ const Titlebar = () => {
               backgroundColor: 'darkslategrey',
               ':hover': { backgroundColor: 'slategrey', color: 'white' },
             }}
+            component={Link}
+            to={'/signin'}
           >
             Sign In
           </Button>
