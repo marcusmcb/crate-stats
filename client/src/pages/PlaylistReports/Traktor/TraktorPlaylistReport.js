@@ -320,7 +320,7 @@ const TraktorPlaylistReport = () => {
                               {new Number(
                                 data.bpm_data.biggest_bpm_change.from_track.bpm
                               ).toFixed()}{' '}
-                              -->{' '}
+                              --{' '}
                               {new Number(
                                 data.bpm_data.biggest_bpm_change.to_track.bpm
                               ).toFixed()}
