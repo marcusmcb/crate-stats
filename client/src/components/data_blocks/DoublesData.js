@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -10,11 +10,11 @@ import { Divider } from 'semantic-ui-react'
 import Modal from '@mui/material/Modal'
 
 const DoublesData = (doublesdata) => {
-  const [openL, setOpenL] = React.useState(false)
+  const [openL, setOpenL] = useState(false)
   const handleOpenL = () => setOpenL(true)
   const handleCloseL = () => setOpenL(false)
 
-  const [openR, setOpenR] = React.useState(false)
+  const [openR, setOpenR] = useState(false)
   const handleOpenR = () => setOpenR(true)
   const handleCloseR = () => setOpenR(false)
 
