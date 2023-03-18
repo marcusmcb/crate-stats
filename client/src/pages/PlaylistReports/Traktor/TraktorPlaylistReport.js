@@ -1,7 +1,9 @@
 import { Fragment, useState, useRef, useEffect } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
 import TraktorFileInput from '../../../components/shared/TraktorFileInput'
-import DragAndDrop from '../../../components/shared/DragAndDrop'
+import TrackData from './components/TrackData'
+import DataMissing from '../../../components/shared/DataMissing'
+
 import axios from 'axios'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -30,7 +32,7 @@ const TraktorPlaylistReport = () => {
   const getDataFromTXT = (userData) => {
     axios.post('/sendTraktorFile', userData).then((response) => {
       console.log('* * * * * TRAKTOR RESPONSE FROM EXPRESS ')
-      console.log(response)
+      console.log(response.data)
       setData(response.data)
     })
   }
@@ -122,109 +124,11 @@ const TraktorPlaylistReport = () => {
           ) : (
             <div>
               <div className='data-block-two'>
-                <Typography
-                  sx={{ fontSize: 20 }}
-                  color='white'
-                  fontWeight={500}
-                  gutterBottom
-                >
-                  track data:
-                </Typography>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Grid item md={5} sm={12}>
-                    <Card sx={{ minWidth: 275 }}>
-                      <CardContent>
-                        <Grid container spacing={3}>
-                          <Grid item mt={1.5}>
-                            <Typography
-                              sx={{ fontSize: 16, fontWeight: '500' }}
-                            >
-                              total tracks played:
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <Typography
-                              variant='h3'
-                              component='div'
-                              fontWeight={500}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              {data.track_data.total_tracks_played}
-                            </Typography>
-                          </Grid>
-                          <Grid item mt={1.5}>
-                            <Typography
-                              sx={{ fontSize: 16, fontWeight: '500' }}
-                            >
-                              average track length:
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <Typography
-                              variant='h3'
-                              component='div'
-                              fontWeight={500}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              {data.track_data.average_track_length}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Divider />
-                        <Grid container spacing={4}>
-                          <Grid item>
-                            <Typography sx={{ fontSize: 16 }}>
-                              shortest track:
-                            </Typography>
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={500}
-                            >
-                              {data.track_data.shortest_track_played.title}
-                            </Typography>
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={500}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (
-                              {data.track_data.shortest_track_played[
-                                'length'
-                              ].slice(1)}
-                              )
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <Typography sx={{ fontSize: 16 }}>
-                              longest track:
-                            </Typography>
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={500}
-                            >
-                              {data.track_data.longest_track_played.title}
-                            </Typography>
-                            <Typography
-                              variant='h5'
-                              component='div'
-                              fontWeight={500}
-                              sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-                            >
-                              (
-                              {data.track_data.longest_track_played[
-                                'length'
-                              ].slice(1)}
-                              )
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Box>
+                {data.track_data.has_track_data ? (
+                  <DataMissing data={{ value: 'track' }} />
+                ) : (
+                  <TrackData trackData={data.track_data} />
+                )}
               </div>
               <div className='data-block-two'>
                 <Typography
@@ -480,6 +384,7 @@ const TraktorPlaylistReport = () => {
                           }}
                         >
                           <CardContent>tag health</CardContent>
+
                           <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
