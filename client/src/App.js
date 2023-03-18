@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import PlaylistReport from './pages/PlaylistReports/Serato/PlaylistReport'
+import SeratoPlaylistReport from './pages/PlaylistReports/Serato/SeratoPlaylistReport'
 import PageSelect from './pages/PageSelect/PageSelect'
 import LiveReport from './pages/LiveReport/LiveReport'
 import RekordboxPlaylistReport from './pages/PlaylistReports/Rekordbox/RekordboxPlaylistReport'
@@ -20,7 +20,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<PageSelect />} />
-        <Route path='/playlistreport' element={<PlaylistReport />} />
+        <Route path='/playlistreport' element={<SeratoPlaylistReport />} />
         <Route path='/livereport' element={<LiveReport />} />
         <Route path='/rekordbox' element={<RekordboxPlaylistReport />} />
         <Route path='/traktor' element={<TraktorPlaylistReport />} />

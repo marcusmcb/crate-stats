@@ -13,7 +13,7 @@ import ArtistData from '../../../components/data_blocks/ArtistData'
 import AlbumData from '../../../components/data_blocks/AlbumData'
 import MasterTracklog from '../../../components/data_blocks/MasterTracklog'
 import DragAndDrop from '../../../components/shared/DragAndDrop'
-import Summary from '../../../components/data_blocks/Summary'
+// import Summary from '../../../components/data_blocks/Summary'
 
 import axios from 'axios'
 import Box from '@mui/material/Box'
@@ -21,11 +21,11 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import './playlistreport.css'
+import './seratoplaylistreport.css'
 
 import CrateStatsSample from '../../../data/cinco_de_mayo.csv'
 
-const PlaylistReport = () => {
+const SeratoPlaylistReport = () => {
   const [data, setData] = useState(null)
   const [isBusy, setIsBusy] = useState(true)
   const isInitialMount = useRef(true)
@@ -205,4 +205,4 @@ const PlaylistReport = () => {
   )
 }
 
-export default PlaylistReport
+export default SeratoPlaylistReport
