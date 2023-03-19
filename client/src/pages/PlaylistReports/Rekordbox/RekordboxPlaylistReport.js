@@ -19,7 +19,7 @@ import ExpandMore from '../../../components/helpers/CardExpander'
 
 import TimeText from '../../../components/shared/text_spans/timeText'
 import TimesText from '../../../components/shared/text_spans/timesText'
-import './rekordboxplaylistreport.css'
+import './style/rekordboxplaylistreport.css'
 
 import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
 
