@@ -121,32 +121,38 @@ const createTraktorReport = (data) => {
     return maxDiff
   }
 
-  // append bpm data to object return
-  traktorPlaylistData.bpm_data = {
-    average_bpm: averageBPM.toFixed(),
-    bpm_range: {
-      minBPM: Math.min(...bpmArray),
-      maxBPM: Math.max(...bpmArray),
-    },
-    empty_bpm_tags: nullBPMCount,
-    bpm_array: bpmArray,
-    most_common_bpm: {
-      value: new Number(mostCommonBPM),
-      times_played: mostCommonBPMTimesPlayed,
-    },
-    biggest_bpm_change: {
-      diff: maxBPMDifference(bpmArray),
-      from_track: {
-        title: fromTrack.Track_Title,
-        artist: fromTrack.Artist,
-        bpm: fromTrack['BPM'],
+  if (bpmArray.length === 0) {
+    traktorPlaylistData.bpm_data = {
+      has_bpm_data: false,
+    }
+  } else {
+    // append bpm data to object return
+    traktorPlaylistData.bpm_data = {
+      average_bpm: averageBPM.toFixed(),
+      bpm_range: {
+        minBPM: Math.min(...bpmArray),
+        maxBPM: Math.max(...bpmArray),
       },
-      to_track: {
-        title: intoTrack.Track_Title,
-        artist: intoTrack.Artist,
-        bpm: intoTrack['BPM'],
+      empty_bpm_tags: nullBPMCount,
+      bpm_array: bpmArray,
+      most_common_bpm: {
+        value: new Number(mostCommonBPM),
+        times_played: mostCommonBPMTimesPlayed,
       },
-    },
+      biggest_bpm_change: {
+        diff: maxBPMDifference(bpmArray),
+        from_track: {
+          title: fromTrack.Track_Title,
+          artist: fromTrack.Artist,
+          bpm: fromTrack['BPM'],
+        },
+        to_track: {
+          title: intoTrack.Track_Title,
+          artist: intoTrack.Artist,
+          bpm: intoTrack['BPM'],
+        },
+      },
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -192,23 +198,29 @@ const createTraktorReport = (data) => {
     Object.keys(topGenresSorted)[2]
   )
 
-  // append genre data to object return
-  traktorPlaylistData.genre_data = {
-    total_genres_played: genres.length,
-    unique_genres_played: uniqueGenres.length,
-    top_three_genres: topThreeGenres,
-    tag_health: {
-      percentage_with_genre_tags: calculateTagHealth(
-        genreTagsWithValues,
-        traktorData.length
-      ).toFixed(1),
-      percentage_with_other_as_genre: calculateTagHealth(
-        otherGenreCount,
-        genres.length
-      ).toFixed(1),
-      empty_genre_tags: nullGenreCount,
-      other_genre_tags: otherGenreCount,
-    },
+  if (genreTagsWithValues === 0) {
+    traktorPlaylistData.genre_data = {
+      has_genre_data: false,
+    }
+  } else {
+    // append genre data to object return
+    traktorPlaylistData.genre_data = {
+      total_genres_played: genres.length,
+      unique_genres_played: uniqueGenres.length,
+      top_three_genres: topThreeGenres,
+      tag_health: {
+        percentage_with_genre_tags: calculateTagHealth(
+          genreTagsWithValues,
+          traktorData.length
+        ).toFixed(1),
+        percentage_with_other_as_genre: calculateTagHealth(
+          otherGenreCount,
+          genres.length
+        ).toFixed(1),
+        empty_genre_tags: nullGenreCount,
+        other_genre_tags: otherGenreCount,
+      },
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -235,22 +247,30 @@ const createTraktorReport = (data) => {
   let leastCommonKey = keys[keys.length - 1]
   let leastCommonKeyTimesPlayed = values[values.length - 1]
 
-  traktorPlaylistData.key_data = {
-    most_common_key: {
-      key: mostCommonKey,
-      times_played: mostCommonKeyTimesPlayed,
-    },
-    least_common_key: {
-      key: leastCommonKey,
-      times_played: leastCommonKeyTimesPlayed,
-    },
-    tag_health: {
-      percentage_with_key_tags: calculateTagHealth(
-        trackKeys.length,
-        traktorData.length
-      ).toFixed(1),
-      empty_key_tags: nullKeyCount,
-    },
+  if (trackKeys.length === 0) {
+    traktorPlaylistData.key_data = {
+      has_key_data: false,
+    }
+  } else {
+    // append key data to object return
+    traktorPlaylistData.key_data = {
+      total_keys_played: trackKeys.length,
+      most_common_key: {
+        key: mostCommonKey,
+        times_played: mostCommonKeyTimesPlayed,
+      },
+      least_common_key: {
+        key: leastCommonKey,
+        times_played: leastCommonKeyTimesPlayed,
+      },
+      tag_health: {
+        percentage_with_key_tags: calculateTagHealth(
+          trackKeys.length,
+          traktorData.length
+        ).toFixed(1),
+        empty_key_tags: nullKeyCount,
+      },
+    }
   }
 
   // - - - - - - - - - - - - - - - - - - - - - - - -
@@ -289,18 +309,25 @@ const createTraktorReport = (data) => {
       ratingArray.push(1)
     }
   })
-
+  
   let ratingCount = arrayCount(ratingArray)
 
-  traktorPlaylistData.rating_data = {
-    track_ratings: ratingCount,
-    five_star_tracks: fiveStarTracks,
-    tag_health: {
-      percentage_with_ratings: (ratingArray.length / traktorData.length) * 100,
-      percentage_with_five_star_ratings:
-        (fiveStarTracks.length / traktorData.length) * 100,
-    },
-  }
+  if (ratingArray.length === 0) {
+    traktorPlaylistData.rating_data = {
+      has_rating_data: false,
+    }
+  } else {
+    traktorPlaylistData.rating_data = {
+      track_ratings: ratingCount,
+      five_star_tracks: fiveStarTracks,
+      tag_health: {
+        percentage_with_ratings:
+          (ratingArray.length / traktorData.length) * 100,
+        percentage_with_five_star_ratings:
+          (fiveStarTracks.length / traktorData.length) * 100,
+      },
+    }
+  } 
 
   // console.log(chalk.magenta("---- YOOOOO -----"));
   // console.log(traktorPlaylistData);
