@@ -7,8 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
-const TrackData = (trackData) => {  
-  console.log(trackData)
+const TrackData = (trackData) => {    
   return (
     <Fragment>
       <Typography
