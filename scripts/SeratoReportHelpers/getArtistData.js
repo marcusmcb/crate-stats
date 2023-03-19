@@ -15,6 +15,39 @@ const getArtistData = (masterTrackLog) => {
     }
   })
 
+  function findCommonWordPairs(arr) {
+    let wordPairs = {};
+    
+    // Loop through each string in the array
+    for(let i = 0; i < arr.length; i++) {
+      let words = arr[i].split(" ");
+      
+      // Loop through each word in the string and create word pairs
+      for(let j = 0; j < words.length - 1; j++) {
+        let pair = words[j] + " " + words[j+1];
+        
+        // If the word pair already exists in the wordPairs object, increment its count
+        if(wordPairs[pair]) {
+          wordPairs[pair]++;
+        } 
+        // Otherwise, add it to the wordPairs object with a count of 1
+        else {
+          wordPairs[pair] = 1;
+        }
+      }
+    }
+    
+    // Create an array of word pairs that occur more than once
+    let commonPairs = Object.keys(wordPairs).filter(pair => wordPairs[pair] > 1);
+    
+    return commonPairs;
+  }
+  
+  console.log(artistArray)
+  console.log("pairs: ")
+  console.log(findCommonWordPairs(artistArray))
+
+
   // add logic check for unique plays of the same artist that appear more than once
   // exclude back-to-back doubles from results
   // implement algorithm to look for word patterns in artist names
