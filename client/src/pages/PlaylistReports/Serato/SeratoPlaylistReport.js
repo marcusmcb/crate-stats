@@ -131,11 +131,9 @@ const SeratoPlaylistReport = () => {
                     <DataMissing data={{ value: 'year' }} />
                   </div>
                 ) : (
-                  <YearData
-                    yearData={{
-                      yeardata: data.year_data,
-                      mtll: data.master_track_log.length,
-                    }}
+                  <YearData                    
+                    yearData={data.year_data}
+                    masterTrackLogLength={data.master_track_log.length}
                   />
                 )}
               </div>
@@ -175,11 +173,9 @@ const SeratoPlaylistReport = () => {
                 {data.album_data.has_album_data === false ? (
                   <DataMissing data={{ value: 'album' }} />
                 ) : (
-                  <AlbumData
-                    albumData={{
-                      albumdata: data.album_data,
-                      mtll: data.master_track_log.length,
-                    }}
+                  <AlbumData                    
+                    albumData={data.album_data}
+                    masterTrackLogLength={data.master_track_log.length}
                   />
                 )}
               </div>
