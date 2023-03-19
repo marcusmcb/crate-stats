@@ -15,7 +15,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-import './traktorplaylistreport.css'
+import './style/traktorplaylistreport.css'
 
 import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
 

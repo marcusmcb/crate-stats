@@ -26,9 +26,9 @@ app.post('/liveplaylist', async (req, res) => {
   res.send(seratoLivePlaylistReport)
 })
 
-app.post('/sendFile', async (req, res) => {
+app.post('/sendSeratoFile', async (req, res) => {
   let userReport = await createSeratoReport(req.body)
-  await addNewPlaylist(userReport)
+  // await addNewPlaylist(userReport)
   res.send(userReport)
 })
 
@@ -53,7 +53,7 @@ app.post('/deletePlaylist', async (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+  res.sendSeratoFile(path.join(__dirname + '/client/build/index.html'))
 })
 
 app.listen(PORT, () => {

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandMore from '../helpers/CardExpander'
+import ExpandMore from '../../../../components/helpers/CardExpander'
 import { Divider } from 'semantic-ui-react'
 
 const YearData = (yeardata) => {

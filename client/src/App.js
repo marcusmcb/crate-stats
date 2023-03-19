@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import SeratoPlaylistReport from './pages/PlaylistReports/Serato/SeratoPlaylistReport'
 import PageSelect from './pages/PageSelect/PageSelect'
-import LiveReport from './pages/LiveReport/LiveReport'
+import LiveReport from './pages/LiveReport/SeratoLiveReport'
 import RekordboxPlaylistReport from './pages/PlaylistReports/Rekordbox/RekordboxPlaylistReport'
 import TraktorPlaylistReport from './pages/PlaylistReports/Traktor/TraktorPlaylistReport'
 import Playlists from './pages/Playlists/Playlists'

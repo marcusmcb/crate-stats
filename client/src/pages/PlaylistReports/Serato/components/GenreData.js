@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandMore from "../helpers/CardExpander";
+import ExpandMore from "../../../../components/helpers/CardExpander";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Modal from "@mui/material/Modal";
 

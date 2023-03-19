@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
-import TrackData from '../../../components/data_blocks/TrackData'
-import BPMData from '../../../components/data_blocks/BPMData'
-import PlaylistData from '../../../components/data_blocks/PlaylistData'
-import KeyData from '../../../components/data_blocks/KeyData'
-import YearData from '../../../components/data_blocks/YearData'
-import DeckData from '../../../components/data_blocks/DeckData'
-import DoublesData from '../../../components/data_blocks/DoublesData'
-import GenreData from '../../../components/data_blocks/GenreData'
-import ArtistData from '../../../components/data_blocks/ArtistData'
-import AlbumData from '../../../components/data_blocks/AlbumData'
-import MasterTracklog from '../../../components/data_blocks/MasterTracklog'
+import TrackData from './components/TrackData'
+import BPMData from './components/BPMData'
+import YearData from './components/YearData'
+import GenreData from './components/GenreData'
+import KeyData from './components/KeyData'
+import DoublesData from './components/DoublesData'
+import DeckData from './components/DeckData'
+import AlbumData from './components/AlbumData'
+import ArtistData from './components/ArtistData'
+import MasterTracklog from './components/MasterTracklog'
+import PlaylistData from './components/PlaylistData'
 import DragAndDrop from '../../../components/shared/DragAndDrop'
 // import Summary from '../../../components/data_blocks/Summary'
 
@@ -21,7 +21,7 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import './seratoplaylistreport.css'
+import './style/seratoplaylistreport.css'
 
 import CrateStatsSample from '../../../data/cinco_de_mayo.csv'
 
@@ -31,7 +31,7 @@ const SeratoPlaylistReport = () => {
   const isInitialMount = useRef(true)
 
   const getDataFromCSV = (userData) => {
-    axios.post('/sendFile', userData).then((response) => {
+    axios.post('/sendSeratoFile', userData).then((response) => {
       console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
       console.log(response.data)
       setData(response.data)

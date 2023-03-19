@@ -23,7 +23,7 @@ const {
 
 const createTraktorReport = (data) => {
   console.log(chalk.green('-----------------'))
-  console.log(chalk.green('  TRAKTOR DATA:'))
+  console.log(chalk.green('  TRAKTOR DATA:'))  
   console.log(chalk.green('-----------------'))
 
   let traktorData = data
@@ -31,7 +31,7 @@ const createTraktorReport = (data) => {
   // run helper methods and remove final undefined obj from array
   traktorData = cleanPlaylistArray(traktorData)
   traktorData = cleanPlaylistKeys(traktorData)
-  traktorData = traktorData.slice(0, -1)
+  traktorData = traktorData.slice(0, -1) 
 
   let traktorPlaylistData = {}
 
@@ -327,10 +327,7 @@ const createTraktorReport = (data) => {
           (fiveStarTracks.length / traktorData.length) * 100,
       },
     }
-  } 
-
-  // console.log(chalk.magenta("---- YOOOOO -----"));
-  // console.log(traktorPlaylistData);
+  }  
   return traktorPlaylistData
 }
 

@@ -8,10 +8,10 @@ import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandMore from '../helpers/CardExpander'
+import ExpandMore from '../../../../components/helpers/CardExpander'
 
-import TimesText from '../shared/text_spans/timesText'
-import TimeText from '../shared/text_spans/timeText'
+import TimesText from '../../../../components/shared/text_spans/timesText'
+import TimeText from '../../../../components/shared/text_spans/timeText'
 
 const KeyData = (keydata) => {
   const [expanded, setExpanded] = useState(false)
