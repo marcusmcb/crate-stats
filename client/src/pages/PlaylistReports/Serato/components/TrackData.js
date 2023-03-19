@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
-const TrackData = (trackdata) => {
+const TrackData = ({ trackData }) => {
   return (
     <Fragment>
       <div>        
@@ -36,7 +36,7 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {trackdata.data.total_tracks_played}
+                      {trackData.total_tracks_played}
                     </Typography>
                   </Grid>
                   <Grid item mt={1.5}>
@@ -51,7 +51,7 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {trackdata.data.average_track_length}
+                      {trackData.average_track_length}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -62,7 +62,7 @@ const TrackData = (trackdata) => {
                       shortest track:
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      {trackdata.data.shortest_track.name}
+                      {trackData.shortest_track.name}
                     </Typography>
                     <Typography
                       variant='h5'
@@ -70,12 +70,12 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      ({trackdata.data.shortest_track.play_time})
+                      ({trackData.shortest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                       - played @{' '}
                       <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                        {trackdata.data.shortest_track.played_at}
+                        {trackData.shortest_track.played_at}
                       </span>
                     </Typography>
                   </Grid>
@@ -84,7 +84,7 @@ const TrackData = (trackdata) => {
                       longest track:
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      {trackdata.data.longest_track.name}
+                      {trackData.longest_track.name}
                     </Typography>
                     <Typography
                       variant='h5'
@@ -92,12 +92,12 @@ const TrackData = (trackdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      ({trackdata.data.longest_track.play_time})
+                      ({trackData.longest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                       - played @{' '}
                       <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                        {trackdata.data.longest_track.played_at}
+                        {trackData.longest_track.played_at}
                       </span>
                     </Typography>
                   </Grid>

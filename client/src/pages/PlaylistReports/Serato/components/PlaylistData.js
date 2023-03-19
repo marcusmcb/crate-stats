@@ -13,7 +13,7 @@ import SecondText from "../../../../components/shared/text_spans/secondText";
 import HoursText from "../../../../components/shared/text_spans/hoursText";
 import HourText from "../../../../components/shared/text_spans/hourText";
 
-const PlaylistData = (playlistData) => {
+const PlaylistData = ({ playlistData }) => {
   return (
     <Fragment>
       <div>
@@ -40,15 +40,15 @@ const PlaylistData = (playlistData) => {
                     fontWeight={500}
                     sx={{ color: "#558b2f" }}
                   >
-                    {playlistData.data.title}
+                    {playlistData.title}
                   </Typography>
                   <Typography sx={{ marginTop: "10px" }} color="text.secondary">
                     set date:
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {playlistData.data.start_time_formatted.day},{" "}
-                    {playlistData.data.start_time_formatted.month}{" "}
-                    {playlistData.data.start_time_formatted.dateday}
+                    {playlistData.start_time_formatted.day},{" "}
+                    {playlistData.start_time_formatted.month}{" "}
+                    {playlistData.start_time_formatted.dateday}
                   </Typography>
                 </CardContent>
               </Card>
@@ -64,16 +64,16 @@ const PlaylistData = (playlistData) => {
                     fontWeight={500}
                     sx={{ color: "#558b2f" }}
                   >
-                    {playlistData.data.playlist_length_formatted.hours > 1 ? (
-                      playlistData.data.playlist_length_formatted.minutes > 1 ||
-                      playlistData.data.playlist_length_formatted.minutes ===
+                    {playlistData.playlist_length_formatted.hours > 1 ? (
+                      playlistData.playlist_length_formatted.minutes > 1 ||
+                      playlistData.playlist_length_formatted.minutes ===
                         0 ? (
                         <div>
                           <span>
-                            {playlistData.data.playlist_length_formatted.hours}{" "}
+                            {playlistData.playlist_length_formatted.hours}{" "}
                             <HoursText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinutesText />
@@ -82,27 +82,27 @@ const PlaylistData = (playlistData) => {
                       ) : (
                         <div>
                           <span>
-                            {playlistData.data.playlist_length_formatted.hours}{" "}
+                            {playlistData.playlist_length_formatted.hours}{" "}
                             <HoursText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinuteText />
                           </span>
                         </div>
                       )
-                    ) : playlistData.data.playlist_length_formatted.hours ===
+                    ) : playlistData.playlist_length_formatted.hours ===
                       1 ? (
-                      playlistData.data.playlist_length_formatted.minutes > 1 ||
-                      playlistData.data.playlist_length_formatted.minutes ===
+                      playlistData.playlist_length_formatted.minutes > 1 ||
+                      playlistData.playlist_length_formatted.minutes ===
                         0 ? (
                         <div>
                           <span>
-                            {playlistData.data.playlist_length_formatted.hours}{" "}
+                            {playlistData.playlist_length_formatted.hours}{" "}
                             <HourText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinutesText />
@@ -111,30 +111,30 @@ const PlaylistData = (playlistData) => {
                       ) : (
                         <div>
                           <span>
-                            {playlistData.data.playlist_length_formatted.hours}{" "}
+                            {playlistData.playlist_length_formatted.hours}{" "}
                             <HourText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinuteText />
                           </span>
                         </div>
                       )
-                    ) : playlistData.data.playlist_length_formatted.minutes !==
+                    ) : playlistData.playlist_length_formatted.minutes !==
                       0 ? (
-                      playlistData.data.playlist_length_formatted.seconds > 1 ||
-                      playlistData.data.playlist_length_formatted.seconds ===
+                      playlistData.playlist_length_formatted.seconds > 1 ||
+                      playlistData.playlist_length_formatted.seconds ===
                         0 ? (
                         <div>
                           <span>
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinutesText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .seconds
                             }{" "}
                             <SecondsText />
@@ -144,12 +144,12 @@ const PlaylistData = (playlistData) => {
                         <div>
                           <span>
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .minutes
                             }{" "}
                             <MinutesText />,{" "}
                             {
-                              playlistData.data.playlist_length_formatted
+                              playlistData.playlist_length_formatted
                                 .seconds
                             }{" "}
                             <SecondText />
@@ -166,7 +166,7 @@ const PlaylistData = (playlistData) => {
                     start time:
                   </Typography>
                   <Typography variant="h5" component="div">
-                    {playlistData.data.start_time}
+                    {playlistData.start_time}
                   </Typography>
                 </CardContent>
               </Card>

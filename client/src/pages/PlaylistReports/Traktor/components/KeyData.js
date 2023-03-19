@@ -12,7 +12,7 @@ import ExpandMore from '../../../../components/helpers/CardExpander'
 import TimesText from '../../../../components/shared/text_spans/timesText'
 import TimeText from '../../../../components/shared/text_spans/timeText'
 
-const KeyData = (keyData) => {
+const KeyData = ({ keyData }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
@@ -44,18 +44,18 @@ const KeyData = (keyData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {keyData.keyData.most_common_key.key}
+                    {keyData.most_common_key.key}
                   </Typography>
                 </Grid>
                 <Grid item mt={0.5}>
-                  {keyData.keyData.most_common_key.times_played > 1 ? (
+                  {keyData.most_common_key.times_played > 1 ? (
                     <Typography
                       variant='h5'
                       component='div'
                       fontWeight={400}
                       sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                     >
-                      (played {keyData.keyData.most_common_key.times_played}{' '}
+                      (played {keyData.most_common_key.times_played}{' '}
                       <TimesText />)
                     </Typography>
                   ) : (
@@ -65,7 +65,7 @@ const KeyData = (keyData) => {
                       fontWeight={400}
                       sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                     >
-                      (played {keyData.keyData.most_common_key.times_played}{' '}
+                      (played {keyData.most_common_key.times_played}{' '}
                       <TimeText />)
                     </Typography>
                   )}
@@ -80,18 +80,18 @@ const KeyData = (keyData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {keyData.keyData.least_common_key.key}
+                    {keyData.least_common_key.key}
                   </Typography>
                 </Grid>
                 <Grid item mt={0.5}>
-                  {keyData.keyData.least_common_key.times_played > 1 ? (
+                  {keyData.least_common_key.times_played > 1 ? (
                     <Typography
                       variant='h5'
                       component='div'
                       fontWeight={400}
                       sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                     >
-                      (played {keyData.keyData.least_common_key.times_played}{' '}
+                      (played {keyData.least_common_key.times_played}{' '}
                       <TimesText />)
                     </Typography>
                   ) : (
@@ -101,7 +101,7 @@ const KeyData = (keyData) => {
                       fontWeight={400}
                       sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                     >
-                      (played {keyData.keyData.least_common_key.times_played}{' '}
+                      (played {keyData.least_common_key.times_played}{' '}
                       <TimeText />)
                     </Typography>
                   )}
@@ -142,13 +142,13 @@ const KeyData = (keyData) => {
                           fontWeight={500}
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
-                          {keyData.keyData.tag_health.percentage_with_key_tags}%
+                          {keyData.tag_health.percentage_with_key_tags}%
                         </Typography>
                       </CardContent>
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={6} sm={12} lg={6}>
-                    {keyData.keyData.tag_health.empty_key_tags === 0 ? (
+                    {keyData.tag_health.empty_key_tags === 0 ? (
                       <></>
                     ) : (
                       <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
@@ -161,7 +161,7 @@ const KeyData = (keyData) => {
                             fontWeight={500}
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                           >
-                            {keyData.keyData.tag_health.empty_key_tags}
+                            {keyData.tag_health.empty_key_tags}
                           </Typography>
                         </CardContent>
                       </Card>

@@ -108,21 +108,21 @@ const SeratoPlaylistReport = () => {
                 {data.playlist_data.has_playlist_data === false ? (
                   <DataMissing data={{ value: 'playlist' }} />
                 ) : (
-                  <PlaylistData data={data.playlist_data} />
+                  <PlaylistData playlistData={data.playlist_data} />
                 )}
               </div>
               <div className='data-block'>
                 {data.track_data.has_track_data === false ? (
                   <DataMissing data={{ value: 'track' }} />
                 ) : (
-                  <TrackData data={data.track_data} />
+                  <TrackData trackData={data.track_data} />
                 )}
               </div>
               <div className='data-block'>
                 {data.bpm_data.has_bpm_data === false ? (
                   <DataMissing data={{ value: 'bpm' }} />
                 ) : (
-                  <BPMData data={data.bpm_data} />
+                  <BPMData bpmData={data.bpm_data} />
                 )}
               </div>
               <div className='data-block'>
@@ -132,7 +132,7 @@ const SeratoPlaylistReport = () => {
                   </div>
                 ) : (
                   <YearData
-                    data={{
+                    yearData={{
                       yeardata: data.year_data,
                       mtll: data.master_track_log.length,
                     }}
@@ -143,7 +143,7 @@ const SeratoPlaylistReport = () => {
                 {data.genre_data.has_genre_data === false ? (
                   <DataMissing data={{ value: 'genre' }} />
                 ) : (
-                  <GenreData data={data.genre_data} />
+                  <GenreData genreData={data.genre_data} />
                 )}
               </div>
               <div className='data-block'>
@@ -152,7 +152,7 @@ const SeratoPlaylistReport = () => {
                     <DataMissing data={{ value: 'key' }} />
                   </div>
                 ) : (
-                  <KeyData data={data.key_data} />
+                  <KeyData keyData={data.key_data} />
                 )}
               </div>
               <div className='data-block'>
@@ -161,14 +161,14 @@ const SeratoPlaylistReport = () => {
                     <DataMissing data={{ value: 'doubles' }} />
                   </div>
                 ) : (
-                  <DoublesData data={data.doubles_data} />
+                  <DoublesData doublesData={data.doubles_data} />
                 )}
               </div>
               <div className='data-block'>
                 {data.deck_data.has_deck_data === false ? (
                   <DataMissing data={{ value: 'deck' }} />
                 ) : (
-                  <DeckData data={data.deck_data} />
+                  <DeckData deckData={data.deck_data} />
                 )}
               </div>
               <div className='data-block'>
@@ -176,7 +176,7 @@ const SeratoPlaylistReport = () => {
                   <DataMissing data={{ value: 'album' }} />
                 ) : (
                   <AlbumData
-                    data={{
+                    albumData={{
                       albumdata: data.album_data,
                       mtll: data.master_track_log.length,
                     }}
@@ -187,7 +187,7 @@ const SeratoPlaylistReport = () => {
                 {data.artist_data.has_artist_data === false ? (
                   <DataMissing data={{ value: 'artist' }} />
                 ) : (
-                  <ArtistData data={data.artist_data} />
+                  <ArtistData artistData={data.artist_data} />
                 )}
               </div>
               <div className='data-block'>

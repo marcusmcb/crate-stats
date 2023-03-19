@@ -20,7 +20,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<PageSelect />} />
-        <Route path='/playlistreport' element={<SeratoPlaylistReport />} />
+        <Route path='/serato' element={<SeratoPlaylistReport />} />
         <Route path='/livereport' element={<LiveReport />} />
         <Route path='/rekordbox' element={<RekordboxPlaylistReport />} />
         <Route path='/traktor' element={<TraktorPlaylistReport />} />

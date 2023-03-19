@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
-const TrackData = (trackData) => {    
+const TrackData = ({ trackData }) => {    
   return (
     <Fragment>
       <Typography
@@ -34,7 +34,7 @@ const TrackData = (trackData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {trackData.trackData.total_tracks_played}
+                    {trackData.total_tracks_played}
                   </Typography>
                 </Grid>
                 <Grid item mt={1.5}>
@@ -49,7 +49,7 @@ const TrackData = (trackData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {trackData.trackData.average_track_length}
+                    {trackData.average_track_length}
                   </Typography>
                 </Grid>
               </Grid>
@@ -58,7 +58,7 @@ const TrackData = (trackData) => {
                 <Grid item>
                   <Typography sx={{ fontSize: 16 }}>shortest track:</Typography>
                   <Typography variant='h5' component='div' fontWeight={500}>
-                    {trackData.trackData.shortest_track_played.title}
+                    {trackData.shortest_track_played.title}
                   </Typography>
                   <Typography
                     variant='h5'
@@ -66,13 +66,13 @@ const TrackData = (trackData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    ({trackData.trackData.shortest_track_played['length'].slice(1)})
+                    ({trackData.shortest_track_played['length'].slice(1)})
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography sx={{ fontSize: 16 }}>longest track:</Typography>
                   <Typography variant='h5' component='div' fontWeight={500}>
-                    {trackData.trackData.longest_track_played.title}
+                    {trackData.longest_track_played.title}
                   </Typography>
                   <Typography
                     variant='h5'
@@ -80,7 +80,7 @@ const TrackData = (trackData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    ({trackData.trackData.longest_track_played['length'].slice(1)})
+                    ({trackData.longest_track_played['length'].slice(1)})
                   </Typography>
                 </Grid>
               </Grid>

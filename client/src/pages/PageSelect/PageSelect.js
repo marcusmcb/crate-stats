@@ -75,7 +75,7 @@ const PageSelect = () => {
                       marginRight: '15px',
                     }}
                     component={Link}
-                    to={'/playlistreport'}
+                    to={'/serato'}
                   >
                     Serato
                   </Button>

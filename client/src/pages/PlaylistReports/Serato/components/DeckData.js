@@ -6,7 +6,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-const DeckData = (deckdata) => {
+const DeckData = ({ deckData }) => {
   return (
     <Fragment>
       <div>
@@ -30,7 +30,7 @@ const DeckData = (deckdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {deckdata.data.deck_1_average}
+                    {deckData.deck_1_average}
                   </Typography>
                 </CardContent>
               </Card>
@@ -45,13 +45,13 @@ const DeckData = (deckdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {deckdata.data.deck_2_average}
+                    {deckData.deck_2_average}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={12} md={12} sm={12} lg={12}>
-              {deckdata.data.missing_deck_values === 0 ? (
+              {deckData.missing_deck_values === 0 ? (
                 <></>
               ) : (
                 <Card sx={{ minWidth: 275 }}>
@@ -69,7 +69,7 @@ const DeckData = (deckdata) => {
                           fontWeight={500}
                           sx={{ color: '#558b2f' }}
                         >
-                          {deckdata.data.missing_deck_values}
+                          {deckData.missing_deck_values}
                         </Typography>
                       </Grid>
                     </Grid>

@@ -9,7 +9,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import { Divider } from 'semantic-ui-react'
 import Modal from '@mui/material/Modal'
 
-const DoublesData = (doublesdata) => {
+const DoublesData = ({ doublesData }) => {
   const [openL, setOpenL] = useState(false)
   const handleOpenL = () => setOpenL(true)
   const handleCloseL = () => setOpenL(false)
@@ -64,7 +64,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_1_doubles_playtime}
+                    {doublesData.deck_1_doubles_playtime}
                   </Typography>
                 </CardContent>
               </Card>
@@ -90,7 +90,7 @@ const DoublesData = (doublesdata) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {doublesdata.data.deck_2_doubles_playtime}
+                    {doublesData.deck_2_doubles_playtime}
                   </Typography>
                 </CardContent>
               </Card>
@@ -111,14 +111,14 @@ const DoublesData = (doublesdata) => {
                         fontWeight={500}
                         sx={{ color: '#558b2f' }}
                       >
-                        {doublesdata.data.doubles_detected}
+                        {doublesData.doubles_detected}
                       </Typography>
                     </Grid>
                   </Grid>
                   <Divider />
                   <Grid container spacing={2}>
                     <Grid item>
-                      {doublesdata.data.doubles_played.map((item, i) => (
+                      {doublesData.doubles_played.map((item, i) => (
                         <Typography
                           component='div'
                           fontWeight={500}
@@ -148,7 +148,7 @@ const DoublesData = (doublesdata) => {
                       <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                         You played that track on deck 1 for an average of {' '}
                         <span style={{ color: '#558b2f', fontWeight: '600' }}>
-                          {doublesdata.data.deck_1_doubles_playtime}
+                          {doublesData.deck_1_doubles_playtime}
                         </span>{' '}
                         during this set.
                       </Typography>
@@ -172,7 +172,7 @@ const DoublesData = (doublesdata) => {
                       <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                         You played that track on deck 2 for an average of {' '}
                         <span style={{ color: '#558b2f', fontWeight: '500' }}>
-                          {doublesdata.data.deck_2_doubles_playtime}
+                          {doublesData.deck_2_doubles_playtime}
                         </span>{' '}
                         during this set.
                       </Typography>

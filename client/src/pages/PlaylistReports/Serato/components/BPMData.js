@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
-const BPMData = (bpmdata) => {
+const BPMData = ({ bpmData }) => {
   return (
     <Fragment>
       <div>
@@ -36,8 +36,8 @@ const BPMData = (bpmdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {bpmdata.data.bpm_range.minimum} -{' '}
-                      {bpmdata.data.bpm_range.maximum}
+                      {bpmData.bpm_range.minimum} -{' '}
+                      {bpmData.bpm_range.maximum}
                     </Typography>
                   </Grid>
                   <Grid item mt={1}>
@@ -52,7 +52,7 @@ const BPMData = (bpmdata) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {bpmdata.data.average_bpm}
+                      {bpmData.average_bpm}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -68,8 +68,8 @@ const BPMData = (bpmdata) => {
                       fontWeight={500}
                       color='#558b2f'
                     >
-                      {bpmdata.data.biggest_bpm_change.track_one.bpm} bpm -{' '}
-                      {bpmdata.data.biggest_bpm_change.track_two.bpm} bpm
+                      {bpmData.biggest_bpm_change.track_one.bpm} bpm -{' '}
+                      {bpmData.biggest_bpm_change.track_two.bpm} bpm
                     </Typography>
                   </Grid>
                 </Grid>
@@ -81,7 +81,7 @@ const BPMData = (bpmdata) => {
                       from:
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      "{bpmdata.data.biggest_bpm_change.track_one.name}"
+                      "{bpmData.biggest_bpm_change.track_one.name}"
                     </Typography>
                   </Grid>
                 </Grid>
@@ -93,14 +93,14 @@ const BPMData = (bpmdata) => {
                       into:
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      "{bpmdata.data.biggest_bpm_change.track_two.name}"
+                      "{bpmData.biggest_bpm_change.track_two.name}"
                     </Typography>
                   </Grid>
                 </Grid>
                 <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                   - occurred @{' '}
                   <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                    {bpmdata.data.biggest_bpm_change.occurred_at}
+                    {bpmData.biggest_bpm_change.occurred_at}
                   </span>
                 </Typography>
               </CardContent>

@@ -12,7 +12,7 @@ import ExpandMore from "../../../../components/helpers/CardExpander";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Modal from "@mui/material/Modal";
 
-const GenreData = (genreData) => {
+const GenreData = ({ genreData }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -58,7 +58,7 @@ const GenreData = (genreData) => {
                     fontWeight={500}
                     sx={{ color: "#558b2f" }}
                   >
-                    {genreData.data.unique_genres_played}
+                    {genreData.unique_genres_played}
                   </Typography>
                 </CardContent>
               </Card>
@@ -67,7 +67,7 @@ const GenreData = (genreData) => {
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography>top three genre tags from this set:</Typography>
-                  {genreData.data.top_three_genres.map((item, i) => (
+                  {genreData.top_three_genres.map((item, i) => (
                     <Typography
                       component="div"
                       fontWeight={500}
@@ -112,7 +112,7 @@ const GenreData = (genreData) => {
                             sx={{ color: "#558b2f" }}
                           >
                             {
-                              genreData.data.tag_health
+                              genreData.tag_health
                                 .percentage_with_genre_tags
                             }
                             %
@@ -142,7 +142,7 @@ const GenreData = (genreData) => {
                             sx={{ color: "#558b2f" }}
                           >
                             {
-                              genreData.data.tag_health
+                              genreData.tag_health
                                 .percentage_with_other_as_genre
                             }
                             %
@@ -169,7 +169,7 @@ const GenreData = (genreData) => {
                                 Of the tracks you played in this set that have
                                 genre tags,{" "}
                                 <span style={{ color: '#558b2f', fontWeight: '500' }}>{
-                                  genreData.data.tag_health
+                                  genreData.tag_health
                                     .percentage_with_other_as_genre
                                 }</span>
                                 % of those tracks have 'Other' as their main

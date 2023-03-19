@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 
-const AlbumData = (albumData) => {
+const AlbumData = ({ albumData }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
@@ -40,7 +40,7 @@ const AlbumData = (albumData) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {albumData.data.albumdata.unique_albums_played}
+                    {albumData.albumdata.unique_albums_played}
                   </Typography>
                 </CardContent>
               </Card>
@@ -51,7 +51,7 @@ const AlbumData = (albumData) => {
                   <Typography>
                     top three albums/collections in this set:
                   </Typography>
-                  {albumData.data.albumdata.top_three_albums.map((item, i) => (
+                  {albumData.albumdata.top_three_albums.map((item, i) => (
                     <Typography
                       component='div'
                       fontWeight={500}
@@ -94,7 +94,7 @@ const AlbumData = (albumData) => {
                             sx={{ color: '#558b2f' }}
                           >
                             {
-                              albumData.data.albumdata.tag_health
+                              albumData.albumdata.tag_health
                                 .percentage_with_album_tags
                             }
                             %
@@ -114,11 +114,11 @@ const AlbumData = (albumData) => {
                             sx={{ color: '#558b2f' }}
                           >
                             {
-                              albumData.data.albumdata.tag_health
+                              albumData.albumdata.tag_health
                                 .empty_album_tags
                             }{' '}
                             <span style={{ fontSize: '18px' }}>
-                              of {albumData.data.mtll} total tracks
+                              of {albumData.albumdata.mtll} total tracks
                             </span>
                           </Typography>
                         </CardContent>

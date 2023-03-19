@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Divider } from 'semantic-ui-react'
 
-const BPMData = (bpmData) => {
+const BPMData = ({ bpmData }) => {
   return (
     <Fragment>
       <Typography
@@ -34,8 +34,8 @@ const BPMData = (bpmData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {bpmData.bpmData.bpm_range.minBPM} -{' '}
-                    {bpmData.bpmData.bpm_range.maxBPM}
+                    {bpmData.bpm_range.minBPM} -{' '}
+                    {bpmData.bpm_range.maxBPM}
                   </Typography>
                 </Grid>
                 <Grid item mt={1}>
@@ -50,7 +50,7 @@ const BPMData = (bpmData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {bpmData.bpmData.average_bpm}
+                    {bpmData.average_bpm}
                   </Typography>
                 </Grid>
               </Grid>
@@ -66,9 +66,9 @@ const BPMData = (bpmData) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {bpmData.bpmData.most_common_bpm.value}{' '}
+                    {bpmData.most_common_bpm.value}{' '}
                     <span style={{ fontSize: '18px', color: 'black' }}>
-                      (played {bpmData.bpmData.most_common_bpm.times_played} times
+                      (played {bpmData.most_common_bpm.times_played} times
                       in this set)
                     </span>
                   </Typography>
@@ -91,11 +91,11 @@ const BPMData = (bpmData) => {
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
                     {new Number(
-                      bpmData.bpmData.biggest_bpm_change.from_track.bpm
+                      bpmData.biggest_bpm_change.from_track.bpm
                     ).toFixed()}{' '}
                     --{' '}
                     {new Number(
-                      bpmData.bpmData.biggest_bpm_change.to_track.bpm
+                      bpmData.biggest_bpm_change.to_track.bpm
                     ).toFixed()}
                   </Typography>
                 </Grid>
@@ -104,7 +104,7 @@ const BPMData = (bpmData) => {
                 <Grid item>
                   <Typography sx={{ fontSize: 16 }}>from:</Typography>
                   <Typography variant='h5' component='div' fontWeight={500}>
-                    {bpmData.bpmData.biggest_bpm_change.from_track.title}
+                    {bpmData.biggest_bpm_change.from_track.title}
                   </Typography>
                   <Typography
                     variant='h5'
@@ -113,7 +113,7 @@ const BPMData = (bpmData) => {
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
                     {new Number(
-                      bpmData.bpmData.biggest_bpm_change.from_track.bpm
+                      bpmData.biggest_bpm_change.from_track.bpm
                     ).toFixed()}{' '}
                     BPM
                   </Typography>
@@ -121,7 +121,7 @@ const BPMData = (bpmData) => {
                 <Grid item>
                   <Typography sx={{ fontSize: 16 }}>to:</Typography>
                   <Typography variant='h5' component='div' fontWeight={500}>
-                    {bpmData.bpmData.biggest_bpm_change.to_track.title}
+                    {bpmData.biggest_bpm_change.to_track.title}
                   </Typography>
                   <Typography
                     variant='h5'
@@ -130,7 +130,7 @@ const BPMData = (bpmData) => {
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
                     {new Number(
-                      bpmData.bpmData.biggest_bpm_change.to_track.bpm
+                      bpmData.biggest_bpm_change.to_track.bpm
                     ).toFixed()}{' '}
                     BPM
                   </Typography>

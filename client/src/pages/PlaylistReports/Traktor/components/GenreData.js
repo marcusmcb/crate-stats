@@ -11,7 +11,7 @@ import ExpandMore from '../../../../components/helpers/CardExpander'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import Modal from '@mui/material/Modal'
 
-const GenreData = (genreData) => {
+const GenreData = ({ genreData }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
@@ -56,7 +56,7 @@ const GenreData = (genreData) => {
                   fontWeight={500}
                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                 >
-                  {genreData.genreData.unique_genres_played}
+                  {genreData.unique_genres_played}
                 </Typography>
               </CardContent>
             </Card>
@@ -65,7 +65,7 @@ const GenreData = (genreData) => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography>top three genre tags from this set:</Typography>
-                {genreData.genreData.top_three_genres.map((item, i) => (
+                {genreData.top_three_genres.map((item, i) => (
                   <Typography
                     component='div'
                     fontWeight={500}
@@ -110,7 +110,7 @@ const GenreData = (genreData) => {
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
                           {new Number(
-                            genreData.genreData.tag_health.percentage_with_genre_tags
+                            genreData.tag_health.percentage_with_genre_tags
                           ).toFixed()}
                           %
                         </Typography>
@@ -139,7 +139,7 @@ const GenreData = (genreData) => {
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
                           {new Number(
-                            genreData.genreData.tag_health.percentage_with_other_as_genre
+                            genreData.tag_health.percentage_with_other_as_genre
                           ).toFixed()}
                           %
                         </Typography>
@@ -173,7 +173,7 @@ const GenreData = (genreData) => {
                                 }}
                               >
                                 {
-                                  genreData.genreData.tag_health
+                                  genreData.tag_health
                                     .percentage_with_other_as_genre
                                 }
                               </span>

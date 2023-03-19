@@ -11,7 +11,7 @@ import ExpandMore from "../../../../components/helpers/CardExpander";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Modal from "@mui/material/Modal";
 
-const RatingData = (ratingData) => {
+const RatingData = ({ ratingData }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -56,7 +56,7 @@ const RatingData = (ratingData) => {
                   fontWeight={500}
                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                 >
-                  {ratingData.ratingData.five_star_tracks.length}
+                  {ratingData.five_star_tracks.length}
                 </Typography>
               </CardContent>
             </Card>
@@ -67,7 +67,7 @@ const RatingData = (ratingData) => {
                 <Typography>
                   five star tracks played during this set:
                 </Typography>
-                {ratingData.ratingData.five_star_tracks.map((item, i) => (
+                {ratingData.five_star_tracks.map((item, i) => (
                   <Typography
                     component='div'
                     fontWeight={500}
@@ -112,7 +112,7 @@ const RatingData = (ratingData) => {
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
                           {new Number(
-                            ratingData.ratingData.tag_health.percentage_with_ratings
+                            ratingData.tag_health.percentage_with_ratings
                           ).toFixed()}
                           %
                         </Typography>
@@ -140,7 +140,7 @@ const RatingData = (ratingData) => {
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
                           {new Number(
-                            ratingData.ratingData.tag_health.percentage_with_five_star_ratings
+                            ratingData.tag_health.percentage_with_five_star_ratings
                           ).toFixed()}
                           %
                         </Typography>
@@ -174,7 +174,7 @@ const RatingData = (ratingData) => {
                                 }}
                               >
                                 {new Number(
-                                  ratingData.ratingData.tag_health.percentage_with_five_star_ratings
+                                  ratingData.tag_health.percentage_with_five_star_ratings
                                 ).toFixed()}
                               </span>
                               % of those tracks you have rated as five stars.
