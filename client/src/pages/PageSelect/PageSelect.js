@@ -37,7 +37,7 @@ const PageSelect = () => {
 
   return (
     <Fragment>
-      <div className='pagebody'>
+      <div className='selectpage-body'>
         <Titlebar />
         <Divider />
         <Box sx={{ flexGrow: 1 }}>

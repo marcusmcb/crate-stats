@@ -18,8 +18,8 @@ const Titlebar = () => {
           justifyContent: 'space-around',
         }}
       >
-        <Grid item>
-          <Button
+        <Grid item>          
+          {/* <Button
             variant='contained'
             sx={{
               backgroundColor: 'darkslategrey',
@@ -29,7 +29,7 @@ const Titlebar = () => {
             to={'/signin'}
           >
             Sign In
-          </Button>
+          </Button> */}
         </Grid>
         <Grid item>
           <Link
@@ -44,7 +44,7 @@ const Titlebar = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Button
+          {/* <Button
             variant='contained'
             sx={{
               backgroundColor: 'darkslategrey',
@@ -54,7 +54,7 @@ const Titlebar = () => {
             to={'/playlists'}
           >
             Playlists
-          </Button>
+          </Button> */}
         </Grid>
       </Box>
     </div>
