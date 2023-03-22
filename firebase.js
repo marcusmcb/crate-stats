@@ -1,11 +1,11 @@
 const { initializeApp, cert } = require('firebase-admin/app')
 const { getFirestore } = require('firebase-admin/firestore')
-const serviceAccount = require('./firebase/crate-stats-firebase-adminsdk-brtkl-1febc4b47c.json')
+// const serviceAccount = require('./firebase/crate-stats-firebase-adminsdk-brtkl-1febc4b47c.json')
 const dotenv = require('dotenv')
 
 dotenv.config()
 
-const serviceAccountOne = JSON.parse(process.env.FIREBASE_CREDENTIALS)
+const serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS)
 
 // const serviceAccountTemp = {
 //   type: `${process.env.FIREBASE_TYPE}`,
@@ -21,7 +21,7 @@ const serviceAccountOne = JSON.parse(process.env.FIREBASE_CREDENTIALS)
 // }
 
 initializeApp({
-  credential: cert(serviceAccountOne),
+  credential: cert(serviceAccount),
 })
 
 const db = getFirestore()
