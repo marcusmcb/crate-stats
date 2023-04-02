@@ -41,7 +41,7 @@ const AlbumData = (props) => {
                     fontWeight={500}
                     sx={{ color: '#558b2f' }}
                   >
-                    {albumData.unique_albums_played}
+                    {albumData.albumdata.unique_albums_played}
                   </Typography>
                 </CardContent>
               </Card>
@@ -52,7 +52,7 @@ const AlbumData = (props) => {
                   <Typography>
                     top three albums/collections in this set:
                   </Typography>
-                  {albumData.top_three_albums.map((item, i) => (
+                  {albumData.albumdata.top_three_albums.map((item, i) => (
                     <Typography
                       component='div'
                       fontWeight={500}
@@ -95,7 +95,7 @@ const AlbumData = (props) => {
                             sx={{ color: '#558b2f' }}
                           >
                             {
-                              albumData.tag_health
+                              albumData.albumdata.tag_health
                                 .percentage_with_album_tags
                             }
                             %
@@ -115,7 +115,7 @@ const AlbumData = (props) => {
                             sx={{ color: '#558b2f' }}
                           >
                             {
-                              albumData.tag_health
+                              albumData.albumdata.tag_health
                                 .empty_album_tags
                             }{' '}
                             <span style={{ fontSize: '18px' }}>

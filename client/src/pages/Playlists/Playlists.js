@@ -83,7 +83,7 @@ const Playlists = () => {
                     onClick={() => {
                       setFileSelected(item)
                       setFileIndex(i)
-                      console.log('ITEM: ', item)
+                      console.log('ITEM: ', item.data.playlist_data.title)
                     }}
                     style={{
                       backgroundColor:
@@ -130,21 +130,21 @@ const Playlists = () => {
                   {fileSelected.data.playlist_data.has_playlist_data === false ? (
                     <DataMissing data={{ value: 'playlist' }} />
                   ) : (
-                    <PlaylistData data={fileSelected.data.playlist_data} />
+                    <PlaylistData playlistData={fileSelected.data.playlist_data} />
                   )}
                 </div>
                 <div className='data-block'>
                   {fileSelected.data.track_data.has_track_data === false ? (
                     <DataMissing data={{ value: 'track' }} />
                   ) : (
-                    <TrackData data={fileSelected.data.track_data} />
+                    <TrackData trackData={fileSelected.data.track_data} />
                   )}
                 </div>
                 <div className='data-block'>
                   {fileSelected.data.bpm_data.has_bpm_data === false ? (
                     <DataMissing data={{ value: 'bpm' }} />
                   ) : (
-                    <BPMData data={fileSelected.data.bpm_data} />
+                    <BPMData bpmData={fileSelected.data.bpm_data} />
                   )}
                 </div>
                 <div className='data-block'>
@@ -154,7 +154,7 @@ const Playlists = () => {
                     </div>
                   ) : (
                     <YearData
-                      data={{
+                      yearData={{
                         yeardata: fileSelected.data.year_data,
                         mtll: fileSelected.data.master_track_log.length,
                       }}
@@ -165,7 +165,7 @@ const Playlists = () => {
                   {fileSelected.data.genre_data.has_genre_data === false ? (
                     <DataMissing data={{ value: 'genre' }} />
                   ) : (
-                    <GenreData data={fileSelected.data.genre_data} />
+                    <GenreData genreData={fileSelected.data.genre_data} />
                   )}
                 </div>
                 <div className='data-block'>
@@ -174,7 +174,7 @@ const Playlists = () => {
                       <DataMissing data={{ value: 'key' }} />
                     </div>
                   ) : (
-                    <KeyData data={fileSelected.data.key_data} />
+                    <KeyData keyData={fileSelected.data.key_data} />
                   )}
                 </div>
                 <div className='data-block'>
@@ -183,14 +183,14 @@ const Playlists = () => {
                       <DataMissing data={{ value: 'doubles' }} />
                     </div>
                   ) : (
-                    <DoublesData data={fileSelected.data.doubles_data} />
+                    <DoublesData doublesData={fileSelected.data.doubles_data} />
                   )}
                 </div>
                 <div className='data-block'>
                   {fileSelected.data.deck_data.has_deck_data === false ? (
                     <DataMissing data={{ value: 'deck' }} />
                   ) : (
-                    <DeckData data={fileSelected.data.deck_data} />
+                    <DeckData deckData={fileSelected.data.deck_data} />
                   )}
                 </div>
                 <div className='data-block'>
@@ -198,7 +198,7 @@ const Playlists = () => {
                     <DataMissing data={{ value: 'album' }} />
                   ) : (
                     <AlbumData
-                      data={{
+                      albumData={{
                         albumdata: fileSelected.data.album_data,
                         mtll: fileSelected.data.master_track_log.length,
                       }}
@@ -209,7 +209,7 @@ const Playlists = () => {
                   {fileSelected.data.artist_data.has_artist_data === false ? (
                     <DataMissing data={{ value: 'artist' }} />
                   ) : (
-                    <ArtistData data={fileSelected.data.artist_data} />
+                    <ArtistData artistData={fileSelected.data.artist_data} />
                   )}
                 </div>
                 <div className='data-block'>
