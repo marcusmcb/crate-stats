@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 
 const RatingData = ({ ratingData }) => {
+  console.log('ratingData: ', ratingData.tag_health.percentage_with_ratings)
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {

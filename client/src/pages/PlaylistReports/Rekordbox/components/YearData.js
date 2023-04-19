@@ -18,7 +18,7 @@ const YearData = (props) => {
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
-  
+
   return (
     <Fragment>
       <Typography
@@ -67,7 +67,12 @@ const YearData = (props) => {
                 </Grid>
               </Grid>
               <Divider />
-              <Grid container spacing={2} sx={{ marginTop: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ marginTop: 1 }}
+                style={{ justifyContent: 'space-around' }}
+              >
                 <Grid item>
                   <Typography sx={{ fontSize: 16 }}>
                     oldest track ({yearData.oldest_tracks.year}

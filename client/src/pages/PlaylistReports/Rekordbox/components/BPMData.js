@@ -35,8 +35,7 @@ const BPMData = ({ bpmData }) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {bpmData.bpm_range.minBPM} -{' '}
-                    {bpmData.bpm_range.maxBPM}
+                    {bpmData.bpm_range.minBPM} - {bpmData.bpm_range.maxBPM}
                   </Typography>
                 </Grid>
                 <Grid item mt={1}>
@@ -69,8 +68,8 @@ const BPMData = ({ bpmData }) => {
                   >
                     {bpmData.most_common_bpm.value}{' '}
                     <span style={{ fontSize: '18px', color: 'black' }}>
-                      (played {bpmData.most_common_bpm.times_played} times
-                      in this set)
+                      (played {bpmData.most_common_bpm.times_played} times in
+                      this set)
                     </span>
                   </Typography>
                 </Grid>

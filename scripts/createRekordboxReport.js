@@ -90,7 +90,7 @@ const createRekordboxReport = (data) => {
 
   // determine most common bpm played in set
   let bpmCount = arrayCount(bpmArrayCleaned)
-  console.log(bpmCount)
+  // console.log(bpmCount)
 
   // add logic to account for when mostCommonBPM has more than 1 value
   let mostCommonBPMValues = findMaxObjectValue(bpmCount)
@@ -371,17 +371,17 @@ const createRekordboxReport = (data) => {
     },
   }
 
-  let ratingArray = [] 
+  let ratingArray = []
   let nullRatingCount = 0
   let fiveStarTracks = []
   rekordBoxData.forEach((track) => {
-    if (!track.Rating || track.Rating === "     ") {
+    if (!track.Rating || track.Rating === '     ') {
       nullRatingCount++
     } else if (track.Rating === '*****') {
       ratingArray.push(5)
       fiveStarTracks.push({
         title: track.Track_Title,
-        artist: track.Artist
+        artist: track.Artist,
       })
     } else if (track.Rating === '**** ') {
       ratingArray.push(4)
@@ -395,16 +395,25 @@ const createRekordboxReport = (data) => {
   })
 
   let ratingCount = arrayCount(ratingArray)
-  rekordBoxPlaylistData.rating_data = {
-    track_ratings: ratingCount,
-    five_star_tracks: fiveStarTracks,
-    tag_health: {
-      percentage_with_ratings: ratingArray.length / rekordBoxData.length * 100,
-      percentage_with_five_star_ratings: fiveStarTracks.length / rekordBoxData.length * 100
+  console.log(ratingArray.length)
+  if (ratingArray.length === 0) {
+    rekordBoxPlaylistData.rating_data = {
+      has_rating_data: false,
+    }
+  } else {
+    rekordBoxPlaylistData.rating_data = {
+      track_ratings: ratingCount,
+      five_star_tracks: fiveStarTracks,
+      tag_health: {
+        percentage_with_ratings:
+          (ratingArray.length / rekordBoxData.length) * 100,
+        percentage_with_five_star_ratings:
+          (fiveStarTracks.length / rekordBoxData.length) * 100,
+      },
     }
   }
-  
-  console.log(rekordBoxPlaylistData)
+
+  // console.log(rekordBoxPlaylistData)
   return rekordBoxPlaylistData
 }
 

@@ -34,7 +34,11 @@ const BitrateData = (props) => {
                   sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                 >
                   {bitrateData.sub320_tracks.length === 0 ? (
-                    <div>None detected</div>
+                    <div>
+                      <span style={{ fontSize: '20px', color: 'black' }}>
+                        None detected
+                      </span>
+                    </div>
                   ) : (
                     <div>
                       {bitrateData.sub320_tracks.length}{' '}

@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
 const DataMissing = (data) => {
+  console.log('DATA: ', data)
   let returnText
 
   if (data.data.value === 'doubles') {
@@ -39,6 +40,9 @@ const DataMissing = (data) => {
   if (data.data.value === 'album') {
     returnText = 'No album data available for this set'
   }
+  if (data.data.value === 'rating') {
+    returnText = 'No rating data available for this set'
+  }
 
   return (
     <div>
@@ -56,7 +60,9 @@ const DataMissing = (data) => {
             <CardContent>
               <Grid container spacing={2}>
                 <Grid mt={3}>
-                  <Typography sx={{ fontSize: 16, fontWeight: '500', marginLeft: '15px' }}>
+                  <Typography
+                    sx={{ fontSize: 16, fontWeight: '500', marginLeft: '15px' }}
+                  >
                     {returnText}
                   </Typography>
                 </Grid>
