@@ -188,6 +188,9 @@ const createRekordboxReport = (data) => {
     Object.keys(topGenresSorted)[2]
   )
 
+  console.log("OTHER GENRE COUNT: ", otherGenreCount)
+  console.log("GENRES: ", genreTagsWithValues)
+
   // append genre data to object return
   rekordBoxPlaylistData.genre_data = {
     total_genres_played: genres.length,
@@ -200,7 +203,7 @@ const createRekordboxReport = (data) => {
       ).toFixed(1),
       percentage_with_other_as_genre: calculateTagHealth(
         otherGenreCount,
-        genres.length
+        rekordBoxData.length
       ).toFixed(1),
       empty_genre_tags: nullGenreCount,
       other_genre_tags: otherGenreCount,
@@ -413,7 +416,7 @@ const createRekordboxReport = (data) => {
     }
   }
 
-  // console.log(rekordBoxPlaylistData)
+  console.log(rekordBoxPlaylistData.genre_data)
   return rekordBoxPlaylistData
 }
 
