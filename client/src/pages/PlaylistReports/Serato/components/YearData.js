@@ -52,8 +52,8 @@ const YearData = (props) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {yearData.yeardata.oldest_track.year} -{' '}
-                      {yearData.yeardata.newest_track.year}
+                      {yearData.oldest_track.year} -{' '}
+                      {yearData.newest_track.year}
                     </Typography>
                   </Grid>
                   <Grid item mt={1}>
@@ -71,7 +71,7 @@ const YearData = (props) => {
                       fontWeight={500}
                       sx={{ color: '#558b2f' }}
                     >
-                      {yearData.yeardata.average_year}
+                      {yearData.average_year}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -79,23 +79,23 @@ const YearData = (props) => {
                 <Grid container spacing={2} sx={{ marginTop: 1 }}>
                   <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
-                      oldest track ({yearData.yeardata.oldest_track.year}):
+                      oldest track ({yearData.oldest_track.year}):
                     </Typography>
                     <Typography variant='h5' component='div' fontWeight={500}>
-                      {yearData.yeardata.oldest_track.artist} -{' '}
-                      {yearData.yeardata.oldest_track.name}
+                      {yearData.oldest_track.artist} -{' '}
+                      {yearData.oldest_track.name}
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 0.5 }}>
                       - played @{' '}
                       <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                        {yearData.yeardata.oldest_track.occurred_at}
+                        {yearData.oldest_track.occurred_at}
                       </span>
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Typography sx={{ fontSize: 16 }}>
                       playlist percentage from most recent year (
-                      {yearData.yeardata.newest_track.year}):
+                      {yearData.newest_track.year}):
                     </Typography>
                     <Typography
                       variant='h4'
@@ -104,13 +104,13 @@ const YearData = (props) => {
                       sx={{ color: '#558b2f' }}
                     >
                       {
-                        yearData.yeardata.newest_track.playlist_percentage.split(
+                        yearData.newest_track.playlist_percentage.split(
                           '.'
                         )[0]
                       }
                       %{' '}
                       <span style={{ fontSize: '22px' }}>
-                        ({yearData.yeardata.newest_track.tracks.length}{' '}
+                        ({yearData.newest_track.tracks.length}{' '}
                         tracks)
                       </span>
                     </Typography>
@@ -149,7 +149,7 @@ const YearData = (props) => {
                             sx={{ color: '#558b2f' }}
                           >
                             {
-                              yearData.yeardata.tag_health
+                              yearData.tag_health
                                 .percentage_with_year_tags
                             }
                             %
@@ -168,7 +168,7 @@ const YearData = (props) => {
                             fontWeight={500}
                             sx={{ color: '#558b2f' }}
                           >
-                            {yearData.yeardata.tag_health.empty_year_tags}{' '}
+                            {yearData.tag_health.empty_year_tags}{' '}
                             <span style={{ fontSize: '18px' }}>
                               of {masterTrackLogLength} total tracks
                             </span>
@@ -189,7 +189,7 @@ const YearData = (props) => {
 
 export default YearData
 
-// DEV NOTES FOR yearData.yeardata.JS
+// DEV NOTES FOR yearData.JS
 //
 // add top 5 "newest" tracks in return from serato report
 // horiztonal row for oldest track with row for top 5 beneath it
