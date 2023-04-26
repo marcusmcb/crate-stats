@@ -9,17 +9,32 @@ const removeQuotes = (str) => {
   return str
 }
 
+// add method to remove commas from album field
+// causing issue where text after comma appears
+// in the next/wrong field
+
+const convertTime = (seconds) => {
+  var minutes = Math.floor(seconds / 60); // Get the number of minutes
+  var remainingSeconds = seconds % 60; // Get the remaining seconds
+  // Format the output string
+  var output = minutes + ' minute(s), ' + remainingSeconds + ' second(s)';
+  return output;
+}
+
 const createEngineReport = () => {
   let engineData = fs.readFileSync(
-    path.join(__dirname, './data/engine_data/House.csv'),
+    path.join(__dirname, './data/engine_data/04_02_2022_Perth.csv'),
     'utf8'
   )
+
   let engineDataArray = engineData.split('\n')
   let engineDataObjects = []  
+
   engineDataArray.forEach((track, index) => {
     if (index === 0) return // Skip the header row
     let trackArray = track.split(',')    
     if (Object.entries(trackArray).length === 1) return
+    // console.log(convertTime(removeQuotes(trackArray[4])))
     let trackObject = {
       track_number: removeQuotes(trackArray[0]),
       title: removeQuotes(trackArray[1]),

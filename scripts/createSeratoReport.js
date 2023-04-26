@@ -79,7 +79,7 @@ const createSeratoReport = (data) => {
 
     // average track length
     averageTrackLength = calculateAverageTime(trackLengths)
-    console.log('ATL? ---------', averageTrackLength)
+    // console.log('ATL? ---------', averageTrackLength)
 
     // longest track
     // add logic check to consider what to do with outliers (abnormally long playtimes)
