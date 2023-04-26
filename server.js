@@ -8,6 +8,7 @@ const createSeratoLiveReport = require('./scripts/createSeratoLiveReport')
 const createSeratoReport = require('./scripts/createSeratoReport')
 const createTraktorReport = require('./scripts/createTraktorReport')
 const createRekordboxReport = require('./scripts/createRekordboxReport')
+const createEngineReport = require('./scripts/createEngineReport')
 
 const { addNewPlaylist, getPlaylists, deletePlaylist } = require('./firebase')
 
@@ -43,6 +44,7 @@ app.post('/sendRekordboxFile', async (req, res) => {
 })
 
 app.post('/getPlaylists', async (req, res) => {
+  createEngineReport()
   let userPlaylists = await getPlaylists()
   res.send(userPlaylists)
 })
