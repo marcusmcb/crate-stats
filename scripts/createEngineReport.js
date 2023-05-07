@@ -14,15 +14,13 @@ const removeQuotes = (str) => {
 // in the next/wrong field
 
 const convertSecondsToMMSS = (seconds) => {
-  var minutes = Math.floor(seconds / 60) // Get the number of minutes
-  var remainingSeconds = seconds % 60 // Get the remaining seconds
-
-  // Format the minutes and seconds with leading zeros if necessary
-  var formattedMinutes = (minutes < 10 ? '0' : '') + minutes
-  var formattedSeconds = (remainingSeconds < 10 ? '0' : '') + remainingSeconds
+  const minutes = Math.floor(seconds / 60)
+  const remainingSeconds = seconds % 60  
+  const formattedMinutes = (minutes < 10 ? '0' : '') + minutes
+  const formattedSeconds = (remainingSeconds < 10 ? '0' : '') + remainingSeconds
 
   // Format the output string
-  var output = formattedMinutes + ':' + formattedSeconds
+  const output = formattedMinutes + ':' + formattedSeconds
   return output
 }
 
@@ -46,8 +44,8 @@ const createEngineReport = () => {
     // console.log(convertSecondsToMMSS(removeQuotes(trackArray[4])))
     let trackObject = {
       track_number: removeQuotes(trackArray[0]),
-      title: removeQuotes(trackArray[1]),
-      artist: removeQuotes(trackArray[2]),
+      title: replaceCommasWithWhiteSpace(removeQuotes(trackArray[1])),
+      artist: replaceCommasWithWhiteSpace(removeQuotes(trackArray[2])),
       album: replaceCommasWithWhiteSpace(removeQuotes(trackArray[3])),
       length: convertSecondsToMMSS(removeQuotes(trackArray[4])),
       bpm: removeQuotes(trackArray[5]),

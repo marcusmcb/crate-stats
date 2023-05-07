@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
 import TrackData from './components/TrackData'
+import TrackData2 from './components/TrackData2'
 import BPMData from './components/BPMData'
 import YearData from './components/YearData'
 import GenreData from './components/GenreData'
@@ -115,6 +116,13 @@ const SeratoPlaylistReport = () => {
                   <DataMissing data={{ value: 'track' }} />
                 ) : (
                   <TrackData trackData={data.track_data} />
+                )}
+              </div>
+              <div>
+                {data.track_data.has_track_data === false ? (
+                  <DataMissing data={{ value: 'track' }} />
+                ) : (
+                  <TrackData2 trackData={data.track_data} />
                 )}
               </div>
               <div className='data-block'>

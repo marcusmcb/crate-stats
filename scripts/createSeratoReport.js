@@ -120,6 +120,7 @@ const createSeratoReport = (data) => {
         play_time: shortestTrack.playtime.substring(3),
         played_at: shortestTrackStartTime,
       },
+      track_length_array: trackLengths
     }
   }
 
