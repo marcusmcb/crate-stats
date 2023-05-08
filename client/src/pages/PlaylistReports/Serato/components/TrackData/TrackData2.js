@@ -69,7 +69,11 @@ const TrackData2 = (props) => {
 							</Grid>
 						</Grid>
 
-						<BarChart data={trackData.track_length_array} />
+						<BarChart
+							data={trackData.track_length_array}
+							startTime={setStartTime}
+							endTime={setEndTime}
+						/>
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<Grid container spacing={2} direction='column'>

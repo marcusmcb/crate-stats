@@ -2,9 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import './trackdatabarchart.css'
 
-const BarChart = ({ data }) => {
-	
-	console.log(data)
+const BarChart = (props) => {
+	const { data, startTime, endTime } = props
 	const chartRef = useRef(null)
 
 	useEffect(() => {
@@ -40,14 +39,38 @@ const BarChart = ({ data }) => {
 				.attr('transform', `translate(0, ${height})`)
 			// .call(d3.axisBottom(x))
 
+			// x-axis label
 			svg
 				.append('text')
 				.attr('text-anchor', 'middle')
-        .attr("class", "x-axis-label")
+				.attr('class', 'x-axis-label')
 				.attr('x', width / 2)
 				.attr('y', height + margin.bottom - 10)
 				.text('track lengths over this set')
 
+			// start time label
+			svg
+				.append('text')
+				.attr('text-anchor', 'start')
+				.attr('class', 'x-axis-start-time')
+				.attr('x', 0)
+				.attr('y', height + margin.bottom - 10)
+				.attr('fill', 'white')
+				.style('font-size', 'calc(1em - 5px)')
+				.text(startTime + ' PM')
+
+			// end time label
+			svg
+				.append('text')
+				.attr('text-anchor', 'end')
+				.attr('class', 'x-axis-end-time')
+				.attr('x', width)
+				.attr('y', height + margin.bottom - 10)
+				.attr('fill', 'white')
+				.style('font-size', 'calc(1em - 5px)')
+				.text(endTime + ' PM')
+
+			// y-axis label
 			svg
 				.append('g')
 				.attr('class', 'axis axis--y')
@@ -61,14 +84,15 @@ const BarChart = ({ data }) => {
 							return `${minutes}:${seconds.toString().padStart(2, '0')}`
 						})
 				)
-				.append('text')			
-        .attr('fill', 'white')	
+				.append('text')
+				.attr('fill', 'white')
 				.attr('transform', 'rotate(-90)')
 				.attr('y', 6)
 				.attr('dy', '0.71em')
 				.attr('text-anchor', 'end')
-			// .text('Track Length')
+				.text('Track Length')
 
+			// bar chart properties
 			svg
 				.selectAll('.bar')
 				.data(dataInSeconds)
