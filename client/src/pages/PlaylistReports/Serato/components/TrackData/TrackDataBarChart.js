@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
+import './trackdatabarchart.css'
 
 const BarChart = ({ data }) => {
+	
+	console.log(data)
 	const chartRef = useRef(null)
 
 	useEffect(() => {
 		if (data && chartRef.current) {
-      d3.select(chartRef.current).selectAll('*').remove()
-			console.log('... data ...')
-			console.log(data)
+			d3.select(chartRef.current).selectAll('*').remove()
+
 			// Convert MM:SS time format to seconds
 			const dataInSeconds = data.map((timeStr) => {
 				const [minutes, seconds] = timeStr.split(':')
@@ -27,7 +29,7 @@ const BarChart = ({ data }) => {
 				.attr('width', width + margin.left + margin.right)
 				.attr('height', height + margin.top + margin.bottom)
 				.append('g')
-				.attr('transform', `translate(${margin.left}, ${margin.top})`)			
+				.attr('transform', `translate(${margin.left}, ${margin.top})`)
 
 			x.domain(dataInSeconds.map((d, i) => i))
 			y.domain([0, d3.max(dataInSeconds, (d) => d)])
@@ -36,7 +38,15 @@ const BarChart = ({ data }) => {
 				.append('g')
 				.attr('class', 'axis axis--x')
 				.attr('transform', `translate(0, ${height})`)
-				.call(d3.axisBottom(x))
+			// .call(d3.axisBottom(x))
+
+			svg
+				.append('text')
+				.attr('text-anchor', 'middle')
+        .attr("class", "x-axis-label")
+				.attr('x', width / 2)
+				.attr('y', height + margin.bottom - 10)
+				.text('track lengths over this set')
 
 			svg
 				.append('g')
@@ -51,8 +61,8 @@ const BarChart = ({ data }) => {
 							return `${minutes}:${seconds.toString().padStart(2, '0')}`
 						})
 				)
-				.append('text')
-				.attr('fill', 'white')
+				.append('text')			
+        .attr('fill', 'white')	
 				.attr('transform', 'rotate(-90)')
 				.attr('y', 6)
 				.attr('dy', '0.71em')

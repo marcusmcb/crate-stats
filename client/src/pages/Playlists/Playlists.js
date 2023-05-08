@@ -4,7 +4,7 @@ import Titlebar from '../../components/shared/Titlebar'
 import DataMissing from '../../components/shared/DataMissing'
 import PlaylistData from '../PlaylistReports/Serato/components/PlaylistData'
 
-import TrackData from '../PlaylistReports/Serato/components/TrackData'
+import TrackData from '../PlaylistReports/Serato/components/TrackData/TrackData'
 
 import BPMData from '../PlaylistReports/Serato/components/BPMData'
 import YearData from '../PlaylistReports/Serato/components/YearData'
