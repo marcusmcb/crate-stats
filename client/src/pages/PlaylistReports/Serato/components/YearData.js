@@ -11,10 +11,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 import { Divider } from 'semantic-ui-react'
 
-const YearData = (props) => {
-  console.log("PROPS: ", props)
-  const { yearData, masterTrackLogLength } = props
-  console.log("YEAR DATA: ", yearData)
+const YearData = (props) => {  
+  const { yearData, masterTrackLogLength } = props  
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {

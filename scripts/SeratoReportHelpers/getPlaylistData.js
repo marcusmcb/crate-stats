@@ -23,7 +23,7 @@ const getPlaylistData = (data) => {
 			totalMinutes %= 60
 		}
 		// Convert total hours and minutes back to strings, ensuring 2-digit format
-		const hoursString = String(totalHours).padStart(2, '0')
+		const hoursString = String(totalHours)
 		const minutesString = String(totalMinutes).padStart(2, '0')
 		return `${hoursString}:${minutesString}`
 	}
@@ -193,6 +193,7 @@ const getPlaylistData = (data) => {
 			parsePlaylistLength(playlistLength),
 			playlistStartTime.trim().split(' ')[0]
 		)
+		playlist_data.start_time = playlistStartTime.trim().split(' ')[0]
 
 		// check for NaN values
 		playlist_data.playlist_length_formatted = {

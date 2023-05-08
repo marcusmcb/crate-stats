@@ -8,111 +8,116 @@ import { styled } from '@mui/system'
 import BarChart from './TrackDataBarChart'
 import './trackdata.css'
 
-const TrackData2 = ( props ) => {
+const TrackData2 = (props) => {
 	console.log(props)
-	// const StyledBox = styled(Box)(({ theme }) => ({
-	// 	padding: '5px',
-	// 	margin: '5px',						
-	// }))
+	const { trackData, setStartTime, setEndTime } = props
+	console.log(trackData, setStartTime, setEndTime)
 
-	// return (
-	// 	<Fragment>
-	// 		<div className='track-data-main'>
-	// 			<Grid container>
-	// 				<Grid item xs={12}>
-	// 					<Typography
-	// 						variant='h5'
-	// 						align='left'
-	// 						style={{ padding: '10px', color: 'white' }}
-	// 					>
-	// 						Track Data
-	// 					</Typography>
-	// 				</Grid>					
-	// 			</Grid>				
-	// 			<Grid container spacing={2}>
-	// 				<Grid item xs={12} sm={6}>
-	// 					<Grid container spacing={2} className='foo'>
-	// 						<Grid item xs={12} sm={6}>
-	// 							<StyledBox>
-	// 								<Card>
-	// 									<CardContent>
-	// 										<Typography
-	// 											style={{ fontSize: '20px', fontWeight: '600' }}
-	// 										>
-	// 											Total Tracks Played:
-	// 										</Typography>
-	// 										<Typography style={{ fontSize: '18px' }}>
-	// 											{trackData.total_tracks_played}
-	// 										</Typography>
-	// 									</CardContent>
-	// 								</Card>
-	// 							</StyledBox>
-	// 						</Grid>
-	// 						<Grid item xs={12} sm={6}>
-	// 							<StyledBox>
-	// 								<Card>
-	// 									<CardContent>
-	// 										<Typography
-	// 											style={{ fontSize: '20px', fontWeight: '600' }}
-	// 										>
-	// 											Average Length:
-	// 										</Typography>
-	// 										<Typography style={{ fontSize: '18px' }}>
-	// 											{trackData.average_track_length}
-	// 										</Typography>
-	// 									</CardContent>
-	// 								</Card>
-	// 							</StyledBox>
-	// 						</Grid>
-	// 					</Grid>
+	const StyledBox = styled(Box)(({ theme }) => ({
+		padding: '5px',
+		margin: '5px',
+	}))
 
-	// 					<BarChart data={trackData.track_length_array} />
-	// 				</Grid>
-	// 				<Grid item xs={12} sm={6}>
-	// 					<Grid container spacing={2} direction='column'>
-	// 						<Grid item xs={12}>
-	// 							<StyledBox>
-	// 								<Card>
-	// 									<CardContent>
-	// 										<Typography
-	// 											style={{ fontSize: '20px', fontWeight: '600' }}
-	// 										>
-	// 											Longest Track Played:
-	// 										</Typography>
-	// 										<Typography style={{ fontSize: '18px' }}>
-	// 											{trackData.longest_track.artist} - {trackData.longest_track.name} | {' '}
-	// 											<span style={{ color: 'purple', fontWeight: '600' }}>
-	// 												{trackData.longest_track.play_time}
-	// 											</span>
-	// 										</Typography>
-	// 										<Typography>
-	// 											(played at {trackData.longest_track.played_at})
-	// 										</Typography>
-	// 										<hr />
-	// 										<Typography
-	// 											style={{ fontSize: '20px', fontWeight: '600' }}
-	// 										>
-	// 											Shortest Track Played:
-	// 										</Typography>
-	// 										<Typography style={{ fontSize: '18px' }}>
-	// 											{trackData.shortest_track.artist} - {trackData.shortest_track.name} | {' '}
-	// 											<span style={{ color: 'purple', fontWeight: '600' }}>
-	// 												{trackData.shortest_track.play_time}
-	// 											</span>
-	// 										</Typography>
-	// 										<Typography>
-	// 											(played at {trackData.shortest_track.played_at})
-	// 										</Typography>
-	// 									</CardContent>
-	// 								</Card>
-	// 							</StyledBox>
-	// 						</Grid>
-	// 					</Grid>
-	// 				</Grid>
-	// 			</Grid>
-	// 		</div>
-	// 	</Fragment>
-	// )
+	return (
+		<Fragment>
+			<div className='track-data-main'>
+				<Grid container>
+					<Grid item xs={12}>
+						<Typography
+							variant='h5'
+							align='left'
+							style={{ padding: '10px', color: 'white' }}
+						>
+							Track Data
+						</Typography>
+					</Grid>
+				</Grid>
+				<Grid container spacing={2}>
+					<Grid item xs={12} sm={6}>
+						<Grid container spacing={2} className='foo'>
+							<Grid item xs={12} sm={6}>
+								<StyledBox>
+									<Card>
+										<CardContent>
+											<Typography
+												style={{ fontSize: '20px', fontWeight: '600' }}
+											>
+												Total Tracks Played:
+											</Typography>
+											<Typography style={{ fontSize: '18px' }}>
+												{trackData.total_tracks_played}
+											</Typography>
+										</CardContent>
+									</Card>
+								</StyledBox>
+							</Grid>
+							<Grid item xs={12} sm={6}>
+								<StyledBox>
+									<Card>
+										<CardContent>
+											<Typography
+												style={{ fontSize: '20px', fontWeight: '600' }}
+											>
+												Average Length:
+											</Typography>
+											<Typography style={{ fontSize: '18px' }}>
+												{trackData.average_track_length}
+											</Typography>
+										</CardContent>
+									</Card>
+								</StyledBox>
+							</Grid>
+						</Grid>
+
+						<BarChart data={trackData.track_length_array} />
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<Grid container spacing={2} direction='column'>
+							<Grid item xs={12}>
+								<StyledBox>
+									<Card>
+										<CardContent>
+											<Typography
+												style={{ fontSize: '20px', fontWeight: '600' }}
+											>
+												Longest Track Played:
+											</Typography>
+											<Typography style={{ fontSize: '18px' }}>
+												{trackData.longest_track.artist} -{' '}
+												{trackData.longest_track.name} |{' '}
+												<span style={{ color: 'purple', fontWeight: '600' }}>
+													{trackData.longest_track.play_time}
+												</span>
+											</Typography>
+											<Typography>
+												(played at {trackData.longest_track.played_at})
+											</Typography>
+											<hr />
+											<Typography
+												style={{ fontSize: '20px', fontWeight: '600' }}
+											>
+												Shortest Track Played:
+											</Typography>
+											<Typography style={{ fontSize: '18px' }}>
+												{trackData.shortest_track.artist} -{' '}
+												{trackData.shortest_track.name} |{' '}
+												<span style={{ color: 'purple', fontWeight: '600' }}>
+													{trackData.shortest_track.play_time}
+												</span>
+											</Typography>
+											<Typography>
+												(played at {trackData.shortest_track.played_at})
+											</Typography>
+										</CardContent>
+									</Card>
+								</StyledBox>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Grid>
+			</div>
+		</Fragment>
+	)
 }
 
 export default TrackData2

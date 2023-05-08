@@ -124,8 +124,8 @@ const SeratoPlaylistReport = () => {
 								) : (
 									<TrackData2
 										trackData={data.track_data}
-										setStartTime={data.playlist_data.playlist_length_formatted.start_time}
-										setEndTime={data.playlist_data.playlist_length_formatted.end_time}
+										setStartTime={data.playlist_data.start_time}
+										setEndTime={data.playlist_data.end_time}
 									/>
 								)}
 							</div>
