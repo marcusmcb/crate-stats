@@ -11,178 +11,167 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 import { Divider } from 'semantic-ui-react'
 
-const YearData = (props) => {  
-  const { yearData, masterTrackLogLength } = props  
-  const [expanded, setExpanded] = useState(false)
+const YearData = (props) => {
+	const { yearData, masterTrackLogLength } = props
+	const [expanded, setExpanded] = useState(false)
+	const handleExpandClick = () => {
+		setExpanded(!expanded)
+	}
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-  
-  return (
-    <Fragment>
-      <div>
-        <Typography
-          sx={{ fontSize: 20 }}
-          color='#c5e1a5'
-          fontWeight={500}
-          gutterBottom
-        >
-          year data:
-        </Typography>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid item md={5} sm={12}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item mt={1}>
-                    <Typography
-                      sx={{ fontSize: 16, fontWeight: '500' }}
-                      sm={12}
-                    >
-                      range of years played:
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {yearData.oldest_track.year} -{' '}
-                      {yearData.newest_track.year}
-                    </Typography>
-                  </Grid>
-                  <Grid item mt={1}>
-                    <Typography
-                      sx={{ fontSize: 16, fontWeight: '500' }}
-                      sm={12}
-                    >
-                      average year:
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {yearData.average_year}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider />
-                <Grid container spacing={2} sx={{ marginTop: 1 }}>
-                  <Grid item>
-                    <Typography sx={{ fontSize: 16 }}>
-                      oldest track ({yearData.oldest_track.year}):
-                    </Typography>
-                    <Typography variant='h5' component='div' fontWeight={500}>
-                      {yearData.oldest_track.artist} -{' '}
-                      {yearData.oldest_track.name}
-                    </Typography>
-                    <Typography sx={{ fontSize: 14, marginTop: 0.5 }}>
-                      - played @{' '}
-                      <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                        {yearData.oldest_track.occurred_at}
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography sx={{ fontSize: 16 }}>
-                      playlist percentage from most recent year (
-                      {yearData.newest_track.year}):
-                    </Typography>
-                    <Typography
-                      variant='h4'
-                      component='div'
-                      fontWeight={500}
-                      sx={{ color: '#558b2f' }}
-                    >
-                      {
-                        yearData.newest_track.playlist_percentage.split(
-                          '.'
-                        )[0]
-                      }
-                      %{' '}
-                      <span style={{ fontSize: '22px' }}>
-                        ({yearData.newest_track.tracks.length}{' '}
-                        tracks)
-                      </span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Card sx={{ midWidth: 245 }}>
-                <CardActions
-                  sx={{
-                    height: '4vh',
-                    backgroundColor: '#616161',
-                    color: 'white',
-                  }}
-                >
-                  <CardContent>tag health</CardContent>
-                  <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label='show more'
-                  >
-                    <ExpandMoreIcon sx={{ color: 'white' }} />
-                  </ExpandMore>
-                </CardActions>
-                <Collapse in={expanded} timeout='auto' unmountOnExit>
-                  <Grid container spacing={1}>
-                    <Grid item xs={12} md={6} sm={12} lg={6}>
-                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                        <CardContent>
-                          {/* crate stats card */}
-                          <Typography>percentage with year tags:</Typography>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: '#558b2f' }}
-                          >
-                            {
-                              yearData.tag_health
-                                .percentage_with_year_tags
-                            }
-                            %
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6} sm={12} lg={6}>
-                      <Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-                        <CardContent>
-                          {/* crate stats card */}
-                          <Typography>tracks with empty year tags:</Typography>
-                          <Typography
-                            variant='h4'
-                            component='div'
-                            fontWeight={500}
-                            sx={{ color: '#558b2f' }}
-                          >
-                            {yearData.tag_health.empty_year_tags}{' '}
-                            <span style={{ fontSize: '18px' }}>
-                              of {masterTrackLogLength} total tracks
-                            </span>
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Collapse>
-              </Card>
-            </Card>
-          </Grid>
-        </Box>
-      </div>
-    </Fragment>
-  )
+	return (
+		<Fragment>
+			<div>
+				<Typography
+					sx={{ fontSize: 20 }}
+					color='#c5e1a5'
+					fontWeight={500}
+					gutterBottom
+				>
+					year data:
+				</Typography>
+				<Box sx={{ flexGrow: 1 }}>
+					<Grid item md={5} sm={12}>
+						<Card sx={{ minWidth: 275 }}>
+							<CardContent>
+								<Grid container spacing={2}>
+									<Grid item mt={1}>
+										<Typography
+											sx={{ fontSize: 16, fontWeight: '500' }}
+											sm={12}
+										>
+											range of years played:
+										</Typography>
+									</Grid>
+									<Grid item>
+										<Typography
+											variant='h4'
+											component='div'
+											fontWeight={500}
+											sx={{ color: '#558b2f' }}
+										>
+											{yearData.oldest_track.year} -{' '}
+											{yearData.newest_track.year}
+										</Typography>
+									</Grid>
+									<Grid item mt={1}>
+										<Typography
+											sx={{ fontSize: 16, fontWeight: '500' }}
+											sm={12}
+										>
+											average year:
+										</Typography>
+									</Grid>
+									<Grid item>
+										<Typography
+											variant='h4'
+											component='div'
+											fontWeight={500}
+											sx={{ color: '#558b2f' }}
+										>
+											{yearData.average_year}
+										</Typography>
+									</Grid>
+								</Grid>
+								<Divider />
+								<Grid container spacing={2} sx={{ marginTop: 1 }}>
+									<Grid item>
+										<Typography sx={{ fontSize: 16 }}>
+											oldest track ({yearData.oldest_track.year}):
+										</Typography>
+										<Typography variant='h5' component='div' fontWeight={500}>
+											{yearData.oldest_track.artist} -{' '}
+											{yearData.oldest_track.name}
+										</Typography>
+										<Typography sx={{ fontSize: 14, marginTop: 0.5 }}>
+											- played @{' '}
+											<span style={{ color: '#1b5e20', fontWeight: '500' }}>
+												{yearData.oldest_track.occurred_at}
+											</span>
+										</Typography>
+									</Grid>
+									<Grid item>
+										<Typography sx={{ fontSize: 16 }}>
+											playlist percentage from most recent year (
+											{yearData.newest_track.year}):
+										</Typography>
+										<Typography
+											variant='h4'
+											component='div'
+											fontWeight={500}
+											sx={{ color: '#558b2f' }}
+										>
+											{yearData.newest_track.playlist_percentage.split('.')[0]}%{' '}
+											<span style={{ fontSize: '22px' }}>
+												({yearData.newest_track.tracks.length} tracks)
+											</span>
+										</Typography>
+									</Grid>
+								</Grid>
+							</CardContent>
+							<Card sx={{ midWidth: 245 }}>
+								<CardActions
+									sx={{
+										height: '4vh',
+										backgroundColor: '#616161',
+										color: 'white',
+									}}
+								>
+									<CardContent>tag health</CardContent>
+									<ExpandMore
+										expand={expanded}
+										onClick={handleExpandClick}
+										aria-expanded={expanded}
+										aria-label='show more'
+									>
+										<ExpandMoreIcon sx={{ color: 'white' }} />
+									</ExpandMore>
+								</CardActions>
+								<Collapse in={expanded} timeout='auto' unmountOnExit>
+									<Grid container spacing={1}>
+										<Grid item xs={12} md={6} sm={12} lg={6}>
+											<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+												<CardContent>
+													{/* crate stats card */}
+													<Typography>percentage with year tags:</Typography>
+													<Typography
+														variant='h4'
+														component='div'
+														fontWeight={500}
+														sx={{ color: '#558b2f' }}
+													>
+														{yearData.tag_health.percentage_with_year_tags}%
+													</Typography>
+												</CardContent>
+											</Card>
+										</Grid>
+										<Grid item xs={12} md={6} sm={12} lg={6}>
+											<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+												<CardContent>
+													{/* crate stats card */}
+													<Typography>tracks with empty year tags:</Typography>
+													<Typography
+														variant='h4'
+														component='div'
+														fontWeight={500}
+														sx={{ color: '#558b2f' }}
+													>
+														{yearData.tag_health.empty_year_tags}{' '}
+														<span style={{ fontSize: '18px' }}>
+															of {masterTrackLogLength} total tracks
+														</span>
+													</Typography>
+												</CardContent>
+											</Card>
+										</Grid>
+									</Grid>
+								</Collapse>
+							</Card>
+						</Card>
+					</Grid>
+				</Box>
+			</div>
+		</Fragment>
+	)
 }
 
 export default YearData

@@ -202,7 +202,6 @@ const getPlaylistData = (data) => {
 			seconds: playlistLengthParsed.getSeconds(),
 		}
 	}
-
 	return playlist_data
 }
 
