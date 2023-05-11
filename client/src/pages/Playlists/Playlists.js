@@ -147,7 +147,7 @@ const Playlists = () => {
                     <BPMData bpmData={fileSelected.data.bpm_data} />
                   )}
                 </div>
-                <div className='data-block'>
+                {/* <div className='data-block'>
                   {fileSelected.data.year_data.has_year_data === false ? (
                     <div>
                       <DataMissing data={{ value: 'year' }} />
@@ -160,7 +160,7 @@ const Playlists = () => {
                       }}
                     />
                   )}
-                </div>
+                </div> */}
                 <div className='data-block'>
                   {fileSelected.data.genre_data.has_genre_data === false ? (
                     <DataMissing data={{ value: 'genre' }} />
@@ -193,7 +193,7 @@ const Playlists = () => {
                     <DeckData deckData={fileSelected.data.deck_data} />
                   )}
                 </div>
-                <div className='data-block'>
+                {/* <div className='data-block'>
                   {fileSelected.data.album_data.has_album_data === false ? (
                     <DataMissing data={{ value: 'album' }} />
                   ) : (
@@ -204,7 +204,7 @@ const Playlists = () => {
                       }}
                     />
                   )}
-                </div>
+                </div> */}
                 <div className='data-block'>
                   {fileSelected.data.artist_data.has_artist_data === false ? (
                     <DataMissing data={{ value: 'artist' }} />
