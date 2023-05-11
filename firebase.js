@@ -23,7 +23,7 @@ const generateRandomString = () => {
   return text
 }
 
-const addNewPlaylist = async (playlistData) => {
+const addNewPlaylist = async (playlistData) => {  
   const res = await db
     .collection('playlists')
     .doc(generateRandomString())

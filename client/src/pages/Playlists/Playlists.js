@@ -105,7 +105,23 @@ const Playlists = () => {
 								))}
 							</div>
 						) : (
-							<div>Awaiting Data...</div>
+							<div
+									style={{
+										backgroundColor: 'white',
+										padding: '10px',
+										borderRadius: '5px',
+										marginBottom: '10px',
+										border: '1px solid black',
+									}}
+								>
+									<Typography
+										style={{
+											fontWeight: '600',
+										}}
+									>
+										Awaiting data...
+									</Typography>
+								</div>
 						)}
 					</CardContent>
 					<CardContent

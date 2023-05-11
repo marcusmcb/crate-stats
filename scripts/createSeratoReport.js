@@ -78,8 +78,7 @@ const createSeratoReport = (data) => {
     hasPlayTimeData = true
 
     // average track length
-    averageTrackLength = calculateAverageTime(trackLengths)
-    // console.log('ATL? ---------', averageTrackLength)
+    averageTrackLength = calculateAverageTime(trackLengths)    
 
     // longest track
     // add logic check to consider what to do with outliers (abnormally long playtimes)
@@ -87,8 +86,7 @@ const createSeratoReport = (data) => {
 
     longestTrack = trackLengths.reduce((a, b) => (a > b ? a : b))
     const longestTrackIndex = trackLengths.indexOf(longestTrack)
-    longestTrack = masterTrackLog[longestTrackIndex]
-    console.log('longest track', longestTrack)
+    longestTrack = masterTrackLog[longestTrackIndex]    
     longestTrackStartTime = parsePlayedAtTime(longestTrack['start time'])
 
     // shortest track
