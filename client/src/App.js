@@ -7,6 +7,7 @@ import RekordboxPlaylistReport from './pages/PlaylistReports/Rekordbox/Rekordbox
 import TraktorPlaylistReport from './pages/PlaylistReports/Traktor/TraktorPlaylistReport'
 import Playlists from './pages/Playlists/Playlists'
 import SignIn from './pages/SignIn/SignIn'
+import SiteStats from './pages/SiteStats/SiteStats'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -26,6 +27,7 @@ function App() {
         <Route path='/traktor' element={<TraktorPlaylistReport />} />
         <Route path='/playlists' element={<Playlists />} />
         <Route path='/signin' element={<SignIn/>} />
+        <Route path='/sitestats' element={<SiteStats/>} />
       </Routes>
     </Router>
   )
