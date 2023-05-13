@@ -9,6 +9,7 @@ const createSeratoReport = require("./scripts/createSeratoReport");
 const createTraktorReport = require("./scripts/createTraktorReport");
 const createRekordboxReport = require("./scripts/createRekordboxReport");
 const createEngineReport = require("./scripts/createEngineReport");
+const createSiteStatsReport = require("./scripts/SiteStats/createSiteStatsReport")
 
 const { addNewPlaylist, getPlaylists, deletePlaylist } = require("./firebase");
 
@@ -43,15 +44,8 @@ app.post("/sendRekordboxFile", async (req, res) => {
   res.send(userReport);
 });
 
-app.post("/getSiteStats", async (req, res) => {
-  let bpmArray = []
-  await getPlaylists().then((data) => {
-    data.forEach((item) => {
-      console.log(item.data.bpm_data.average_bpm);
-      bpmArray.push(item.data.bpm_data.average_bpm);
-    });
-  });
-  res.send(bpmArray)
+app.post("/getSiteStats", async (req, res) => {  
+  await createSiteStatsReport().then(data => res.send(data))
 });
 
 app.post("/getPlaylists", async (req, res) => {

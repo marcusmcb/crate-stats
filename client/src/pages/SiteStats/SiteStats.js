@@ -34,10 +34,10 @@ const SiteStats = () => {
               </Typography>
             </div>
             <Typography style={{ textAlign: "center" }}>
-              - total playlists submitted since xx date
+              - total playlists submitted: {siteStats.total_playlists_submitted}
             </Typography>
             <Typography style={{ textAlign: "center" }}>
-              - data averages (bpm, key, etc)
+              - average bpm: {siteStats.average_bpm}
             </Typography>
             <Typography style={{ textAlign: "center" }}>
               - likelihood of doubles, etc (deeper dives)
@@ -49,7 +49,11 @@ const SiteStats = () => {
             <div></div>
           </div>
         ) : (
-          <div></div>
+          <div>
+            <Typography className="page-header-text">
+              fetching site stats...
+            </Typography>
+          </div>
         )}
       </div>
     </Fragment>
