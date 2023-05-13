@@ -19,17 +19,17 @@ const Titlebar = () => {
         }}
       >
         <Grid item>          
-          {/* <Button
+          <Button
             variant='contained'
             sx={{
               backgroundColor: 'darkslategrey',
               ':hover': { backgroundColor: 'slategrey', color: 'white' },
             }}
             component={Link}
-            to={'/signin'}
+            to={'/playlists'}
           >
-            Sign In
-          </Button> */}
+            Playlists
+          </Button>
         </Grid>
         <Grid item>
           <Link
@@ -44,17 +44,17 @@ const Titlebar = () => {
           </Link>
         </Grid>
         <Grid item>
-          {/* <Button
+          <Button
             variant='contained'
             sx={{
               backgroundColor: 'darkslategrey',
               ':hover': { backgroundColor: 'slategrey', color: 'white' },
             }}
             component={Link}
-            to={'/playlists'}
+            to={'/sitestats'}
           >
-            Playlists
-          </Button> */}
+            Site Stats
+          </Button>
         </Grid>
       </Box>
     </div>

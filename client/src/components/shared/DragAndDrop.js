@@ -9,8 +9,7 @@ const fileTypes = ['CSV']
 const DragAndDrop = ({ getDataFromCSV }) => {
   const [file, setFile] = useState(null)
 
-  const handleChange = (event) => {
-    console.log(event.size)
+  const handleChange = (event) => {    
     
     // append file size to results data and send w/API call
     // use later to avoid duplicate playlist uploads to firestore

@@ -1,19 +1,19 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { Divider } from 'semantic-ui-react'
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Divider } from "semantic-ui-react";
 
 const TrackData = ({ trackData }) => {
   return (
     <Fragment>
-      <div>        
+      <div>
         <Typography
           sx={{ fontSize: 20 }}
-          color='#c5e1a5'
+          color="#c5e1a5"
           fontWeight={500}
           gutterBottom
         >
@@ -25,31 +25,31 @@ const TrackData = ({ trackData }) => {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item mt={1.5}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                    <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
                       total tracks played:
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Typography
-                      variant='h3'
-                      component='div'
+                      variant="h3"
+                      component="div"
                       fontWeight={500}
-                      sx={{ color: '#558b2f' }}
+                      sx={{ color: "#558b2f" }}
                     >
                       {trackData.total_tracks_played}
                     </Typography>
                   </Grid>
                   <Grid item mt={1.5}>
-                    <Typography sx={{ fontSize: 16, fontWeight: '500' }}>
+                    <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
                       average track length:
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Typography
-                      variant='h3'
-                      component='div'
+                      variant="h3"
+                      component="div"
                       fontWeight={500}
-                      sx={{ color: '#558b2f' }}
+                      sx={{ color: "#558b2f" }}
                     >
                       {trackData.average_track_length}
                     </Typography>
@@ -61,20 +61,20 @@ const TrackData = ({ trackData }) => {
                     <Typography sx={{ fontSize: 16 }}>
                       shortest track:
                     </Typography>
-                    <Typography variant='h5' component='div' fontWeight={500}>
+                    <Typography variant="h5" component="div" fontWeight={500}>
                       {trackData.shortest_track.name}
                     </Typography>
                     <Typography
-                      variant='h5'
-                      component='div'
+                      variant="h5"
+                      component="div"
                       fontWeight={500}
-                      sx={{ color: '#558b2f' }}
+                      sx={{ color: "#558b2f" }}
                     >
                       ({trackData.shortest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                      - played @{' '}
-                      <span style={{ color: '#1b5e20', fontWeight: '500' }}>
+                      - played @{" "}
+                      <span style={{ color: "#1b5e20", fontWeight: "500" }}>
                         {trackData.shortest_track.played_at}
                       </span>
                     </Typography>
@@ -83,35 +83,35 @@ const TrackData = ({ trackData }) => {
                     <Typography sx={{ fontSize: 16 }}>
                       longest track:
                     </Typography>
-                    <Typography variant='h5' component='div' fontWeight={500}>
+                    <Typography variant="h5" component="div" fontWeight={500}>
                       {trackData.longest_track.name}
                     </Typography>
                     <Typography
-                      variant='h5'
-                      component='div'
+                      variant="h5"
+                      component="div"
                       fontWeight={500}
-                      sx={{ color: '#558b2f' }}
+                      sx={{ color: "#558b2f" }}
                     >
                       ({trackData.longest_track.play_time})
                     </Typography>
                     <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                      - played @{' '}
-                      <span style={{ color: '#1b5e20', fontWeight: '500' }}>
+                      - played @{" "}
+                      <span style={{ color: "#1b5e20", fontWeight: "500" }}>
                         {trackData.longest_track.played_at}
                       </span>
                     </Typography>
                   </Grid>
-                </Grid>                
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
         </Box>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default TrackData
+export default TrackData;
 
 // DEV NOTES FOR TRACKDATA.JS
 // -----------------------------
