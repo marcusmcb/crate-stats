@@ -201,7 +201,7 @@ const SeratoPlaylistReport = () => {
 								{!data.master_track_log ? (
 									<DataMissing data={{ value: 'tracklog' }} />
 								) : (
-									<MasterTracklog data={data.master_track_log} />
+									<MasterTracklog masterTrackLog={data.master_track_log} />
 								)}
 							</div>
 						</div>
