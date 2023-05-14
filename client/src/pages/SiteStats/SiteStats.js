@@ -34,13 +34,16 @@ const SiteStats = () => {
 							</Typography>
 						</div>
 						<Typography style={{ textAlign: 'center' }}>
-							- total playlists submitted: {siteStats.total_playlists_submitted}
+							<span className='span-text'> - total playlists submitted: </span>
+							{siteStats.total_playlists_submitted}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
-							- average bpm: {siteStats.average_bpm}
+							<span className='span-text'>- average bpm: </span>{' '}
+							{siteStats.average_bpm}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
-							- most common key: {siteStats.most_common_key.element} (
+							<span className='span-text'> - most common key:</span>{' '}
+							{siteStats.most_common_key.element} (
 							{siteStats.most_common_key.count} playlists)
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
@@ -59,10 +62,9 @@ const SiteStats = () => {
 							{new Number(siteStats.unique_genres_played).toFixed()}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
-							- sets with doubles:{' '}
-							{siteStats.playlists_with_doubles}
+							- sets with doubles: {siteStats.playlists_with_doubles}
 						</Typography>
-            <Typography style={{ textAlign: 'center' }}>
+						<Typography style={{ textAlign: 'center' }}>
 							- doubles per set:{' '}
 							{new Number(siteStats.doubles_per_playlist).toFixed()}
 						</Typography>

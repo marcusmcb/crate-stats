@@ -29,8 +29,7 @@ const Playlists = () => {
 
   useEffect(() => {
     const getUserPlaylists = () => {
-      axios.post("/getPlaylists").then((response) => {
-        console.log(response.data);
+      axios.post("/getPlaylists").then((response) => {        
         setUserPlaylists(response.data);
         setHasData(true);
       });

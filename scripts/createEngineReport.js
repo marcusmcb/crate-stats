@@ -56,10 +56,7 @@ const createEngineReport = () => {
       year: removeQuotes(trackArray[10]),
     }
     engineDataObjects.push(trackObject)
-  })
-  console.log('. . . . . . .')
-  console.log('. . engine . .')
-  console.log(engineDataObjects)
+  })  
   return engineDataObjects
 }
 

@@ -169,14 +169,8 @@ const createReport = async (url) => {
 //
 // calculate average tracks per hour for longer sets
 //
-// add option for user to anonymously submit stats to the site
-// as part of aggregrate data to compare user results against
-//
-// add option for user to publicly submit stats and display thier
+// add option for user to publicly submit stats and display their
 // screen name & total number of hours contributed in ui
-//
-// set configs for mongo cluster
-// plan for ui to show aggregate data on site load once user base is contributing
 //
 // PRIVATE REPORTS
 //
@@ -187,6 +181,5 @@ const createReport = async (url) => {
 // add logic to determine longest track played @ time
 // add logic to determine shortest track played @ time
 // subtract playtime from set start time
-// add helper method for calcuations
 
 module.exports = createReport

@@ -1,12 +1,16 @@
 .page-header-text {
-  font-size: 2em;
-  font-weight: 500;
+  font-size: 2.5em !important;
+  font-weight: 600 !important;
   text-align: center;  
   padding-top: .7em;
-  padding-bottom: .7em;
+  padding-bottom: .7em;  
 }
 
 .sitestats-pagebody {
   margin-left: 10vw;
   margin-right: 10vw;
+}
+
+.span-text {
+  font-weight: 500;
 }
