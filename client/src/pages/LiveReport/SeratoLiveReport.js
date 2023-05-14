@@ -78,6 +78,16 @@ const SeratoLiveReport = () => {
 		setUrl(e.target.value)
 	}
 
+	const convertTime = (timestamp) => {
+		let date = new Date(timestamp)
+		let hours = date.getUTCHours()
+		let minutes = date.getUTCMinutes()
+		let hours12 = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours
+		let minutesString = minutes < 10 ? '0' + minutes : minutes
+		let ampm = hours >= 12 ? 'PM' : 'AM'
+		return hours12 + ':' + minutesString + ' ' + ampm
+	}
+
 	return (
 		<div className='pagebody'>
 			<Fragment>
@@ -173,7 +183,7 @@ const SeratoLiveReport = () => {
 												sx={{ color: '#558b2f' }}
 											>
 												{playlistData.setLength.setlengthhours} hours,{' '}
-												{playlistData.setLength.setlengthminutes} minutes, {' '}
+												{playlistData.setLength.setlengthminutes} minutes,{' '}
 												{playlistData.setLength.setlengthseconds} seconds
 												{/* {playlistData.setLength.setlengthhours > 1 ? (
                           playlistData.setLength.setlengthminutes > 1 ||
@@ -394,6 +404,42 @@ const SeratoLiveReport = () => {
 														>
 															{item.name}
 														</Typography>
+													))}
+												</Grid>
+											</Grid>
+										</CardContent>
+									</Card>
+								</Grid>
+							</Grid>
+						</Box>
+						<Box sx={{ flexGrow: 1 }}>
+							<Grid container spacing={1} mt={1}>
+								<Grid item xs={12} md={12} sm={12} lg={12}>
+									<Card sx={{ minWidth: 275 }}>
+										<CardContent>
+											<Grid container spacing={2}>
+												<Grid item mt={1}>
+													<Typography fontWeight={500}>
+														tracks played:
+													</Typography>
+												</Grid>
+											</Grid>
+											<Divider />
+											<Grid container spacing={2}>
+												<Grid item>
+													{playlistData.trackLog.map((item, i) => (
+														<div key={i}>
+															<Typography
+																component='div'
+																fontWeight={500}
+																sx={{ fontSize: 16 }}
+															>
+																{item.trackId}
+															</Typography>
+															<Typography style={{ marginBottom: '10px' }}>
+																played at: {convertTime(item.timestamp)}
+															</Typography>
+														</div>
 													))}
 												</Grid>
 											</Grid>
