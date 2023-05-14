@@ -6,7 +6,7 @@ const calculateAverageTime = require('./LiveReportHelpers/calculateAverageTime')
 const createReport = async (url) => {
 	const extractPlaylistName = (inputString) => {
 		// Extract the portion of the string between 'playlists/' and '/4-3-2023'
-		const regex = /playlists\/(.*?)\/4-3-2023/
+		const regex = /playlists\/(.*?)\//
 		const match = regex.exec(inputString)
 		if (match && match[1]) {
 			// Replace underscores with whitespace
@@ -36,9 +36,7 @@ const createReport = async (url) => {
 		let playlisttitle = response[4]
 		let playlistartist = response[5]
 
-		console.log(playlistdate)
-
-		function parseDateString(dateString) {
+		const parseDateString = (dateString) => {
 			// Split the date string into day, month, and year
 			const [day, month, year] = dateString.split(' ')
 			// Create a month mapping object to convert month names to month numbers
@@ -65,19 +63,17 @@ const createReport = async (url) => {
 		const parsedDate = parseDateString(playlistdate)
 		console.log(parsedDate)
 
-		console.log(starttime)
-
 		const formatStartTime = (input) => {
-      const [time, period] = input.split(/(?=[ap]m)/i);
-      const [hours, minutes] = time.split(':');    
-      let formattedStartTime = `${hours}:${minutes}`;    
-      if (period.toLowerCase() === 'pm' && parseInt(hours) !== 12) {
-        formattedStartTime += ' PM';
-      } else if (period.toLowerCase() === 'am' && parseInt(hours) === 12) {
-        formattedTime += ' AM';
-      }    
-      return formattedTime;
-    }
+			const [time, period] = input.split(/(?=[ap]m)/i)
+			const [hours, minutes] = time.split(':')
+			let formattedStartTime = `${hours}:${minutes}`
+			if (period.toLowerCase() === 'pm' && parseInt(hours) !== 12) {
+				formattedStartTime += ' PM'
+			} else if (period.toLowerCase() === 'am' && parseInt(hours) === 12) {
+				formattedStartTime += ' AM'
+			}
+			return formattedStartTime
+		}
 
 		// Example usage
 
