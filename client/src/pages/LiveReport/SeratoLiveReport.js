@@ -32,6 +32,7 @@ const SeratoLiveReport = () => {
 	const [playlistDate, setPlaylistDate] = useState([])
 	const [playlistData, setPlaylistData] = useState({})
 	const [playlistName, setPlaylistName] = useState('')
+	const [trackLengthArray, setTrackLengthArray] = useState([])
 
 	const getReport = async (e) => {
 		e.preventDefault()
@@ -62,6 +63,7 @@ const SeratoLiveReport = () => {
 
 					setPlaylistDate([dateValue, displayDay])
 					setDisplayName(userName)
+					setTrackLengthArray(response.data.trackLengthArray)
 					setIsData(true)
 					setIsBusy(false)
 				}
@@ -86,6 +88,18 @@ const SeratoLiveReport = () => {
 		let minutesString = minutes < 10 ? '0' + minutes : minutes
 		let ampm = hours >= 12 ? 'PM' : 'AM'
 		return hours12 + ':' + minutesString + ' ' + ampm
+	}
+
+	function formatMillisToMinutesSeconds(millis) {
+		let minutes = Math.floor(millis / 60000)
+		let seconds = ((millis % 60000) / 1000).toFixed(0)
+		return (
+			(minutes < 10 ? '0' : '') +
+			minutes +
+			':' +
+			(seconds < 10 ? '0' : '') +
+			seconds
+		)
 	}
 
 	return (
@@ -428,7 +442,12 @@ const SeratoLiveReport = () => {
 											<Grid container spacing={2}>
 												<Grid item>
 													{playlistData.trackLog.map((item, i) => (
-														<div key={i}>
+														<div
+															onClick={() => {
+																console.log(trackLengthArray[i])
+															}}
+															key={i}
+														>
 															<Typography
 																component='div'
 																fontWeight={500}
@@ -436,8 +455,28 @@ const SeratoLiveReport = () => {
 															>
 																{item.trackId}
 															</Typography>
-															<Typography style={{ marginBottom: '10px' }}>
+															<Typography>
 																played at: {convertTime(item.timestamp)}
+															</Typography>
+															<Typography
+																style={{
+																	marginBottom: '10px',
+																	color:
+																		trackLengthArray[i] ===
+																		Math.min(...trackLengthArray)
+																			? 'green'
+																			: 'black',
+																	fontWeight:
+																		trackLengthArray[i] ===
+																		Math.min(...trackLengthArray)
+																			? '600'
+																			: '400',
+																}}
+															>
+																length:{' '}
+																{formatMillisToMinutesSeconds(
+																	trackLengthArray[i]
+																)}
 															</Typography>
 														</div>
 													))}
