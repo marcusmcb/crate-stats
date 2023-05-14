@@ -80,7 +80,7 @@ const Playlists = () => {
                     onClick={() => {
                       setFileSelected(item);
                       setFileIndex(i);
-                      console.log("ITEM: ", item.data.playlist_data.title);
+                      console.log("ITEM: ", item.data);
                     }}
                     style={{
                       backgroundColor:

@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
 const DataMissing = (data) => {
-  console.log('DATA: ', data)
+  
   let returnText
 
   if (data.data.value === 'doubles') {

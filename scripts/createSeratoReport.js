@@ -222,6 +222,10 @@ const createSeratoReport = (data) => {
   } else {
     seratoPlaylistAnalysis.year_data = {
       average_year: averageYear.toFixed(),
+      range: {
+        oldest: oldestTrack,
+        newest: newestTrack
+      },
       oldest_track: {
         year: oldestTrack,
         artist: oldestTracks[0].artist,
