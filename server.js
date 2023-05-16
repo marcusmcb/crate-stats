@@ -55,8 +55,9 @@ app.post("/getPlaylists", async (req, res) => {
 });
 
 app.post("/deletePlaylist", async (req, res) => {
-  // console.log(req.body);
-  let deletedPlaylist = await deletePlaylist(file_id);
+  console.log("REQ ---------", typeof req.body);
+  let deletedPlaylist = await deletePlaylist(JSON.stringify(req.body));
+  res.send(deletedPlaylist)
 });
 
 app.get("*", (req, res) => {

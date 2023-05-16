@@ -33,6 +33,7 @@ const SeratoLiveReport = () => {
 	const [playlistData, setPlaylistData] = useState({})
 	const [playlistName, setPlaylistName] = useState('')
 	const [trackLengthArray, setTrackLengthArray] = useState([])
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const getReport = async (e) => {
 		e.preventDefault()
