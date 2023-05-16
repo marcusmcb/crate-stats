@@ -11,6 +11,7 @@ import RatingData from './components/RatingData'
 import TrackData from './components/TrackData'
 import YearData from './components/YearData'
 import BitrateData from './components/BitrateData'
+import RekordboxMasterTrackLog from './components/RekordboxMasterTrackLog'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -151,6 +152,13 @@ const RekordboxPlaylistReport = () => {
                   <DataMissing data={{ value: 'rating' }} />
                 ) : (
                   <RatingData ratingData={data.rating_data} />
+                )}
+              </div>
+              <div className='data-block-two'>
+                {data.rating_data.has_master_track_log === false ? (
+                  <DataMissing data={{ value: 'master track log' }} />
+                ) : (
+                  <RekordboxMasterTrackLog masterTrackLog={data.master_track_log} />
                 )}
               </div>
             </div>
