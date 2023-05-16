@@ -1,12 +1,25 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
 import { Grid } from '@mui/material'
 import { Card } from '@mui/material'
 import { CardContent } from '@mui/material'
-import { Divider } from 'semantic-ui-react'
+import { Divider, Input } from 'semantic-ui-react'
 
 const MasterTracklog = ({ masterTrackLog }) => {
+	const [searchQuery, setSearchQuery] = useState('')
+	const [filteredLog, setFilteredLog] = useState(masterTrackLog)
+
+	useEffect(() => {
+		setFilteredLog(
+			masterTrackLog.filter(
+				(item) =>
+					item.artist.toLowerCase().includes(searchQuery.toLowerCase()) ||
+					item.name.toLowerCase().includes(searchQuery.toLowerCase())
+			)
+		)
+	}, [searchQuery, masterTrackLog])
+
 	const removeSeconds = (timeString) => {
 		const date = new Date('1970-01-01 ' + timeString)
 		const hours = date.getHours()
@@ -30,6 +43,12 @@ const MasterTracklog = ({ masterTrackLog }) => {
 					master track log:
 				</Typography>
 				<Box sx={{ flexGrow: 1 }}>
+					<Input
+						icon='search'
+						placeholder='Search...'
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+					/>
 					<Grid container spacing={1} mt={1}>
 						<Grid item xs={12} md={12} sm={12} lg={12}>
 							<Card sx={{ minWidth: 275 }}>
@@ -42,32 +61,39 @@ const MasterTracklog = ({ masterTrackLog }) => {
 									<Divider />
 									<Grid container spacing={2}>
 										<Grid item>
-											{masterTrackLog.map((item, i) => (
-												<div onClick={() => {}} key={i}>
-													<Typography
-														component='div'
-														fontWeight={500}
-														sx={{ fontSize: 16 }}
-													>
-														{i + 1}. {item.artist} - {item.name}
-													</Typography>
-													{item.year ? (
-														<Typography fontWeight={500}>
-															({item.year})
+											{filteredLog.length > 0 ? (
+												filteredLog.map((item, i) => (
+													<div onClick={() => {}} key={i}>
+														<Typography
+															component='div'
+															fontWeight={500}
+															sx={{ fontSize: 16 }}
+														>
+															{i + 1}. {item.artist} - {item.name}
 														</Typography>
-													) : (
-														<></>
-													)}
-													<Typography>{item.bpm} BPM</Typography>
-													<Typography>
-														length: {item.playtime.substring(2)}
-													</Typography>
-													<Typography>
-														played at: {removeSeconds(item['start time'])}
-													</Typography>
-													<Divider />
-												</div>
-											))}
+														{item.year ? (
+															<Typography fontWeight={500}>
+																({item.year})
+															</Typography>
+														) : (
+															<></>
+														)}
+														<Typography>{item.bpm} BPM</Typography>
+														<Typography>
+															length: {item.playtime.substring(2)}
+														</Typography>
+														<Typography>
+															played at: {removeSeconds(item['start time'])}
+														</Typography>
+														<Divider />
+													</div>
+												))
+											) : (
+												<Typography>
+													Sorry, but we didn't find "{searchQuery}" in this
+													playlist.
+												</Typography>
+											)}
 										</Grid>
 									</Grid>
 								</CardContent>
