@@ -1,13 +1,13 @@
 const chalk = require('chalk')
-const calculateAverageTime = require('./shared/calculateAverageTime')
+const calculateAverageTime = require('../shared/calculateAverageTime')
 const getPlaylistData = require('./SeratoReportHelpers/getPlaylistData')
 const getArtistData = require('./SeratoReportHelpers/getArtistData')
 const getBpmData = require('./SeratoReportHelpers/getBpmData')
 const getGenreData = require('./SeratoReportHelpers/getGenreData')
 const getAlbumData = require('./SeratoReportHelpers/getAlbumData')
-const calculateTagHealth = require('./shared/calculateTagHealth')
-const parsePlayedAtTime = require('./shared/parsePlayedAtTime')
-const { removeEmptyKey } = require('./shared/fileImportHelpers')
+const calculateTagHealth = require('../shared/calculateTagHealth')
+const parsePlayedAtTime = require('../shared/parsePlayedAtTime')
+const { removeEmptyKey } = require('../shared/fileImportHelpers')
 
 const createSeratoReport = (data) => {
   let hasDeckData, hasKeyData, hasYearData, hasAlbumData, hasDoublesData

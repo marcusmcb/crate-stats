@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const calculateTagHealth = require('./shared/calculateTagHealth')
+const calculateTagHealth = require('../shared/calculateTagHealth')
 const {
   cleanPlaylistArray,
   cleanPlaylistKeys,
@@ -10,7 +10,7 @@ const {
   getUniqueGenres,
   sortObject,
   findMaxObjectValue,
-} = require('./shared/fileImportHelpers')
+} = require('../shared/fileImportHelpers')
 
 // TRAKTOR DATA IMPORT:
 //

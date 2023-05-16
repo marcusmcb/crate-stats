@@ -7,11 +7,6 @@ import { CardContent } from '@mui/material'
 import { Divider } from 'semantic-ui-react'
 
 const RekordboxMasterTrackLog = ({ masterTrackLog }) => {
-	console.log(masterTrackLog)
-	masterTrackLog.forEach((track) => {
-		console.log(track.Artist, ' - ', track.Track_Title)
-	})
-
 	return (
 		<Fragment>
 			<div>

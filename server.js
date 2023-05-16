@@ -4,11 +4,11 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const dotenv = require("dotenv");
 
-const createSeratoLiveReport = require("./scripts/createSeratoLiveReport");
-const createSeratoReport = require("./scripts/createSeratoReport");
-const createTraktorReport = require("./scripts/createTraktorReport");
-const createRekordboxReport = require("./scripts/createRekordboxReport");
-const createEngineReport = require("./scripts/createEngineReport");
+const createSeratoLiveReport = require("./scripts/Serato/createSeratoLiveReport");
+const createSeratoReport = require("./scripts/Serato/createSeratoReport");
+const createTraktorReport = require("./scripts/Traktor/createTraktorReport");
+const createRekordboxReport = require("./scripts/Rekordbox/createRekordboxReport");
+const createEngineReport = require("./scripts/Engine/createEngineReport");
 const createSiteStatsReport = require("./scripts/SiteStats/createSiteStatsReport")
 
 const { addNewPlaylist, getPlaylists, deletePlaylist } = require("./firebase");
@@ -55,7 +55,7 @@ app.post("/getPlaylists", async (req, res) => {
 });
 
 app.post("/deletePlaylist", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   let deletedPlaylist = await deletePlaylist(file_id);
 });
 

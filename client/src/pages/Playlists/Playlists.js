@@ -231,7 +231,7 @@ const Playlists = () => {
                   {!fileSelected.data.master_track_log ? (
                     <DataMissing data={{ value: "tracklog" }} />
                   ) : (
-                    <MasterTracklog data={fileSelected.data.master_track_log} />
+                    <MasterTracklog masterTrackLog={fileSelected.data.master_track_log} />
                   )}
                 </div>
               </div>

@@ -45,7 +45,7 @@ const SeratoLiveReport = () => {
 					setIsPrivate(true)
 					setIsBusy(false)
 				} else {
-					console.log(response.data)
+					// console.log(response.data)
 					setPlaylistData(response.data)
 					let userName = parseDisplayName(url)
 					let dateValue = response.data.playlistDate

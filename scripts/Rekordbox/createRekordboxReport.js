@@ -1,4 +1,4 @@
-const calculateTagHealth = require('./shared/calculateTagHealth')
+const calculateTagHealth = require('../shared/calculateTagHealth')
 const {
   cleanPlaylistArray,
   cleanPlaylistKeys,
@@ -13,7 +13,7 @@ const {
   addMSArray,
   percentageOf,
   averageYear,
-} = require('./shared/fileImportHelpers')
+} = require('../shared/fileImportHelpers')
 
 const createRekordboxReport = (data) => {
   let rekordBoxData = data
@@ -188,8 +188,8 @@ const createRekordboxReport = (data) => {
     Object.keys(topGenresSorted)[2]
   )
 
-  console.log("OTHER GENRE COUNT: ", otherGenreCount)
-  console.log("GENRES: ", genreTagsWithValues)
+  // console.log("OTHER GENRE COUNT: ", otherGenreCount)
+  // console.log("GENRES: ", genreTagsWithValues)
 
   // append genre data to object return
   rekordBoxPlaylistData.genre_data = {

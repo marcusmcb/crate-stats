@@ -30,7 +30,7 @@ function replaceCommasWithWhiteSpace(str) {
 
 const createEngineReport = () => {
   let engineData = fs.readFileSync(
-    path.join(__dirname, './data/engine_data/04_02_2022_Perth.csv'),
+    path.join(__dirname, '../data/engine_data/04_02_2022_Perth.csv'),
     'utf8'
   )
 

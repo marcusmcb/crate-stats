@@ -1,5 +1,5 @@
-const parsePlayedAtTime = require('../shared/parsePlayedAtTime')
-const calculateTagHealth = require('../shared/calculateTagHealth')
+const parsePlayedAtTime = require('../../shared/parsePlayedAtTime')
+const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getBpmData = (masterTrackLog) => {  
 
