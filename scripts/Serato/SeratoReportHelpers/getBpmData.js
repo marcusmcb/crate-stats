@@ -74,7 +74,7 @@ const getBpmData = (masterTrackLog) => {
         ).toFixed(1),
         empty_bpm_tags: nullBPMCount,
       },
-      bpm_array: bpmArray
+      // bpm_array: bpmArray
     }
   }
   return bpm_data

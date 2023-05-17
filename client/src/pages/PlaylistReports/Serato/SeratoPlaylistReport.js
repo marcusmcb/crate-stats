@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
 import TrackData from './components/TrackData/TrackData'
-import TrackData2 from './components/TrackData/TrackData2'
+// import TrackData2 from './components/TrackData/TrackData2'
 import BPMData from './components/BPMData'
 import YearData from './components/YearData'
 import GenreData from './components/GenreData'
@@ -19,6 +19,7 @@ import axios from 'axios'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
+import Button from '@mui/material/Button'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import './style/seratoplaylistreport.css'
@@ -38,6 +39,12 @@ const SeratoPlaylistReport = () => {
 		})
 	}
 
+	const addPlaylistToCollection = (data) => {
+		axios.post('/addPlaylist', data).then((response) => {
+			console.log(response)
+		})
+	}
+
 	useEffect(() => {
 		if (isInitialMount.current) {
 			isInitialMount.current = false
@@ -51,6 +58,28 @@ const SeratoPlaylistReport = () => {
 			<div className='playlistreport-body'>
 				<Titlebar />
 				<DragAndDrop getDataFromCSV={getDataFromCSV} />
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						marginTop: '15px',
+						marginBottom: '15px',
+					}}
+				>
+					{data ? (
+						<Button
+							sx={{ backgroundColor: 'rgba(54, 72, 69, 255)' }}
+							variant='contained'
+							onClick={async () => {
+								await addPlaylistToCollection(data)
+							}}
+						>
+							Add To Collection
+						</Button>
+					) : (
+						<></>
+					)}
+				</div>
 				<div>
 					{isBusy === true ? (
 						<div className='data-block await-data'>
@@ -118,7 +147,7 @@ const SeratoPlaylistReport = () => {
 									<TrackData trackData={data.track_data} />
 								)}
 							</div>
-							<div>
+							{/* <div>
 								{data.track_data.has_track_data === false ? (
 									<DataMissing data={{ value: 'track' }} />
 								) : (
@@ -128,7 +157,7 @@ const SeratoPlaylistReport = () => {
 										setEndTime={data.playlist_data.end_time}
 									/>
 								)}
-							</div>
+							</div> */}
 							<div className='data-block'>
 								{data.bpm_data.has_bpm_data === false ? (
 									<DataMissing data={{ value: 'bpm' }} />

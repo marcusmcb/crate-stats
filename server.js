@@ -8,7 +8,7 @@ const createSeratoLiveReport = require("./scripts/Serato/createSeratoLiveReport"
 const createSeratoReport = require("./scripts/Serato/createSeratoReport");
 const createTraktorReport = require("./scripts/Traktor/createTraktorReport");
 const createRekordboxReport = require("./scripts/Rekordbox/createRekordboxReport");
-const createEngineReport = require("./scripts/Engine/createEngineReport");
+// const createEngineReport = require("./scripts/Engine/createEngineReport");
 const createSiteStatsReport = require("./scripts/SiteStats/createSiteStatsReport")
 
 const { addNewPlaylist, getPlaylists, deletePlaylist } = require("./firebase");
@@ -24,23 +24,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.post("/liveplaylist", async (req, res) => {
-  let seratoLivePlaylistReport = await createSeratoLiveReport(req.body.url);
+  const seratoLivePlaylistReport = await createSeratoLiveReport(req.body.url);
   res.send(seratoLivePlaylistReport);
 });
 
 app.post("/sendSeratoFile", async (req, res) => {
-  let userReport = await createSeratoReport(req.body);
-  // await addNewPlaylist(userReport)
+  const userReport = await createSeratoReport(req.body);
+  await addNewPlaylist(userReport)
   res.send(userReport);
 });
 
 app.post("/sendTraktorFile", async (req, res) => {
-  let userReport = await createTraktorReport(req.body);
+  const userReport = await createTraktorReport(req.body);
   res.send(userReport);
 });
 
 app.post("/sendRekordboxFile", async (req, res) => {
-  let userReport = await createRekordboxReport(req.body);
+  const userReport = await createRekordboxReport(req.body);
   res.send(userReport);
 });
 
@@ -49,14 +49,18 @@ app.post("/getSiteStats", async (req, res) => {
 });
 
 app.post("/getPlaylists", async (req, res) => {
-  createEngineReport();
-  let userPlaylists = await getPlaylists();
+  // createEngineReport();
+  const userPlaylists = await getPlaylists();
   res.send(userPlaylists);
 });
 
-app.post("/deletePlaylist", async (req, res) => {
-  console.log("REQ ---------", typeof req.body);
-  let deletedPlaylist = await deletePlaylist(JSON.stringify(req.body));
+app.post("/addPlaylist", async (req, res) => {  
+  const newPlaylist = await addNewPlaylist(req.body);
+  res.send(newPlaylist);
+});
+
+app.post("/deletePlaylist", async (req, res) => {  
+  const deletedPlaylist = await deletePlaylist(req.body.file_id);
   res.send(deletedPlaylist)
 });
 

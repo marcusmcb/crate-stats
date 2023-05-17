@@ -18,7 +18,6 @@ import axios from 'axios'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Grid } from '@mui/material'
 
@@ -31,7 +30,8 @@ const Playlists = () => {
 	const [hasData, setHasData] = useState(false)
 
 	const deleteUserPlaylist = async (fileID) => {
-		axios.post('/deletePlaylist', fileID).then((response) => {
+		console.log(fileID)
+		axios.post('/deletePlaylist', { file_id: fileID}).then((response) => {
 			console.log(response)
 		})
 	}
