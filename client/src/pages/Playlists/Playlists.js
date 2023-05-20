@@ -18,8 +18,14 @@ import axios from 'axios'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined'
 import { Grid } from '@mui/material'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Avatar from '@mui/material/Avatar'
 
 import './playlists.css'
 
@@ -31,16 +37,25 @@ const Playlists = () => {
 
 	const deleteUserPlaylist = async (fileID) => {
 		console.log(fileID)
-		axios.post('/deletePlaylist', { file_id: fileID}).then((response) => {
+		axios.post('/deletePlaylist', { file_id: fileID }).then((response) => {
 			console.log(response)
 		})
 	}
 
 	const getUserPlaylists = async () => {
 		axios.post('/getPlaylists').then((response) => {
+			console.log(response.data)
 			setUserPlaylists(response.data)
 			setHasData(true)
 		})
+	}
+
+	const formatDate = (timestamp) => {
+		let date = new Date(timestamp)
+		let day = String(date.getDate()).padStart(2, '0')
+		let month = String(date.getMonth() + 1) // Months are 0-11, so we need to add 1
+		let year = String(date.getFullYear()).substr(2)
+		return `${month}/${day}/${year}`
 	}
 
 	useEffect(() => {
@@ -83,7 +98,64 @@ const Playlists = () => {
 										Playlist Collection
 									</Typography>
 								</div>
-								{userPlaylists.map((item, i) => (
+
+								<List
+									sx={{
+										bgColor: 'background.paper',
+									}}
+								>
+									{userPlaylists.map((item, i) => (
+										<ListItem
+											style={{
+												border: fileIndex === i ? '.5px solid black' : 'none',
+												backgroundColor: fileIndex === i ? '#c5e1a5' : 'white',
+											}}
+											key={i}
+											onClick={() => {
+												setFileSelected(item)
+												setFileIndex(i)
+												console.log('ITEM: ', item)
+											}}
+										>
+											<ListItemAvatar>
+												<Avatar>
+													<QueueMusicOutlinedIcon />
+												</Avatar>
+											</ListItemAvatar>
+											<ListItemText
+												primary={
+													<span
+														style={{
+															fontWeight: fileIndex === i ? '600' : '400',
+														}}
+													>
+														{item.data.playlist_data.title}
+													</span>
+												}
+												secondary={
+													item.data.date_created
+														? `created: ${formatDate(item.data.date_created)}`
+														: ''
+												}
+												style={{
+													padding: '5px',
+													borderRadius: '5px',
+													marginBottom: '2px',
+													fontWeight: fileIndex === i ? '600' : '400',
+												}}
+											/>
+
+											<DeleteOutlineIcon
+												onClick={async () => {
+													await deleteUserPlaylist(item.id)
+													await getUserPlaylists()
+												}}
+											/>
+										</ListItem>
+									))}
+								</List>
+
+								{/* {userPlaylists.map((item, i) => (
 									<div
 										key={i}
 										onClick={() => {
@@ -100,6 +172,7 @@ const Playlists = () => {
 											borderRadius: '5px',
 											marginBottom: '2px',
 											border: fileIndex === i ? '1px solid black' : 'none',
+											
 										}}
 									>
 										<Grid
@@ -118,14 +191,14 @@ const Playlists = () => {
 												{item.data.playlist_data.title}
 											</Typography>
 											<DeleteIcon
-												onClick={async () => {													
+												onClick={async () => {
 													await deleteUserPlaylist(item.id)
 													await getUserPlaylists()
 												}}
 											/>
 										</Grid>
 									</div>
-								))}
+								))} */}
 							</div>
 						) : (
 							<div

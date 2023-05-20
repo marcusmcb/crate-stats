@@ -33,7 +33,7 @@ const SeratoLiveReport = () => {
 	const [playlistData, setPlaylistData] = useState({})
 	const [playlistName, setPlaylistName] = useState('')
 	const [trackLengthArray, setTrackLengthArray] = useState([])
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState('')
 
 	const getReport = async (e) => {
 		e.preventDefault()
@@ -61,7 +61,6 @@ const SeratoLiveReport = () => {
 					} else {
 						setPlaylistName(response.data.playlistTitle)
 					}
-
 					setPlaylistDate([dateValue, displayDay])
 					setDisplayName(userName)
 					setTrackLengthArray(response.data.trackLengthArray)
@@ -72,7 +71,7 @@ const SeratoLiveReport = () => {
 			.catch((error) => {
 				console.log(error)
 			})
-		setUrl('')
+		// setUrl('')
 	}
 
 	const handleChange = (e) => {
@@ -321,26 +320,65 @@ const SeratoLiveReport = () => {
 											</Grid>
 										</Grid>
 										<Divider />
-										<Grid container spacing={2} sx={{ marginTop: 1 }}>
+										<Grid container sx={{ marginTop: 1 }}>
 											<Grid item>
-												<Typography sx={{ fontSize: 16 }}>
-													shortest track:
-												</Typography>
-												<Typography
-													variant='h5'
-													component='div'
-													fontWeight={500}
-												>
-													{playlistData.shortestTrack.name}
-												</Typography>
-												<Typography
-													variant='h5'
-													component='div'
-													fontWeight={500}
-													sx={{ color: '#558b2f' }}
-												>
-													({playlistData.shortestTrack.lengthValue})
-												</Typography>
+												<div style={{ display: 'flex', flexDirection: 'row' }}>
+													<div
+														style={{
+															display: 'flex',
+															flexDirection: 'column',
+															marginLeft: '1em',
+															marginRight: '1em',
+														}}
+													>
+														<Typography sx={{ fontSize: 16 }}>
+															shortest track:
+														</Typography>
+														<Typography
+															variant='h5'
+															component='div'
+															fontWeight={500}
+														>
+															{playlistData.shortestTrack.name}
+														</Typography>
+														<Typography
+															variant='h5'
+															component='div'
+															fontWeight={500}
+															sx={{ color: '#558b2f' }}
+														>
+															({playlistData.shortestTrack.lengthValue})
+														</Typography>
+													</div>
+													<div
+														style={{
+															display: 'flex',
+															flexDirection: 'column',
+															marginLeft: '1em',
+															marginRight: '1em',
+														}}
+													>
+														<Typography sx={{ fontSize: 16 }}>
+															longest track:
+														</Typography>
+														<Typography
+															variant='h5'
+															component='div'
+															fontWeight={500}
+														>
+															{playlistData.longestTrack.name}
+														</Typography>
+														<Typography
+															variant='h5'
+															component='div'
+															fontWeight={500}
+															sx={{ color: '#558b2f' }}
+														>
+															({playlistData.longestTrack.lengthValue})
+														</Typography>
+													</div>
+												</div>
+
 												{/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                           - played @{' '}
                           <span style={{ color: '#1b5e20', fontWeight: '500' }}>
@@ -349,7 +387,7 @@ const SeratoLiveReport = () => {
                         </Typography> */}
 											</Grid>
 										</Grid>
-										<Grid container spacing={2} sx={{ marginTop: 0 }}>
+										{/* <Grid container spacing={2} sx={{ marginTop: 0 }}>
 											<Grid item>
 												<Typography sx={{ fontSize: 16 }}>
 													longest track:
@@ -368,15 +406,15 @@ const SeratoLiveReport = () => {
 													sx={{ color: '#558b2f' }}
 												>
 													({playlistData.longestTrack.lengthValue})
-												</Typography>
-												{/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
+												</Typography> */}
+										{/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
                           - played @{' '}
                           <span style={{ color: '#1b5e20', fontWeight: '500' }}>
                             {trackdata.data.longest_track.played_at}
                           </span>
                         </Typography> */}
-											</Grid>
-										</Grid>
+										{/* </Grid>
+										</Grid> */}
 									</CardContent>
 								</Card>
 							</Grid>

@@ -35,9 +35,10 @@ const SeratoPlaylistReport = () => {
 		axios.post('/sendSeratoFile', userData).then((response) => {
 			console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
 			console.log(response.data)
+			// console.log(formatDate(response.data.date_created))
 			setData(response.data)
 		})
-	}
+	}	
 
 	const addPlaylistToCollection = (data) => {
 		axios.post('/addPlaylist', data).then((response) => {

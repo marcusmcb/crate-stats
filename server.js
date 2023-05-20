@@ -51,6 +51,7 @@ app.post("/getSiteStats", async (req, res) => {
 app.post("/getPlaylists", async (req, res) => {
   // createEngineReport();
   const userPlaylists = await getPlaylists();
+  console.log(userPlaylists)
   res.send(userPlaylists);
 });
 

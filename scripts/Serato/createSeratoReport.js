@@ -429,6 +429,8 @@ const createSeratoReport = (data) => {
       }
     }
   }
+
+  seratoPlaylistAnalysis.date_created = Date.now()
   console.log(chalk.green('x x x x x x x x x x x x x x x x x x '))
   return seratoPlaylistAnalysis
 }
