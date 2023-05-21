@@ -34,7 +34,7 @@ const createReport = async (url) => {
 		let timestamps = response[1]
 		let starttime = response[2]
 		let playlistdate = response[3]
-		let playlisttitle = response[4]
+		let playlistTitle = response[4]
 		let playlistartist = response[5]
 
 		const parseDateString = (dateString) => {
@@ -86,22 +86,22 @@ const createReport = async (url) => {
 		// // console.log(timestamps)
 		// console.log(starttime)
 		// console.log(playlistdate)
-		// console.log(playlisttitle)
+		// console.log(playlistTitle)
 		// console.log(playlistartist)
 
 		let tracksPlayed = []
 		let trackTimestamps = []
 		let doublesPlayed = []
 
-		let starttime_string
+		let startTimeString
 
 		// parse start time for proper display in UI
 		if (starttime.length === 7) {
 			const [first, second] = parseStartTime(starttime, 5)
-			starttime_string = first + ' ' + second.toUpperCase()
+			startTimeString = first + ' ' + second.toUpperCase()
 		} else {
 			const [first, second] = parseStartTime(starttime, 4)
-			starttime_string = first + ' ' + second.toUpperCase()
+			startTimeString = first + ' ' + second.toUpperCase()
 		}
 
 		// loop through tracks played and clean data from scrape
@@ -153,7 +153,7 @@ const createReport = async (url) => {
 			msArray.push(trackLog[i]['length'])
 		}
 
-		let average_track_length = calculateAverageTime(msArray)
+		let averageTrackLength = calculateAverageTime(msArray)
 
 		// longest track played
 		let longestSeconds
@@ -194,7 +194,7 @@ const createReport = async (url) => {
 		let playlistLengthValues = parseTimeValues(playlistLength)
 
 		// playlist date formatting
-		let playlistdate_formatted =
+		let playlistDateFormatted =
 			playlistdate.split(' ')[1] +
 			' ' +
 			playlistdate.split(' ')[0] +
@@ -202,38 +202,33 @@ const createReport = async (url) => {
 			playlistdate.split(' ')[2]
 
 		let seratoLiveReport = {
-			trackLengthArray: timeDiffs,
-			djName: playlistArtistName,
-			setLength: {
-				lengthValue: playlistLength,
+			track_length_array: timeDiffs,
+			dj_name: playlistArtistName,
+			set_length: {
+				length_value: playlistLength,
 				hours: new Number(playlistLengthValues[0]),
 				minutes: new Number(playlistLengthValues[1]),
 				seconds: new Number(playlistLengthValues[2]),
 			},
-			setStartTime: starttime_string,
-			totalTracksPlayed: trackLog.length,
-			longestTrack: {
+			set_start_time: startTimeString,
+			total_tracks_played: trackLog.length,
+			longest_track: {
 				name: trackLog[maxIndex].trackId,
-				lengthValue: longestMinutes + ':' + longestSeconds,
+				length_value: longestMinutes + ':' + longestSeconds,
 				minutes: longestMinutes,
-				seconds: 04,
+				seconds: longestSeconds,
 			},
-			shortestTrack: {
+			shortest_track: {
 				name: trackLog[minIndex].trackId,
-				lengthValue: shortestMinutes + ':' + shortestSeconds,
+				length_value: shortestMinutes + ':' + shortestSeconds,
 				minutes: shortestMinutes,
 				seconds: shortestSeconds,
 			},
-			averageTrackLength: average_track_length,
-			avgTrackLength: {
-				lengthValue: average_track_length,
-				minutes: average_track_length.split(':')[0],
-				seconds: average_track_length.split(':')[1],
-			},
-			trackLog: trackLog,
-			doublesPlayed: doublesPlayed,
-			playlistDate: playlistdate_formatted,
-			playlistTitle: playlisttitle,
+			average_track_length: averageTrackLength,			
+			track_log: trackLog,
+			doubles_played: doublesPlayed,
+			playlist_date: playlistDateFormatted,
+			playlist_title: playlistTitle,
 		}
 		return seratoLiveReport
 	} catch (err) {

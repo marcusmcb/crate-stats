@@ -50,22 +50,22 @@ const SeratoLiveReport = () => {
 					// console.log(response.data)
 					setPlaylistData(response.data)
 					console.log(response.data)
-					let userName = response.data.djName
-					let dateValue = response.data.playlistDate
-					let displayDay = parseDay(response.data.playlistDate)
+					let userName = response.data.dj_name
+					let dateValue = response.data.playlist_date
+					let displayDay = parseDay(response.data.playlist_date)
 					// check for playlist title
 					if (
-						response.data.playlistTitle.charAt(
-							response.data.playlistTitle.length - 5
+						response.data.playlist_title.charAt(
+							response.data.playlist_title.length - 5
 						) === '/'
 					) {
-						setPlaylistName(response.data.playlistTitle)
+						setPlaylistName(response.data.playlist_title)
 					} else {
-						setPlaylistName(response.data.playlistTitle)
+						setPlaylistName(response.data.playlist_title)
 					}
 					setPlaylistDate([dateValue, displayDay])
 					setDisplayName(userName)
-					setTrackLengthArray(response.data.trackLengthArray)
+					setTrackLengthArray(response.data.track_length_array)
 					setIsData(true)
 					setIsBusy(false)
 				}
@@ -83,8 +83,8 @@ const SeratoLiveReport = () => {
 	}
 
 	let filteredTrackLog = []
-	if (playlistData && playlistData.trackLog) {
-		filteredTrackLog = playlistData.trackLog.filter((item) => {
+	if (playlistData && playlistData.track_log) {
+		filteredTrackLog = playlistData.track_log.filter((item) => {
 			return item.trackId.toLowerCase().includes(searchQuery.toLowerCase())
 		})
 	}
@@ -206,38 +206,38 @@ const SeratoLiveReport = () => {
 												sx={{ color: '#558b2f' }}
 											>
 												<span>
-													{playlistData.setLength.hours > 1 ? (
+													{playlistData.set_length.hours > 1 ? (
 														<>
-															{playlistData.setLength.hours} <HoursText />,{' '}
+															{playlistData.set_length.hours} <HoursText />,{' '}
 														</>
-													) : playlistData.setLength.hours === 1 ? (
+													) : playlistData.set_length.hours === 1 ? (
 														<>
-															{playlistData.setLength.hours} <HourText />,{' '}
+															{playlistData.set_length.hours} <HourText />,{' '}
 														</>
 													) : (
 														<></>
 													)}
-													{playlistData.setLength.minutes > 1 ? (
+													{playlistData.set_length.minutes > 1 ? (
 														<>
-															{playlistData.setLength.minutes} <MinutesText />
+															{playlistData.set_length.minutes} <MinutesText />
 														</>
-													) : playlistData.setLength.minutes === 1 ? (
+													) : playlistData.set_length.minutes === 1 ? (
 														<>
-															{playlistData.setLength.minutes} <MinuteText />
+															{playlistData.set_length.minutes} <MinuteText />
 														</>
 													) : (
 														<></>
 													)}
 
-													{playlistData.setLength.hours === 0 ? (
-														playlistData.setLength.seconds > 1 ? (
+													{playlistData.set_length.hours === 0 ? (
+														playlistData.set_length.seconds > 1 ? (
 															<>
-																,{' '}{playlistData.setLength.seconds}{' '}
+																,{' '}{playlistData.set_length.seconds}{' '}
 																<SecondsText />
 															</>
-														) : playlistData.setLength.seconds === 1 ? (
+														) : playlistData.set_length.seconds === 1 ? (
 															<>
-																,{' '}{playlistData.setLength.seconds}{' '}
+																,{' '}{playlistData.set_length.seconds}{' '}
 																<SecondText />
 															</>
 														) : (
@@ -255,7 +255,7 @@ const SeratoLiveReport = () => {
 												start time:
 											</Typography>
 											<Typography variant='h5' component='div'>
-												{playlistData.setStartTime}
+												{playlistData.set_start_time}
 											</Typography>
 										</CardContent>
 									</Card>
@@ -279,7 +279,7 @@ const SeratoLiveReport = () => {
 													fontWeight={500}
 													sx={{ color: '#558b2f' }}
 												>
-													{playlistData.totalTracksPlayed}
+													{playlistData.total_tracks_played}
 												</Typography>
 											</Grid>
 											<Grid item mt={1.5}>
@@ -294,7 +294,7 @@ const SeratoLiveReport = () => {
 													fontWeight={500}
 													sx={{ color: '#558b2f' }}
 												>
-													{playlistData.avgTrackLength.lengthValue}
+													{playlistData.average_track_length}
 												</Typography>
 											</Grid>
 										</Grid>
@@ -318,7 +318,7 @@ const SeratoLiveReport = () => {
 															component='div'
 															fontWeight={500}
 														>
-															{playlistData.shortestTrack.name}
+															{playlistData.shortest_track.name}
 														</Typography>
 														<Typography
 															variant='h5'
@@ -326,7 +326,7 @@ const SeratoLiveReport = () => {
 															fontWeight={500}
 															sx={{ color: '#558b2f' }}
 														>
-															({playlistData.shortestTrack.lengthValue})
+															({playlistData.shortest_track.length_value})
 														</Typography>
 														<Typography sx={{ fontSize: 14, marginTop: 1 }}>
 															- played @{' '}
@@ -351,7 +351,7 @@ const SeratoLiveReport = () => {
 															component='div'
 															fontWeight={500}
 														>
-															{playlistData.longestTrack.name}
+															{playlistData.longest_track.name}
 														</Typography>
 														<Typography
 															variant='h5'
@@ -359,7 +359,7 @@ const SeratoLiveReport = () => {
 															fontWeight={500}
 															sx={{ color: '#558b2f' }}
 														>
-															({playlistData.longestTrack.lengthValue})
+															({playlistData.longest_track.length_value})
 														</Typography>
 														<Typography sx={{ fontSize: 14, marginTop: 1 }}>
 															- played @{' '}
@@ -393,8 +393,8 @@ const SeratoLiveReport = () => {
 														fontWeight={500}
 														sx={{ color: '#558b2f' }}
 													>
-														{playlistData.doublesPlayed.length >= 1 ? (
-															<div>{playlistData.doublesPlayed.length}</div>
+														{playlistData.doubles_played.length >= 1 ? (
+															<div>{playlistData.doubles_played.length}</div>
 														) : (
 															<div>No doubles detected in this set</div>
 														)}
@@ -404,7 +404,7 @@ const SeratoLiveReport = () => {
 											<Divider />
 											<Grid container spacing={2}>
 												<Grid item>
-													{playlistData.doublesPlayed.map((item, i) => (
+													{playlistData.doubles_played.map((item, i) => (
 														<Typography
 															key={i}
 															component='div'
