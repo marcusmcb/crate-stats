@@ -11,6 +11,7 @@ const createReport = async (url) => {
 		if (match && match[1]) {
 			// Replace underscores with whitespace
 			const playlistName = match[1].replace(/_/g, ' ')
+			console.log(playlistName)
 			return playlistName
 		}
 		// Return null if no match is found
@@ -202,12 +203,12 @@ const createReport = async (url) => {
 
 		let seratoLiveReport = {
 			trackLengthArray: timeDiffs,
-			djName: playlistartist,
+			djName: playlistArtistName,
 			setLength: {
 				lengthValue: playlistLength,
-				setlengthhours: playlistLengthValues[0],
-				setlengthminutes: playlistLengthValues[1],
-				setlengthseconds: playlistLengthValues[2],
+				hours: new Number(playlistLengthValues[0]),
+				minutes: new Number(playlistLengthValues[1]),
+				seconds: new Number(playlistLengthValues[2]),
 			},
 			setStartTime: starttime_string,
 			totalTracksPlayed: trackLog.length,

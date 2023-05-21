@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import axios from 'axios'
 
-import { Divider } from 'semantic-ui-react'
+import { Divider, Input } from 'semantic-ui-react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -9,17 +9,18 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
 import { OutlinedInput } from '@mui/material'
 
-// import HoursText from '../../components/shared/text_spans/hoursText'
-// import HourText from '../../components/shared/text_spans/hourText'
-// import MinutesText from '../../components/shared/text_spans/minutesText'
-// import MinuteText from '../../components/shared/text_spans/minuteText'
-// import SecondsText from '../../components/shared/text_spans/secondsText'
-// import SecondText from '../../components/shared/text_spans/secondText'
+import HoursText from '../../components/shared/text_spans/hoursText'
+import HourText from '../../components/shared/text_spans/hourText'
+import MinutesText from '../../components/shared/text_spans/minutesText'
+import MinuteText from '../../components/shared/text_spans/minuteText'
+import SecondsText from '../../components/shared/text_spans/secondsText'
+import SecondText from '../../components/shared/text_spans/secondText'
 
 import parseDay from '../../scripts/parseDay'
-import parseDisplayName from '../../scripts/parseDisplayName'
+// import parseDisplayName from '../../scripts/parseDisplayName'
 import Titlebar from '../../components/shared/Titlebar'
 import './seratolivereport.css'
 
@@ -33,9 +34,9 @@ const SeratoLiveReport = () => {
 	const [playlistData, setPlaylistData] = useState({})
 	const [playlistName, setPlaylistName] = useState('')
 	const [trackLengthArray, setTrackLengthArray] = useState([])
-	const [searchTerm, setSearchTerm] = useState('')
+	const [searchQuery, setSearchQuery] = useState('')
 
-	const getReport = async (e) => {
+	const getSeratoLiveReport = async (e) => {
 		e.preventDefault()
 		setIsBusy(true)
 		await axios
@@ -48,7 +49,8 @@ const SeratoLiveReport = () => {
 				} else {
 					// console.log(response.data)
 					setPlaylistData(response.data)
-					let userName = parseDisplayName(url)
+					console.log(response.data)
+					let userName = response.data.djName
 					let dateValue = response.data.playlistDate
 					let displayDay = parseDay(response.data.playlistDate)
 					// check for playlist title
@@ -78,6 +80,13 @@ const SeratoLiveReport = () => {
 		setIsData(false)
 		setIsPrivate(false)
 		setUrl(e.target.value)
+	}
+
+	let filteredTrackLog = []
+	if (playlistData && playlistData.trackLog) {
+		filteredTrackLog = playlistData.trackLog.filter((item) => {
+			return item.trackId.toLowerCase().includes(searchQuery.toLowerCase())
+		})
 	}
 
 	const convertTime = (timestamp) => {
@@ -130,7 +139,7 @@ const SeratoLiveReport = () => {
 						<Button
 							type='submit'
 							variant='outlined'
-							onClick={getReport}
+							onClick={getSeratoLiveReport}
 							sx={{
 								maxWidth: '100px',
 								marginTop: '20px',
@@ -196,78 +205,48 @@ const SeratoLiveReport = () => {
 												fontWeight={500}
 												sx={{ color: '#558b2f' }}
 											>
-												{playlistData.setLength.setlengthhours} hours,{' '}
-												{playlistData.setLength.setlengthminutes} minutes,{' '}
-												{playlistData.setLength.setlengthseconds} seconds
-												{/* {playlistData.setLength.setlengthhours > 1 ? (
-                          playlistData.setLength.setlengthminutes > 1 ||
-                          playlistData.setLength.setlengthminutes === 0 ? (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthhours}{' '}
-                                <HoursText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinutesText />
-                              </span>
-                            </div>
-                          ) : (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthhours}{' '}
-                                <HoursText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinuteText />
-                              </span>
-                            </div>
-                          )
-                        ) : playlistData.setLength.setlengthhours === 1 ? (
-                          playlistData.setLength.setlengthminutes > 1 ||
-                          playlistData.setLength.setlengthminutes === 0 ? (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthhours}{' '}
-                                <HourText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinutesText />
-                              </span>
-                            </div>
-                          ) : (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthhours}{' '}
-                                <HourText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinuteText />
-                              </span>
-                            </div>
-                          )
-                        ) : playlistData.setLength.setlengthminutes !== 0 ? (
-                          playlistData.setLength.setlengthseconds > 1 ||
-                          playlistData.setLength.setlengthseconds > 1 ||
-                          playlistData.setLength.setlengthseconds === 0 ? (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinutesText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <SecondsText />
-                              </span>
-                            </div>
-                          ) : (
-                            <div>
-                              <span>
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <MinutesText />,{' '}
-                                {playlistData.setLength.setlengthminutes}{' '}
-                                <SecondText />
-                              </span>
-                            </div>
-                          )
-                        ) : (
-                          <div>
-                            <span>Too short to determine set length</span>
-                          </div>
-                        )} */}
+												<span>
+													{playlistData.setLength.hours > 1 ? (
+														<>
+															{playlistData.setLength.hours} <HoursText />,{' '}
+														</>
+													) : playlistData.setLength.hours === 1 ? (
+														<>
+															{playlistData.setLength.hours} <HourText />,{' '}
+														</>
+													) : (
+														<></>
+													)}
+													{playlistData.setLength.minutes > 1 ? (
+														<>
+															{playlistData.setLength.minutes} <MinutesText />
+														</>
+													) : playlistData.setLength.minutes === 1 ? (
+														<>
+															{playlistData.setLength.minutes} <MinuteText />
+														</>
+													) : (
+														<></>
+													)}
+
+													{playlistData.setLength.hours === 0 ? (
+														playlistData.setLength.seconds > 1 ? (
+															<>
+																,{' '}{playlistData.setLength.seconds}{' '}
+																<SecondsText />
+															</>
+														) : playlistData.setLength.seconds === 1 ? (
+															<>
+																,{' '}{playlistData.setLength.seconds}{' '}
+																<SecondText />
+															</>
+														) : (
+															<></>
+														)
+													) : (
+														<></>
+													)}
+												</span>
 											</Typography>
 											<Typography
 												sx={{ marginTop: '10px' }}
@@ -349,6 +328,12 @@ const SeratoLiveReport = () => {
 														>
 															({playlistData.shortestTrack.lengthValue})
 														</Typography>
+														<Typography sx={{ fontSize: 14, marginTop: 1 }}>
+															- played @{' '}
+															<span
+																style={{ color: '#1b5e20', fontWeight: '500' }}
+															></span>
+														</Typography>
 													</div>
 													<div
 														style={{
@@ -376,45 +361,16 @@ const SeratoLiveReport = () => {
 														>
 															({playlistData.longestTrack.lengthValue})
 														</Typography>
+														<Typography sx={{ fontSize: 14, marginTop: 1 }}>
+															- played @{' '}
+															<span
+																style={{ color: '#1b5e20', fontWeight: '500' }}
+															></span>
+														</Typography>
 													</div>
 												</div>
-
-												{/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                          - played @{' '}
-                          <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                            {trackdata.data.shortest_track.played_at}
-                          </span>
-                        </Typography> */}
 											</Grid>
 										</Grid>
-										{/* <Grid container spacing={2} sx={{ marginTop: 0 }}>
-											<Grid item>
-												<Typography sx={{ fontSize: 16 }}>
-													longest track:
-												</Typography>
-												<Typography
-													variant='h5'
-													component='div'
-													fontWeight={500}
-												>
-													{playlistData.longestTrack.name}
-												</Typography>
-												<Typography
-													variant='h5'
-													component='div'
-													fontWeight={500}
-													sx={{ color: '#558b2f' }}
-												>
-													({playlistData.longestTrack.lengthValue})
-												</Typography> */}
-										{/* <Typography sx={{ fontSize: 14, marginTop: 1 }}>
-                          - played @{' '}
-                          <span style={{ color: '#1b5e20', fontWeight: '500' }}>
-                            {trackdata.data.longest_track.played_at}
-                          </span>
-                        </Typography> */}
-										{/* </Grid>
-										</Grid> */}
 									</CardContent>
 								</Card>
 							</Grid>
@@ -472,53 +428,71 @@ const SeratoLiveReport = () => {
 										<CardContent>
 											<Grid container spacing={2}>
 												<Grid item mt={1}>
-													<Typography fontWeight={500}>
-														tracks played:
+													<Typography fontWeight={600} fontSize={20}>
+														tracks played ({filteredTrackLog.length} total):
 													</Typography>
+													{/* Search input field */}
+													<Input
+														variant='outlined'
+														value={searchQuery}
+														onChange={(e) => setSearchQuery(e.target.value)}
+														placeholder='Search Tracks Played'
+														style={{
+															marginTop: '5px',
+															border: '.1em solid black',
+														}}
+													/>
 												</Grid>
 											</Grid>
 											<Divider />
 											<Grid container spacing={2}>
 												<Grid item>
-													{playlistData.trackLog.map((item, i) => (
-														<div
-															onClick={() => {
-																console.log(trackLengthArray[i])
-															}}
-															key={i}
-														>
-															<Typography
-																component='div'
-																fontWeight={500}
-																sx={{ fontSize: 16 }}
-															>
-																{item.trackId}
-															</Typography>
-															<Typography>
-																played at: {convertTime(item.timestamp)}
-															</Typography>
-															<Typography
-																style={{
-																	marginBottom: '10px',
-																	color:
-																		trackLengthArray[i] ===
-																		Math.min(...trackLengthArray)
-																			? 'green'
-																			: 'black',
-																	fontWeight:
-																		trackLengthArray[i] ===
-																		Math.min(...trackLengthArray)
-																			? '600'
-																			: '400',
+													{filteredTrackLog.length > 0 ? (
+														filteredTrackLog.map((item, i) => (
+															<div
+																onClick={() => {
+																	console.log(trackLengthArray[i])
 																}}
+																key={i}
 															>
-																length:{' '}
-																{formatMillisToMinutesSeconds(
-																	trackLengthArray[i]
-																)}
-															</Typography>
-														</div>
-													))}
+																<Typography
+																	component='div'
+																	fontWeight={500}
+																	sx={{ fontSize: 16 }}
+																>
+																	{item.trackId}
+																</Typography>
+																<Typography>
+																	played at: {convertTime(item.timestamp)}
+																</Typography>
+																<Typography
+																	style={{
+																		marginBottom: '10px',
+																		color:
+																			trackLengthArray[i] ===
+																			Math.min(...trackLengthArray)
+																				? 'green'
+																				: 'black',
+																		fontWeight:
+																			trackLengthArray[i] ===
+																			Math.min(...trackLengthArray)
+																				? '600'
+																				: '400',
+																	}}
+																>
+																	length:{' '}
+																	{formatMillisToMinutesSeconds(
+																		trackLengthArray[i]
+																	)}
+																</Typography>
+															</div>
+														))
+													) : (
+														<Typography>
+															Sorry, but we didn't find "{searchQuery}" in this
+															playlist.
+														</Typography>
+													)}
 												</Grid>
 											</Grid>
 										</CardContent>
@@ -535,7 +509,7 @@ const SeratoLiveReport = () => {
 									<Grid>
 										<Typography sx={{ fontWeight: 500, fontSize: 16 }}>
 											Either this playlist is set to private or the URL you've
-											entered is invalid
+											entered is invalid.
 										</Typography>
 									</Grid>
 								</CardContent>

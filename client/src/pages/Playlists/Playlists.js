@@ -20,7 +20,8 @@ import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined'
-import { Grid } from '@mui/material'
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined'
+import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -34,6 +35,12 @@ const Playlists = () => {
 	const [fileSelected, setFileSelected] = useState(null)
 	const [fileIndex, setFileIndex] = useState()
 	const [hasData, setHasData] = useState(false)
+
+	const playlistCollections = [
+		{ type: 'bars & clubs', count: 16 },
+		{ type: 'weddings', count: 8 },
+		{ type: 'corporate', count: 13 },
+	]
 
 	const deleteUserPlaylist = async (fileID) => {
 		console.log(fileID)
@@ -95,7 +102,7 @@ const Playlists = () => {
 											fontWeight: '600',
 										}}
 									>
-										Playlist Collection
+										Playlists ({userPlaylists.length} total)
 									</Typography>
 								</div>
 
@@ -199,6 +206,44 @@ const Playlists = () => {
 										</Grid>
 									</div>
 								))} */}
+								<div
+									style={{
+										backgroundColor: 'white',
+										padding: '10px',
+										borderRadius: '5px',
+										marginBottom: '10px',
+										border: '1px solid black',
+									}}
+								>
+									<Typography
+										style={{
+											fontWeight: '600',
+										}}
+									>
+										Collections ({playlistCollections.length} total)
+									</Typography>
+								</div>
+								{playlistCollections.map((item, i) => (
+									<ListItem key={i}>
+										<ListItemAvatar>
+											<Avatar>
+												<FolderOutlinedIcon />
+											</Avatar>
+										</ListItemAvatar>
+										<ListItemText
+											primary={<span>{item.type}</span>}
+											secondary={`${item.count} playlists`}
+											style={{
+												padding: '5px',
+												borderRadius: '5px',
+												marginBottom: '2px',
+												fontWeight: fileIndex === i ? '600' : '400',
+											}}
+										/>
+
+										<DeleteOutlineIcon />
+									</ListItem>
+								))}
 							</div>
 						) : (
 							<div
