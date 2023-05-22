@@ -480,7 +480,7 @@ const SeratoLiveReport = () => {
                                   {item.trackId}
                                 </Typography>
                                 <Typography>
-                                  played at: {convertTime(item.timestamp)}
+                                  played at: {item.timestamp}
                                 </Typography>
                                 <Typography
                                   style={{

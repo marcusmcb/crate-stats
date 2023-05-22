@@ -20,6 +20,68 @@ const createReport = async (url) => {
 
   const playlistArtistName = extractPlaylistName(url);
 
+  const parseDateAndTime = (timeString, playlistDate) => {
+    const date = new Date(playlistDate);
+    const [hours, minutes, seconds] = timeString.split(":");
+    date.setHours(parseInt(hours, 10));
+    date.setMinutes(parseInt(minutes, 10));
+    date.setSeconds(parseInt(seconds, 10));
+    return date;
+  };
+
+  const createPlaylistDate = (timeString, playlistDate) => {
+    let dateParts = playlistDate.split(" ");
+    let dateObj = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
+    let period = timeString.slice(-2); // AM or PM
+    let [hours, minutes] = timeString.slice(0, -2).split(":"); // Actual hours and minutes
+
+    // Adjust hours for PM times
+    if (period.toLowerCase() === "pm" && hours !== "12") {
+      hours = parseInt(hours) + 12;
+    } else if (period.toLowerCase() === "am" && hours === "12") {
+      hours = "00";
+    }
+    dateObj.setHours(hours, minutes);
+    return dateObj;
+  };
+
+  const sumTimeValues = (timeValue1, timeValue2) => {
+    // Extract hours, minutes, and seconds from the time values
+    const date1 = new Date(timeValue1);
+    const date2 = new Date(timeValue2);
+    const hours1 = date1.getHours();
+    const minutes1 = date1.getMinutes();
+    const seconds1 = date1.getSeconds();
+    const hours2 = date2.getHours();
+    const minutes2 = date2.getMinutes();
+    const seconds2 = date2.getSeconds();
+
+    // Calculate the total time in seconds
+    const totalSeconds =
+      seconds1 +
+      seconds2 +
+      minutes1 * 60 +
+      minutes2 * 60 +
+      hours1 * 3600 +
+      hours2 * 3600;
+
+    // Convert the total time to hours, minutes, and seconds
+    const hours = Math.floor(totalSeconds / 3600) % 12;
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    // Determine whether it's AM or PM
+    const ampm = hours < 12 ? "AM" : "PM";
+
+    // Format the result as HH:MM:SS AM/PM
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+    const result = `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+
+    return result;
+  };
+
   try {
     // function to scrape data for report
     let response = await scrapeData(url);
@@ -27,95 +89,13 @@ const createReport = async (url) => {
     let timestamps = response[1];
     let starttime = response[2];
     let playlistdate = response[3];
-    console.log(playlistdate);
     let playlistTitle = response[4];
-    console.log(starttime);
     let tracksPlayed = [];
     let trackTimestamps = [];
     let doublesPlayed = [];
-
-    function stringToDateTime(timeStr) {
-      // Get today's date
-      let today = new Date();
-
-      // Split the input string on space into hour-minute and am/pm parts
-      let [time, period] = timeStr.split(/(?<=\d)(?=[a-zA-Z])/);
-
-      // Split the hour-minute part into hour and minute
-      let [hour, minute] = time.split(":");
-
-      // Convert hour to 24-hour format if needed
-      if (period.toLowerCase() === "pm" && hour !== "12") {
-        hour = parseInt(hour, 10) + 12;
-      } else if (period.toLowerCase() === "am" && hour === "12") {
-        hour = "00";
-      }
-
-      // Set the hours and minutes to the date
-      today.setHours(hour, minute, 0, 0);
-
-      return today;
-    }
-
-    console.log("-- start time: ", stringToDateTime(starttime));
-
-    function convertTimeString(timeString) {
-      // Get the time components (hours and minutes) by splitting the string
-      var timeComponents = timeString.slice(0, -2).split(":");
-
-      // If the original string ends in 'pm' and it's not 12:xx, convert the hours to 24 hour format
-      if (
-        timeString.toLowerCase().endsWith("pm") &&
-        timeComponents[0] !== "12"
-      ) {
-        timeComponents[0] = parseInt(timeComponents[0]) + 12;
-      }
-
-      // If the original string ends in 'am' and it's 12:xx, convert the hours to 0
-      if (
-        timeString.toLowerCase().endsWith("am") &&
-        timeComponents[0] === "12"
-      ) {
-        timeComponents[0] = "00";
-      }
-
-      // Rejoin the time components into a string
-      var convertedTime = timeComponents.join(":");
-
-      return convertedTime;
-    }
-
-    function convertToISO(time) {
-      // Get the current date
-      let date = new Date();
-
-      // Get the hours and minutes from the time string
-      let hours = parseInt(time.substring(0, time.indexOf(":")));
-      let minutes = parseInt(
-        time.substring(time.indexOf(":") + 1, time.length - 2)
-      );
-
-      // If the time is in the pm, add 12 to the hours (if it isn't already 12)
-      if (time.toLowerCase().includes("pm") && hours !== 12) {
-        hours += 12;
-      }
-
-      // If the time is in the am and it's 12, then it's midnight (0 hours)
-      if (time.toLowerCase().includes("am") && hours === 12) {
-        hours = 0;
-      }
-
-      // Set the hours and minutes of the date
-      date.setHours(hours, minutes, 0, 0);
-
-      // Return the date in ISO 8601 format
-      return date.toISOString();
-    }
-
-    const ISOStartTime = convertToISO(starttime);
-    const convertedStartTime = convertTimeString(starttime);
-
+    let timestampsParsed = [];
     let startTimeString;
+    let starttimeParsed = createPlaylistDate(starttime, playlistdate);
 
     // parse start time for proper display in UI
     if (starttime.length === 7) {
@@ -132,47 +112,6 @@ const createReport = async (url) => {
       tracksPlayed.push(trackId);
     }
 
-    function parseDateAndTime(timeString, playlistDate) {
-      // parse the date string
-      const date = new Date(playlistDate);
-
-      // parse the time string
-      const [hours, minutes, seconds] = timeString.split(":");
-
-      // set the hours, minutes, and seconds of the date
-      date.setHours(parseInt(hours, 10));
-      date.setMinutes(parseInt(minutes, 10));
-      date.setSeconds(parseInt(seconds, 10));
-
-      return date;
-    }
-
-    function createDate(timeString, playlistDate) {
-      // Parse the playlist date
-      let dateParts = playlistDate.split(" ");
-      let dateObj = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
-
-      // Parse the time
-      let period = timeString.slice(-2); // AM or PM
-      let [hours, minutes] = timeString.slice(0, -2).split(":"); // Actual hours and minutes
-
-      // Adjust hours for PM times
-      if (period.toLowerCase() === "pm" && hours !== "12") {
-        hours = parseInt(hours) + 12;
-      } else if (period.toLowerCase() === "am" && hours === "12") {
-        hours = "00";
-      }
-
-      // Set hours and minutes
-      dateObj.setHours(hours, minutes);
-
-      return dateObj;
-    }
-
-    let starttimeParsed = createDate(starttime, playlistdate);
-
-    let timestampsParsed = [];
-
     // loop through track timestamps and clean data from scrape
     for (let j = 0; j < results.length; j++) {
       let timestamp = timestamps[j].children[0].data.trim();
@@ -181,9 +120,6 @@ const createReport = async (url) => {
       timestampsParsed.push(timestampParsed);
       trackTimestamps.push(timestamp);
     }
-
-    console.log("TSP: ", timestampsParsed);
-    console.log("STP: ", starttimeParsed)    
 
     // determine lengths of each track played
     let timeDiffs = [];
@@ -204,18 +140,22 @@ const createReport = async (url) => {
       }
     }
 
+    // // Example usage
+    // const timeValue1 = "2022-04-04T08:00:00.000Z";
+    // const timeValue2 = "2022-04-04T00:04:23.000Z";
+    // const sum = sumTimeValues(timeValue1, timeValue2);
+    // console.log(sum); // Output: 08:04:23 PM
+
     // master track log
     let trackLog = tracksPlayed.map((result, index) => {
       return {
         trackId: result,
-        timestamp: ISOStartTime + trackTimestamps[index],
+        // timestamp: starttimeParsed + timestampsParsed[index],
+        timestamp: sumTimeValues(starttimeParsed, timestampsParsed[index]),
         timePlayed: timestamps[index].children[0].data.trim(),
         length: timeDiffs[index],
       };
     });
-
-    // console.log(trackTimestamps);
-    // console.log(ISOStartTime)
 
     // create an array of track lengths in MS and send to
     // calculateAverageTime to convert and return average
