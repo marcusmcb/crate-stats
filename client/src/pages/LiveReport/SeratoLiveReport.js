@@ -1,6 +1,14 @@
 import React, { useState, Fragment } from 'react'
 import axios from 'axios'
 
+import Titlebar from '../../components/shared/Titlebar'
+import HoursText from '../../components/shared/text_spans/hoursText'
+import HourText from '../../components/shared/text_spans/hourText'
+import MinutesText from '../../components/shared/text_spans/minutesText'
+import MinuteText from '../../components/shared/text_spans/minuteText'
+import SecondsText from '../../components/shared/text_spans/secondsText'
+import SecondText from '../../components/shared/text_spans/secondText'
+
 import { Divider, Input } from 'semantic-ui-react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -9,19 +17,10 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
 import { OutlinedInput } from '@mui/material'
 
-import HoursText from '../../components/shared/text_spans/hoursText'
-import HourText from '../../components/shared/text_spans/hourText'
-import MinutesText from '../../components/shared/text_spans/minutesText'
-import MinuteText from '../../components/shared/text_spans/minuteText'
-import SecondsText from '../../components/shared/text_spans/secondsText'
-import SecondText from '../../components/shared/text_spans/secondText'
-
 import parseDay from '../../scripts/parseDay'
-// import parseDisplayName from '../../scripts/parseDisplayName'
-import Titlebar from '../../components/shared/Titlebar'
+
 import './seratolivereport.css'
 
 const SeratoLiveReport = () => {
@@ -36,8 +35,7 @@ const SeratoLiveReport = () => {
 	const [trackLengthArray, setTrackLengthArray] = useState([])
 	const [searchQuery, setSearchQuery] = useState('')
 
-	const getSeratoLiveReport = async (e) => {
-		e.preventDefault()
+	const getSeratoLiveReport = async () => {
 		setIsBusy(true)
 		await axios
 			.post('/liveplaylist', { url: url })
@@ -47,7 +45,6 @@ const SeratoLiveReport = () => {
 					setIsPrivate(true)
 					setIsBusy(false)
 				} else {
-					// console.log(response.data)
 					setPlaylistData(response.data)
 					console.log(response.data)
 					let userName = response.data.dj_name
@@ -76,10 +73,30 @@ const SeratoLiveReport = () => {
 		// setUrl('')
 	}
 
+	const checkIfLivePlaylist = (url) => {
+		return url.includes('/live')
+	}
+
 	const handleChange = (e) => {
 		setIsData(false)
 		setIsPrivate(false)
 		setUrl(e.target.value)
+	}
+
+	const getSeratoLiveUpdateReport = () => {
+		setInterval(() => {
+			console.log('-- updated --')
+			getSeratoLiveReport()
+		}, 5000)
+	}
+
+	const handleSendReport = (e) => {
+		e.preventDefault()
+		checkIfLivePlaylist(url)
+			? getSeratoLiveUpdateReport()
+			: getSeratoLiveReport()
+		console.log(checkIfLivePlaylist(url))
+		getSeratoLiveReport()
 	}
 
 	let filteredTrackLog = []
@@ -139,7 +156,7 @@ const SeratoLiveReport = () => {
 						<Button
 							type='submit'
 							variant='outlined'
-							onClick={getSeratoLiveReport}
+							onClick={handleSendReport}
 							sx={{
 								maxWidth: '100px',
 								marginTop: '20px',
@@ -232,12 +249,12 @@ const SeratoLiveReport = () => {
 													{playlistData.set_length.hours === 0 ? (
 														playlistData.set_length.seconds > 1 ? (
 															<>
-																,{' '}{playlistData.set_length.seconds}{' '}
+																, {playlistData.set_length.seconds}{' '}
 																<SecondsText />
 															</>
 														) : playlistData.set_length.seconds === 1 ? (
 															<>
-																,{' '}{playlistData.set_length.seconds}{' '}
+																, {playlistData.set_length.seconds}{' '}
 																<SecondText />
 															</>
 														) : (
