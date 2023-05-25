@@ -65,6 +65,8 @@ const createSeratoReport = (data) => {
     }
   })
 
+  console.log(trackLengths)
+
   let averageTrackLength,
     longestTrack,
     longestTrackStartTime,
