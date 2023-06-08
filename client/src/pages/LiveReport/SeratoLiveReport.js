@@ -175,26 +175,30 @@ const SeratoLiveReport = () => {
 				{isData ? (
 					<div className='data-block'>
 						<div className='livereport-main-panel'>
-							<div className='livereport-title-row'>
-								CrateStats Live - {playlistData.dj_name}
-							</div>
-							<div className='livereport-stat-row'>
-								<span className='livereport-span-label'>Set Date: </span>
-								<span className='livereport-span-text'>
-									{playlistDate[1]} {playlistDate[0]}
-								</span>
-							</div>
-							<div className='livereport-stat-row'>
-								<span className='livereport-span-label'>Start Time: </span>
-								<span className='livereport-span-text'>
-									{playlistData.set_start_time}
-								</span>
+							<div className='livereport-toprow'>
+								<div className='livereport-title-row'>
+									<span className='text-shadow'>CrateStats Live: {playlistData.dj_name}</span>
+								</div>
+								<div className='livereport-toprow-right-panel'>
+									<div className='livereport-stat-row'>
+										<span className='livereport-span-label text-shadow'>Set Date: </span>
+										<span className='livereport-span-text text-shadow'>
+											{playlistDate[1]} {playlistDate[0]}
+										</span>
+									</div>
+									<div className='livereport-stat-row'>
+										<span className='livereport-span-label text-shadow'>Start Time: </span>
+										<span className='livereport-span-text text-shadow'>
+											{playlistData.set_start_time}
+										</span>
+									</div>
+								</div>
 							</div>
 							<Divider />
 							<div className='livereport-multistat-row'>
 								<div>
 									<div className='livereport-span-label'>Set Length:</div>
-									<div className='livereport-span-text'>
+									<div className='livereport-span-text span-text-style'>
 										{playlistData.set_length.hours > 1 ? (
 											<>
 												{playlistData.set_length.hours} <HoursText />,{' '}
@@ -239,7 +243,7 @@ const SeratoLiveReport = () => {
 									<div className='livereport-span-label'>
 										Total Tracks Played:{' '}
 									</div>
-									<div className='livereport-span-text'>
+									<div className='livereport-span-text span-text-style'>
 										{playlistData.track_log.length}
 									</div>
 								</div>
@@ -247,7 +251,7 @@ const SeratoLiveReport = () => {
 									<div className='livereport-span-label'>
 										Average Track Length:{' '}
 									</div>
-									<div className='livereport-span-text'>
+									<div className='livereport-span-text span-text-style'>
 										{playlistData.average_track_length}
 									</div>
 								</div>

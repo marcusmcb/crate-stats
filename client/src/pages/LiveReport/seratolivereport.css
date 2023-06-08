@@ -16,7 +16,7 @@
 	font-size: 32px;
 	font-weight: 600;
 	margin-left: 15px;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 
 .livereport-stat-row {
@@ -38,8 +38,24 @@
 	justify-content: space-around;
 }
 
-@media (max-width: 800) {
-  
+.livereport-toprow {
+	display: flex;
+	flex-direction: row;
+  justify-content: space-around;
+  background-color: #427856;
+  color: white;   
+  border: 1px solid grey;
+  padding-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.text-shadow {
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4)
+}
+
+.livereport-toprow-right-panel {
+	padding-left: 50px;
 }
 
 .livereport-span-label {
@@ -50,7 +66,6 @@
 .livereport-span-text {
 	font-family: 'Barlow';
 	font-weight: 400;
-  
 }
 
 .livereport-search-label {
@@ -68,6 +83,12 @@
 .livereport-tracklog-label {
 	font-family: 'Barlow';
 	font-size: 16px;
+}
+
+.span-text-style {
+  font-size: 32px;
+  color: #427856;
+  font-weight: 500;
 }
 
 .pagebody {
@@ -106,12 +127,17 @@
 		margin-left: 5vw;
 		margin-right: 5vw;
 	}
-  .livereport-multistat-row {
-    flex-direction: column;    
-  }
-  .livereport-span-label {
+	.livereport-multistat-row,
+	.livereport-toprow {
+		flex-direction: column;
+	}
+	.livereport-span-label {
+		margin-top: 25px;
+	}
+	.livereport-toprow-right-panel {
+		padding-left: 0px;
     margin-top: 25px;
-  }
+	}
 }
 
 @media (max-width: 760px) {
