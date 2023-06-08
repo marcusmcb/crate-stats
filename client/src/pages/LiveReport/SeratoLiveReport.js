@@ -258,14 +258,15 @@ const SeratoLiveReport = () => {
 							</div>
 							<Divider />
 							<div className='livereport-stat-row'>
-								<span className='livereport-span-label'>Current Track:</span>{' '}
-								<span className='livereport-span-text'>
+								<span className='livereport-span-label current-track'>Current Track:</span>{' '}
+								<span className='livereport-span-text current-track'>
 									{
 										playlistData.track_log[playlistData.track_log.length - 1]
 											.trackId
 									}
 								</span>
 							</div>
+							<Divider />
 							<div className='livereport-stat-row'>
 								<span className='livereport-span-label'>Previous Track:</span>{' '}
 								<span className='livereport-span-text'>
@@ -275,7 +276,7 @@ const SeratoLiveReport = () => {
 									}
 								</span>
 							</div>
-							<Divider />
+							
 							<div className='livereport-stat-row'>
 								<span className='livereport-span-label'>Shortest Track:</span>
 								<span className='livereport-span-text'>
