@@ -177,17 +177,23 @@ const SeratoLiveReport = () => {
 						<div className='livereport-main-panel'>
 							<div className='livereport-toprow'>
 								<div className='livereport-title-row'>
-									<span className='text-shadow'>CrateStats Live: {playlistData.dj_name}</span>
+									<span className='text-shadow'>
+										CrateStats Live: {playlistData.dj_name}
+									</span>
 								</div>
 								<div className='livereport-toprow-right-panel'>
 									<div className='livereport-stat-row'>
-										<span className='livereport-span-label text-shadow'>Set Date: </span>
+										<span className='livereport-span-label text-shadow'>
+											Set Date:{' '}
+										</span>
 										<span className='livereport-span-text text-shadow'>
 											{playlistDate[1]} {playlistDate[0]}
 										</span>
 									</div>
 									<div className='livereport-stat-row'>
-										<span className='livereport-span-label text-shadow'>Start Time: </span>
+										<span className='livereport-span-label text-shadow'>
+											Start Time:{' '}
+										</span>
 										<span className='livereport-span-text text-shadow'>
 											{playlistData.set_start_time}
 										</span>
@@ -258,7 +264,9 @@ const SeratoLiveReport = () => {
 							</div>
 							<Divider />
 							<div className='livereport-stat-row'>
-								<span className='livereport-span-label current-track'>Current Track:</span>{' '}
+								<span className='livereport-span-label current-track'>
+									Current Track:
+								</span>{' '}
 								<span className='livereport-span-text current-track'>
 									{
 										playlistData.track_log[playlistData.track_log.length - 1]
@@ -276,7 +284,7 @@ const SeratoLiveReport = () => {
 									}
 								</span>
 							</div>
-							
+
 							<div className='livereport-stat-row'>
 								<span className='livereport-span-label'>Shortest Track:</span>
 								<span className='livereport-span-text'>
@@ -370,7 +378,7 @@ const SeratoLiveReport = () => {
 																		style={{
 																			marginBottom: '10px',
 																		}}
-																	>
+																	>																		
 																		<span className='livereport-tracklog-label'>
 																			length:{' '}
 																			{formatMillisToMinutesSeconds(
