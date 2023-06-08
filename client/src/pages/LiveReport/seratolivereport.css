@@ -3,47 +3,120 @@
   margin: 0px;
 } */
 
+.livereport-main-panel {
+	background-color: white;
+	width: 100%;
+	border: 1px solid grey;
+	margin-bottom: 15px;
+	padding: 15px;
+}
+
+.livereport-title-row {
+	font-family: 'Almarai';
+	font-size: 32px;
+	font-weight: 600;
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+.livereport-stat-row {
+	font-family: 'Almarai';
+	font-size: 22px;
+	font-weight: 400;
+	margin-left: 15px;
+	margin-top: 10px;
+}
+
+.livereport-multistat-row {
+	font-family: 'Almarai';
+	font-size: 22px;
+	font-weight: 400;
+	margin-left: 15px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+@media (max-width: 800) {
+  
+}
+
+.livereport-span-label {
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+.livereport-span-text {
+	font-family: 'Barlow';
+	font-weight: 400;
+  
+}
+
+.livereport-search-label {
+	font-family: 'Barlow';
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.livereport-tracklog-row {
+	font-family: 'Barlow';
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.livereport-tracklog-label {
+	font-family: 'Barlow';
+	font-size: 16px;
+}
+
 .pagebody {
-  margin-left: 10vw;
-  margin-right: 10vw;
+	margin-left: 10vw;
+	margin-right: 10vw;
 }
 
 .loading,
 .no-data {
-  color: rgba(145, 206, 201, 255);
-  text-align: center;
+	color: rgba(145, 206, 201, 255);
+	text-align: center;
 }
 
 .data-block {
-  margin: 10px;
-  background-color: rgba(54, 72, 69, 255);
-  padding: 10px;
+	margin: 10px;
+	background-color: rgba(54, 72, 69, 255);
+	padding: 10px;
 }
 
 @media (min-width: 1700px) {
-  .testpage-body {
-    margin-left: 20vw;
-    margin-right: 20vw;
-  }
+	.testpage-body {
+		margin-left: 20vw;
+		margin-right: 20vw;
+	}
 }
 
 @media (max-width: 1300px) {
-  .testpage-body {
-    margin-left: 10vw;
-    margin-right: 10vw;
-  }
+	.testpage-body {
+		margin-left: 10vw;
+		margin-right: 10vw;
+	}
 }
 
 @media (max-width: 920px) {
-  .testpage-body {
-    margin-left: 5vw;
-    margin-right: 5vw;
+	.testpage-body {
+		margin-left: 5vw;
+		margin-right: 5vw;
+	}
+  .livereport-multistat-row {
+    flex-direction: column;    
+  }
+  .livereport-span-label {
+    margin-top: 25px;
   }
 }
 
 @media (max-width: 760px) {
-  .testpage-body {
-    margin-left: 2vw;
-    margin-right: 2vw;
-  }
+	.testpage-body {
+		margin-left: 2vw;
+		margin-right: 2vw;
+	}
 }
