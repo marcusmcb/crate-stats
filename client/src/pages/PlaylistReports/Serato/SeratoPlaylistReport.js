@@ -28,17 +28,24 @@ import CrateStatsSample from '../../../data/cinco_de_mayo.csv'
 
 const SeratoPlaylistReport = () => {
 	const [data, setData] = useState(null)
+	const [hasError, setHasError] = useState(false)
 	const [isBusy, setIsBusy] = useState(true)
 	const isInitialMount = useRef(true)
 
 	const getDataFromCSV = (userData) => {
-		axios.post('/sendSeratoFile', userData).then((response) => {
-			console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
-			console.log(response.data)
-			// console.log(formatDate(response.data.date_created))
-			setData(response.data)
-		})
-	}	
+		axios
+			.post('/sendSeratoFile', userData)
+			.then((response) => {
+				console.log('* * * * * * * * * RESPONSE FROM EXPRESS ')
+				console.log(response.data)
+				// console.log(formatDate(response.data.date_created))
+				setData(response.data)
+			})
+			.catch((error) => {
+				console.log('Error fetching data: ', error)
+				setHasError(true)
+			})
+	}
 
 	const addPlaylistToCollection = (data) => {
 		axios.post('/addPlaylist', data).then((response) => {
@@ -98,6 +105,55 @@ const SeratoPlaylistReport = () => {
 													>
 														Upload or drop your exported Serato CSV above to
 														view your CrateStats analysis.
+													</Typography>
+												</Grid>
+											</Grid>
+										</CardContent>
+									</Card>
+								</Grid>
+							</Box>
+							<Typography
+								sx={{
+									textAlign: 'center',
+									fontSize: '14px',
+									marginTop: '20px',
+									paddingBottom: '15px',
+									color: 'white',
+								}}
+							>
+								Don't have Serato? Grab a{' '}
+								<span>
+									<a
+										style={{ color: '#c5e1a5', fontWeight: '400' }}
+										href={CrateStatsSample}
+										download='crate_stats_sample.csv'
+										target='_blank'
+										rel='noreferrer'
+									>
+										test file
+									</a>
+								</span>{' '}
+								to demo this page.
+							</Typography>
+						</div>
+					) : hasError ? (
+						<div className='data-block await-data'>
+							<Box sx={{ flexGrow: 1 }}>
+								<Grid>
+									<Card>
+										<CardContent>
+											<Grid>
+												<Grid item mt={1.5}>
+													<Typography
+														sx={{
+															fontSize: 16,
+															fontWeight: '500',
+														}}
+													>
+														It looks like that feature isn't working right now.
+														<br />
+														<br />
+														You can try your file again later or try another file.
 													</Typography>
 												</Grid>
 											</Grid>
