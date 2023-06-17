@@ -22,15 +22,22 @@ import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
 
 const TraktorPlaylistReport = () => {
 	const [data, setData] = useState(null)
+	const [hasError, setHasError] = useState(false)
 	const [isBusy, setIsBusy] = useState(true)
 	const isInitialMount = useRef(true)
 
 	const getDataFromTXT = (userData) => {
-		axios.post('/sendTraktorFile', userData).then((response) => {
-			console.log('* * * * * TRAKTOR RESPONSE FROM EXPRESS ')
-			console.log(response.data)
-			setData(response.data)
-		})
+		axios
+			.post('/sendTraktorFile', userData)
+			.then((response) => {
+				console.log('* * * * * TRAKTOR RESPONSE FROM EXPRESS ')
+				console.log(response.data)
+				setData(response.data)
+			})
+			.catch((error) => {
+				console.log('Error fetching data: ', error)
+				setHasError(true)
+			})
 	}
 
 	useEffect(() => {
@@ -64,6 +71,56 @@ const TraktorPlaylistReport = () => {
 													>
 														Upload or drop your exported Traktor TXT file above
 														to view your CrateStats analysis.
+													</Typography>
+												</Grid>
+											</Grid>
+										</CardContent>
+									</Card>
+								</Grid>
+							</Box>
+							<Typography
+								sx={{
+									textAlign: 'center',
+									fontSize: '14px',
+									marginTop: '20px',
+									paddingBottom: '15px',
+									color: 'white',
+								}}
+							>
+								Don't have Traktor? Grab a{' '}
+								<span>
+									<a
+										style={{ color: 'white', fontWeight: '400' }}
+										href={CrateStatsSample}
+										download='traktor_sample.txt'
+										target='_blank'
+										rel='noreferrer'
+									>
+										test file
+									</a>
+								</span>{' '}
+								to demo this page.
+							</Typography>
+						</div>
+					) : hasError ? (
+						<div className='data-block await-data'>
+							<Box sx={{ flexGrow: 1 }}>
+								<Grid>
+									<Card>
+										<CardContent>
+											<Grid>
+												<Grid item mt={1.5}>
+													<Typography
+														sx={{
+															fontSize: 16,
+															fontWeight: '500',
+														}}
+													>
+														It looks like that feature isn't working right now.
+														<br />
+														<br />
+														You can try your file again later or try another
+														file.
 													</Typography>
 												</Grid>
 											</Grid>
@@ -136,7 +193,9 @@ const TraktorPlaylistReport = () => {
 								{data.rating_data.has_master_track_log ? (
 									<DataMissing data={{ value: 'master track log' }} />
 								) : (
-									<TraktorMasterTrackLog masterTrackLog={data.master_track_log} />
+									<TraktorMasterTrackLog
+										masterTrackLog={data.master_track_log}
+									/>
 								)}
 							</div>
 						</div>
