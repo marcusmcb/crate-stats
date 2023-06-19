@@ -66,7 +66,7 @@ app.post("/deletePlaylist", async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.send(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 app.listen(PORT, () => {
