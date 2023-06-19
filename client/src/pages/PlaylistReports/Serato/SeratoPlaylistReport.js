@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
-import DragAndDrop from '../../../components/shared/DragAndDrop'
+import CSVFileInput from '../../../components/shared/CSVFileInput'
 
 import TrackData from './components/TrackData/TrackData'
 // import TrackData2 from './components/TrackData/TrackData2'
@@ -18,6 +18,7 @@ import MasterTracklog from './components/MasterTracklog'
 import PlaylistData from './components/PlaylistData'
 import UploadError from '../../../components/shared/UploadError'
 import DemoFileLink from '../../../components/shared/DemoFileLink'
+import PreUploadTextPanel from '../../../components/shared/PreUploadTextPanel'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -66,7 +67,7 @@ const SeratoPlaylistReport = () => {
 		<Fragment>
 			<div className='playlistreport-body'>
 				<Titlebar />
-				<DragAndDrop getDataFromCSV={getDataFromCSV} />
+				<CSVFileInput getDataFromCSV={getDataFromCSV} />
 				<div
 					style={{
 						display: 'flex',
@@ -92,27 +93,7 @@ const SeratoPlaylistReport = () => {
 				<div>
 					{isBusy === true ? (
 						<div className='data-block await-data'>
-							<Box sx={{ flexGrow: 1 }}>
-								<Grid>
-									<Card>
-										<CardContent>
-											<Grid>
-												<Grid item mt={1.5}>
-													<Typography
-														sx={{
-															fontSize: 16,
-															fontWeight: '500',
-														}}
-													>
-														Upload or drop your exported Serato CSV above to
-														view your CrateStats analysis.
-													</Typography>
-												</Grid>
-											</Grid>
-										</CardContent>
-									</Card>
-								</Grid>
-							</Box>
+							<PreUploadTextPanel platform={{ name: 'Serato' }} />
 							<DemoFileLink platform={{ name: 'Serato' }} />
 						</div>
 					) : hasError ? (

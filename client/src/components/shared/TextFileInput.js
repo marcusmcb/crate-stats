@@ -1,25 +1,21 @@
-import { useState } from 'react'
-import { FileUploader } from 'react-drag-drop-files'
+import React, { useState } from 'react'
 import Papa from 'papaparse'
+import { FileUploader } from 'react-drag-drop-files'
+import './style/fileinput.css'
 
-import './style/draganddrop.css'
+const fileTypes = ['TXT']
 
-const fileTypes = ['CSV']
+const TextFileInput = ({ getDataFromTXT }) => {
+  const [file, setFile] = useState('')
 
-const DragAndDrop = ({ getDataFromCSV }) => {
-  const [file, setFile] = useState(null)
-
-  const handleChange = (event) => {    
-    
-    // append file size to results data and send w/API call
-    // use later to avoid duplicate playlist uploads to firestore
-
+  const onChange = (event) => {
     setFile(event.name)
     Papa.parse(event, {
       header: true,
       download: false,
+      skipEmptyLines: true,
       complete: (results) => {
-        getDataFromCSV(results.data)
+        getDataFromTXT(results.data)
       },
     })
   }
@@ -29,7 +25,7 @@ const DragAndDrop = ({ getDataFromCSV }) => {
       <FileUploader
         className='uploader'
         multiple={false}
-        handleChange={handleChange}
+        handleChange={onChange}
         types={fileTypes}
         name='file'
         fileOrFiles={null}
@@ -40,5 +36,4 @@ const DragAndDrop = ({ getDataFromCSV }) => {
     </div>
   )
 }
-
-export default DragAndDrop
+export default TextFileInput

@@ -2,7 +2,7 @@ import React, { Fragment, useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
-import TraktorFileInput from '../../../components/shared/TraktorFileInput'
+import TextFileInput from '../../../components/shared/TextFileInput'
 
 import TrackData from './components/TrackData'
 import BPMData from './components/BPMData'
@@ -12,6 +12,7 @@ import RatingData from './components/RatingData'
 import TraktorMasterTrackLog from './components/TraktorMasterTrackLog'
 import UploadError from '../../../components/shared/UploadError'
 import DemoFileLink from '../../../components/shared/DemoFileLink'
+import PreUploadTextPanel from '../../../components/shared/PreUploadTextPanel'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -53,38 +54,17 @@ const TraktorPlaylistReport = () => {
 		<Fragment>
 			<div className='playlistreport-body'>
 				<Titlebar />
-				{/* <DragAndDrop /> */}
-				<TraktorFileInput getDataFromTXT={getDataFromTXT} />
+				<TextFileInput getDataFromTXT={getDataFromTXT} />
 				<div>
 					{isBusy ? (
 						<div className='data-block await-data'>
-							<Box sx={{ flexGrow: 1 }}>
-								<Grid>
-									<Card>
-										<CardContent>
-											<Grid>
-												<Grid item mt={1.5}>
-													<Typography
-														sx={{
-															fontSize: 16,
-															fontWeight: '500',
-														}}
-													>
-														Upload or drop your exported Traktor TXT file above
-														to view your CrateStats analysis.
-													</Typography>
-												</Grid>
-											</Grid>
-										</CardContent>
-									</Card>
-								</Grid>
-							</Box>
-							<DemoFileLink platform={{ name: 'Traktor' }}/>
+							<PreUploadTextPanel platform={{ name: 'Traktor' }} />
+							<DemoFileLink platform={{ name: 'Traktor' }} />
 						</div>
 					) : hasError ? (
 						<div className='data-block await-data'>
-							<UploadError/>
-							<DemoFileLink platform={{ name: 'Traktor' }}/>
+							<UploadError />
+							<DemoFileLink platform={{ name: 'Traktor' }} />
 						</div>
 					) : (
 						<div>

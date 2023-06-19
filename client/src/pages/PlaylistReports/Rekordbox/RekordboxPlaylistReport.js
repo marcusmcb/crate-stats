@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
-import RekordboxFileInput from '../../../components/shared/RekordboxFileInput'
+import TextFileInput from '../../../components/shared/TextFileInput'
 
 import BPMData from './components/BPMData'
 import GenreData from './components/GenreData'
@@ -14,6 +14,7 @@ import BitrateData from './components/BitrateData'
 import RekordboxMasterTrackLog from './components/RekordboxMasterTrackLog'
 import UploadError from '../../../components/shared/UploadError'
 import DemoFileLink from '../../../components/shared/DemoFileLink'
+import PreUploadTextPanel from '../../../components/shared/PreUploadTextPanel'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -53,32 +54,12 @@ const RekordboxPlaylistReport = () => {
 	return (
 		<Fragment>
 			<div className='playlistreport-body'>
-				<Titlebar />
-				<RekordboxFileInput getDataFromTXT={getDataFromTXT} />
+				<Titlebar />				
+				<TextFileInput getDataFromTXT={getDataFromTXT}/>
 				<div>
 					{isBusy ? (
 						<div className='data-block-two await-data'>
-							<Box sx={{ flexGrow: 1 }}>
-								<Grid>
-									<Card>
-										<CardContent>
-											<Grid>
-												<Grid item mt={1.5}>
-													<Typography
-														sx={{
-															fontSize: 16,
-															fontWeight: '500',
-														}}
-													>
-														Upload or drop your exported Rekordbox TXT file
-														above to view your CrateStats analysis.
-													</Typography>
-												</Grid>
-											</Grid>
-										</CardContent>
-									</Card>
-								</Grid>
-							</Box>
+							<PreUploadTextPanel platform={{ name: 'Rekordbox '}}/>
 							<DemoFileLink platform={{ name: 'Rekordbox' }}/>
 						</div>
 					) : hasError ? (
