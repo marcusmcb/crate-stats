@@ -65,9 +65,9 @@ app.post("/deletePlaylist", async (req, res) => {
   res.send(deletedPlaylist)
 });
 
-app.get("*", (req, res) => {
-  res.sendSeratoFile(path.join(__dirname + "/client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendSeratoFile(path.join(__dirname + "/client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`Crate Stats Server is listening on port: ${PORT}`);
