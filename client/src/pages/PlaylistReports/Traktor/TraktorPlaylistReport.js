@@ -42,7 +42,7 @@ const TraktorPlaylistReport = () => {
 		} else {
 			setIsBusy(false)
 		}
-	})
+	}, [data])
 
 	return (
 		<Fragment>

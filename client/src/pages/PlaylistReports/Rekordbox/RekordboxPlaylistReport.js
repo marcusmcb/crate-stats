@@ -44,7 +44,7 @@ const RekordboxPlaylistReport = () => {
 		} else {
 			setIsBusy(false)
 		}
-	})
+	}, [data])
 
 	return (
 		<Fragment>

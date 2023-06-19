@@ -20,7 +20,7 @@ import UploadError from '../../../components/shared/UploadError'
 import DemoFileLink from '../../../components/shared/DemoFileLink'
 import PreUploadTextPanel from '../../../components/shared/PreUploadTextPanel'
 
-import Button from '@mui/material/Button'
+// import Button from '@mui/material/Button'
 import './style/seratoplaylistreport.css'
 
 const SeratoPlaylistReport = () => {
@@ -44,11 +44,11 @@ const SeratoPlaylistReport = () => {
 			})
 	}
 
-	const addPlaylistToCollection = (data) => {
-		axios.post('/addPlaylist', data).then((response) => {
-			console.log(response)
-		})
-	}
+	// const addPlaylistToCollection = (data) => {
+	// 	axios.post('/addPlaylist', data).then((response) => {
+	// 		console.log(response)
+	// 	})
+	// }
 
 	useEffect(() => {
 		if (isInitialMount.current) {
@@ -56,7 +56,7 @@ const SeratoPlaylistReport = () => {
 		} else {
 			setIsBusy(false)
 		}
-	})
+	}, [data])
 
 	return (
 		<Fragment>
