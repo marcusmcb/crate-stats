@@ -1,15 +1,18 @@
-import { Fragment, useState, useRef, useEffect } from 'react'
+import React, { Fragment, useState, useRef, useEffect } from 'react'
+import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
+import DataMissing from '../../../components/shared/DataMissing'
 import TraktorFileInput from '../../../components/shared/TraktorFileInput'
+
 import TrackData from './components/TrackData'
 import BPMData from './components/BPMData'
 import KeyData from './components/KeyData'
 import GenreData from './components/GenreData'
 import RatingData from './components/RatingData'
 import TraktorMasterTrackLog from './components/TraktorMasterTrackLog'
-import DataMissing from '../../../components/shared/DataMissing'
+import UploadError from '../../../components/shared/UploadError'
+import DemoFileLink from '../../../components/shared/DemoFileLink'
 
-import axios from 'axios'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -17,8 +20,6 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
 import './style/traktorplaylistreport.css'
-
-import CrateStatsSample from '../../../data/rekordbox_sample_03.txt'
 
 const TraktorPlaylistReport = () => {
 	const [data, setData] = useState(null)
@@ -78,79 +79,12 @@ const TraktorPlaylistReport = () => {
 									</Card>
 								</Grid>
 							</Box>
-							<Typography
-								sx={{
-									textAlign: 'center',
-									fontSize: '14px',
-									marginTop: '20px',
-									paddingBottom: '15px',
-									color: 'white',
-								}}
-							>
-								Don't have Traktor? Grab a{' '}
-								<span>
-									<a
-										style={{ color: 'white', fontWeight: '400' }}
-										href={CrateStatsSample}
-										download='traktor_sample.txt'
-										target='_blank'
-										rel='noreferrer'
-									>
-										test file
-									</a>
-								</span>{' '}
-								to demo this page.
-							</Typography>
+							<DemoFileLink platform={{ name: 'Traktor' }}/>
 						</div>
 					) : hasError ? (
 						<div className='data-block await-data'>
-							<Box sx={{ flexGrow: 1 }}>
-								<Grid>
-									<Card>
-										<CardContent>
-											<Grid>
-												<Grid item mt={1.5}>
-													<Typography
-														sx={{
-															fontSize: 16,
-															fontWeight: '500',
-														}}
-													>
-														It looks like that feature isn't working right now.
-														<br />
-														<br />
-														You can try your file again later or try another
-														file.
-													</Typography>
-												</Grid>
-											</Grid>
-										</CardContent>
-									</Card>
-								</Grid>
-							</Box>
-							<Typography
-								sx={{
-									textAlign: 'center',
-									fontSize: '14px',
-									marginTop: '20px',
-									paddingBottom: '15px',
-									color: 'white',
-								}}
-							>
-								Don't have Traktor? Grab a{' '}
-								<span>
-									<a
-										style={{ color: 'white', fontWeight: '400' }}
-										href={CrateStatsSample}
-										download='traktor_sample.txt'
-										target='_blank'
-										rel='noreferrer'
-									>
-										test file
-									</a>
-								</span>{' '}
-								to demo this page.
-							</Typography>
+							<UploadError/>
+							<DemoFileLink platform={{ name: 'Traktor' }}/>
 						</div>
 					) : (
 						<div>

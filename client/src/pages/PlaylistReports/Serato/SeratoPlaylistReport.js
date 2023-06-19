@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react'
+import axios from 'axios'
 import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
+import DragAndDrop from '../../../components/shared/DragAndDrop'
+
 import TrackData from './components/TrackData/TrackData'
 // import TrackData2 from './components/TrackData/TrackData2'
 import BPMData from './components/BPMData'
@@ -13,9 +16,9 @@ import AlbumData from './components/AlbumData'
 import ArtistData from './components/ArtistData'
 import MasterTracklog from './components/MasterTracklog'
 import PlaylistData from './components/PlaylistData'
-import DragAndDrop from '../../../components/shared/DragAndDrop'
+import UploadError from '../../../components/shared/UploadError'
+import DemoFileLink from '../../../components/shared/DemoFileLink'
 
-import axios from 'axios'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -23,8 +26,6 @@ import Button from '@mui/material/Button'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import './style/seratoplaylistreport.css'
-
-import CrateStatsSample from '../../../data/cinco_de_mayo.csv'
 
 const SeratoPlaylistReport = () => {
 	const [data, setData] = useState(null)
@@ -112,78 +113,12 @@ const SeratoPlaylistReport = () => {
 									</Card>
 								</Grid>
 							</Box>
-							<Typography
-								sx={{
-									textAlign: 'center',
-									fontSize: '14px',
-									marginTop: '20px',
-									paddingBottom: '15px',
-									color: 'white',
-								}}
-							>
-								Don't have Serato? Grab a{' '}
-								<span>
-									<a
-										style={{ color: '#c5e1a5', fontWeight: '400' }}
-										href={CrateStatsSample}
-										download='crate_stats_sample.csv'
-										target='_blank'
-										rel='noreferrer'
-									>
-										test file
-									</a>
-								</span>{' '}
-								to demo this page.
-							</Typography>
+							<DemoFileLink platform={{ name: 'Serato' }} />
 						</div>
 					) : hasError ? (
 						<div className='data-block await-data'>
-							<Box sx={{ flexGrow: 1 }}>
-								<Grid>
-									<Card>
-										<CardContent>
-											<Grid>
-												<Grid item mt={1.5}>
-													<Typography
-														sx={{
-															fontSize: 16,
-															fontWeight: '500',
-														}}
-													>
-														It looks like that feature isn't working right now.
-														<br />
-														<br />
-														You can try your file again later or try another file.
-													</Typography>
-												</Grid>
-											</Grid>
-										</CardContent>
-									</Card>
-								</Grid>
-							</Box>
-							<Typography
-								sx={{
-									textAlign: 'center',
-									fontSize: '14px',
-									marginTop: '20px',
-									paddingBottom: '15px',
-									color: 'white',
-								}}
-							>
-								Don't have Serato? Grab a{' '}
-								<span>
-									<a
-										style={{ color: '#c5e1a5', fontWeight: '400' }}
-										href={CrateStatsSample}
-										download='crate_stats_sample.csv'
-										target='_blank'
-										rel='noreferrer'
-									>
-										test file
-									</a>
-								</span>{' '}
-								to demo this page.
-							</Typography>
+							<UploadError />
+							<DemoFileLink platform={{ name: 'Serato' }} />
 						</div>
 					) : (
 						<div>
