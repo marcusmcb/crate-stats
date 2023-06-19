@@ -5,15 +5,8 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-let fileType
-
 const PreUploadTextPanel = ({ platform }) => {
-	if (platform.name === 'Serato') {
-		fileType = 'CSV'
-	} else {
-		fileType = 'TXT'
-	}
-
+	const fileType = platform.name === 'Serato' ? 'CSV' : 'TXT'
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<Grid>

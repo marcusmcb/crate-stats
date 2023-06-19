@@ -20,12 +20,7 @@ import UploadError from '../../../components/shared/UploadError'
 import DemoFileLink from '../../../components/shared/DemoFileLink'
 import PreUploadTextPanel from '../../../components/shared/PreUploadTextPanel'
 
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
 import './style/seratoplaylistreport.css'
 
 const SeratoPlaylistReport = () => {
