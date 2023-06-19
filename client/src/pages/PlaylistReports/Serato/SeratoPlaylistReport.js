@@ -71,7 +71,7 @@ const SeratoPlaylistReport = () => {
 						marginBottom: '15px',
 					}}
 				>
-					{data ? (
+					{/* {data ? (
 						<Button
 							sx={{ backgroundColor: 'rgba(54, 72, 69, 255)' }}
 							variant='contained'
@@ -83,7 +83,7 @@ const SeratoPlaylistReport = () => {
 						</Button>
 					) : (
 						<></>
-					)}
+					)} */}
 				</div>
 				<div>
 					{isBusy === true ? (

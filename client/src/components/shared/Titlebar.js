@@ -18,7 +18,7 @@ const Titlebar = () => {
           justifyContent: 'space-around',
         }}
       >
-        <Grid item>          
+        {/* <Grid item>          
           <Button
             variant='contained'
             sx={{
@@ -30,7 +30,7 @@ const Titlebar = () => {
           >
             Playlists
           </Button>
-        </Grid>
+        </Grid> */}
         <Grid item>
           <Link
             style={{
@@ -43,7 +43,7 @@ const Titlebar = () => {
             <span style={{ color: 'yellow', fontSize: '40px' }}>{title}</span>
           </Link>
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Button
             variant='contained'
             sx={{
@@ -55,7 +55,7 @@ const Titlebar = () => {
           >
             Site Stats
           </Button>
-        </Grid>
+        </Grid> */}
       </Box>
     </div>
   )
