@@ -16,14 +16,6 @@ const RatingData = ({ data: ratingData }) => {
 	console.log(ratingData)
 	const [expanded, setExpanded] = useState(false)
 
-	const handleExpandClick = () => {
-		setExpanded(!expanded)
-	}
-
-	const [open, setOpen] = useState(false)
-	const handleOpen = () => setOpen(true)
-	const handleClose = () => setOpen(false)
-
 	const style = {
 		position: 'absolute',
 		top: '50%',
@@ -35,6 +27,107 @@ const RatingData = ({ data: ratingData }) => {
 		boxShadow: 24,
 		p: 4,
 	}
+
+	const handleExpandClick = () => {
+		setExpanded(!expanded)
+	}
+
+	const [open, setOpen] = useState(false)
+	const handleOpen = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
+	const TagHealthPanel = () => {
+		return (
+			<Collapse in={expanded} timeout='auto' unmountOnExit>
+				<Grid container spacing={1}>
+					<Grid item xs={12} md={6} sm={12} lg={6}>
+						<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+							<CardContent>
+								{/* crate stats card */}
+								<Typography>
+									percentage of tracks played with ratings:
+								</Typography>
+								<Typography
+									variant='h4'
+									component='div'
+									fontWeight={500}
+									sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+								>
+									{Number(
+										ratingData.tag_health.percentage_with_ratings
+									).toFixed()}
+									%
+								</Typography>
+							</CardContent>
+						</Card>
+					</Grid>
+					<Grid item xs={12} md={6} sm={12} lg={6}>
+						<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
+							<CardContent>
+								{/* crate stats card */}
+								<Typography>
+									<span>
+										percentage of playlist with a five star rating:
+										<HelpOutlineIcon
+											onClick={() => {
+												handleOpen()
+											}}
+										/>
+									</span>
+								</Typography>
+
+								<Typography
+									variant='h4'
+									component='div'
+									fontWeight={500}
+									sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
+								>
+									{Number(
+										ratingData.tag_health.percentage_with_five_star_ratings
+									).toFixed()}
+									%
+								</Typography>
+								<Modal
+									open={open}
+									onClose={handleClose}
+									aria-labelledby='modal-modal-title'
+									aria-describedby='modal-modal-description'
+								>
+									<Box sx={style}>
+										<Typography
+											id='modal-modal-title'
+											variant='h6'
+											component='h2'
+											style={{
+												color: 'rgba(29, 79, 145, 0.8)',
+											}}
+										>
+											What this means...
+										</Typography>
+										<Typography id='modal-modal-description' sx={{ mt: 2 }}>
+											Of the tracks you played in this set,{' '}
+											<span
+												style={{
+													color: 'rgba(29, 79, 145, 0.8)',
+													fontWeight: '500',
+												}}
+											>
+												{Number(
+													ratingData.tag_health
+														.percentage_with_five_star_ratings
+												).toFixed()}
+											</span>
+											% of them are rated as five stars.
+										</Typography>
+									</Box>
+								</Modal>
+							</CardContent>
+						</Card>
+					</Grid>
+				</Grid>
+			</Collapse>
+		)
+	}	
 
 	return (
 		<Fragment>
@@ -98,96 +191,7 @@ const RatingData = ({ data: ratingData }) => {
 									<ExpandMoreIcon sx={{ color: 'white' }} />
 								</ExpandMore>
 							</CardActions>
-							<Collapse in={expanded} timeout='auto' unmountOnExit>
-								<Grid container spacing={1}>
-									<Grid item xs={12} md={6} sm={12} lg={6}>
-										<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-											<CardContent>
-												{/* crate stats card */}
-												<Typography>
-													percentage of tracks played with ratings:
-												</Typography>
-												<Typography
-													variant='h4'
-													component='div'
-													fontWeight={500}
-													sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-												>
-													{Number(
-														ratingData.tag_health.percentage_with_ratings
-													).toFixed()}
-													%
-												</Typography>
-											</CardContent>
-										</Card>
-									</Grid>
-									<Grid item xs={12} md={6} sm={12} lg={6}>
-										<Card sx={{ minWidth: 275, boxShadow: 'none' }}>
-											<CardContent>
-												{/* crate stats card */}
-												<Typography>
-													<span>
-														percentage of playlist with a five star rating:
-														<HelpOutlineIcon
-															onClick={() => {
-																handleOpen()
-															}}
-														/>
-													</span>
-												</Typography>
-
-												<Typography
-													variant='h4'
-													component='div'
-													fontWeight={500}
-													sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
-												>
-													{Number(
-														ratingData.tag_health.percentage_with_five_star_ratings
-													).toFixed()}
-													%
-												</Typography>
-												<Modal
-													open={open}
-													onClose={handleClose}
-													aria-labelledby='modal-modal-title'
-													aria-describedby='modal-modal-description'
-												>
-													<Box sx={style}>
-														<Typography
-															id='modal-modal-title'
-															variant='h6'
-															component='h2'
-															style={{
-																color: 'rgba(29, 79, 145, 0.8)',
-															}}
-														>
-															What this means...
-														</Typography>
-														<Typography
-															id='modal-modal-description'
-															sx={{ mt: 2 }}
-														>
-															Of the tracks you played in this set,{' '}
-															<span
-																style={{
-																	color: 'rgba(29, 79, 145, 0.8)',
-																	fontWeight: '500',
-																}}
-															>
-																{Number(
-																	ratingData.tag_health.percentage_with_five_star_ratings
-																).toFixed()}
-															</span>
-															% of them are rated as five stars.
-														</Typography>
-													</Box>
-												</Modal>
-											</CardContent>
-										</Card>
-									</Grid>
-								</Grid>
-							</Collapse>
+							<TagHealthPanel />
 						</Card>
 					</Grid>
 				</Grid>
