@@ -21,14 +21,13 @@ import Stack from '@mui/material/Stack'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined'
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined'
-import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 
-import './playlists.css'
+import './style/playlists.css'
 
 const Playlists = () => {
 	const [userPlaylists, setUserPlaylists] = useState([])

@@ -132,7 +132,7 @@ const YearData = (props) => {
                           fontWeight={500}
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
-                          {new Number(
+                          {Number(
                             yearData.tag_health.percentage_with_year_tags
                           ).toFixed()}
                           %

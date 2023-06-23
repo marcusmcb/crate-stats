@@ -21,7 +21,7 @@ import { OutlinedInput } from '@mui/material'
 
 import parseDay from '../../scripts/parseDay'
 
-import './seratolivereport.css'
+import './style/seratolivereport.css'
 
 const SeratoLiveReport = () => {
 	const [isData, setIsData] = useState(false)

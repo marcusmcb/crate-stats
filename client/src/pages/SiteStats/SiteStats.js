@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Typography } from '@mui/material'
 import { Divider } from 'semantic-ui-react'
 
-import './sitestats.css'
+import './style/sitestats.css'
 
 const SiteStats = () => {
 	const [siteStats, setSiteStats] = useState()
@@ -55,18 +55,18 @@ const SiteStats = () => {
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
 							- average track year:{' '}
-							{new Number(siteStats.average_year).toFixed()}
+							{Number(siteStats.average_year).toFixed()}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
 							- unique genres per set:{' '}
-							{new Number(siteStats.unique_genres_played).toFixed()}
+							{Number(siteStats.unique_genres_played).toFixed()}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
 							- sets with doubles: {siteStats.playlists_with_doubles}
 						</Typography>
 						<Typography style={{ textAlign: 'center' }}>
 							- doubles per set:{' '}
-							{new Number(siteStats.doubles_per_playlist).toFixed()}
+							{Number(siteStats.doubles_per_playlist).toFixed()}
 						</Typography>
 						<Divider />
 						<div></div>

@@ -90,11 +90,11 @@ const BPMData = ({ bpmData }) => {
                             fontWeight={500}
                             sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                           >
-                            {new Number(
+                            {Number(
                               bpmData.biggest_bpm_change.from_track.bpm
                             ).toFixed()}{' '}
                             -->{' '}
-                            {new Number(
+                            {Number(
                               bpmData.biggest_bpm_change.to_track.bpm
                             ).toFixed()}
                           </Typography>
@@ -112,7 +112,7 @@ const BPMData = ({ bpmData }) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {new Number(
+                    {Number(
                       bpmData.biggest_bpm_change.from_track.bpm
                     ).toFixed()}{' '}
                     BPM
@@ -129,7 +129,7 @@ const BPMData = ({ bpmData }) => {
                     fontWeight={500}
                     sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                   >
-                    {new Number(
+                    {Number(
                       bpmData.biggest_bpm_change.to_track.bpm
                     ).toFixed()}{' '}
                     BPM

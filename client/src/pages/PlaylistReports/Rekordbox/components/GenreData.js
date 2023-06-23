@@ -111,7 +111,7 @@ const GenreData = ({ genreData }) => {
                           fontWeight={500}
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
-                          {new Number(
+                          {Number(
                             genreData.tag_health.percentage_with_genre_tags
                           ).toFixed()}
                           %
@@ -140,7 +140,7 @@ const GenreData = ({ genreData }) => {
                           fontWeight={500}
                           sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
                         >
-                          {new Number(
+                          {Number(
                             genreData.tag_health.percentage_with_other_as_genre
                           ).toFixed()}
                           %

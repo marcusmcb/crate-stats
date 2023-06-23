@@ -118,7 +118,7 @@ const GenreData = ({ data: genreData }) => {
 								<Grid container spacing={1}>
 									<GridItem
 										title='percentage of tracks played with genre tags:'
-										value={`${new Number(
+										value={`${Number(
 											genreData.tag_health.percentage_with_genre_tags
 										).toFixed()}%`}
 										xs={12}
@@ -146,7 +146,7 @@ const GenreData = ({ data: genreData }) => {
 													fontWeight={500}
 													sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
 												>
-													{new Number(
+													{Number(
 														genreData.tag_health.percentage_with_other_as_genre
 													).toFixed()}
 													%

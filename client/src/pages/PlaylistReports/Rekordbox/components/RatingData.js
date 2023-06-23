@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import { Divider } from 'semantic-ui-react'
 import Modal from '@mui/material/Modal'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import CardActions from '@mui/material/CardActions'
@@ -113,7 +112,7 @@ const RatingData = ({ ratingData }) => {
 													fontWeight={500}
 													sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
 												>
-													{new Number(
+													{Number(
 														ratingData.tag_health.percentage_with_ratings
 													).toFixed()}
 													%
@@ -142,7 +141,7 @@ const RatingData = ({ ratingData }) => {
 													fontWeight={500}
 													sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
 												>
-													{new Number(
+													{Number(
 														ratingData.tag_health.percentage_with_five_star_ratings
 													).toFixed()}
 													%
@@ -175,7 +174,7 @@ const RatingData = ({ ratingData }) => {
 																	fontWeight: '500',
 																}}
 															>
-																{new Number(
+																{Number(
 																	ratingData.tag_health.percentage_with_five_star_ratings
 																).toFixed()}
 															</span>

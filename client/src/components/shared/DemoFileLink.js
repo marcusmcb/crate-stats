@@ -1,8 +1,8 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import SeratoCrateStatsSample from '../../data/cinco_de_mayo.csv';
-import TraktorCrateStatsSample from '../../data/traktor_sample.txt';
-import RekordboxCrateStatsSample from '../../data/rekordbox_sample_03.txt';
+import SeratoCrateStatsSample from '../../data/serato/cinco_de_mayo.csv';
+import TraktorCrateStatsSample from '../../data/traktor/traktor_sample.txt';
+import RekordboxCrateStatsSample from '../../data/rekordbox/rekordbox_sample_03.txt';
 
 const platformData = {
   Serato: {

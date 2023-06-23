@@ -66,9 +66,6 @@ const deletePlaylist = async (playlistId) => {
 //     });
 //   }
 // };
-
-
-
 // console.log(queryPlaylist())
 
 module.exports = {
