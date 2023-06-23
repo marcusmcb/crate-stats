@@ -1,17 +1,39 @@
-import React, { Fragment } from 'react'
-
+import React from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import { Divider } from 'semantic-ui-react'
+import Divider from '@mui/material/Divider'
 
-const BitrateData = (props) => {
-	const bitrateData = props.data
-	const masterTrackLogLength = props.masterTrackLogLength
+const BitrateItem = ({ title, bitrate }) => (
+	<Typography
+		component='div'
+		fontWeight={500}
+		sx={{
+			color:
+				bitrate === '256 kbps'
+					? 'rgba(255, 104, 39, 0.8)'
+					: bitrate === '192 kbps'
+					? 'rgba(255, 39, 77, 0.8)'
+					: bitrate === '224 kbps'
+					? 'rgba(255, 35, 129, 0.8)'
+					: 'black',
+		}}
+		style={{ fontSize: '20px' }}
+	>
+		<span style={{ color: 'black' }}>{title} -</span> {bitrate}
+	</Typography>
+)
+
+const BitrateData = ({ data: bitrateData = {}, masterTrackLogLength }) => {
+	const sub320TracksPlayedValue =
+		bitrateData.sub320_tracks.length === 0
+			? 'None detected'
+			: `${bitrateData.sub320_tracks.length} (out of ${masterTrackLogLength} tracks)`
+
 	return (
-		<Fragment>
+		<React.Fragment>
 			<Typography
 				sx={{ fontSize: 20 }}
 				color='white'
@@ -34,26 +56,11 @@ const BitrateData = (props) => {
 									fontWeight={500}
 									sx={{ color: 'rgba(29, 79, 145, 0.8)' }}
 								>
-									{bitrateData.sub320_tracks.length === 0 ? (
-										<div>
-											<span style={{ fontSize: '20px', color: 'black' }}>
-												None detected
-											</span>
-										</div>
-									) : (
-										<div>
-											{bitrateData.sub320_tracks.length}{' '}
-											<span style={{ fontSize: '20px', color: 'black' }}>
-												(out of {masterTrackLogLength} tracks)
-											</span>
-										</div>
-									)}
+									{sub320TracksPlayedValue}
 								</Typography>
-								{bitrateData.sub320_tracks.length === 0 ? (
-									<></>
-								) : (
-									<div>
-										<Divider />
+								{bitrateData.sub320_tracks.length !== 0 && (
+									<React.Fragment>
+										<Divider sx={{ margin: '15px 0px 15px 0px' }} />
 										<Typography
 											style={{
 												marginBottom: '15px',
@@ -62,37 +69,21 @@ const BitrateData = (props) => {
 										>
 											track title & bitrate:
 										</Typography>
-										{bitrateData.sub320_tracks.map((item, key) => {
-											return (
-												<Typography
-													key={key}
-													component='div'
-													fontWeight={500}
-													sx={{
-														color:
-															item.bitrate === '256 kbps'
-																? 'rgba(255, 104, 39, 0.8)'
-																: item.bitrate === '192 kbps'
-																? 'rgba(255, 39, 77, 0.8)'
-																: item.bitrate === '224 kbps'
-																? 'rgba(255, 35, 129, 0.8)'
-																: 'black',
-													}}
-													style={{ fontSize: '20px' }}
-												>
-													<span style={{ color: 'black' }}>{item.title} -</span>{' '}
-													{item.bitrate}
-												</Typography>
-											)
-										})}
-									</div>
+										{bitrateData.sub320_tracks.map((item, key) => (
+											<BitrateItem
+												key={key}
+												title={item.title}
+												bitrate={item.bitrate}
+											/>
+										))}
+									</React.Fragment>
 								)}
 							</CardContent>
 						</Card>
 					</Grid>
 				</Grid>
 			</Box>
-		</Fragment>
+		</React.Fragment>
 	)
 }
 
