@@ -1,66 +1,48 @@
 const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getAlbumData = (masterTrackLog) => {
-  let album_data, hasAlbumData
-  // array of albums
-  let trackAlbums = []
-  let nullAlbumCount = 0
-  masterTrackLog.forEach((track) => {
-    if (!track.album || track.album === '') {
-      nullAlbumCount++
-    } else {
-      trackAlbums.push(track.album)
-    }
-  })
+	const album_data = {
+		has_album_data: false,
+	}
 
-  let albumCount = {}
-  let topThreeAlbums = []
-  let uniqueAlbums, topAlbumsPlayed
+	const trackAlbums = []
+	let nullAlbumCount = 0
 
-  if (trackAlbums.length === 0) {
-    hasAlbumData = false
-  } else {
-    hasAlbumData = true
+	masterTrackLog.forEach((track) => {
+		if (!track.album || track.album === '') {
+			nullAlbumCount++
+		} else {
+			trackAlbums.push(track.album)
+		}
+	})
 
-    trackAlbums.forEach((item) => {
-      albumCount[item] = (albumCount[item] || 0) + 1
-    })
-    uniqueAlbums = new Set(trackAlbums)
+	if (trackAlbums.length === 0) {
+		return album_data
+	}
 
-    // identify top three genres played
-    topAlbumsPlayed = Object.keys(albumCount)
-    topAlbumsPlayed.sort((a, b) => {
-      return albumCount[b] - albumCount[a]
-    })
-    topThreeAlbums.push(
-      topAlbumsPlayed[0],
-      topAlbumsPlayed[1],
-      topAlbumsPlayed[2]
-    )
-  }
+	const albumCount = {}
+	trackAlbums.forEach((item) => {
+		albumCount[item] = (albumCount[item] || 0) + 1
+	})
+	const uniqueAlbums = [...new Set(trackAlbums)]
 
-  if (!hasAlbumData) {
-    album_data = {
-      has_album_data: false,
-    }
-  } else {
-    album_data = {
-      unique_albums_played: uniqueAlbums.size,
-      top_three_albums: [
-        topThreeAlbums[0],
-        topThreeAlbums[1],
-        topThreeAlbums[2],
-      ],
-      tag_health: {
-        percentage_with_album_tags: calculateTagHealth(
-          trackAlbums.length,
-          masterTrackLog.length
-        ).toFixed(1),
-        empty_album_tags: nullAlbumCount,
-      },
-    }
-  }
-  return album_data
+	const topAlbumsPlayed = Object.keys(albumCount).sort(
+		(a, b) => albumCount[b] - albumCount[a]
+	)
+	const topThreeAlbums = topAlbumsPlayed.slice(0, 3)
+
+	album_data.has_album_data = true
+	album_data.unique_albums_played = uniqueAlbums.length
+	album_data.top_three_albums = topThreeAlbums
+	album_data.tag_health = {
+		percentage_with_album_tags: calculateTagHealth(
+			trackAlbums.length,
+			masterTrackLog.length
+		).toFixed(1),
+		empty_album_tags: nullAlbumCount,
+	}
+
+	return album_data
 }
 
 module.exports = getAlbumData
