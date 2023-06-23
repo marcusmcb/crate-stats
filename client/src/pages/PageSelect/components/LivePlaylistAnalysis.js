@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 
 import ExpandableContent from './shared/ExpandableContent'
-import LivePlaylistImageTwo from '../../../images/liveplaylist_02.png'
-import LivePlaylistImageThree from '../../../images/liveplaylist_03.png'
+import LivePlaylistImageTwo from '../../../images/live_playlist_analysis/liveplaylist_02.png'
+import LivePlaylistImageThree from '../../../images/live_playlist_analysis/liveplaylist_03.png'
 
 const LivePlaylistAnalysis = () => {
 	const [expanded, setExpanded] = useState(false)

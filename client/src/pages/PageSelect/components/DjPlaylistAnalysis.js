@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 
 import ExpandableContent from './shared/ExpandableContent'
-import CSVExportImageOne from '../../../images/csvexport_01.png'
-import CSVExportImageTwo from '../../../images/csvexport_02.png'
+import CSVExportImageOne from '../../../images/dj_playlist_analysis/csvexport_01.png'
+import CSVExportImageTwo from '../../../images/dj_playlist_analysis/csvexport_02.png'
 
 const DjPlaylistAnalysis = () => {
 	const [expanded, setExpanded] = useState(false)
