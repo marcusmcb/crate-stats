@@ -1,12 +1,29 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import {
+	Box,
+	Grid,
+	Card,
+	CardContent,
+	Divider,
+	TextField,
+	InputAdornment,
+} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
 import Typography from '@mui/material/Typography'
-import { Box } from '@mui/material'
-import { Grid } from '@mui/material'
-import { Card } from '@mui/material'
-import { CardContent } from '@mui/material'
-import { Divider, Input } from 'semantic-ui-react'
 
-const TraktorMasterTrackLog = ({ masterTrackLog }) => {
+const Track = ({ track, index }) => (
+	<div onClick={() => {}}>
+		<Typography component='div' fontWeight={500} sx={{ fontSize: 16 }}>
+			{index + 1}. {track.Artist} - {track.Track_Title}
+		</Typography>
+		<Typography>{track['BPM'].slice(0, -1)} BPM</Typography>
+		<Typography>length: {track['Time']}</Typography>
+		<Divider sx={{ my: '15px' }} />
+	</div>
+)
+
+const TraktorMasterTrackLog = ({ data }) => {
+	const masterTrackLog = data
 	const [searchQuery, setSearchQuery] = useState('')
 	const [filteredLog, setFilteredLog] = useState(masterTrackLog)
 
@@ -22,65 +39,49 @@ const TraktorMasterTrackLog = ({ masterTrackLog }) => {
 
 	return (
 		<Fragment>
-			<div>
-				<Typography
-					sx={{ fontSize: 20 }}
-					color='white'
-					fontWeight={500}
-					gutterBottom
-				>
-					master track log:
-				</Typography>
-				<Box sx={{ flexGrow: 1 }}>
-					<Input
-						icon='search'
-						placeholder='Search track log'
-						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
-					/>
-					<Grid container spacing={1} mt={1}>
-						<Grid item xs={12} md={12} sm={12} lg={12}>
-							<Card sx={{ minWidth: 275 }}>
-								<CardContent>
-									<Grid container spacing={2}>
-										<Grid item mt={1}>
-											<Typography fontWeight={500}>tracks played:</Typography>
-										</Grid>
-									</Grid>
-									<Divider />
-									<Grid container spacing={2}>
-										<Grid item>
-											{filteredLog.length > 0 ? (
-												filteredLog.map((item, i) => (
-													<div onClick={() => {}} key={i}>
-														<Typography
-															component='div'
-															fontWeight={500}
-															sx={{ fontSize: 16 }}
-														>
-															{i + 1}. {item.Artist} - {item.Track_Title}
-														</Typography>
-														<Typography>
-															{item['BPM'].slice(0, -1)} BPM
-														</Typography>
-														<Typography>length: {item['Time']}</Typography>
-														<Divider />
-													</div>
-												))
-											) : (
-												<Typography>
-													Sorry, but we didn't find "{searchQuery}" in this
-													playlist.
-												</Typography>
-											)}
-										</Grid>
-									</Grid>
-								</CardContent>
-							</Card>
-						</Grid>
+			<Typography
+				sx={{ fontSize: 20 }}
+				color='white'
+				fontWeight={500}
+				gutterBottom
+			>
+				master track log:
+			</Typography>
+			<Box sx={{ flexGrow: 1 }}>
+				<TextField
+					sx={{ marginBottom: '1rem', backgroundColor: 'white' }}
+					type='search'
+					placeholder='Search track log'
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position='start'>
+								<SearchIcon />
+							</InputAdornment>
+						),
+					}}
+				/>
+				<Grid container spacing={1}>
+					<Grid item xs={12} md={12} sm={12} lg={12}>
+						<Card sx={{ minWidth: 275 }}>
+							<CardContent>
+								<Typography fontWeight={500}>tracks played:</Typography>
+								<Divider sx={{ my: '7px' }} />
+								{filteredLog.length > 0 ? (
+									filteredLog.map((item, i) => (
+										<Track track={item} index={i} key={i} />
+									))
+								) : (
+									<Typography>
+										Sorry, but we didn't find "{searchQuery}" in this playlist.
+									</Typography>
+								)}
+							</CardContent>
+						</Card>
 					</Grid>
-				</Box>
-			</div>
+				</Grid>
+			</Box>
 		</Fragment>
 	)
 }
