@@ -1,7 +1,7 @@
 # crate-stats
 CrateStats is a SaaS platform in development for DJs using digital playback software (DVS).  
 
-This platform will allow users who have exported their playlist data from their DVS platform to drag and drop those data files into the corresponding CrateStats page for analysis.  Support is currently in place for Serato, Rekordbox, and Traktor, with Engine and Virtual DJ analysis currently in development.
+CrateStats will allow users who have exported their playlist data from their DVS platform to drag and drop those data files into the corresponding CrateStats page for analysis.  Support is currently in place for Serato, Rekordbox, and Traktor, with Engine and Virtual DJ analysis currently in development.
 
 CrateStats also features the ability to obtain playlist analytics in real-time while using Serato via the software's Live Playlist feature.
 
