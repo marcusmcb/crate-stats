@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -12,14 +12,15 @@ import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 
-const RatingData = ({ ratingData }) => {
-	const [expanded, setExpanded] = React.useState(false)
+const RatingData = ({ data: ratingData }) => {
+	console.log(ratingData)
+	const [expanded, setExpanded] = useState(false)
 
 	const handleExpandClick = () => {
 		setExpanded(!expanded)
 	}
 
-	const [open, setOpen] = React.useState(false)
+	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
 

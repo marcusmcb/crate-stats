@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -11,9 +11,11 @@ import Collapse from '@mui/material/Collapse'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandMore from '../../../../components/helpers/CardExpander'
 
-const YearData = (props) => {
-  const { yearData, masterTrackLogLength } = props
-  const [expanded, setExpanded] = React.useState(false)
+const YearData = (props) => {  
+  const yearData = props.data
+  const masterTrackLogLength = props.masterTrackLogLength
+  
+  const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)

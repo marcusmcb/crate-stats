@@ -6,7 +6,7 @@ import { Card } from '@mui/material'
 import { CardContent } from '@mui/material'
 import { Divider, Input } from 'semantic-ui-react'
 
-const RekordboxMasterTrackLog = ({ masterTrackLog }) => {
+const RekordboxMasterTrackLog = ({ data: masterTrackLog }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [filteredLog, setFilteredLog] = useState(masterTrackLog)
 

@@ -67,6 +67,7 @@ const TraktorPlaylistReport = () => {
 	}, [data])
 
 	const renderDataBlock = (condition, dataType, data) => {
+		console.log("CONDITION: ", condition)
 		const Component = COMPONENT_MAP[dataType]
 		return (
 			<div className='data-block-two'>
