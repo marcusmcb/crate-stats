@@ -324,7 +324,9 @@ const createRekordboxReport = (data) => {
 		}
 	})
 
-	if (bitrateArray.length === 0) {
+  console.log("lower bit rate: ", lowerBitrateTracks.length)
+
+	if (bitrateArray.length === 0 || lowerBitrateTracks.length === 0) {
 		rekordBoxPlaylistData.bitrate_data = {
 			has_bitrate_data: false,
 		}

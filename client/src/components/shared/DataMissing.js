@@ -18,6 +18,7 @@ const DataMissing = ({ data }) => {
 		artist: 'No artist data available for this set',
 		album: 'No album data available for this set',
 		rating: 'No rating data available for this set',
+		bitrate: 'No sub-320 tracks detected in this set'
 	}
 
 	const returnText = valueToText[data.value] || ''
@@ -26,7 +27,7 @@ const DataMissing = ({ data }) => {
 		<div>
 			<Typography
 				sx={{ fontSize: 20 }}
-				color='#c5e1a5'
+				color='white'
 				fontWeight={500}
 				gutterBottom
 			>
@@ -39,7 +40,7 @@ const DataMissing = ({ data }) => {
 							<Grid container spacing={2}>
 								<Grid mt={3}>
 									<Typography
-										sx={{ fontSize: 16, fontWeight: '500', marginLeft: '15px' }}
+										sx={{ fontSize: 16, fontWeight: '500', marginLeft: '15px', color: 'slategrey' }}
 									>
 										{returnText}
 									</Typography>

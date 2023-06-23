@@ -39,9 +39,6 @@ const LoadingState = ({ platform }) => {
 }
 
 const ErrorState = ({ value }) => {
-	console.log("-----------------")
-	console.log("ERROR STATE VALUE: ")
-	console.log(value)
 	return <DataMissing data={{ value: value }} />
 }
 
@@ -74,11 +71,6 @@ const RekordboxPlaylistReport = () => {
 	}, [data])
 
 	const renderDataBlock = (condition, dataType, data, additionalProps = {}) => {
-		console.log('--------------')
-		console.log("RENDER CHECK: ")
-		console.log(condition)
-		console.log(dataType)
-		console.log(data)
 		const Component = COMPONENT_MAP[dataType]
 		return (
 			<div className='data-block-two'>
