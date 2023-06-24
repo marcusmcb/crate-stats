@@ -159,52 +159,7 @@ const Playlists = () => {
 											/>
 										</ListItem>
 									))}
-								</List>
-
-								{/* {userPlaylists.map((item, i) => (
-									<div
-										key={i}
-										onClick={() => {
-											setFileSelected(item)
-											setFileIndex(i)
-											console.log('ITEM: ', item)
-										}}
-										style={{
-											backgroundColor:
-												fileIndex === i ? '#c5e1a5' : 'rgba(54, 72, 69, 255)',
-											color:
-												fileIndex === i ? 'rgba(54, 72, 69, 255)' : 'white',
-											padding: '10px',
-											borderRadius: '5px',
-											marginBottom: '2px',
-											border: fileIndex === i ? '1px solid black' : 'none',
-											
-										}}
-									>
-										<Grid
-											container
-											style={{
-												display: 'flex',
-												flexDirection: 'row',
-												justifyContent: 'space-between',
-											}}
-										>
-											<Typography
-												style={{
-													fontWeight: fileIndex === i ? '600' : '400',
-												}}
-											>
-												{item.data.playlist_data.title}
-											</Typography>
-											<DeleteIcon
-												onClick={async () => {
-													await deleteUserPlaylist(item.id)
-													await getUserPlaylists()
-												}}
-											/>
-										</Grid>
-									</div>
-								))} */}
+								</List>								
 								<div
 									style={{
 										backgroundColor: 'white',
