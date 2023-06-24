@@ -1,121 +1,85 @@
 const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getArtistData = (masterTrackLog) => {
-  
-  let artist_data, hasArtistData
+	const artist_data = {
+		has_artist_data: false,
+	}
 
-  // array of artists
-  let artistArray = []
-  let nullArtistCount = 0
-  masterTrackLog.forEach((track) => {
-    if (!track.artist || track.artist === '') {
-      nullArtistCount++
-    } else {
-      artistArray.push(track.artist)
-    }
-  })
+	const artistArray = []
+	const nullArtistCount = masterTrackLog.reduce((count, track) => {
+		if (!track.artist || track.artist === '') {
+			return count + 1
+		}
+		artistArray.push(track.artist)
+		return count
+	}, 0)
 
-  function findCommonWordPairs(arr) {
-    let wordPairs = {};
-    
-    // Loop through each string in the array
-    for(let i = 0; i < arr.length; i++) {
-      let words = arr[i].split(" ");
-      
-      // Loop through each word in the string and create word pairs
-      for(let j = 0; j < words.length - 1; j++) {
-        let pair = words[j] + " " + words[j+1];
-        
-        // If the word pair already exists in the wordPairs object, increment its count
-        if(wordPairs[pair]) {
-          wordPairs[pair]++;
-        } 
-        // Otherwise, add it to the wordPairs object with a count of 1
-        else {
-          wordPairs[pair] = 1;
-        }
-      }
-    }
-    
-    // Create an array of word pairs that occur more than once
-    let commonPairs = Object.keys(wordPairs).filter(pair => wordPairs[pair] > 1);
-    
-    return commonPairs;
-  }
-  
-  console.log(artistArray)
-  console.log("pairs: ")
-  console.log(findCommonWordPairs(artistArray))
+	function findCommonWordPairs(arr) {
+		const wordPairs = {}
 
+		for (const str of arr) {
+			const words = str.split(' ')
 
-  // add logic check for unique plays of the same artist that appear more than once
-  // exclude back-to-back doubles from results
-  // implement algorithm to look for word patterns in artist names
+			for (let i = 0; i < words.length - 1; i++) {
+				const pair = words[i] + ' ' + words[i + 1]
 
-  // add logic to see if two songs with the same title by different artists were played in the same set
+				if (wordPairs[pair]) {
+					wordPairs[pair]++
+				} else {
+					wordPairs[pair] = 1
+				}
+			}
+		}
 
-  let titleArray = []
-  let nullTitleCount = 0
-  masterTrackLog.forEach((track) => {
-    if (!track.name || track.name === '') {
-      nullTitleCount++
-    } else {
-      titleArray.push(track.name)
-    }
-  })
+		const commonPairs = Object.keys(wordPairs).filter(
+			(pair) => wordPairs[pair] > 1
+		)
 
-  let artistCount = {}
-  let topThreeArtists = []
-  let uniqueArtists, topArtistsPlayed
+		return commonPairs
+	}
 
-  if (artistArray.length === 0) {
-    hasArtistData = false
-  } else {
-    hasArtistData = true
-    artistArray.forEach((item) => {
-      artistCount[item] = (artistCount[item] || 0) + 1
-    })
-    uniqueArtists = new Set(artistArray)
+	console.log(artistArray)
+	console.log('pairs: ')
+	console.log(findCommonWordPairs(artistArray))
 
-    // identify top three artists played
-    topArtistsPlayed = Object.keys(artistCount)
-    topArtistsPlayed.sort((a, b) => {
-      return artistCount[b] - artistCount[a]
-    })
-    topThreeArtists.push(
-      topArtistsPlayed[0],
-      topArtistsPlayed[1],
-      topArtistsPlayed[2]
-    )
-  }
+	const titleArray = []
+	const nullTitleCount = masterTrackLog.reduce((count, track) => {
+		if (!track.name || track.name === '') {
+			return count + 1
+		}
+		titleArray.push(track.name)
+		return count
+	}, 0)
 
-  if (!hasArtistData) {
-    artist_data = {
-      has_artist_data: false,
-    }
-  } else {
-    artist_data = {
-      unique_artists_played: uniqueArtists.size,
-      top_three_artists: [
-        topThreeArtists[0],
-        topThreeArtists[1],
-        topThreeArtists[2],
-      ],
-      tag_health: {
-        percentage_with_artist_tags: calculateTagHealth(
-          artistArray.length,
-          masterTrackLog.length
-        ).toFixed(1),
-        empty_artist_tags: nullArtistCount,
-        percentage_with_title_tags: calculateTagHealth(
-          titleArray.length,
-          masterTrackLog.length
-        ).toFixed(1),
-        empty_title_tags: nullTitleCount,
-      },
-    }
-  }
-  return artist_data
+	const artistCount = {}
+	const uniqueArtists = new Set(artistArray)
+
+	for (const item of artistArray) {
+		artistCount[item] = (artistCount[item] || 0) + 1
+	}
+
+	const topArtistsPlayed = Object.keys(artistCount).sort(
+		(a, b) => artistCount[b] - artistCount[a]
+	)
+	const topThreeArtists = topArtistsPlayed.slice(0, 3)
+
+	artist_data.has_artist_data = artistArray.length > 0
+	artist_data.unique_artists_played = uniqueArtists.size
+	artist_data.top_three_artists = topThreeArtists
+	artist_data.tag_health = {
+		percentage_with_artist_tags: calculateTagHealth(
+			artistArray.length,
+			masterTrackLog.length
+		).toFixed(1),
+		empty_artist_tags: nullArtistCount,
+		percentage_with_title_tags: calculateTagHealth(
+			titleArray.length,
+			masterTrackLog.length
+		).toFixed(1),
+		empty_title_tags: nullTitleCount,
+	}
+
+	return artist_data
 }
 
 module.exports = getArtistData
