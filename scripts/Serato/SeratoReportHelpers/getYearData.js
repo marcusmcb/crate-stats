@@ -3,11 +3,11 @@ const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getYearData = (masterTrackLog) => {
 	let year_data
-	// array of years
 	let trackYears = []
 	let nullYearCount = 0
 	let malformedYearCount = 0
 	let yearTagsWithValues = 0
+
 	masterTrackLog.forEach((track) => {
 		if (!track.year || track.year === '') {
 			nullYearCount++
@@ -15,7 +15,7 @@ const getYearData = (masterTrackLog) => {
 			malformedYearCount++
 			yearTagsWithValues++
 		} else {
-			trackYears.push(new Number(track.year))
+			trackYears.push(Number(track.year))
 			yearTagsWithValues++
 		}
 	})
@@ -28,42 +28,33 @@ const getYearData = (masterTrackLog) => {
 	let newestTrackCount = 0
 	let newestYearPercentage
 
+	let hasYearData
+
 	if (trackYears.length === 0) {
 		hasYearData = false
 	} else {
 		hasYearData = true
 
-		// identify average age of playlist's tracks
 		averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
-
-		// identify oldest and newest tracks
 		oldestTrack = Math.min(...trackYears)
 		newestTrack = Math.max(...trackYears)
 
 		masterTrackLog.forEach((track) => {
-			// check to see if there's more than 1 track from the oldest track year
-			if (track.year == oldestTrack) {
+			if (track.year === oldestTrack.toString()) {
 				oldestTrackCount++
 				oldestTracks.push(track)
 			}
 		})
 
 		masterTrackLog.forEach((track) => {
-			// check to see if there's more than 1 track from the newest track year
-			if (track.year == newestTrack) {
+			if (track.year === newestTrack.toString()) {
 				newestTrackCount++
 				newestTracks.push(track)
 			}
 		})
 
-		// calculate percentage of playlist that was from the most recent year
-		// implement similar function to do the same for the oldest track year
 		newestYearPercentage = (
-			(newestTrackCount / masterTrackLog.length) *
-			100
-		).toFixed(2)
-		let oldestYearPercentage = (
-			(oldestTrackCount / masterTrackLog.length) *
+			(newestTrackCount / yearTagsWithValues) *
 			100
 		).toFixed(2)
 	}
@@ -74,7 +65,7 @@ const getYearData = (masterTrackLog) => {
 		}
 	} else {
 		year_data = {
-			average_year: averageYear.toFixed(),
+			average_year: Math.round(averageYear),
 			range: {
 				oldest: oldestTrack,
 				newest: newestTrack,
@@ -103,6 +94,7 @@ const getYearData = (masterTrackLog) => {
 			},
 		}
 	}
+
 	return year_data
 }
 
