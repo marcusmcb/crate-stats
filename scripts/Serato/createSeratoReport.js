@@ -58,7 +58,7 @@ const createSeratoReport = (data) => {
 	let seratoDoublesData = getDoublesData(masterTrackLog)
 	seratoPlaylistAnalysis.doubles_data = seratoDoublesData
 
-	// set date for playlist analysis
+	// set date for report's creation
 	seratoPlaylistAnalysis.date_created = Date.now()
 	return seratoPlaylistAnalysis
 }
