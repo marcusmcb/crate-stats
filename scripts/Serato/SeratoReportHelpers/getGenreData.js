@@ -1,88 +1,60 @@
 const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getGenreData = (masterTrackLog) => {
-  let genre_data, hasGenreData
-  
-  // array of genres (removing 'Other' from result & counting total instances in playlist)
-  // add better syntax casing for multi-word genres (convert to lowercase, etc)
+	const genre_data = {
+		has_genre_data: false,
+	}
 
-  let trackGenres = []
-  let nullGenreCount = 0
-  let otherGenreCount = 0
-  let genreTagsWithValues = 0
+	const trackGenres = []
+	let nullGenreCount = 0
+	let otherGenreCount = 0
+	let genreTagsWithValues = 0
 
-  masterTrackLog.forEach((track) => {
-    if (!track.genre || track.genre === '') {
-      nullGenreCount++
-    } else if (track.genre === 'Other') {
-      otherGenreCount++
-      genreTagsWithValues++
-    } else {
-      if (track.genre.includes('-')) {
-        trackGenres.push(track.genre.replace('-', ' '))
-        genreTagsWithValues++
-      } else {
-        trackGenres.push(track.genre.toLowerCase())
-        genreTagsWithValues++
-      }
-    }
-  })
+	for (const track of masterTrackLog) {
+		if (!track.genre || track.genre === '') {
+			nullGenreCount++
+		} else if (track.genre === 'Other') {
+			otherGenreCount++
+			genreTagsWithValues++
+		} else {
+			let genre = track.genre.toLowerCase()
+			if (genre.includes('-')) {
+				genre = genre.replace('-', ' ')
+			}
+			trackGenres.push(genre)
+			genreTagsWithValues++
+		}
+	}
 
-  let uniqueGenres, topGenresPlayed
-  let topThreeGenres = []
-  let genreCount = {}
+	const genreCount = {}
+	const uniqueGenres = new Set(trackGenres)
 
-  if (trackGenres.length === 0) {
-    hasGenreData = false
-  } else {
-    hasGenreData = true
+	for (const genre of trackGenres) {
+		genreCount[genre] = (genreCount[genre] || 0) + 1
+	}
 
-    // identify number of unique genres played
-    // add logic to identify unique genres per hour
-    trackGenres.forEach((item) => {
-      genreCount[item] = (genreCount[item] || 0) + 1
-    })
-    uniqueGenres = new Set(trackGenres)
+	const topGenresPlayed = Object.keys(genreCount).sort(
+		(a, b) => genreCount[b] - genreCount[a]
+	)
+	const topThreeGenres = topGenresPlayed.slice(0, 3)
 
-    // identify top three genres played
-    topGenresPlayed = Object.keys(genreCount)
-    topGenresPlayed.sort((a, b) => {
-      return genreCount[b] - genreCount[a]
-    })
-    topThreeGenres.push(
-      topGenresPlayed[0],
-      topGenresPlayed[1],
-      topGenresPlayed[2]
-    )
-  }
+	genre_data.has_genre_data = trackGenres.length > 0
+	genre_data.unique_genres_played = uniqueGenres.size
+	genre_data.top_three_genres = topThreeGenres
+	genre_data.tag_health = {
+		percentage_with_genre_tags: calculateTagHealth(
+			genreTagsWithValues,
+			masterTrackLog.length
+		).toFixed(1),
+		percentage_with_other_as_genre: calculateTagHealth(
+			otherGenreCount,
+			trackGenres.length
+		).toFixed(1),
+		empty_genre_tags: nullGenreCount,
+		other_genre_tags: otherGenreCount,
+	}
 
-  if (!hasGenreData) {
-    genre_data = {
-      has_genre_data: false,
-    }
-  } else {
-    genre_data = {
-      unique_genres_played: uniqueGenres.size,
-      top_three_genres: [
-        topThreeGenres[0],
-        topThreeGenres[1],
-        topThreeGenres[2],
-      ],
-      tag_health: {
-        percentage_with_genre_tags: calculateTagHealth(
-          genreTagsWithValues,
-          masterTrackLog.length
-        ).toFixed(1),
-        percentage_with_other_as_genre: calculateTagHealth(
-          otherGenreCount,
-          trackGenres.length
-        ).toFixed(1),
-        empty_genre_tags: nullGenreCount,
-        other_genre_tags: otherGenreCount,
-      },
-    }
-  }
-  return genre_data
+	return genre_data
 }
 
 module.exports = getGenreData
