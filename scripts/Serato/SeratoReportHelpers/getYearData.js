@@ -2,100 +2,70 @@ const parsePlayedAtTime = require('../../shared/parsePlayedAtTime')
 const calculateTagHealth = require('../../shared/calculateTagHealth')
 
 const getYearData = (masterTrackLog) => {
-	let year_data
-	let trackYears = []
-	let nullYearCount = 0
-	let malformedYearCount = 0
-	let yearTagsWithValues = 0
+  const year_data = {
+    has_year_data: false,
+  }
 
-	masterTrackLog.forEach((track) => {
-		if (!track.year || track.year === '') {
-			nullYearCount++
-		} else if (track.year.length !== 4) {
-			malformedYearCount++
-			yearTagsWithValues++
-		} else {
-			trackYears.push(Number(track.year))
-			yearTagsWithValues++
-		}
-	})
+  const trackYears = []
+  let nullYearCount = 0
+  let malformedYearCount = 0
+  let yearTagsWithValues = 0
 
-	let averageYear
-	let oldestTracks = []
-	let newestTracks = []
-	let oldestTrack, newestTrack
-	let oldestTrackCount = 0
-	let newestTrackCount = 0
-	let newestYearPercentage
+  masterTrackLog.forEach((track) => {
+    if (!track.year || track.year === '') {
+      nullYearCount++
+    } else if (track.year.length !== 4) {
+      malformedYearCount++
+      yearTagsWithValues++
+    } else {
+      trackYears.push(Number(track.year))
+      yearTagsWithValues++
+    }
+  })
 
-	let hasYearData
+  if (trackYears.length === 0) {
+    return year_data
+  }
 
-	if (trackYears.length === 0) {
-		hasYearData = false
-	} else {
-		hasYearData = true
+  const averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
+  const oldestTrack = Math.min(...trackYears)
+  const newestTrack = Math.max(...trackYears)
 
-		averageYear = trackYears.reduce((a, b) => a + b) / trackYears.length
-		oldestTrack = Math.min(...trackYears)
-		newestTrack = Math.max(...trackYears)
+  const oldestTracks = masterTrackLog.filter((track) => track.year === oldestTrack.toString())
+  const newestTracks = masterTrackLog.filter((track) => track.year === newestTrack.toString())
 
-		masterTrackLog.forEach((track) => {
-			if (track.year === oldestTrack.toString()) {
-				oldestTrackCount++
-				oldestTracks.push(track)
-			}
-		})
+  const oldestTrackCount = oldestTracks.length
+  const newestTrackCount = newestTracks.length
 
-		masterTrackLog.forEach((track) => {
-			if (track.year === newestTrack.toString()) {
-				newestTrackCount++
-				newestTracks.push(track)
-			}
-		})
+  const newestYearPercentage = ((newestTrackCount / yearTagsWithValues) * 100).toFixed(2)
 
-		newestYearPercentage = (
-			(newestTrackCount / yearTagsWithValues) *
-			100
-		).toFixed(2)
-	}
+  year_data.has_year_data = true
+  year_data.average_year = Math.round(averageYear)
+  year_data.range = {
+    oldest: oldestTrack,
+    newest: newestTrack,
+  }
+  year_data.oldest_track = {
+    year: oldestTrack,
+    artist: oldestTracks[0].artist,
+    name: oldestTracks[0].name,
+    count: oldestTrackCount,
+    tracks: oldestTracks,
+    occurred_at: parsePlayedAtTime(oldestTracks[0]['start time']),
+  }
+  year_data.newest_track = {
+    year: newestTrack,
+    count: newestTrackCount,
+    tracks: newestTracks,
+    playlist_percentage: newestYearPercentage,
+  }
+  year_data.tag_health = {
+    percentage_with_year_tags: calculateTagHealth(yearTagsWithValues, masterTrackLog.length).toFixed(1),
+    empty_year_tags: nullYearCount,
+    malformed_year_tags: malformedYearCount,
+  }
 
-	if (!hasYearData) {
-		year_data = {
-			has_year_data: false,
-		}
-	} else {
-		year_data = {
-			average_year: Math.round(averageYear),
-			range: {
-				oldest: oldestTrack,
-				newest: newestTrack,
-			},
-			oldest_track: {
-				year: oldestTrack,
-				artist: oldestTracks[0].artist,
-				name: oldestTracks[0].name,
-				count: oldestTrackCount,
-				tracks: oldestTracks,
-				occurred_at: parsePlayedAtTime(oldestTracks[0]['start time']),
-			},
-			newest_track: {
-				year: newestTrack,
-				count: newestTrackCount,
-				tracks: newestTracks,
-				playlist_percentage: newestYearPercentage,
-			},
-			tag_health: {
-				percentage_with_year_tags: calculateTagHealth(
-					yearTagsWithValues,
-					masterTrackLog.length
-				).toFixed(1),
-				empty_year_tags: nullYearCount,
-				malformed_year_tags: malformedYearCount,
-			},
-		}
-	}
-
-	return year_data
+  return year_data
 }
 
 module.exports = getYearData
