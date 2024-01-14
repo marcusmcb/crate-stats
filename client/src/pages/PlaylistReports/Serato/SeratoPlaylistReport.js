@@ -4,6 +4,7 @@ import Titlebar from '../../../components/shared/Titlebar'
 import DataMissing from '../../../components/shared/DataMissing'
 import CSVFileInput from '../../../components/shared/CSVFileInput'
 
+import QuickStats from './components/QuickStats/QuickStats'
 import TrackData from './components/TrackData/TrackData'
 // import TrackData2 from './components/TrackData/TrackData2'
 import BPMData from './components/BPMData'
@@ -101,6 +102,17 @@ const SeratoPlaylistReport = () => {
 							{/* <div className='data-block'>
               <Summary/>
             </div> */}
+							<div className='data-block'>
+								<QuickStats data={{
+									average_bpm: data.bpm_data.average_bpm,
+									total_tracks_played: data.track_data.total_tracks_played,
+									average_track_length: data.track_data.average_track_length,
+									unique_genres_played: data.genre_data.unique_genres_played,
+									average_year: data.year_data.average_year,
+									doubles_played: data.doubles_data.doubles_played.length,
+									
+								}} />
+							</div>
 							<div className='data-block'>
 								{data.playlist_data.has_playlist_data === false ? (
 									<DataMissing data={{ value: 'playlist' }} />
