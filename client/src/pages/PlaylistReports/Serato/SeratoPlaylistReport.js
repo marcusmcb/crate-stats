@@ -102,7 +102,7 @@ const SeratoPlaylistReport = () => {
 							{/* <div className='data-block'>
               <Summary/>
             </div> */}
-							<div className='data-block'>
+							{/* <div className='data-block'>
 								<QuickStats data={{
 									average_bpm: data.bpm_data.average_bpm,
 									total_tracks_played: data.track_data.total_tracks_played,
@@ -112,7 +112,7 @@ const SeratoPlaylistReport = () => {
 									doubles_played: data.doubles_data.doubles_played.length,
 									
 								}} />
-							</div>
+							</div> */}
 							<div className='data-block'>
 								{data.playlist_data.has_playlist_data === false ? (
 									<DataMissing data={{ value: 'playlist' }} />
