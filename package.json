@@ -8,6 +8,7 @@
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\"",
+    "dev:web": "npm run dev --prefix apps/web",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
