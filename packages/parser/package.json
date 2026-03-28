@@ -14,12 +14,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
+    "@eslint/js": "^9.22.0",
+    "eslint": "^9.22.0",
     "typescript": "^5.5.4",
+    "typescript-eslint": "^8.26.0",
     "vitest": "^4.1.2"
   }
 }

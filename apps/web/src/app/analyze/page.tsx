@@ -61,9 +61,17 @@ export default function AnalyzePage() {
         }),
       });
 
-      const json = (await res.json()) as any;
+      const json: unknown = await res.json();
+
+      const getErrorFromJson = (value: unknown): string | undefined => {
+        if (!value || typeof value !== 'object') return undefined;
+        if (!('error' in value)) return undefined;
+        const err = (value as { error?: unknown }).error;
+        return typeof err === 'string' ? err : undefined;
+      };
+
       if (!res.ok) {
-        throw new Error(json?.error ?? `Request failed (${res.status})`);
+        throw new Error(getErrorFromJson(json) ?? `Request failed (${res.status})`);
       }
       setResult(json);
     } catch (err) {
