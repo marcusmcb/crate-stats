@@ -1,9 +1,12 @@
-import type { PlaylistReport } from '../types';
-import { parseRekordboxTxtText } from './parseRekordboxTxt';
+import type { PlaylistReport } from '../types.js';
+import { parseRekordboxTxtText } from './parseRekordboxTxt.js';
+import { requireFromRepo } from '../legacy/requireFromRepo.js';
 
-// Keep legacy helper functions for now.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const legacyCreateRekordboxReport = require('../../../../scripts/Rekordbox/createRekordboxReport');
+// Keep legacy report generation for now, but load it via an absolute path so
+// it works when this module is relocated/bundled by Next.
+const legacyCreateRekordboxReport = requireFromRepo<
+  (rows: unknown[]) => Record<string, unknown>
+>('scripts/Rekordbox/createRekordboxReport.js');
 
 export function createRekordboxReportFromTxtText(txt: string): PlaylistReport {
   const rows = parseRekordboxTxtText(txt);

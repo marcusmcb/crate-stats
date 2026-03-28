@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "website for cratestats.com",
   "main": "server.js",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm start\" \"npm run client\"",
-    "dev:web": "npm run dev --prefix apps/web",
+    "dev": "npm run dev:web",
+    "dev:legacy": "concurrently \"npm start\" \"npm run client\"",
+    "dev:web": "npm run build --prefix packages/parser && cd apps/web && npm run dev",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {

@@ -1,4 +1,4 @@
-export * from './types';
+export * from './types.js';
 
 export type AnalyzeInput = {
   platform: 'serato' | 'traktor' | 'rekordbox';
@@ -14,17 +14,15 @@ export async function analyzePlaylist(input: AnalyzeInput) {
   // The legacy report creators expect either raw file contents or structured payload
   // depending on platform. For now, we pass the raw text and minimal metadata.
   if (platform === 'serato') {
-    const { createSeratoReportFromCsvText } = await import('./serato/createSeratoReport');
+    const { createSeratoReportFromCsvText } = await import('./serato/createSeratoReport.js');
     return createSeratoReportFromCsvText(text);
   }
 
   if (platform === 'traktor') {
-    const mod = await import('../../../scripts/Traktor/createTraktorReport.js');
-    return mod.default ? mod.default({ text, fileName }) : mod({ text, fileName });
+    const { createTraktorReportFromTxtText } = await import('./traktor/createTraktorReport.js');
+    return createTraktorReportFromTxtText(text);
   }
 
-  const { createRekordboxReportFromTxtText } = await import(
-    './rekordbox/createRekordboxReport'
-  );
+  const { createRekordboxReportFromTxtText } = await import('./rekordbox/createRekordboxReport.js');
   return createRekordboxReportFromTxtText(text);
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { analyzePlaylist } from '@cratestats/parser';
 
 export const runtime = 'nodejs';
 
@@ -32,7 +33,6 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { analyzePlaylist } = await import('../../../../../packages/parser/src/index');
     const report = await analyzePlaylist({
       platform: body.platform,
       text: body.text,

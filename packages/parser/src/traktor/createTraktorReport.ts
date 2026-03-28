@@ -1,9 +1,12 @@
-import type { PlaylistReport } from '../types';
-import { parseTraktorTxtText } from './parseTraktorTxt';
+import type { PlaylistReport } from '../types.js';
+import { parseTraktorTxtText } from './parseTraktorTxt.js';
+import { requireFromRepo } from '../legacy/requireFromRepo.js';
 
-// Keep legacy report generation for now, while we port parsing.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const legacyCreateTraktorReport = require('../../../../scripts/Traktor/createTraktorReport');
+// Keep legacy report generation for now, but load it via an absolute path so
+// it works when this module is relocated/bundled by Next.
+const legacyCreateTraktorReport = requireFromRepo<
+  (rows: unknown[]) => Record<string, unknown>
+>('scripts/Traktor/createTraktorReport.js');
 
 export function createTraktorReportFromTxtText(txt: string): PlaylistReport {
   const rows = parseTraktorTxtText(txt);

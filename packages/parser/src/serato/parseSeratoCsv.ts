@@ -1,4 +1,4 @@
-import { removeEmptyKeyLegacy } from '../shared/removeEmptyKeyLegacy';
+import { removeEmptyKeyLegacy } from '../shared/removeEmptyKeyLegacy.js';
 
 export type SeratoCsvRow = Record<string, string | undefined>;
 

@@ -1,28 +1,17 @@
-import type { PlaylistReport } from '../types';
-import { parseSeratoCsvText } from './parseSeratoCsv';
-
-// Temporary: keep using legacy JS section helpers via require until ported.
-// This gives us end-to-end correctness first, then we port helpers one-by-one.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getPlaylistData = require('../../../../scripts/Serato/SeratoReportHelpers/getPlaylistData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getArtistData = require('../../../../scripts/Serato/SeratoReportHelpers/getArtistData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getBpmData = require('../../../../scripts/Serato/SeratoReportHelpers/getBpmData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getGenreData = require('../../../../scripts/Serato/SeratoReportHelpers/getGenreData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getAlbumData = require('../../../../scripts/Serato/SeratoReportHelpers/getAlbumData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getTrackData = require('../../../../scripts/Serato/SeratoReportHelpers/getTrackData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getYearData = require('../../../../scripts/Serato/SeratoReportHelpers/getYearData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getKeyData = require('../../../../scripts/Serato/SeratoReportHelpers/getKeyData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getDeckData = require('../../../../scripts/Serato/SeratoReportHelpers/getDeckData');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const getDoublesData = require('../../../../scripts/Serato/SeratoReportHelpers/getDoublesData');
+import type { PlaylistReport } from '../types.js';
+import { parseSeratoCsvText } from './parseSeratoCsv.js';
+import {
+  getAlbumData,
+  getArtistData,
+  getBpmData,
+  getDeckData,
+  getDoublesData,
+  getGenreData,
+  getKeyData,
+  getPlaylistData,
+  getTrackData,
+  getYearData,
+} from './seratoReportHelpers.js';
 
 export function createSeratoReportFromCsvText(csvText: string): PlaylistReport {
   const rows = parseSeratoCsvText(csvText);
